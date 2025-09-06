@@ -17,7 +17,7 @@ public class StaticItemButton extends SidebarButtonPanel {
     }
 
     @Override
-    protected void applyCurrentStyle() {
+    public void applyCurrentStyle() {
         setBackground(UIManager.getColor("LGVB.primary"));
         repaint();
     }

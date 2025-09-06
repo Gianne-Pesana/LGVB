@@ -7,13 +7,15 @@ package com.leshka_and_friends.lgvb.view.forms;
 import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.components.panels.*;
+import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
+import com.leshka_and_friends.lgvb.view.components.buttons.UserProfile;
 import com.leshka_and_friends.lgvb.view.factories.SidebarButtonFactory;
 import com.leshka_and_friends.lgvb.view.themes.*;
 import com.leshka_and_friends.lgvb.view.utils.ImageParser;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
@@ -48,7 +50,7 @@ public class Sidebar extends JPanel {
     private void initComponents() {
         add(createNorthPanel(), BorderLayout.NORTH);
         add(createMiddlePanel(), BorderLayout.CENTER);
-
+        add(createSouthPanel(), BorderLayout.SOUTH);
     }
 
     private JPanel createNorthPanel() {
@@ -66,6 +68,8 @@ public class Sidebar extends JPanel {
         middleContainer.setLayout(new BoxLayout(middleContainer, BoxLayout.Y_AXIS));
         middleContainer.setOpaque(false);
         middleContainer.setBorder(BorderFactory.createEmptyBorder(10, 25, 0, 20));
+        middleContainer.setPreferredSize(new Dimension(width, UIScale.scale(550)));
+        middleContainer.setMaximumSize(new Dimension(width, UIScale.scale(550)));
 
         JPanel menuItemContainer = new JPanel();
         menuItemContainer.setLayout(new BoxLayout(menuItemContainer, BoxLayout.Y_AXIS));
@@ -80,13 +84,11 @@ public class Sidebar extends JPanel {
         separatorPanel.setLayout(new BorderLayout());
         separatorPanel.setOpaque(false); // keep it transparent
 
-// Create the separator itself
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-        separator.setForeground(new Color(200, 200, 200)); // or theme color
+        separator.setForeground(new Color(200, 200, 200));
         separatorPanel.add(separator, BorderLayout.CENTER);
 
-// Set a small fixed height for the panel
-        separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2)); // 2 px height
+        separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
         separatorPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 2));
 
         // Options (Account / Settings)
@@ -106,6 +108,23 @@ public class Sidebar extends JPanel {
         return middleContainer;
     }
 
+    private JPanel createSouthPanel() {
+        JPanel southContainer = new JPanel();
+        southContainer.setLayout(new BoxLayout(southContainer, BoxLayout.Y_AXIS));
+        southContainer.setOpaque(false);
+
+        UserProfile userProfileItem = new UserProfile();
+        userProfileItem.setUserProfile("Gianne Pesana", "/profile/pesana.jpg");
+
+        southContainer.add(userProfileItem);
+
+        // Ensure SOUTH panel has a proper preferred height
+        southContainer.setPreferredSize(new Dimension(width, UIScale.scale(80)));
+        southContainer.setMaximumSize(new Dimension(width, UIScale.scale(80)));
+
+        return southContainer;
+    }
+
     private void initItems() {
         dashboardItem = SidebarButtonFactory.createMenuItem("Dashboard", "icons/svg/dashboard.svg", true);
         walletItem = SidebarButtonFactory.createMenuItem("Wallet", "icons/svg/wallet.svg", true);
@@ -117,8 +136,9 @@ public class Sidebar extends JPanel {
 
         modeToggle = SidebarButtonFactory.createThemeToggleButton(
                 "Dark Mode", "Light Mode",
-                "/icons/svg/dark.svg", "/icons/svg/light.svg"
+                "icons/svg/dark.svg", "icons/svg/light.svg"
         );
+
     }
 
     private void initMenuBehavior() {
@@ -150,6 +170,7 @@ public class Sidebar extends JPanel {
 
     private void toggleTheme() {
         try {
+            // Switch Look and Feel
             if (isDarkMode) {
                 UIManager.setLookAndFeel(new LGVBLight());
             } else {
@@ -157,13 +178,30 @@ public class Sidebar extends JPanel {
             }
             isDarkMode = !isDarkMode;
 
-            // Refresh all open windows (re-applies properties)
+            // Refresh all open windows
             for (Window w : Window.getWindows()) {
                 SwingUtilities.updateComponentTreeUI(w);
+                w.invalidate();   // force layout to recalc
+                w.validate();
+                w.repaint();      // force repaint
             }
+
+            // Reapply custom styles for menu items
+            for (MenuItemButton item : menuItems) {
+                item.applyCurrentStyle();
+                item.revalidate();
+                item.repaint();    // force redraw of hovered/selected state
+            }
+            
+            accountItem.applyCurrentStyle();
+            settingsItem.applyCurrentStyle();
+            modeToggle.applyCurrentStyle();
+            modeToggle.revalidate();
+            modeToggle.repaint();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
 }

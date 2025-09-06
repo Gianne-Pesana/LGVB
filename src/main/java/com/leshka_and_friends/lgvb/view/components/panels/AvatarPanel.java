@@ -1,5 +1,10 @@
-package com.leshka_and_friends.lgvb.view.matisse;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.leshka_and_friends.lgvb.view.components.panels;
 
+import com.formdev.flatlaf.util.UIScale;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -12,11 +17,15 @@ public class AvatarPanel extends JPanel {
 
     public AvatarPanel(BufferedImage image, int size) {
         this.image = image;
-        this.size = size;
-
+        this.size = UIScale.scale(size);
+        init();
+    }
+    
+    private void init() {
         setPreferredSize(new Dimension(size, size));
         setMaximumSize(new Dimension(size, size));
         setMinimumSize(new Dimension(size, size));
+        putClientProperty("FlatLaf.style", "background: $LGVB.primary");
         setOpaque(false);
     }
 

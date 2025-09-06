@@ -9,6 +9,7 @@ import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.components.panels.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.utils.*;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -24,6 +25,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
     protected final JLabel label;
     protected final double ICON_SCALE = 0.40;
     protected final int ICON_TEXT_GAP = 20;
+    protected final Color transparent = new Color(0,0,0,0);
 
     protected boolean hovered = false;
     protected boolean selected = false;
@@ -45,11 +47,11 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
 
     protected void initPanel() {
         Dimension itemSize = UIScale.scale(new Dimension(198, 32));
+        putClientProperty("FlatLaf.style", "background: $LGVB.primary;");
         setPreferredSize(itemSize);
         setMinimumSize(itemSize);
         setMaximumSize(new Dimension(Integer.MAX_VALUE, itemSize.height));
         setBorder(BorderFactory.createEmptyBorder(1, 35, 1, 1));
-        setOpaque(false);
         setLayout(new BorderLayout());
     }
 
@@ -60,10 +62,10 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
 
         FlatSVGIcon icon = createIconSafe(svgPath, iconSize);
 
-        icon.setColorFilter(SVGUtils.createColorFilter("Label.foreground"));
+        icon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         label.setIcon(icon);
         label.setFont(FontLoader.getInter(14f));
-        label.putClientProperty("FlatLaf.style", "foreground: $Label.foreground;");
+        label.putClientProperty("FlatLaf.style", "foreground: $LGVB.foreground;");
         label.setIconTextGap(ICON_TEXT_GAP);
 
         // resize icon dynamically
@@ -88,7 +90,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
         String finalPath = path;
 
         // check if resource exists
-        if (getClass().getResource(path) == null) {
+        if (getClass().getResource("/" + path) == null) {
             // fallback default
             finalPath = "icons/svg/dashboard.svg";
         }
@@ -101,7 +103,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
         }
     }
 
-    protected abstract void applyCurrentStyle();
+    public abstract void applyCurrentStyle();
 
     protected void initMouse() {
         addMouseListener(new MouseAdapter() {
@@ -115,10 +117,13 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (!selected) {    // only remove hover if not selected
-                    hovered = false;
-                    applyCurrentStyle();
-                }
+//                if (!selected) {    // only remove hover if not selected
+//                    hovered = false;
+//                    applyCurrentStyle();
+//                }
+
+                hovered = false;
+                applyCurrentStyle();
             }
 
             @Override
@@ -128,6 +133,11 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
                 fireActionListeners();
             }
         });
+    }
+    
+    public void unselect() {
+        putClientProperty("FlatLaf.style", "background: $LGVB.primary;");
+        repaint();
     }
 
     protected abstract void handleClick();

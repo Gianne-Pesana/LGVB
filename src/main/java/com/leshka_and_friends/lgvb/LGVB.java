@@ -4,8 +4,6 @@
 
 package com.leshka_and_friends.lgvb;
 import com.leshka_and_friends.lgvb.view.MainView;
-import com.leshka_and_friends.lgvb.view.matisse.TestFrame;
-import com.leshka_and_friends.lgvb.view.test.LandingPage;
 import com.leshka_and_friends.lgvb.view.themes.*;
 import com.leshka_and_friends.lgvb.view.utils.ThemeGlobalDefaults;
 import javax.swing.SwingUtilities;

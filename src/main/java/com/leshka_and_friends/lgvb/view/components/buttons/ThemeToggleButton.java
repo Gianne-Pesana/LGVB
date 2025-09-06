@@ -27,7 +27,7 @@ public class ThemeToggleButton extends SidebarButtonPanel {
     }
 
     @Override
-    protected void applyCurrentStyle() {
+    public void applyCurrentStyle() {
         setBackground(hovered ? UIManager.getColor("MenuItem.hoverBackground")
                 : UIManager.getColor("LGVB.primary"));
         repaint();
@@ -40,7 +40,7 @@ public class ThemeToggleButton extends SidebarButtonPanel {
         FlatSVGIcon icon = new FlatSVGIcon(toggled ? svgPathOn : svgPathOff,
                 (int) Math.floor(getHeight() * ICON_SCALE),
                 (int) Math.floor(getHeight() * ICON_SCALE));
-        icon.setColorFilter(SVGUtils.createColorFilter("Label.foreground"));
+        icon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         label.setIcon(icon);
     }
 
