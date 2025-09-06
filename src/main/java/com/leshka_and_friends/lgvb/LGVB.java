@@ -3,7 +3,13 @@
  */
 
 package com.leshka_and_friends.lgvb;
-import com.leshka_and_friends.lgvb.view.*;
+import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.view.matisse.TestFrame;
+import com.leshka_and_friends.lgvb.view.test.LandingPage;
+import com.leshka_and_friends.lgvb.view.themes.*;
+import com.leshka_and_friends.lgvb.view.utils.ThemeGlobalDefaults;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -12,6 +18,19 @@ import com.leshka_and_friends.lgvb.view.*;
 public class LGVB {
 
     public static void main(String[] args) {
-        new LandingPage();
+        try {
+            UIManager.setLookAndFeel(new LGVBDark());
+            ThemeGlobalDefaults.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        SwingUtilities.invokeLater(() -> {
+//            new ThemeDemo(UIManager.getLookAndFeel()).setVisible(true);
+//        });
+
+        SwingUtilities.invokeLater(() -> {
+            new MainView();
+        });
     }
 }

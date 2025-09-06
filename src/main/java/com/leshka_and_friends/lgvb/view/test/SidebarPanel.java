@@ -1,4 +1,4 @@
-package com.leshka_and_friends.lgvb.view;
+package com.leshka_and_friends.lgvb.view.test;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
