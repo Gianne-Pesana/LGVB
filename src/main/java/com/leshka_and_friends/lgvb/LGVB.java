@@ -4,6 +4,7 @@
 
 package com.leshka_and_friends.lgvb;
 import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.view.test.CardTest;
 import com.leshka_and_friends.lgvb.view.themes.*;
 import com.leshka_and_friends.lgvb.view.utils.ThemeGlobalDefaults;
 import javax.swing.SwingUtilities;
@@ -28,6 +29,7 @@ public class LGVB {
 //        });
 
         SwingUtilities.invokeLater(() -> {
+//            new CardTest();
             new MainView();
         });
     }
