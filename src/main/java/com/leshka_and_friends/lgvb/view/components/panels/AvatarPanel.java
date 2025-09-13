@@ -5,6 +5,7 @@
 package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -25,7 +26,7 @@ public class AvatarPanel extends JPanel {
         setPreferredSize(new Dimension(size, size));
         setMaximumSize(new Dimension(size, size));
         setMinimumSize(new Dimension(size, size));
-        putClientProperty("FlatLaf.style", "background: $LGVB.primary");
+        ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
         setOpaque(false);
     }
 

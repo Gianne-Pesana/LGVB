@@ -1,6 +1,6 @@
 package com.leshka_and_friends.lgvb.view.components.panels;
 
-import com.leshka_and_friends.lgvb.view.utils.ThemeGlobalDefaults;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import javax.swing.*;
 import java.awt.*;
 

@@ -4,7 +4,8 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.components.panels.AvatarPanel;
-import com.leshka_and_friends.lgvb.view.utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class UserProfile extends JPanel {
         setOpaque(false);
 
         // Colors
-        putClientProperty("FlatLaf.style", "background: $LGVB.primary");
+        ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
 
         setBorder(BorderFactory.createEmptyBorder(UIScale.scale(borderSpacing), UIScale.scale(borderSpacing),
                 UIScale.scale(borderSpacing), UIScale.scale(borderSpacing)));
@@ -56,7 +57,7 @@ public class UserProfile extends JPanel {
         add(Box.createRigidArea(new Dimension(UIScale.scale(20), 0)));
 
         // Profile name
-        profileName.putClientProperty("FlatLaf.style", "foreground: $LGVB.foreground");
+        ThemeManager.putThemeAwareProperty(profileName, "foreground: $LGVB.foreground");
         profileName.setFont(FontLoader.getInter(14f));
         add(profileName);
 

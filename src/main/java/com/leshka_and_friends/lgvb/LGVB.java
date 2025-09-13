@@ -4,9 +4,10 @@
 
 package com.leshka_and_friends.lgvb;
 import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.view.test.AuthUITest;
 import com.leshka_and_friends.lgvb.view.test.CardTest;
 import com.leshka_and_friends.lgvb.view.themes.*;
-import com.leshka_and_friends.lgvb.view.utils.ThemeGlobalDefaults;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -31,6 +32,10 @@ public class LGVB {
         SwingUtilities.invokeLater(() -> {
 //            new CardTest();
             new MainView();
+//            AuthUITest test = new AuthUITest();
+//            test.showRegisterDialog();
+//            test.showLoginDialog();
+            
         });
     }
 }

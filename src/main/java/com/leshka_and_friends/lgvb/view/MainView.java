@@ -5,6 +5,10 @@
 package com.leshka_and_friends.lgvb.view;
 
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
+import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
+import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,15 +17,26 @@ public class MainView extends JFrame {
     private JSplitPane splitPane;
     private JPanel sidebarPanel;
     private JPanel mainContentPanel;
+    private CardLayout contentLayout;
+    
+    // Main content panels
+    private TitlePanel dashboardPanel;
+    private TitlePanel walletPanel;
+    private TitlePanel loanPanel;
+    private TitlePanel cardsPanel;
 
     private int width;
     private int height;
-    private final double scaleFactor = 0.95;
+    private final double scaleFactor = ThemeGlobalDefaults.getDouble("MainView.scaleFactor");
     
     public MainView() {
+        // Load fonts first
+        FontLoader.loadFonts();
+        
         // Frame settings
-        setTitle("MainView");
+        setTitle(ThemeGlobalDefaults.getString("MainView.title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
         // Set size to screen resolution
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -31,16 +46,48 @@ public class MainView extends JFrame {
         setSize(width, height);
 
         // Sidebar panel (left)
-        sidebarPanel = new Sidebar();
+        Sidebar sidebar = new Sidebar();
+        sidebar.setSelectionListener(new Sidebar.SelectionListener() {
+            @Override
+            public void onSelectDashboard() {
+                contentLayout.show(mainContentPanel, "DASHBOARD");
+            }
 
-        // Main content panel (right)
-        mainContentPanel = new JPanel();
-        mainContentPanel.putClientProperty("FlatLaf.style", "background: $Panel.background");
-        JLabel mainContentPlaceholder = new JLabel("Main Content Placeholder", SwingConstants.CENTER);
-        mainContentPlaceholder.putClientProperty("FlatLaf.style", "foreground: $Label.foreground");
-        mainContentPanel.add(mainContentPlaceholder);
+            @Override
+            public void onSelectWallet() {
+                contentLayout.show(mainContentPanel, "WALLET");
+            }
+
+            @Override
+            public void onSelectLoan() {
+                contentLayout.show(mainContentPanel, "LOAN");
+            }
+
+            @Override
+            public void onSelectCards() {
+                contentLayout.show(mainContentPanel, "CARDS");
+            }
+        });
+
+        // Create main content panels
+        createContentPanels();
+        
+        // Main content panel (right) with CardLayout
+        contentLayout = new CardLayout();
+        mainContentPanel = new JPanel(contentLayout);
+        ThemeManager.putThemeAwareProperty(mainContentPanel, "background: $Panel.background");
+        
+        // Add panels to card layout
+        mainContentPanel.add(dashboardPanel, "DASHBOARD");
+        mainContentPanel.add(walletPanel, "WALLET");
+        mainContentPanel.add(loanPanel, "LOAN");
+        mainContentPanel.add(cardsPanel, "CARDS");
+        
+        // Show dashboard by default
+        contentLayout.show(mainContentPanel, "DASHBOARD");
 
         // Split pane
+        sidebarPanel = sidebar;
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebarPanel, mainContentPanel);
         splitPane.setDividerSize(0);
 
@@ -48,6 +95,26 @@ public class MainView extends JFrame {
         setLayout(new BorderLayout());
         add(splitPane, BorderLayout.CENTER);
 
+        setLocationRelativeTo(null);
         setVisible(true);
+    }
+    
+    /**
+     * Creates all main content panels.
+     */
+    private void createContentPanels() {
+        // Create dashboard panel with sample data
+        String dashboardTitle = ThemeGlobalDefaults.getString("Panel.Dashboard.title");
+        dashboardPanel = new TitlePanel(dashboardTitle.isEmpty() ? "DASHBOARD" : dashboardTitle);
+        
+        // Create other panels
+        String walletTitle = ThemeGlobalDefaults.getString("Panel.Wallet.title");
+        walletPanel = new TitlePanel(walletTitle.isEmpty() ? "WALLET" : walletTitle);
+        
+        String loanTitle = ThemeGlobalDefaults.getString("Panel.Loan.title");
+        loanPanel = new TitlePanel(loanTitle.isEmpty() ? "LOAN" : loanTitle);
+        
+        String cardsTitle = ThemeGlobalDefaults.getString("Panel.Cards.title");
+        cardsPanel = new TitlePanel(cardsTitle.isEmpty() ? "CARDS" : cardsTitle);
     }
 }

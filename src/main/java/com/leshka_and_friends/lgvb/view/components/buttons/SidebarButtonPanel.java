@@ -4,10 +4,13 @@
  */
 package com.leshka_and_friends.lgvb.view.components.buttons;
 
+import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
+import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.components.panels.RoundedPanel;
-import com.leshka_and_friends.lgvb.view.utils.*;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,7 +26,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
     protected final String text;
     protected final String svgPath;
     protected final JLabel label;
-    protected final double ICON_SCALE = 0.40;
+    protected final double ICON_SCALE = ThemeGlobalDefaults.getDouble("Sidebar.button.icon.scale");
     protected final int ICON_TEXT_GAP = 20;
     protected final Color transparent = new Color(0,0,0,0);
 
@@ -47,7 +50,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
 
     protected void initPanel() {
         Dimension itemSize = UIScale.scale(new Dimension(198, 32));
-        putClientProperty("FlatLaf.style", "background: $LGVB.primary;");
+        ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary;");
         setPreferredSize(itemSize);
         setMinimumSize(itemSize);
         setMaximumSize(new Dimension(Integer.MAX_VALUE, itemSize.height));
@@ -60,12 +63,12 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
         int prefHeight = getPreferredSize().height;
         int iconSize = Math.max(1, (int) Math.floor(prefHeight * ICON_SCALE));
 
-        FlatSVGIcon icon = createIconSafe(svgPath, iconSize);
+        FlatSVGIcon icon = SVGUtils.loadIcon(svgPath, iconSize);
 
         icon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         label.setIcon(icon);
         label.setFont(FontLoader.getInter(14f));
-        label.putClientProperty("FlatLaf.style", "foreground: $LGVB.foreground;");
+        ThemeManager.putThemeAwareProperty(label, "foreground: $LGVB.foreground;");
         label.setIconTextGap(ICON_TEXT_GAP);
 
         // resize icon dynamically
@@ -86,22 +89,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
         return label;
     }
 
-    private FlatSVGIcon createIconSafe(String path, int size) {
-        String finalPath = path;
-
-        // check if resource exists
-        if (getClass().getResource("/" + path) == null) {
-            // fallback default
-            finalPath = "icons/svg/dashboard.svg";
-        }
-
-        try {
-            return new FlatSVGIcon(finalPath, size, size);
-        } catch (Exception e) {
-            // worst-case: return an empty icon
-            return new FlatSVGIcon("", size, size);
-        }
-    }
+    
 
     public abstract void applyCurrentStyle();
 
@@ -136,7 +124,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
     }
     
     public void unselect() {
-        putClientProperty("FlatLaf.style", "background: $LGVB.primary;");
+        ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary;");
         repaint();
     }
 

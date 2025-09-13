@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.leshka_and_friends.lgvb.view.utils;
+package com.leshka_and_friends.lgvb.view.ui_utils;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 public class FontLoader {
     private static Font interFont;
+    private static Font baloo2Font;
 
     public static void loadFonts() {
         try (InputStream is = FontLoader.class.getResourceAsStream("/fonts/Inter-Regular.ttf")) {

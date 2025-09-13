@@ -5,7 +5,7 @@
 package com.leshka_and_friends.lgvb.view.test;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.leshka_and_friends.lgvb.view.utils.SVGUtils;
+import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

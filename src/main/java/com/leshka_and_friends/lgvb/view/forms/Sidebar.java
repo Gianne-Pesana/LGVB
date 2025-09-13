@@ -7,15 +7,16 @@ package com.leshka_and_friends.lgvb.view.forms;
 import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
 import com.leshka_and_friends.lgvb.view.components.buttons.UserProfile;
 import com.leshka_and_friends.lgvb.view.factories.SidebarButtonFactory;
 import com.leshka_and_friends.lgvb.view.themes.*;
-import com.leshka_and_friends.lgvb.view.utils.ImageParser;
+import com.leshka_and_friends.lgvb.view.factories.LookAndFeelFactory;
+import com.leshka_and_friends.lgvb.view.ui_utils.ImageParser;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
@@ -24,10 +25,10 @@ import javax.swing.*;
  */
 public class Sidebar extends JPanel {
 
-    private int width = UIScale.scale(238);
-    private int height = UIScale.scale(720);
+    private int width = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.width"));
+    private int height = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.height"));
 
-    private final int separation = UIScale.scale(50);
+    private final int separation = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.separation"));
     private static boolean isDarkMode;
 
     private MenuItemButton[] menuItems;
@@ -36,15 +37,28 @@ public class Sidebar extends JPanel {
     private MenuItemButton accountItem, settingsItem;
     private ThemeToggleButton modeToggle;
 
+    public interface SelectionListener {
+        void onSelectDashboard();
+        void onSelectWallet();
+        void onSelectLoan();
+        void onSelectCards();
+    }
+
+    private SelectionListener selectionListener;
+
     public Sidebar() {
         isDarkMode = (UIManager.getLookAndFeel() instanceof LGVBDark);
         setPreferredSize(new Dimension(width, height));
-        putClientProperty("FlatLaf.style", "background: $LGVB.primary");
+        ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
         setLayout(new BorderLayout());
 
         initItems();
         initComponents();
         initMenuBehavior();
+    }
+
+    public void setSelectionListener(SelectionListener listener) {
+        this.selectionListener = listener;
     }
 
     private void initComponents() {
@@ -57,7 +71,11 @@ public class Sidebar extends JPanel {
         JPanel northContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
         northContainer.setOpaque(false);
 
-        JLabel logo = new JLabel(ImageParser.loadScaled("/Logo/logo-white.png", 95, 95));
+        JLabel logo = new JLabel(ImageParser.loadScaled(
+                ThemeGlobalDefaults.getString("Sidebar.logo.path"),
+                ThemeGlobalDefaults.getInt("Sidebar.logo.size"),
+                ThemeGlobalDefaults.getInt("Sidebar.logo.size")
+        ));
         northContainer.add(logo);
 
         return northContainer;
@@ -114,7 +132,10 @@ public class Sidebar extends JPanel {
         southContainer.setOpaque(false);
 
         UserProfile userProfileItem = new UserProfile();
-        userProfileItem.setUserProfile("Gianne Pesana", "/profile/pesana.jpg");
+        userProfileItem.setUserProfile(
+                ThemeGlobalDefaults.getString("UserProfile.name"),
+                ThemeGlobalDefaults.getString("UserProfile.image")
+        );
 
         southContainer.add(userProfileItem);
 
@@ -126,17 +147,31 @@ public class Sidebar extends JPanel {
     }
 
     private void initItems() {
-        dashboardItem = SidebarButtonFactory.createMenuItem("Dashboard", "icons/svg/dashboard.svg", true);
-        walletItem = SidebarButtonFactory.createMenuItem("Wallet", "icons/svg/wallet.svg", true);
-        loanReqItem = SidebarButtonFactory.createMenuItem("Loan", "icons/svg/loan.svg", true);
-        cardsItem = SidebarButtonFactory.createMenuItem("Cards", "icons/svg/cards.svg", true);
+        dashboardItem = SidebarButtonFactory.createMenuItem(
+                ThemeGlobalDefaults.getString("Menu.Dashboard.text"),
+                ThemeGlobalDefaults.getString("Menu.Dashboard.icon"), true);
+        walletItem = SidebarButtonFactory.createMenuItem(
+                ThemeGlobalDefaults.getString("Menu.Wallet.text"),
+                ThemeGlobalDefaults.getString("Menu.Wallet.icon"), true);
+        loanReqItem = SidebarButtonFactory.createMenuItem(
+                ThemeGlobalDefaults.getString("Menu.Loan.text"),
+                ThemeGlobalDefaults.getString("Menu.Loan.icon"), true);
+        cardsItem = SidebarButtonFactory.createMenuItem(
+                ThemeGlobalDefaults.getString("Menu.Cards.text"),
+                ThemeGlobalDefaults.getString("Menu.Cards.icon"), true);
 
-        accountItem = SidebarButtonFactory.createMenuItem("Profile", "icons/svg/profile.svg", false);
-        settingsItem = SidebarButtonFactory.createMenuItem("Settings", "icons/svg/settings.svg", false);
+        accountItem = SidebarButtonFactory.createMenuItem(
+                ThemeGlobalDefaults.getString("Menu.Profile.text"),
+                ThemeGlobalDefaults.getString("Menu.Profile.icon"), false);
+        settingsItem = SidebarButtonFactory.createMenuItem(
+                ThemeGlobalDefaults.getString("Menu.Settings.text"),
+                ThemeGlobalDefaults.getString("Menu.Settings.icon"), false);
 
         modeToggle = SidebarButtonFactory.createThemeToggleButton(
-                "Dark Mode", "Light Mode",
-                "icons/svg/dark.svg", "icons/svg/light.svg"
+                ThemeGlobalDefaults.getString("Toggle.Dark.text"),
+                ThemeGlobalDefaults.getString("Toggle.Light.text"),
+                ThemeGlobalDefaults.getString("Toggle.Dark.icon"),
+                ThemeGlobalDefaults.getString("Toggle.Light.icon")
         );
 
     }
@@ -150,6 +185,12 @@ public class Sidebar extends JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     setSelectedMenu(item);
+                    if (selectionListener != null) {
+                        if (item == dashboardItem) selectionListener.onSelectDashboard();
+                        else if (item == walletItem) selectionListener.onSelectWallet();
+                        else if (item == loanReqItem) selectionListener.onSelectLoan();
+                        else if (item == cardsItem) selectionListener.onSelectCards();
+                    }
                 }
             });
         }
@@ -172,19 +213,13 @@ public class Sidebar extends JPanel {
         try {
             // Switch Look and Feel
             if (isDarkMode) {
-                UIManager.setLookAndFeel(new LGVBLight());
+                LookAndFeelFactory.apply(Theme.LIGHT);
             } else {
-                UIManager.setLookAndFeel(new LGVBDark());
+                LookAndFeelFactory.apply(Theme.DARK);
             }
             isDarkMode = !isDarkMode;
 
-            // Refresh all open windows
-            for (Window w : Window.getWindows()) {
-                SwingUtilities.updateComponentTreeUI(w);
-                w.invalidate();   // force layout to recalc
-                w.validate();
-                w.repaint();      // force repaint
-            }
+            ThemeManager.refreshAllWindows();
 
             // Reapply custom styles for menu items
             for (MenuItemButton item : menuItems) {

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.leshka_and_friends.lgvb.view.utils;
+package com.leshka_and_friends.lgvb.view.ui_utils;
 
 import com.formdev.flatlaf.util.UIScale;
 import javax.swing.*;
