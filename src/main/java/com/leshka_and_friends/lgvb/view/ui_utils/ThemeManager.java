@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
  */
 public class ThemeManager {
 
+    // dynamic color: change upon theme change
     public static void putThemeAwareProperty(JPanel panel, String value) {
         panel.putClientProperty("FlatLaf.style", value);
     }
