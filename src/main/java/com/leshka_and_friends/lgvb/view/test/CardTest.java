@@ -34,7 +34,7 @@ public class CardTest extends JFrame{
         label.setIcon(cardIcon);
 
         add(label);
-//        pack();
+        pack();
         setVisible(true);
     }
 }

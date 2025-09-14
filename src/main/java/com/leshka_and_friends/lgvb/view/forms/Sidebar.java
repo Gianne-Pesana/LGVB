@@ -29,6 +29,9 @@ public class Sidebar extends JPanel {
 
     private final int separation = UIScale.scale(50);
     private static boolean isDarkMode;
+    
+    private JPanel mainContentPanel; // the panel that holds Dashboard/Wallet/etc
+    private CardLayout cardLayout;  
 
     private MenuItemButton[] menuItems;
 
@@ -36,11 +39,16 @@ public class Sidebar extends JPanel {
     private MenuItemButton accountItem, settingsItem;
     private ThemeToggleButton modeToggle;
 
-    public Sidebar() {
+    public Sidebar(JPanel mainContentPanel) {
+        this.mainContentPanel = mainContentPanel;
+        this.cardLayout = (CardLayout) mainContentPanel.getLayout();
         isDarkMode = (UIManager.getLookAndFeel() instanceof LGVBDark);
         setPreferredSize(new Dimension(width, height));
         putClientProperty("FlatLaf.style", "background: $LGVB.primary");
         setLayout(new BorderLayout());
+        
+        MenuItemButton dashboardBtn = new MenuItemButton("Dashboard", "icons/svg/dashboard.svg", true, mainContentPanel);
+        add(dashboardBtn);
 
         initItems();
         initComponents();
@@ -126,33 +134,38 @@ public class Sidebar extends JPanel {
     }
 
     private void initItems() {
-        dashboardItem = SidebarButtonFactory.createMenuItem("Dashboard", "icons/svg/dashboard.svg", true);
-        walletItem = SidebarButtonFactory.createMenuItem("Wallet", "icons/svg/wallet.svg", true);
-        loanReqItem = SidebarButtonFactory.createMenuItem("Loan", "icons/svg/loan.svg", true);
-        cardsItem = SidebarButtonFactory.createMenuItem("Cards", "icons/svg/cards.svg", true);
+    dashboardItem = SidebarButtonFactory.createMenuItem("Dashboard", "icons/svg/dashboard.svg", true, mainContentPanel);
+    walletItem = SidebarButtonFactory.createMenuItem("Wallet", "icons/svg/wallet.svg", true, mainContentPanel);
+    loanReqItem = SidebarButtonFactory.createMenuItem("Loan", "icons/svg/loan.svg", true, mainContentPanel);
+    cardsItem = SidebarButtonFactory.createMenuItem("Cards", "icons/svg/cards.svg", true, mainContentPanel);
 
-        accountItem = SidebarButtonFactory.createMenuItem("Profile", "icons/svg/profile.svg", false);
-        settingsItem = SidebarButtonFactory.createMenuItem("Settings", "icons/svg/settings.svg", false);
+    accountItem = SidebarButtonFactory.createMenuItem("Profile", "icons/svg/profile.svg", false, mainContentPanel);
+    settingsItem = SidebarButtonFactory.createMenuItem("Settings", "icons/svg/settings.svg", false, mainContentPanel);
 
-        modeToggle = SidebarButtonFactory.createThemeToggleButton(
-                "Dark Mode", "Light Mode",
-                "icons/svg/dark.svg", "icons/svg/light.svg"
-        );
+    modeToggle = SidebarButtonFactory.createThemeToggleButton(
+            "Dark Mode", "Light Mode",
+            "icons/svg/dark.svg", "icons/svg/light.svg"
+    );
+}
 
-    }
 
     private void initMenuBehavior() {
         menuItems = new MenuItemButton[]{dashboardItem, walletItem, loanReqItem, cardsItem};
         setSelectedMenu(dashboardItem);
 
         for (MenuItemButton item : menuItems) {
-            item.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    setSelectedMenu(item);
-                }
-            });
+    item.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            setSelectedMenu(item); // highlight button
+
+            String panelName = (String) item.getClientProperty("panelName");
+            if (panelName != null) {
+                cardLayout.show(mainContentPanel, panelName);
+            }
         }
+    });
+}
 
         modeToggle.addMouseListener(new MouseAdapter() {
             @Override
