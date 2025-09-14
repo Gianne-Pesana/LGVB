@@ -127,8 +127,4 @@ public class ThemeGlobalDefaults {
     public static float getScaledFloat(String key) {
         return UIScale.scale((float) getDouble(key));
     }
-    
-    
-    
-
 }
