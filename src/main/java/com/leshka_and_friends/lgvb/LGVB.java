@@ -3,6 +3,7 @@
  */
 
 package com.leshka_and_friends.lgvb;
+import com.leshka_and_friends.lgvb.controller.AuthController;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.test.AuthUITest;
 import com.leshka_and_friends.lgvb.view.test.CardTest;
@@ -30,8 +31,10 @@ public class LGVB {
 //        });
 
         SwingUtilities.invokeLater(() -> {
+            AuthController authController = new AuthController();
+            authController.start();
 //            new CardTest();
-            new MainView();
+//            new MainView();
 //            AuthUITest test = new AuthUITest();
 //            test.showRegisterDialog();
 //            test.showLoginDialog();

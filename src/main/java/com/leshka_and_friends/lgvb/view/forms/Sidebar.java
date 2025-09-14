@@ -37,10 +37,16 @@ public class Sidebar extends JPanel {
     private MenuItemButton accountItem, settingsItem;
     private ThemeToggleButton modeToggle;
 
+    private UserProfile userProfileItem;
+
     public interface SelectionListener {
+
         void onSelectDashboard();
+
         void onSelectWallet();
+
         void onSelectLoan();
+
         void onSelectCards();
     }
 
@@ -131,10 +137,10 @@ public class Sidebar extends JPanel {
         southContainer.setLayout(new BoxLayout(southContainer, BoxLayout.Y_AXIS));
         southContainer.setOpaque(false);
 
-        UserProfile userProfileItem = new UserProfile();
+        userProfileItem = new UserProfile();
         userProfileItem.setUserProfile(
-                ThemeGlobalDefaults.getString("UserProfile.name"),
-                ThemeGlobalDefaults.getString("UserProfile.image")
+                ThemeGlobalDefaults.getString("UserProfileDefault.name"),
+                ThemeGlobalDefaults.getString("UserProfileDefault.image")
         );
 
         southContainer.add(userProfileItem);
@@ -144,6 +150,14 @@ public class Sidebar extends JPanel {
         southContainer.setMaximumSize(new Dimension(width, UIScale.scale(80)));
 
         return southContainer;
+    }
+
+    public void updateUserProfile(String name, String imagePath) {
+        if (userProfileItem != null) {
+            userProfileItem.setUserProfile(name, imagePath);
+            userProfileItem.revalidate();
+            userProfileItem.repaint();
+        }
     }
 
     private void initItems() {
@@ -186,10 +200,15 @@ public class Sidebar extends JPanel {
                 public void mousePressed(MouseEvent e) {
                     setSelectedMenu(item);
                     if (selectionListener != null) {
-                        if (item == dashboardItem) selectionListener.onSelectDashboard();
-                        else if (item == walletItem) selectionListener.onSelectWallet();
-                        else if (item == loanReqItem) selectionListener.onSelectLoan();
-                        else if (item == cardsItem) selectionListener.onSelectCards();
+                        if (item == dashboardItem) {
+                            selectionListener.onSelectDashboard();
+                        } else if (item == walletItem) {
+                            selectionListener.onSelectWallet();
+                        } else if (item == loanReqItem) {
+                            selectionListener.onSelectLoan();
+                        } else if (item == cardsItem) {
+                            selectionListener.onSelectCards();
+                        }
                     }
                 }
             });
@@ -227,7 +246,7 @@ public class Sidebar extends JPanel {
                 item.revalidate();
                 item.repaint();    // force redraw of hovered/selected state
             }
-            
+
             accountItem.applyCurrentStyle();
             settingsItem.applyCurrentStyle();
             modeToggle.applyCurrentStyle();

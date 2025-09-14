@@ -4,10 +4,32 @@
  */
 package com.leshka_and_friends.lgvb.service;
 
+import com.leshka_and_friends.lgvb.model.User;
+
 /**
  *
  * @author giann
  */
 public class SessionService {
-    
+
+    private static SessionService instance;
+    private User currentUser;
+
+    private SessionService() {
+    }
+
+    public static SessionService getInstance() {
+        if (instance == null) {
+            instance = new SessionService();
+        }
+        return instance;
+    }
+
+    public void login(User user) {
+        this.currentUser = user;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }

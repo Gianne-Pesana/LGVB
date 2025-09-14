@@ -9,6 +9,7 @@ import com.leshka_and_friends.lgvb.service.AuthService;
 import com.leshka_and_friends.lgvb.dao.UserDAO;
 import com.leshka_and_friends.lgvb.dao.UserDAOImpl;
 import com.leshka_and_friends.lgvb.model.User;
+import com.leshka_and_friends.lgvb.service.SessionService;
 
 import javax.swing.*;
 import java.time.LocalDate;
@@ -67,6 +68,7 @@ public class AuthUITest {
 
         try {
             User user = auth.login(email, pwd);
+            SessionService.getInstance().login(user);
             JOptionPane.showMessageDialog(null, "Welcome, " + user.getFullName());
         } catch (AuthException e) {
             JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
