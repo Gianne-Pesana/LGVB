@@ -94,6 +94,11 @@ public class ThemeGlobalDefaults {
         Object val = UIManager.get(key);
         return (val instanceof Number) ? ((Number) val).doubleValue() : 0.0;
     }
+    
+    public static float getFLoat(String key) {
+        Object val = UIManager.get(key);
+        return (val instanceof Number) ? (float) ((Number) val).doubleValue() : 0.0f;
+    }
 
     public static boolean getBoolean(String key) {
         Object val = UIManager.get(key);
@@ -117,6 +122,10 @@ public class ThemeGlobalDefaults {
 
     public static double getScaledDouble(String key) {
         return (double) UIScale.scale((float) getDouble(key));
+    }
+    
+    public static float getScaledFloat(String key) {
+        return UIScale.scale((float) getDouble(key));
     }
     
     

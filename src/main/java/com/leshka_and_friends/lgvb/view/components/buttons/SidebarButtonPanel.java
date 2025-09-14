@@ -27,8 +27,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
     protected final String svgPath;
     protected final JLabel label;
     protected final double ICON_SCALE = ThemeGlobalDefaults.getDouble("Sidebar.button.icon.scale");
-    protected final int ICON_TEXT_GAP = 20;
-    protected final Color transparent = new Color(0,0,0,0);
+    protected final int ICON_TEXT_GAP = ThemeGlobalDefaults.getInt("Sidebar.button.icontext.gap");
 
     protected boolean hovered = false;
     protected boolean selected = false;
@@ -49,7 +48,10 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
     }
 
     protected void initPanel() {
-        Dimension itemSize = UIScale.scale(new Dimension(198, 32));
+        Dimension itemSize = new Dimension(
+                ThemeGlobalDefaults.getScaledInt("Sidebar.button.itemSize.width"),
+                ThemeGlobalDefaults.getScaledInt("Sidebar.button.itemSize.height")
+        );
         ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary;");
         setPreferredSize(itemSize);
         setMinimumSize(itemSize);
@@ -67,7 +69,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
 
         icon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         label.setIcon(icon);
-        label.setFont(FontLoader.getInter(14f));
+        label.setFont(FontLoader.getInter(ThemeGlobalDefaults.getFLoat("Sidebar.button.fontSize")));
         ThemeManager.putThemeAwareProperty(label, "foreground: $LGVB.foreground;");
         label.setIconTextGap(ICON_TEXT_GAP);
 

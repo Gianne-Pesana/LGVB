@@ -3,12 +3,14 @@ com\leshka_and_friends\lgvb\LGVB.class
 com\leshka_and_friends\lgvb\view\components\panels\TitlePanel.class
 com\leshka_and_friends\lgvb\view\themes\LGVBLight.class
 com\leshka_and_friends\lgvb\model\User.class
+com\leshka_and_friends\lgvb\view\test\Card.class
 com\leshka_and_friends\lgvb\view\ui_utils\FontLoader.class
 com\leshka_and_friends\lgvb\view\MainView$1.class
 com\leshka_and_friends\lgvb\view\components\panels\AvatarPanel.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$2.class
 com\leshka_and_friends\lgvb\view\MainView.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel$1.class
+com\leshka_and_friends\lgvb\view\test\TestCardIcon.class
 com\leshka_and_friends\lgvb\dao\UserDAO.class
 com\leshka_and_friends\lgvb\service\AuthService.class
 com\leshka_and_friends\lgvb\view\test\AuthUITest.class
@@ -35,6 +37,7 @@ com\leshka_and_friends\lgvb\view\components\buttons\StaticItemButton.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
 com\leshka_and_friends\lgvb\service\PasswordUtils.class
+com\leshka_and_friends\lgvb\view\test\CardPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile.class
 com\leshka_and_friends\lgvb\dao\DAOFactory.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
@@ -42,6 +45,8 @@ com\leshka_and_friends\lgvb\model\Account.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\ViewPage.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
+com\leshka_and_friends\lgvb\view\ui_utils\SvgTspanCleaner.class
+com\leshka_and_friends\lgvb\view\ui_utils\SVGCardIconHelper.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\dao\AccountDAO.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
