@@ -48,7 +48,6 @@ com\leshka_and_friends\lgvb\exceptions\AuthException.class
 com\leshka_and_friends\lgvb\dao\UserDAOImpl.class
 com\leshka_and_friends\lgvb\dao\CardDaoImpl.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
-com\leshka_and_friends\lgvb\dao\DAOFactory.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
 com\leshka_and_friends\lgvb\model\Account.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class

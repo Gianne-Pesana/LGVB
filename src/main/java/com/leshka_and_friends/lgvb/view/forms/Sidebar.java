@@ -7,6 +7,7 @@ package com.leshka_and_friends.lgvb.view.forms;
 import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
 import com.leshka_and_friends.lgvb.view.components.buttons.UserProfile;
 import com.leshka_and_friends.lgvb.view.factories.SidebarButtonFactory;
 import com.leshka_and_friends.lgvb.view.themes.*;
@@ -32,6 +33,7 @@ public class Sidebar extends JPanel {
     private static boolean isDarkMode;
 
     private MenuItemButton[] menuItems;
+    private SidebarButtonPanel[] buttonItems;
 
     private MenuItemButton dashboardItem, walletItem, loanReqItem, cardsItem;
     private MenuItemButton accountItem, settingsItem;
@@ -53,7 +55,6 @@ public class Sidebar extends JPanel {
     private SelectionListener selectionListener;
 
     public Sidebar() {
-        isDarkMode = (UIManager.getLookAndFeel() instanceof LGVBDark);
         setPreferredSize(new Dimension(width, height));
         ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
         setLayout(new BorderLayout());
@@ -187,6 +188,11 @@ public class Sidebar extends JPanel {
                 ThemeGlobalDefaults.getString("Toggle.Dark.icon"),
                 ThemeGlobalDefaults.getString("Toggle.Light.icon")
         );
+        
+        buttonItems = new SidebarButtonPanel[]{
+            dashboardItem, walletItem, loanReqItem, 
+            cardsItem, accountItem, settingsItem, modeToggle
+        };
 
     }
 
@@ -230,28 +236,14 @@ public class Sidebar extends JPanel {
 
     private void toggleTheme() {
         try {
-            // Switch Look and Feel
-            if (isDarkMode) {
-                LookAndFeelFactory.apply(Theme.LIGHT);
-            } else {
-                LookAndFeelFactory.apply(Theme.DARK);
-            }
-            isDarkMode = !isDarkMode;
-
-            ThemeManager.refreshAllWindows();
+            ThemeManager.toggleTheme();
 
             // Reapply custom styles for menu items
-            for (MenuItemButton item : menuItems) {
+            for (SidebarButtonPanel item : buttonItems) {
                 item.applyCurrentStyle();
                 item.revalidate();
                 item.repaint();    // force redraw of hovered/selected state
             }
-
-            accountItem.applyCurrentStyle();
-            settingsItem.applyCurrentStyle();
-            modeToggle.applyCurrentStyle();
-            modeToggle.revalidate();
-            modeToggle.repaint();
 
         } catch (Exception ex) {
             ex.printStackTrace();
