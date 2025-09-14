@@ -18,6 +18,7 @@ import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
@@ -188,9 +189,9 @@ public class Sidebar extends JPanel {
                 ThemeGlobalDefaults.getString("Toggle.Dark.icon"),
                 ThemeGlobalDefaults.getString("Toggle.Light.icon")
         );
-        
+
         buttonItems = new SidebarButtonPanel[]{
-            dashboardItem, walletItem, loanReqItem, 
+            dashboardItem, walletItem, loanReqItem,
             cardsItem, accountItem, settingsItem, modeToggle
         };
 

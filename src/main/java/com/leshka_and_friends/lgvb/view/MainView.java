@@ -4,11 +4,14 @@
  */
 package com.leshka_and_friends.lgvb.view;
 
+import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
+import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
+import com.leshka_and_friends.lgvb.view.forms.Wallet;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
-import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,14 +24,16 @@ public class MainView extends JFrame {
     private CardLayout contentLayout;
 
     // Main content panels
-    private TitlePanel dashboardPanel;
-    private TitlePanel walletPanel;
+    private Dashboard dashboardPanel;
+    private Wallet walletPanel;
     private TitlePanel loanPanel;
     private TitlePanel cardsPanel;
 
     private int width;
     private int height;
     private final double scaleFactor = ThemeGlobalDefaults.getDouble("MainView.scaleFactor");
+
+    private final int margin = 400;
 
     public MainView() {
         // Load fonts first
@@ -87,7 +92,6 @@ public class MainView extends JFrame {
         contentLayout.show(mainContentPanel, "DASHBOARD");
 
         // Split pane
-//        sidebarPanel = sidebar;
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, mainContentPanel);
         splitPane.setDividerSize(0);
 
@@ -105,11 +109,11 @@ public class MainView extends JFrame {
     private void createContentPanels() {
         // Create dashboard panel with sample data
         String dashboardTitle = ThemeGlobalDefaults.getString("Panel.Dashboard.title");
-        dashboardPanel = new TitlePanel(dashboardTitle.isEmpty() ? "DASHBOARD" : dashboardTitle);
+        dashboardPanel = new Dashboard();
 
         // Create other panels
         String walletTitle = ThemeGlobalDefaults.getString("Panel.Wallet.title");
-        walletPanel = new TitlePanel(walletTitle.isEmpty() ? "WALLET" : walletTitle);
+        walletPanel = new Wallet();
 
         String loanTitle = ThemeGlobalDefaults.getString("Panel.Loan.title");
         loanPanel = new TitlePanel(loanTitle.isEmpty() ? "LOAN" : loanTitle);

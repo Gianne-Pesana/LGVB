@@ -85,23 +85,25 @@ public class AuthController {
     }
 
     public void showLoginDialog() {
-        String email = JOptionPane.showInputDialog("Email:");
-        JPasswordField pf = new JPasswordField();
-        int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (ok != JOptionPane.OK_OPTION) {
-            return;
-        }
-        char[] pwd = pf.getPassword();
+//        String email = JOptionPane.showInputDialog("Email:");
+//        JPasswordField pf = new JPasswordField();
+//        int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//        if (ok != JOptionPane.OK_OPTION) {
+//            return;
+//        }
+//        char[] pwd = pf.getPassword();
 
         try {
-            user = auth.login(email, pwd);
+            String mockEmail = "gianne02@gmail.com";
+            char[] mockPwd = new String("#Gianne061320").toCharArray();
+            user = auth.login(mockEmail, mockPwd);
             SessionService.getInstance().login(user);
             loggedIn = true;
             JOptionPane.showMessageDialog(null, "Welcome, " + user.getFullName());
         } catch (AuthException e) {
             JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
         } finally {
-            java.util.Arrays.fill(pwd, '\0');
+//            java.util.Arrays.fill(pwd, '\0');
         }
     }
 

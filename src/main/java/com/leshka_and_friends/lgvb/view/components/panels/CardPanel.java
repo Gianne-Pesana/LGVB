@@ -1,10 +1,7 @@
 package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
-import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
-import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
-import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
+import com.leshka_and_friends.lgvb.view.ui_utils.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 com\leshka_and_friends\lgvb\controller\AuthController.class
 com\leshka_and_friends\lgvb\view\test\CardTest.class
 com\leshka_and_friends\lgvb\service\CardService.class
@@ -63,3 +64,17 @@ com\leshka_and_friends\lgvb\util\AppConfig.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\service\TransactionService.class
 com\leshka_and_friends\lgvb\view\themes\Theme.class
+=======
+com/leshka_and_friends/lgvb/view/components/buttons/DashboardButtonPanel$2.class
+com/leshka_and_friends/lgvb/view/components/buttons/DashboardButtonPanel.class
+com/leshka_and_friends/lgvb/view/components/panels/BalancePanel.class
+com/leshka_and_friends/lgvb/view/factories/HeaderFactory.class
+com/leshka_and_friends/lgvb/view/ContentManager.class
+com/leshka_and_friends/lgvb/view/forms/Dashboard.class
+com/leshka_and_friends/lgvb/view/test/CardTest.class
+com/leshka_and_friends/lgvb/view/forms/Wallet.class
+com/leshka_and_friends/lgvb/view/components/buttons/DashboardButtonPanel$1.class
+com/leshka_and_friends/lgvb/view/components/panels/HeaderPanel.class
+com/leshka_and_friends/lgvb/view/components/buttons/MenuItemButtonDashboard.class
+com/leshka_and_friends/lgvb/view/test/DHB.class
+>>>>>>> origin/feature-collaborator

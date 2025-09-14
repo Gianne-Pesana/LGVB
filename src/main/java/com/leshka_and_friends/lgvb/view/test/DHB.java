@@ -63,6 +63,7 @@ public class DHB extends javax.swing.JPanel {
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         jLabel1.setFont(new java.awt.Font("Baloo 2", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 51));
         jLabel1.setText("Hi, Leshka");
         jLabel1.setMaximumSize(new java.awt.Dimension(164, 32));
         jLabel1.setPreferredSize(new java.awt.Dimension(164, 48));

@@ -34,9 +34,9 @@ public class LGVB {
 //            new ThemeDemo(UIManager.getLookAndFeel()).setVisible(true);
 //        });
         SwingUtilities.invokeLater(() -> {
-            cardTest();
-//            AuthController authController = new AuthController();
-//            authController.start();
+//            cardTest();
+            AuthController authController = new AuthController();
+            authController.start();
 //            new CardTest();
 //            new MainView();
 //            AuthUITest test = new AuthUITest();
