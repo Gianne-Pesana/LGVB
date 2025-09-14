@@ -59,6 +59,7 @@ public class AuthService {
         u.setPhoneNumber(phone);
         u.setDateOfBirth(java.sql.Date.valueOf(dob));
         u.setRole("customer");
+        u.setImagePath("/profile/default.jpg");
 
         try {
             userDAO.addUser(u);

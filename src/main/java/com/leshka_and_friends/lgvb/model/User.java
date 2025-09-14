@@ -15,6 +15,7 @@ public class User {
     private Date dateOfBirth;
     private String role;
     private Timestamp createdAt;
+    private String imagePath;
 
     // Getters & setters
     public int getUserId() {
@@ -96,6 +97,16 @@ public class User {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
+    
 
     // Convenience method
     public String getFullName() {
