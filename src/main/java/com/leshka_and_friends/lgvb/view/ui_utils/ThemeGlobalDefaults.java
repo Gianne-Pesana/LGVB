@@ -95,7 +95,7 @@ public class ThemeGlobalDefaults {
         return (val instanceof Number) ? ((Number) val).doubleValue() : 0.0;
     }
     
-    public static float getFLoat(String key) {
+    public static float getFloat(String key) {
         Object val = UIManager.get(key);
         return (val instanceof Number) ? (float) ((Number) val).doubleValue() : 0.0f;
     }

@@ -47,6 +47,8 @@ public class CardPanel extends javax.swing.JPanel {
         cardHolderName = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(379, 239));
+        setPreferredSize(new java.awt.Dimension(379, 239));
         setLayout(new java.awt.BorderLayout());
 
         roundedPanel1.setBackground(new java.awt.Color(17, 17, 51));

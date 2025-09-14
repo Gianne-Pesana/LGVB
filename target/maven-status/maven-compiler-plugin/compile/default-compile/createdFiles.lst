@@ -13,6 +13,7 @@ com\leshka_and_friends\lgvb\view\forms\Sidebar$1.class
 com\leshka_and_friends\lgvb\view\factories\ViewFactory.class
 com\leshka_and_friends\lgvb\dao\AccountDAOImpl.class
 com\leshka_and_friends\lgvb\view\factories\PanelFactory.class
+com\leshka_and_friends\lgvb\model\Card.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.class
 com\leshka_and_friends\lgvb\view\components\panels\RoundedPanel.class
 com\leshka_and_friends\lgvb\dao\TransactionDAOImpl.class
@@ -22,6 +23,7 @@ com\leshka_and_friends\lgvb\service\AccountService.class
 com\leshka_and_friends\lgvb\service\PasswordUtils.class
 com\leshka_and_friends\lgvb\view\test\CardPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile.class
+com\leshka_and_friends\lgvb\model\CardType.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
 com\leshka_and_friends\lgvb\view\ui_utils\SvgTspanCleaner.class
 com\leshka_and_friends\lgvb\service\UserService.class
@@ -52,6 +54,7 @@ com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
 com\leshka_and_friends\lgvb\model\Account.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\ViewPage.class
+com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGCardIconHelper.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\dao\AccountDAO.class

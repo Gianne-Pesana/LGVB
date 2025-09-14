@@ -7,6 +7,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\util\DBConnection.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\dao\TransactionDAO.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\MainView.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\panels\CardPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\FontLoader.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\service\CardService.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\StaticItemButton.java
@@ -31,8 +32,10 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\test\DHB.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\test\TestCardIcon.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\model\Card.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\UserProfile.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\model\Transaction.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\model\CardType.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\model\Account.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\test\CardTest.java

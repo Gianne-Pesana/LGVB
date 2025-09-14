@@ -71,7 +71,7 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
         label.setIcon(icon);
         label.setFont(FontLoader.getFont(
                 ThemeGlobalDefaults.getString("Sidebar.button.font"), 
-                ThemeGlobalDefaults.getFLoat("Sidebar.button.fontSize")
+                ThemeGlobalDefaults.getFloat("Sidebar.button.fontSize")
             )
         );
         ThemeManager.putThemeAwareProperty(label, "foreground: $LGVB.foreground;");
