@@ -4,7 +4,9 @@
  */
 package com.leshka_and_friends.lgvb.view.components.buttons;
 
+import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 /*
@@ -18,11 +20,14 @@ import javax.swing.UIManager;
 public class MenuItemButton extends SidebarButtonPanel {
 
     private final boolean paintClick;
+    private JPanel mainContentPanel;
+    private String panelName;
 
-    public MenuItemButton(String text, String svgPath, boolean paintClick) {
-        super(text, svgPath);
-        this.paintClick = paintClick;
-    }
+    public MenuItemButton(String text, String svgPath, boolean paintClick, JPanel mainContentPanel) {
+    super(text, svgPath);
+    this.paintClick = paintClick;
+    this.mainContentPanel = mainContentPanel; // now correctly assigned
+}
 
     @Override
     public void applyCurrentStyle() {
@@ -41,12 +46,22 @@ public class MenuItemButton extends SidebarButtonPanel {
             bg = getBackground();
         }
 
+        if (selected) {
+            putClientProperty("FlatLaf.style", "background: $LGVB.accent;");
+        } else if (hovered) {
+            putClientProperty("FlatLaf.style", "background: $LGVB.hover;");
+        } else {
+            putClientProperty("FlatLaf.style", "background: $LGVB.primary;");
+        }
+        repaint();
         setBackground(bg);
         repaint();
     }
 
     @Override
     protected void handleClick() {
+        CardLayout layout = (CardLayout) mainContentPanel.getLayout();
+        layout.show(mainContentPanel, "dashboard");
         if (paintClick) {
             selected = true;   // set selected immediately
             hovered = false;   // disable hover while selected

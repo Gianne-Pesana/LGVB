@@ -8,6 +8,7 @@ import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.StaticItemButton;
 import com.leshka_and_friends.lgvb.view.components.panels.*;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,8 +16,8 @@ import com.leshka_and_friends.lgvb.view.components.panels.*;
  */
 public class SidebarButtonFactory {
 
-    public static MenuItemButton createMenuItem(String text, String svgPath, boolean clickable) {
-        return new MenuItemButton(text, svgPath, clickable);
+    public static MenuItemButton createMenuItem(String text, String svgPath, boolean clickable, JPanel mainContentPanel) {
+        return new MenuItemButton(text, svgPath, clickable, mainContentPanel);
     }
 
     public static StaticItemButton createStaticItem(String text, String svgPath) {
