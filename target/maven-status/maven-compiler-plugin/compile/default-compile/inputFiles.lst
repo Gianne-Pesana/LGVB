@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\Sidebar.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\ViewFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.java
@@ -18,13 +17,17 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\panels\TitlePanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\SVGCardIconHelper.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ContentManager.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\HeaderFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\service\AuthService.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\dao\CardDAO.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\LGVB.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\test\AuthUITest.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\themes\LGVBLight.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\dao\AccountDAOImpl.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\util\AppConfig.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\Dashboard.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\controller\MainController.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\controller\AuthController.java
@@ -52,37 +55,11 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\dao\UserDAOImpl.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\panels\RoundedPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\dao\AccountDAO.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\Wallet.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\service\TransactionService.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\panels\BalancePanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\PanelFactory.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\panels\HeaderPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.java
-=======
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/buttons/SidebarButtonPanel.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/test/DHB.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/buttons/StaticItemButton.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/test/CardTest.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/utils/SVGUtils.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/panels/HeaderPanel.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/themes/LGVBDark.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/forms/Sidebar.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/panels/RoundedPanel.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/forms/Wallet.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/buttons/UserProfile.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/utils/ThemeGlobalDefaults.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/panels/CardPanel.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/utils/FontLoader.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/buttons/MenuItemButtonDashboard.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/LGVB.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/utils/ImageParser.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/buttons/DashboardButtonPanel.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/panels/BalancePanel.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/ContentManager.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/factories/HeaderFactory.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/forms/Dashboard.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/factories/SidebarButtonFactory.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/buttons/ThemeToggleButton.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/themes/LGVBLight.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/MainView.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/buttons/MenuItemButton.java
-/Users/vongiedyaguilar/OneDrive - addu.edu.ph/Academic SY 2025-2026/2nd Year - 1st Semester/Object Oriented Programming/Final Project - LGVB/LGVB/src/main/java/com/leshka_and_friends/lgvb/view/components/panels/AvatarPanel.java
->>>>>>> origin/feature-collaborator

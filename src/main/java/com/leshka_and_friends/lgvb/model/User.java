@@ -17,6 +17,26 @@ public class User {
     private Timestamp createdAt;
     private String imagePath;
 
+    private final String defaultProfile = "/profile/default.jpg";
+
+    public User() {
+    }
+    
+
+    public User(int userId, String username, String passwordHash, String firstName, String lastName, String email, String phoneNumber, Date dateOfBirth, String role, Timestamp createdAt, String imagePath) {
+        this.userId = userId;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
+        this.createdAt = createdAt;
+        setImagePath(imagePath);
+    }
+
     // Getters & setters
     public int getUserId() {
         return userId;
@@ -103,10 +123,12 @@ public class User {
     }
 
     public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+        if (imagePath == null) {
+            this.imagePath = defaultProfile;
+        } else {
+            this.imagePath = imagePath;
+        }
     }
-    
-    
 
     // Convenience method
     public String getFullName() {

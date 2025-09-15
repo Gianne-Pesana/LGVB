@@ -31,9 +31,9 @@ public class MainView extends JFrame {
 
     private int width;
     private int height;
-    private final double scaleFactor = ThemeGlobalDefaults.getDouble("MainView.scaleFactor");
-
-    private final int margin = 400;
+    
+    private final double widthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.width.scaleFactor");
+    private final double heigthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.height.scaleFactor");
 
     public MainView() {
         // Load fonts first
@@ -45,8 +45,8 @@ public class MainView extends JFrame {
 
         // Set size to screen resolution
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        width = (int) Math.floor(screenSize.getWidth() * scaleFactor);
-        height = (int) Math.floor(screenSize.getHeight() * scaleFactor);
+        width = (int) Math.floor(screenSize.getWidth() * widthScaleFactor);
+        height = (int) Math.floor(screenSize.getHeight() * heigthScaleFactor);
 
         setSize(width, height);
 

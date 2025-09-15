@@ -4,163 +4,182 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
-import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
-import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
-import com.leshka_and_friends.lgvb.view.components.panels.BalancePanel;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
+import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
+import com.leshka_and_friends.lgvb.view.components.panels.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.factories.HeaderFactory;
-import java.awt.GridLayout;
+import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
-/**
- *
- * @author vongiedyaguilar
- */
 public class Dashboard extends JPanel {
     
-    private int width = UIScale.scale(380);
-    private int height = UIScale.scale(100);
-    
-    private HeaderPanel headerPanel;
-    private BalancePanel balancePanel;
-    private CardPanel cardLayout;
+    private String username;
+    private double balance;
 
-    // Store your buttons here
+    private HeaderPanel headerPanel;
+    private CardPanel cardPanel;
+    private RoundedPanel currentBalancePanel;
+    private JPanel actionContainer;
+    private JPanel transactionsPanel;
+
     private List<MenuItemButtonDashboard> menuItems = new ArrayList<>();
-    
+
     public Dashboard() {
         setOpaque(false);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        // Set a border similar to DHB.java
         setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
-        
+        setLayout(new BorderLayout());
         initComponents();
     }
-    
+
     private void initComponents() {
-        add(createHeaderPanel());
-        add(createMiddlePanel());
-        add(createSouthPanel());
+        // Top container for header
+        add(createHeaderPanel(), BorderLayout.NORTH);
+
+        // Middle panel for main content
+        JPanel middlePanel = new JPanel();
+        middlePanel.setOpaque(false);
+        middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
+        middlePanel.add(createInfoSection());
+        middlePanel.add(createTransactionsPanel());
+
+        add(middlePanel, BorderLayout.CENTER);
     }
-    
+
     private JPanel createHeaderPanel() {
+        // Reusing the existing HeaderFactory
         headerPanel = HeaderFactory.createDashboardHeader();
+        // DHB's header has a different text, but for now, we use the factory.
+        // To match DHB exactly, we might need to change the title.
+        // headerPanel.setTitle("Hi, Leshka");
         return headerPanel;
     }
-    
-    private JPanel createMiddlePanel() {
-        JPanel middlePanel = new JPanel();
-        middlePanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 170));middlePanel.setBackground(new Color(1, 1, 1));
-        middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.X_AXIS));
-        middlePanel.setMaximumSize(middlePanel.getPreferredSize());
-        middlePanel.setOpaque(false);
-        
-        JPanel middleWestPanel = new JPanel();
-        middleWestPanel.setLayout(new BoxLayout(middleWestPanel, BoxLayout.Y_AXIS));
-        middleWestPanel.setPreferredSize(new Dimension(width, height));
-        
-        // menuBarDashboard container
-        JPanel menuBarDashboard = new JPanel();
-        menuBarDashboard.setPreferredSize(new Dimension(380, 65));
-        menuBarDashboard.setLayout(new BoxLayout(menuBarDashboard, BoxLayout.X_AXIS));
-        menuBarDashboard.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        
-        //separator panel
-//        JPanel separatorPanel = new JPanel(new BorderLayout());
-//        separatorPanel.setOpaque(false);
-//
-//        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-//        separator.setForeground(new Color(200, 200, 200));
-//
-//        separatorPanel.add(separator, BorderLayout.CENTER);
-//        separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
-//        separatorPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 2));
-        
-        // Insert menu items here
-        initMenuItems(menuBarDashboard);
-        
-        //Menubar west container
-        JPanel mbWestContainer = new JPanel(new BorderLayout());
-        mbWestContainer.add(menuBarDashboard);
-        mbWestContainer.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-        
-        // add other panels
-        cardLayout = new CardPanel("1", "2", "3", "4");
-        balancePanel = new BalancePanel();
-        
-        middleWestPanel.add(balancePanel);
-//        middleWestPanel.add(Box.createHorizontalStrut(10));
-        middleWestPanel.add(mbWestContainer);
-        
-        middlePanel.add(middleWestPanel, BorderLayout.WEST);
-        middlePanel.add(cardLayout, BorderLayout.EAST);
-       
-        return middlePanel;
+
+    private JPanel createInfoSection() {
+        JPanel infoSection = new JPanel(new BorderLayout(10, 10));
+        infoSection.setOpaque(false);
+        infoSection.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+        infoSection.setPreferredSize(new Dimension(getPreferredSize().width, 190));
+
+        // Card Panel on the East
+        cardPanel = new CardPanel("DEBIT", "4319   5312   0215   1289", "10/27", "Leshka Alcontin");
+        JPanel cardPanelContainer = new JPanel(new BorderLayout());
+        cardPanelContainer.setOpaque(false);
+        cardPanelContainer.setPreferredSize(new Dimension(300, 190));
+        cardPanelContainer.add(cardPanel, BorderLayout.CENTER);
+        infoSection.add(cardPanelContainer, BorderLayout.EAST);
+
+        // Info Container on the Center
+        JPanel infoContainer = new JPanel();
+        infoContainer.setOpaque(false);
+        infoContainer.setLayout(new BoxLayout(infoContainer, BoxLayout.Y_AXIS));
+
+        infoContainer.add(createCurrentBalancePanel());
+        infoContainer.add(createActionContainer());
+
+        infoSection.add(infoContainer, BorderLayout.CENTER);
+
+        return infoSection;
     }
-    
-    private JPanel createSouthPanel(){
-        JPanel southContainer = new JPanel();
-        southContainer.setPreferredSize(new Dimension(Integer.MAX_VALUE,350));
-        southContainer.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
-        
-        
-        return southContainer;
+
+    private RoundedPanel createCurrentBalancePanel() {
+        currentBalancePanel = new RoundedPanel();
+        currentBalancePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        ThemeManager.putThemeAwareProperty(currentBalancePanel, "background: $LGVB.primary");
+        currentBalancePanel.setLayout(new BoxLayout(currentBalancePanel, BoxLayout.Y_AXIS));
+        currentBalancePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 1, 1));
+        currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
+        currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, 120));
+
+
+        JLabel balanceLabel = new JLabel("₱ 10,000.00");
+        balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));
+        ThemeManager.putThemeAwareProperty(balanceLabel, "foreground: $LGVB.foreground");
+
+        JLabel subtextLabel = new JLabel("Current Balance");
+        subtextLabel.setFont(FontLoader.getFont("inter", 18f));
+        ThemeManager.putThemeAwareProperty(subtextLabel, "foreground: $LGVB.foreground");
+
+        currentBalancePanel.add(balanceLabel);
+        currentBalancePanel.add(subtextLabel);
+
+        return currentBalancePanel;
     }
-    
-private void initMenuItems(JPanel menuBarDashboard) {
-    // SVG paths
-    String[] svgPaths = {
-        "icons/svg/send.svg",
-        "icons/svg/receive.svg",
-        "icons/svg/topup.svg",
-        "icons/svg/addmore.svg"
-    };
 
-    // Labels for each button
-    String[] labels = {
-        "Send",
-        "Receive",
-        "Top Up",
-        "Add More"
-    };
+    private JPanel createActionContainer() {
+        actionContainer = new JPanel();
+        actionContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
+        actionContainer.setOpaque(false);
+        actionContainer.setLayout(new BoxLayout(actionContainer, BoxLayout.X_AXIS));
+        actionContainer.setBorder(BorderFactory.createEmptyBorder(1, 30, 1, 1));
+        actionContainer.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
 
-    menuItems = new ArrayList<>();
+        initMenuItems(actionContainer);
 
-    Dimension buttonSize = new Dimension(60, 70); // width + height (adjusted for icon + text)
-
-    for (int i = 0; i < svgPaths.length; i++) {
-        MenuItemButtonDashboard btn = new MenuItemButtonDashboard(svgPaths[i], labels[i], true);
-        btn.setFocusable(false);
-
-        // Lock button sizing
-        btn.setPreferredSize(buttonSize);
-        btn.setMaximumSize(buttonSize);
-        btn.setMinimumSize(buttonSize);
-
-        menuItems.add(btn);
-        menuBarDashboard.add(btn);
-        menuBarDashboard.add(Box.createHorizontalStrut(10)); // spacing
+        return actionContainer;
     }
-}
 
-    
-    public void setHeaderTitle(String title){
+    private void initMenuItems(JPanel menuBarDashboard) {
+        String[] svgPaths = {
+            "icons/svg/send.svg",
+            "icons/svg/receive.svg",
+            "icons/svg/topup.svg",
+            "icons/svg/addmore.svg"
+        };
+
+        String[] labels = {
+            "Send",
+            "Receive",
+// The reference DHB has "Deposit" and "Withdraw", but the original Dashboard has these.
+            "Top Up",
+            "Add More"
+        };
+
+        menuItems = new ArrayList<>();
+
+        for (int i = 0; i < svgPaths.length; i++) {
+            MenuItemButtonDashboard btn = new MenuItemButtonDashboard(svgPaths[i], labels[i], true);
+            btn.setFocusable(false);
+
+            // In DHB, the buttons are JPanels with JLabels. Here we use the existing button class.
+            // To match the size, we can set preferred/max sizes.
+            Dimension buttonSize = new Dimension(71, 71);
+            btn.setPreferredSize(buttonSize);
+            btn.setMaximumSize(buttonSize);
+            btn.setMinimumSize(buttonSize);
+
+            menuItems.add(btn);
+            menuBarDashboard.add(btn);
+            if (i < svgPaths.length - 1) {
+                menuBarDashboard.add(Box.createHorizontalStrut(10));
+            }
+        }
+    }
+
+    private JPanel createTransactionsPanel() {
+        transactionsPanel = new JPanel();
+        // This is a placeholder
+        ThemeManager.putThemeAwareProperty(transactionsPanel, "background: $Panel.background");
+        transactionsPanel.setBorder(BorderFactory.createTitledBorder("Recent Transactions"));
+        return transactionsPanel;
+    }
+
+    public void setHeaderTitle(String title) {
         headerPanel.setTitle(title);
     }
 
     public String getHeaderTitle() {
         return headerPanel.getTitle();
     }
+    
+    public void setUsername() {
+        
+    }
 }
+

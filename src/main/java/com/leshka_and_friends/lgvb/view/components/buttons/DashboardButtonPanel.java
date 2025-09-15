@@ -66,7 +66,8 @@ public abstract class DashboardButtonPanel extends JPanel {
     }
 
     protected JLabel createIconLabel() {
-        int maxIconSize = UIScale.scale(32); // max pixel size
+        // ** TODO: Von, change this to ThemeGlobalDefaults.getScaledInt("Dashboard.icon.size"); **
+        int maxIconSize = UIScale.scale(28); // max pixel size
         FlatSVGIcon icon = SVGUtils.loadIcon(svgPath, maxIconSize);
         icon.setColorFilter(SVGUtils.createColorFilter("LGVB.header"));
         JLabel label = new JLabel(icon);

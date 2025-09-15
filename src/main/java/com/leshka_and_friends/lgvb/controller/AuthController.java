@@ -93,18 +93,36 @@ public class AuthController {
 //        }
 //        char[] pwd = pf.getPassword();
 
+        User mockUser = null;
         try {
-            String mockEmail = "gianne02@gmail.com";
-            char[] mockPwd = new String("#Gianne061320").toCharArray();
-            user = auth.login(mockEmail, mockPwd);
+//            String mockEmail = "gianne02@gmail.com";
+//            char[] mockPwd = new String("#Gianne061320").toCharArray();
+//            user = auth.login(mockEmail, mockPwd);
+            mockUser = new User(
+                    1, // userId
+                    "lalcontin", // username
+                    "5f4dcc3b5aa765d61d8327deb882cf99",
+                    "Leshka", // firstName
+                    "Friends", // lastName
+                    "leshka@lgvb.com", // email
+                    "+63-912-345-6789", // phoneNumber
+                    new java.sql.Date(2003 - 1900, 4, 21), // dateOfBirth (May 21, 2003)
+                    "ADMIN", // role
+                    new java.sql.Timestamp(System.currentTimeMillis()), // createdAt
+                    null // imagePath
+            );
+            user = mockUser;
             SessionService.getInstance().login(user);
             loggedIn = true;
             JOptionPane.showMessageDialog(null, "Welcome, " + user.getFullName());
-        } catch (AuthException e) {
-            JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
-        } finally {
-//            java.util.Arrays.fill(pwd, '\0');
+        } catch (Exception e) {
+            System.out.println("Error bhai");
         }
+//        catch (AuthException e) {
+//            JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
+//        } finally {
+////            java.util.Arrays.fill(pwd, '\0');
+//        }
     }
 
     public void showRegisterDialog() {
