@@ -44,6 +44,23 @@ public class SVGUtils {
             return new FlatSVGIcon("", size, size);
         }
     }
+    
+    public static FlatSVGIcon loadIcon(String path, int width, int height) {
+        String finalPath = path;
+
+        // check if resource exists
+        if (SVGUtils.class.getResource("/" + path) == null) {
+            // fallback default
+            finalPath = "icons/svg/default.svg";
+        }
+
+        try {
+            return new FlatSVGIcon(finalPath, width, height);
+        } catch (Exception e) {
+            // worst-case: return an empty icon
+            return new FlatSVGIcon("", width, height);
+        }
+    }
 
     public static FlatSVGIcon loadCard(String resourcePath, int size,
             String name, String expiry, String number) {

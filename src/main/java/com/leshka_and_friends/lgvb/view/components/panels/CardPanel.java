@@ -1,6 +1,7 @@
 package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.ui_utils.*;
 
 import javax.swing.*;
@@ -51,6 +52,7 @@ public class CardPanel extends RoundedPanel {
         add(createHeaderPanel());
         add(createIconContainer());
         add(createCardNumberPanel());
+        add(Box.createVerticalStrut(10));
         add(createCardDetailsPanel());
     }
 
@@ -62,16 +64,20 @@ public class CardPanel extends RoundedPanel {
 
         // Logo
         JLabel logoLabel = new JLabel();
+//        ImageIcon logoImage = ImageParser.loadScaled("/Logo/logo-card.png", UIScale.scale(38), UIScale.scale(16));
+        
         FlatSVGIcon logoIcon = SVGUtils.loadIcon(
-                ThemeGlobalDefaults.getString("cards.logo.path"),
+                ThemeGlobalDefaults.getString("card.logo.path"),
                 ThemeGlobalDefaults.getScaledInt("card.logo.size")
         );
+//        FlatSVGIcon logoIcon = new FlatSVGIcon("/icons/svg/card_vectors/logo.svg", 28, 28);
         logoIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         logoLabel.setIcon(logoIcon);
+//        logoLabel.setIcon(logoImage);
         headerPanel.add(logoLabel, BorderLayout.LINE_START);
 
         // Card type + Visa icon
-        JPanel headerEast = new JPanel(new GridLayout(1, 2));
+        JPanel headerEast = new JPanel(new GridLayout(1, 2, 20, 0));
         headerEast.setOpaque(false);
 
         cardTypeLabel = new JLabel(getCardType());
@@ -83,8 +89,9 @@ public class CardPanel extends RoundedPanel {
         visaIconLabel = new JLabel();
         visaIconLabel.setHorizontalAlignment(SwingConstants.TRAILING);
         FlatSVGIcon visaIcon = SVGUtils.loadIcon(
-                ThemeGlobalDefaults.getString("cards.visa.path"),
-                ThemeGlobalDefaults.getScaledInt("card.visa.size")
+                ThemeGlobalDefaults.getString("card.visa.path"),
+                ThemeGlobalDefaults.getScaledInt("card.visa.width"),
+                ThemeGlobalDefaults.getScaledInt("card.visa.height")
         );
         visaIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         visaIconLabel.setIcon(visaIcon);
@@ -103,8 +110,9 @@ public class CardPanel extends RoundedPanel {
 
         JLabel chipIcon = new JLabel();
         FlatSVGIcon chip = SVGUtils.loadIcon(
-                ThemeGlobalDefaults.getString("cards.chip.path"),
-                ThemeGlobalDefaults.getScaledInt("card.chip.size")
+                ThemeGlobalDefaults.getString("card.chip.path"),
+                ThemeGlobalDefaults.getScaledInt("card.chip.width"),
+                ThemeGlobalDefaults.getScaledInt("card.chip.height")
         );
         chip.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         chipIcon.setIcon(chip);

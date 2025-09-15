@@ -9,6 +9,7 @@ import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,20 +22,21 @@ public class CardTest extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         
+        FlatSVGIcon cardIcon = new FlatSVGIcon("icons/svg/card_vectors/logo2.svg", 200, 100);
+        cardIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
         
-        FlatSVGIcon cardIcon = SVGUtils.loadCard(
-                "/cards/Card1.svg",
-                200,
-                "Gianne",
-                "12/29",
-                "1234   5678   9876   5432"
-        );
-
         JLabel label = new JLabel();
         label.setIcon(cardIcon);
+        
 
         add(label);
         pack();
         setVisible(true);
     }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new CardTest();
+        });
+    }   
 }

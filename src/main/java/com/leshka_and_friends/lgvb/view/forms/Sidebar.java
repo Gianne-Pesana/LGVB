@@ -56,7 +56,10 @@ public class Sidebar extends JPanel {
     private SelectionListener selectionListener;
 
     public Sidebar() {
-        setPreferredSize(new Dimension(width, height));
+        System.out.println("Sidebar width: " + width);
+        Dimension sidebarSize = new Dimension(width, height);
+        setPreferredSize(sidebarSize);
+        setMaximumSize(sidebarSize);
         ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
         setLayout(new BorderLayout());
 
