@@ -5,6 +5,7 @@
 package com.leshka_and_friends.lgvb.view.forms;
 
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.dto.CardDTO;
 import com.leshka_and_friends.lgvb.dto.DashboardDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
@@ -75,13 +76,17 @@ public class Dashboard extends JPanel {
         
 
         // Card Panel on the East
-        cardPanel = new CardPanel(dashboardDTO.
-                getUserDTO().
-                getAccounts().
-                getFirst().
-                getCards().
-                getFirst()
-        );
+        CardDTO cardToDisplay = null;
+        if (dashboardDTO.getUserDTO() != null &&
+                dashboardDTO.getUserDTO().getAccounts() != null &&
+                !dashboardDTO.getUserDTO().getAccounts().isEmpty() &&
+                dashboardDTO.getUserDTO().getAccounts().getFirst().getCards() != null &&
+                !dashboardDTO.getUserDTO().getAccounts().getFirst().getCards().isEmpty()) {
+            cardToDisplay = dashboardDTO.getUserDTO().getAccounts().getFirst().getCards().getFirst();
+        } else {
+            cardToDisplay = new CardDTO(new com.leshka_and_friends.lgvb.model.CardType(0, "Default"), "0000000000000000", "No Card Holder", java.time.YearMonth.now());
+        }
+        cardPanel = new CardPanel(cardToDisplay);
         JPanel cardPanelContainer = new JPanel(new BorderLayout());
         cardPanelContainer.setOpaque(false);
         cardPanelContainer.setPreferredSize(new Dimension(300, 190));
