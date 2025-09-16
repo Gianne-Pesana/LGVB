@@ -12,6 +12,7 @@ import com.leshka_and_friends.lgvb.dto.CardDTO;
 import com.leshka_and_friends.lgvb.dto.DashboardDTO;
 import com.leshka_and_friends.lgvb.dto.UserDTO;
 import com.leshka_and_friends.lgvb.model.Account;
+import com.leshka_and_friends.lgvb.model.CardType;
 import com.leshka_and_friends.lgvb.model.User;
 import java.util.List;
 
@@ -45,7 +46,16 @@ public class UserService {
                     a.setBalance(acc.getBalance());
 
                     List<CardDTO> cards = cardRepo.getCardsByAccountId(acc.getAccountId()).stream()
-                            .map(c -> new CardDTO(c.getCardType(), c.getCardNumber(), user.getFullName(), c.getExpiryDate()))
+                            .map(c -> {
+                                String typeName = switch (c.getCardTypeId()) {
+                                    case 1 -> "Debit";
+                                    case 2 -> "Credit";
+                                    case 3 -> "Prepaid";
+                                    default -> "Card";
+                                };
+                                CardType type = new CardType(c.getCardTypeId(), typeName); 
+                                return new CardDTO(type, c.getCardNumber(), user.getFullName(), c.getExpiryDate());
+                            })
                             .toList();
 
                     a.setCards(cards);

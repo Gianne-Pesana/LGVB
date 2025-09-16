@@ -10,7 +10,7 @@ import com.leshka_and_friends.lgvb.model.User;
 import java.util.List;
 
 public interface AccountDAO {
-    void addAccount(Account account);
+    int addAccount(Account account);
     Account getAccountById(int id);
     List<Account> getAccountsByUserId(int userId);
     List<Account> getAllAccounts();

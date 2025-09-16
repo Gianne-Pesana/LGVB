@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class Account {
     private int accountId;
     private int userId;
-    private String accountType; // savings/checking
+    private int accountTypeId; // savings/checking
     private String accountNumber;
     private double balance;
     private String status; // active/pending/closed
@@ -22,8 +22,8 @@ public class Account {
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
 
-    public String getAccountType() { return accountType; }
-    public void setAccountType(String accountType) { this.accountType = accountType; }
+    public int getAccountTypeId() { return accountTypeId; }
+    public void setAccountTypeId(int accountTypeId) { this.accountTypeId = accountTypeId; }
 
     public String getAccountNumber() { return accountNumber; }
     public void setAccountNumber(String accountNumber) { this.accountNumber = accountNumber; }

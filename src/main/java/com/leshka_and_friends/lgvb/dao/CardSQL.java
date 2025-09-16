@@ -1,7 +1,6 @@
 package com.leshka_and_friends.lgvb.dao;
 
 import com.leshka_and_friends.lgvb.model.Card;
-import com.leshka_and_friends.lgvb.model.CardType;
 import com.leshka_and_friends.lgvb.util.DBConnection;
 
 import java.sql.*;
@@ -59,7 +58,7 @@ public class CardSQL implements CardDAO {
             stmt.setString(2, card.getCardNumber());
             stmt.setDate(3, Date.valueOf(card.getExpiryDate().atDay(1))); // store as first day of month
             stmt.setString(4, card.getCvv());
-            stmt.setInt(5, card.getCardType().getCardTypeID()); // ✅ use CardType object
+            stmt.setInt(5, card.getCardTypeId()); // ✅ use CardType object
             stmt.setString(6, card.getStatus());
 
             int affected = stmt.executeUpdate();
@@ -88,7 +87,7 @@ public class CardSQL implements CardDAO {
             stmt.setString(2, card.getCardNumber());
             stmt.setDate(3, Date.valueOf(card.getExpiryDate().atDay(1)));
             stmt.setString(4, card.getCvv());
-            stmt.setInt(5, card.getCardType().getCardTypeID()); // ✅ use CardType object
+            stmt.setInt(5, card.getCardTypeId()); // ✅ use CardType object
             stmt.setString(6, card.getStatus());
             stmt.setInt(7, card.getCardId());
 
@@ -130,10 +129,7 @@ public class CardSQL implements CardDAO {
 
         card.setCvv(rs.getString("cvv"));
 
-        // ✅ For now, just set CardType with ID (you may later load full object with CardTypeDAO)
-        CardType type = new CardType();
-        type.setCardTypeID(rs.getInt("card_type_id"));
-        card.setCardType(type);
+        card.setCardTypeId(rs.getInt("card_type_id"));
 
         card.setStatus(rs.getString("status"));
         card.setIssuedAt(rs.getTimestamp("issued_at"));

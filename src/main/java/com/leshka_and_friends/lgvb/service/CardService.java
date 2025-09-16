@@ -11,6 +11,7 @@ import com.leshka_and_friends.lgvb.dao.UserSQL;
 import com.leshka_and_friends.lgvb.dto.CardDTO;
 import com.leshka_and_friends.lgvb.model.Account;
 import com.leshka_and_friends.lgvb.model.Card;
+import com.leshka_and_friends.lgvb.model.CardType;
 import com.leshka_and_friends.lgvb.model.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,15 @@ public class CardService {
         }
 
         for (Card card : cardRepo.getCardsByAccountId(accountId)) {
+            String typeName = switch (card.getCardTypeId()) {
+                case 1 -> "Debit";
+                case 2 -> "Credit";
+                case 3 -> "Prepaid";
+                default -> "Card";
+            };
+            CardType type = new CardType(card.getCardTypeId(), typeName);
             cardDtos.add(new CardDTO(
-                    card.getCardType(),
+                    type,
                     card.getCardNumber(),
                     user.getFullName(), // ✅ resolve holder here
                     card.getExpiryDate()

@@ -27,10 +27,27 @@ public class AuthController {
     private User user = null;
     private boolean loggedIn = false;
     private final AuthService auth;
+    private final AccountDAO accountDAO;
+    private final CardDAO cardDAO;
+    private final TransactionDAO transactionDAO;
+    private final UserDAO userDAO;
+    private final SessionService sessionService;
+    private final AccountService accountService;
+    private final CardService cardService;
+    private final TransactionService transactionService;
+    private final UserService userService;
 
     public AuthController() {
-        UserDAO userDAO = new UserSQL();
-        this.auth = new AuthService(userDAO);
+        userDAO = new UserSQL();
+        accountDAO = new AccountSQL();
+        cardDAO = new CardSQL();
+        transactionDAO = new TransactionSQL();
+        auth = new AuthService(userDAO);
+        sessionService = SessionService.getInstance();
+        accountService = new AccountService(accountDAO, userDAO);
+        cardService = new CardService(cardDAO, accountDAO, userDAO);
+        transactionService = new TransactionService(transactionDAO);
+        userService = new UserService(userDAO, accountDAO, cardDAO);
     }
 
     public void start() {
@@ -61,22 +78,9 @@ public class AuthController {
         }
 
         if (loggedIn) {
-            SessionService.getInstance().login(user);
-
-            // DAOs
-            AccountDAO accountDAO = new AccountSQL();
-            CardDAO cardDAO = new CardSQL();
-            TransactionDAO transactionDAO = new TransactionSQL();
-            UserDAO userDAO = new UserSQL();
-
-            // Services
-            SessionService sessionService = SessionService.getInstance();
-            AccountService accountService = new AccountService(accountDAO, userDAO);
-            CardService cardService = new CardService(cardDAO, accountDAO, userDAO);
-            TransactionService transactionService = new TransactionService(transactionDAO);
+            sessionService.login(user);
 
             // Main view
-            UserService userService = new UserService(userDAO, accountDAO, cardDAO);
             MainView mainView = new MainView(userService.getUserDisplayObjects());
             System.out.println("Main View: " + mainView.getUserFullName());
 
@@ -90,44 +94,25 @@ public class AuthController {
     }
 
     public void showLoginDialog() {
-//        String email = JOptionPane.showInputDialog("Email:");
-//        JPasswordField pf = new JPasswordField();
-//        int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-//        if (ok != JOptionPane.OK_OPTION) {
-//            return;
-//        }
-//        char[] pwd = pf.getPassword();
+        String email = JOptionPane.showInputDialog("Email:");
+        if (email == null) return; // User cancelled
 
-        User mockUser = null;
+        JPasswordField pf = new JPasswordField();
+        int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (ok != JOptionPane.OK_OPTION) {
+            return;
+        }
+        char[] pwd = pf.getPassword();
+
         try {
-//            String mockEmail = "gianne02@gmail.com";
-//            char[] mockPwd = new String("#Gianne061320").toCharArray();
-//            user = auth.login(mockEmail, mockPwd);
-            mockUser = new User(
-                    1, // userId
-                    "lalcontin", // username
-                    "5f4dcc3b5aa765d61d8327deb882cf99",
-                    "Leshka", // firstName
-                    "Friends", // lastName
-                    "leshka@lgvb.com", // email
-                    "+63-912-345-6789", // phoneNumber
-                    new java.sql.Date(2003 - 1900, 4, 21), // dateOfBirth (May 21, 2003)
-                    "ADMIN", // role
-                    new java.sql.Timestamp(System.currentTimeMillis()), // createdAt
-                    null // imagePath
-            );
-            user = mockUser;
-            SessionService.getInstance().login(user);
+            user = auth.login(email, pwd);
             loggedIn = true;
             JOptionPane.showMessageDialog(null, "Welcome, " + user.getFullName());
-        } catch (Exception e) {
-            System.out.println("Error bhai");
+        } catch (AuthException e) {
+            JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
+        } finally {
+            java.util.Arrays.fill(pwd, '\0');
         }
-//        catch (AuthException e) {
-//            JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
-//        } finally {
-////            java.util.Arrays.fill(pwd, '\0');
-//        }
     }
 
     public void showRegisterDialog() {

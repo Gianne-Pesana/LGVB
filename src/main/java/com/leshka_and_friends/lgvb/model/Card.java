@@ -16,20 +16,20 @@ public class Card {
     private String cardNumber;
     private YearMonth expiryDate;
     private String cvv;
-    private CardType cardType;   // ✅ Use CardType instead of int cardTypeId
+    private int cardTypeId;   // Use int instead of CardType
     private String status;       // "active", "blocked", "expired"
     private Timestamp issuedAt;
 
     public Card() {}
 
     public Card(int cardId, int accountId, String cardNumber, YearMonth expiryDate,
-                String cvv, CardType cardType, String status, Timestamp issuedAt) {
+                String cvv, int cardTypeId, String status, Timestamp issuedAt) {
         this.cardId = cardId;
         this.accountId = accountId;
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.cvv = cvv;
-        this.cardType = cardType;
+        this.cardTypeId = cardTypeId;
         this.status = status;
         this.issuedAt = issuedAt;
     }
@@ -51,8 +51,8 @@ public class Card {
     public String getCvv() { return cvv; }
     public void setCvv(String cvv) { this.cvv = cvv; }
 
-    public CardType getCardType() { return cardType; }
-    public void setCardType(CardType cardType) { this.cardType = cardType; }
+    public int getCardTypeId() { return cardTypeId; }
+    public void setCardTypeId(int cardTypeId) { this.cardTypeId = cardTypeId; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }

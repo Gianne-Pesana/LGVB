@@ -15,18 +15,32 @@ import java.util.List;
 public class AccountSQL implements AccountDAO {
 
     @Override
-    public void addAccount(Account account) {
-        String sql = "INSERT INTO accounts (user_id, account_type, account_number, balance, status) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public int addAccount(Account account) {
+        String sql = "INSERT INTO accounts (user_id, account_type_id, account_number, balance, status) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, account.getUserId());
-            stmt.setString(2, account.getAccountType());
+            stmt.setInt(2, account.getAccountTypeId());
             stmt.setString(3, account.getAccountNumber());
             stmt.setDouble(4, account.getBalance());
             stmt.setString(5, account.getStatus());
-            stmt.executeUpdate();
+            
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating account failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating account failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     @Override
@@ -76,9 +90,9 @@ public class AccountSQL implements AccountDAO {
 
     @Override
     public void updateAccount(Account account) {
-        String sql = "UPDATE accounts SET account_type=?, account_number=?, balance=?, status=? WHERE account_id=?";
+        String sql = "UPDATE accounts SET account_type_id=?, account_number=?, balance=?, status=? WHERE account_id=?";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, account.getAccountType());
+            stmt.setInt(1, account.getAccountTypeId());
             stmt.setString(2, account.getAccountNumber());
             stmt.setDouble(3, account.getBalance());
             stmt.setString(4, account.getStatus());
@@ -104,7 +118,7 @@ public class AccountSQL implements AccountDAO {
         Account acc = new Account();
         acc.setAccountId(rs.getInt("account_id"));
         acc.setUserId(rs.getInt("user_id"));
-        acc.setAccountType(rs.getString("account_type"));
+        acc.setAccountTypeId(rs.getInt("account_type_id"));
         acc.setAccountNumber(rs.getString("account_number"));
         acc.setBalance(rs.getDouble("balance"));
         acc.setStatus(rs.getString("status"));

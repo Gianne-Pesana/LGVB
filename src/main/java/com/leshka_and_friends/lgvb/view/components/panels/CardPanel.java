@@ -12,11 +12,7 @@ import java.awt.*;
 
 public class CardPanel extends RoundedPanel {
 
-    // --- Dynamic values ---
-    private String cardType;
-    private String cardNumber = "1234567887654321";
-    private String expiryDate = "03/24";
-    private String cardHolderName = "test test";
+    
 
     // --- Labels ---
     private JLabel cardTypeLabel;
@@ -132,7 +128,7 @@ public class CardPanel extends RoundedPanel {
         cardNumberContainer.setMaximumSize(new Dimension(Integer.MAX_VALUE,
                 ThemeGlobalDefaults.getScaledInt("card.number.height")));
 
-        cardNumberLabel = new JLabel(getCardNumber(), SwingConstants.CENTER);
+        cardNumberLabel = new JLabel(formatCardNumber(cardDTO.getMaskedNumber()), SwingConstants.CENTER);
         cardNumberLabel.setFont(FontLoader.getFont("ibmplexmono-semibold",
                 ThemeGlobalDefaults.getScaledInt("card.font.large")));
         ThemeManager.putThemeAwareProperty(cardNumberLabel, "foreground: $LGVB.foreground;");
@@ -158,7 +154,8 @@ public class CardPanel extends RoundedPanel {
         ThemeManager.putThemeAwareProperty(expiryLabel, "foreground: $LGVB.foreground;");
         expiryLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
-        expiryDateLabel = new JLabel(getExpiryDate());
+        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("MM/yy");
+        expiryDateLabel = new JLabel(cardDTO.getExpiryDate().format(formatter));
         expiryDateLabel.setFont(FontLoader.getFont("ibmplexmono-medium",
                 ThemeGlobalDefaults.getScaledInt("card.font.small")));
         ThemeManager.putThemeAwareProperty(expiryDateLabel, "foreground: $LGVB.foreground;");
@@ -181,7 +178,7 @@ public class CardPanel extends RoundedPanel {
                 ThemeGlobalDefaults.getScaledInt("card.font.tiny")));
         ThemeManager.putThemeAwareProperty(holderLabel, "foreground: $LGVB.foreground;");
 
-        cardHolderNameLabel = new JLabel(getCardHolderName());
+        cardHolderNameLabel = new JLabel(cardDTO.getHolder());
         cardHolderNameLabel.setFont(FontLoader.getFont("ibmplexmono-medium",
                 ThemeGlobalDefaults.getScaledInt("card.font.small")));
         ThemeManager.putThemeAwareProperty(cardHolderNameLabel, "foreground: $LGVB.foreground;");
@@ -194,43 +191,7 @@ public class CardPanel extends RoundedPanel {
         return detailsPanel;
     }
 
-    // --- Public getters (values) ---
-    public String getCardType() {
-        return cardType;
-    }
-
-    public String getCardNumber() {
-        return formatCardNumber(cardNumber);
-    }
-
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public String getCardHolderName() {
-        return cardHolderName;
-    }
-
-    // --- Public setters ---
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-        cardTypeLabel.setText(cardType);
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-        cardNumberLabel.setText(formatCardNumber(cardNumber));
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
-        expiryDateLabel.setText(expiryDate);
-    }
-
-    public void setCardHolderName(String cardHolderName) {
-        this.cardHolderName = cardHolderName;
-        cardHolderNameLabel.setText(cardHolderName);
-    }
+    
 
     // --- Helper: format card number ---
     private String formatCardNumber(String rawNumber) {
