@@ -12,6 +12,7 @@ import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.factories.HeaderFactory;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dashboard extends JPanel {
-    
+
     private String username;
     private double balance;
     private DashboardDTO dashboardDTO;
@@ -59,7 +60,7 @@ public class Dashboard extends JPanel {
     private JPanel createHeaderPanel() {
         // Reusing the existing HeaderFactory
         headerPanel = HeaderFactory.createDashboardHeader();
-        
+
         // DHB's header has a different text, but for now, we use the factory.
         // To match DHB exactly, we might need to change the title.
         // headerPanel.setTitle("Hi, Leshka");
@@ -69,9 +70,6 @@ public class Dashboard extends JPanel {
     private JPanel createInfoSection() {
         JPanel infoSection = new JPanel(new BorderLayout(10, 10));
         infoSection.setOpaque(false);
-        infoSection.setMaximumSize(new Dimension(Integer.MAX_VALUE, UIScale.scale(200)));
-        infoSection.setPreferredSize(new Dimension(getPreferredSize().width, UIScale.scale(190)));
-        
         
 
         // Card Panel on the East
@@ -82,11 +80,11 @@ public class Dashboard extends JPanel {
                 getCards().
                 getFirst()
         );
-        JPanel cardPanelContainer = new JPanel(new BorderLayout());
-        cardPanelContainer.setOpaque(false);
-        cardPanelContainer.setPreferredSize(new Dimension(300, 190));
-        cardPanelContainer.add(cardPanel, BorderLayout.CENTER);
-        infoSection.add(cardPanelContainer, BorderLayout.EAST);
+
+        JPanel cardWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        cardWrapper.setOpaque(false);
+        cardWrapper.add(cardPanel);
+        infoSection.add(cardWrapper, BorderLayout.EAST);
 
         // Info Container on the Center
         JPanel infoContainer = new JPanel();
@@ -109,7 +107,6 @@ public class Dashboard extends JPanel {
         currentBalancePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 1, 1));
         currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
         currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, 120));
-
 
         JLabel balanceLabel = new JLabel("₱ 10,000.00");
         balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));
@@ -149,7 +146,7 @@ public class Dashboard extends JPanel {
         String[] labels = {
             "Send",
             "Receive",
-// The reference DHB has "Deposit" and "Withdraw", but the original Dashboard has these.
+            // The reference DHB has "Deposit" and "Withdraw", but the original Dashboard has these.
             "Top Up",
             "Add More"
         };
@@ -190,9 +187,8 @@ public class Dashboard extends JPanel {
     public String getHeaderTitle() {
         return headerPanel.getTitle();
     }
-    
+
     public void setUsername() {
-        
+
     }
 }
-

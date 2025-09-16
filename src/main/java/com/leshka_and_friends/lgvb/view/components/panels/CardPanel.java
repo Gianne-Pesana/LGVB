@@ -12,17 +12,14 @@ import java.awt.*;
 
 public class CardPanel extends RoundedPanel {
 
-    
-
     // --- Labels ---
     private JLabel cardTypeLabel;
     private JLabel visaIconLabel;
     private JLabel cardNumberLabel;
     private JLabel expiryDateLabel;
     private JLabel cardHolderNameLabel;
-    
+
     private CardDTO cardDTO;
-    
 
     // --- Constructors ---
     public CardPanel(CardDTO cardDTO) {
@@ -37,6 +34,7 @@ public class CardPanel extends RoundedPanel {
 
         setPreferredSize(cardSize);
         setMaximumSize(cardSize);
+        setMinimumSize(cardSize);
 
         ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary;");
         setBorder(new EmptyBorder(
@@ -46,7 +44,6 @@ public class CardPanel extends RoundedPanel {
                 ThemeGlobalDefaults.getScaledInt("card.padding.right")
         ));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
 
         add(createHeaderPanel());
         add(Box.createVerticalStrut(10));
@@ -65,7 +62,7 @@ public class CardPanel extends RoundedPanel {
         // Logo
         JLabel logoLabel = new JLabel();
 //        ImageIcon logoImage = ImageParser.loadScaled("/Logo/logo-card.png", UIScale.scale(38), UIScale.scale(16));
-        
+
         FlatSVGIcon logoIcon = SVGUtils.loadIcon(
                 ThemeGlobalDefaults.getString("card.logo.path"),
                 ThemeGlobalDefaults.getScaledInt("card.logo.width"),
@@ -190,8 +187,6 @@ public class CardPanel extends RoundedPanel {
 
         return detailsPanel;
     }
-
-    
 
     // --- Helper: format card number ---
     private String formatCardNumber(String rawNumber) {
