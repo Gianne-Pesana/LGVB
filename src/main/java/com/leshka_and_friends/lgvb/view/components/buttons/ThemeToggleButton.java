@@ -48,4 +48,3 @@ public class ThemeToggleButton extends SidebarButtonPanel {
         return toggled;
     }
 }
-

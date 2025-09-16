@@ -4,12 +4,12 @@
  */
 package com.leshka_and_friends.lgvb.view.test;
 
-import com.leshka_and_friends.lgvb.exceptions.AuthException;
-import com.leshka_and_friends.lgvb.service.AuthService;
-import com.leshka_and_friends.lgvb.dao.UserDAO;
-import com.leshka_and_friends.lgvb.dao.UserSQL;
-import com.leshka_and_friends.lgvb.model.User;
-import com.leshka_and_friends.lgvb.service.SessionService;
+import com.leshka_and_friends.lgvb.auth.AuthException;
+import com.leshka_and_friends.lgvb.auth.AuthService;
+import com.leshka_and_friends.lgvb.user.UserDAO;
+import com.leshka_and_friends.lgvb.user.UserSQL;
+import com.leshka_and_friends.lgvb.user.User;
+import com.leshka_and_friends.lgvb.auth.SessionService;
 
 import javax.swing.*;
 import java.time.LocalDate;

@@ -2,8 +2,7 @@ package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.dto.CardDTO;
-import com.leshka_and_friends.lgvb.dto.UserDTO;
+import com.leshka_and_friends.lgvb.card.CardDTO;
 import com.leshka_and_friends.lgvb.view.ui_utils.*;
 
 import javax.swing.*;

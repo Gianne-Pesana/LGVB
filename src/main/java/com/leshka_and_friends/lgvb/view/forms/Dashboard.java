@@ -5,7 +5,7 @@
 package com.leshka_and_friends.lgvb.view.forms;
 
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.dto.DashboardDTO;
+import com.leshka_and_friends.lgvb.dashboard.DashboardDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
@@ -107,7 +107,7 @@ public class Dashboard extends JPanel {
         currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
         currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, 120));
 
-        JLabel balanceLabel = new JLabel("₱ " + 
+        JLabel balanceLabel = new JLabel("₱ " +
                 dashboardDTO.getUserDTO().getAccounts().getFirst().getBalance()
         );
         balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));

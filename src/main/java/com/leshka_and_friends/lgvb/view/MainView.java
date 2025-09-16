@@ -4,8 +4,8 @@
  */
 package com.leshka_and_friends.lgvb.view;
 
-import com.leshka_and_friends.lgvb.dto.DashboardDTO;
-import com.leshka_and_friends.lgvb.dto.UserDTO;
+import com.leshka_and_friends.lgvb.dashboard.DashboardDTO;
+import com.leshka_and_friends.lgvb.user.UserDTO;
 import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;

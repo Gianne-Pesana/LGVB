@@ -22,5 +22,3 @@ public final class PanelFactory {
 		return new TitlePanel(title);
 	}
 }
-
-

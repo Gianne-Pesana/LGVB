@@ -6,5 +6,3 @@ public enum ViewPage {
 	LOAN,
 	CARDS
 }
-
-

@@ -18,4 +18,3 @@ public class LGVBLight extends FlatLightLaf {
         return NAME;
     }
 }
-

@@ -7,7 +7,7 @@ package com.leshka_and_friends.lgvb.view.forms;
 import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.dto.UserDTO;
+import com.leshka_and_friends.lgvb.user.UserDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
 import com.leshka_and_friends.lgvb.view.components.buttons.UserProfile;
 import com.leshka_and_friends.lgvb.view.factories.SidebarButtonFactory;
