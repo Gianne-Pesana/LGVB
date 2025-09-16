@@ -11,8 +11,8 @@ import java.awt.*;
 public class CardPanel extends RoundedPanel {
 
     // --- Dynamic values ---
-    private String cardType;
-    private String cardNumber;
+    private String cardType = "placeholder";
+    private String cardNumber = formatCardNumber("123456789");
     private String expiryDate;
     private String cardHolderName;
 
@@ -48,8 +48,10 @@ public class CardPanel extends RoundedPanel {
                 ThemeGlobalDefaults.getScaledInt("card.padding.right")
         ));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        
 
         add(createHeaderPanel());
+        add(Box.createVerticalStrut(10));
         add(createIconContainer());
         add(createCardNumberPanel());
         add(Box.createVerticalStrut(10));
@@ -68,7 +70,8 @@ public class CardPanel extends RoundedPanel {
         
         FlatSVGIcon logoIcon = SVGUtils.loadIcon(
                 ThemeGlobalDefaults.getString("card.logo.path"),
-                ThemeGlobalDefaults.getScaledInt("card.logo.size")
+                ThemeGlobalDefaults.getScaledInt("card.logo.width"),
+                ThemeGlobalDefaults.getScaledInt("card.logo.height")
         );
 //        FlatSVGIcon logoIcon = new FlatSVGIcon("/icons/svg/card_vectors/logo.svg", 28, 28);
         logoIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));

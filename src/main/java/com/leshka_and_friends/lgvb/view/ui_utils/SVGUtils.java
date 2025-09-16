@@ -29,20 +29,7 @@ public class SVGUtils {
     }
     
     public static FlatSVGIcon loadIcon(String path, int size) {
-        String finalPath = path;
-
-        // check if resource exists
-        if (SVGUtils.class.getResource("/" + path) == null) {
-            // fallback default
-            finalPath = "icons/svg/default.svg";
-        }
-
-        try {
-            return new FlatSVGIcon(finalPath, size, size);
-        } catch (Exception e) {
-            // worst-case: return an empty icon
-            return new FlatSVGIcon("", size, size);
-        }
+        return loadIcon(path, size, size);
     }
     
     public static FlatSVGIcon loadIcon(String path, int width, int height) {
@@ -58,7 +45,7 @@ public class SVGUtils {
             return new FlatSVGIcon(finalPath, width, height);
         } catch (Exception e) {
             // worst-case: return an empty icon
-            return new FlatSVGIcon("", width, height);
+            return new FlatSVGIcon("icons/svg/default.svg", width, height);
         }
     }
 
