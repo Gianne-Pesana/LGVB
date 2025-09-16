@@ -1,11 +1,13 @@
 com\leshka_and_friends\lgvb\controller\AuthController.class
 com\leshka_and_friends\lgvb\view\test\CardTest.class
+com\leshka_and_friends\lgvb\dto\DashboardDTO.class
 com\leshka_and_friends\lgvb\LGVB.class
 com\leshka_and_friends\lgvb\view\forms\Wallet.class
 com\leshka_and_friends\lgvb\service\CardService.class
 com\leshka_and_friends\lgvb\view\components\panels\TitlePanel.class
 com\leshka_and_friends\lgvb\view\themes\LGVBLight.class
 com\leshka_and_friends\lgvb\model\User.class
+com\leshka_and_friends\lgvb\dto\CardDTO.class
 com\leshka_and_friends\lgvb\controller\MainController.class
 com\leshka_and_friends\lgvb\view\ui_utils\FontLoader.class
 com\leshka_and_friends\lgvb\view\MainView$1.class
@@ -13,6 +15,7 @@ com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel$2.class
 com\leshka_and_friends\lgvb\view\components\panels\AvatarPanel.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$2.class
 com\leshka_and_friends\lgvb\view\MainView.class
+com\leshka_and_friends\lgvb\dto\AccountDTO.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel$1.class
 com\leshka_and_friends\lgvb\view\test\TestCardIcon.class
 com\leshka_and_friends\lgvb\dao\UserDAO.class
@@ -44,7 +47,6 @@ com\leshka_and_friends\lgvb\dao\UserDAOImpl.class
 com\leshka_and_friends\lgvb\dao\TransactionDAOImpl.class
 com\leshka_and_friends\lgvb\view\components\buttons\StaticItemButton.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory.class
-com\leshka_and_friends\lgvb\dao\CardDaoImpl.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
 com\leshka_and_friends\lgvb\service\AccountService.class
 com\leshka_and_friends\lgvb\service\PasswordUtils.class
@@ -67,6 +69,7 @@ com\leshka_and_friends\lgvb\dao\AccountDAO.class
 com\leshka_and_friends\lgvb\service\UserService.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory$1.class
+com\leshka_and_friends\lgvb\dao\CardDAOImpl.class
 com\leshka_and_friends\lgvb\util\AppConfig.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\service\TransactionService.class

@@ -4,10 +4,13 @@
  */
 package com.leshka_and_friends.lgvb.dto;
 
+import java.util.List;
+
 /**
  *
  * @author giann
  */
 public class DashboardDTO {
-    
+    private String username;
+    private List<AccountDTO> accounts;
 }

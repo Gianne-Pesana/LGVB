@@ -63,13 +63,14 @@ public class AuthController {
 
             // DAOs
             AccountDAO accountDAO = new AccountDAOImpl();
-            CardDAO cardDAO = new CardDaoImpl();
+            CardDAO cardDAO = new CardDAOImpl();
             TransactionDAO transactionDAO = new TransactionDAOImpl();
+            UserDAO userDAO = new UserDAOImpl();
 
             // Services
             SessionService sessionService = SessionService.getInstance();
-            AccountService accountService = new AccountService(accountDAO);
-            CardService cardService = new CardService(cardDAO);
+            AccountService accountService = new AccountService(accountDAO, userDAO);
+            CardService cardService = new CardService(cardDAO, accountDAO, userDAO);
             TransactionService transactionService = new TransactionService(transactionDAO);
 
             // Main view

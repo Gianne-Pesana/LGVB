@@ -16,4 +16,48 @@ public class CardDTO {
     private String maskedNumber;
     private String holder;
     private YearMonth expiryDate;
+
+    public CardDTO() {
+    }
+
+    public CardDTO(CardType type, String maskedNumber, String holder, YearMonth expiryDate) {
+        this.type = type;
+        setMaskedNumber(maskedNumber);
+        this.holder = holder;
+        this.expiryDate = expiryDate;
+    }
+
+    public CardType getType() {
+        return type;
+    }
+
+    public void setType(CardType type) {
+        this.type = type;
+    }
+
+    public String getMaskedNumber() {
+        return maskedNumber;
+    }
+
+    public void setMaskedNumber(String maskedNumber) {
+        this.maskedNumber = maskedNumber;
+    }
+
+    public String getHolder() {
+        return holder;
+    }
+
+    public void setHolder(String holder) {
+        this.holder = holder;
+    }
+
+    public YearMonth getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(YearMonth expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+    
+    
 }

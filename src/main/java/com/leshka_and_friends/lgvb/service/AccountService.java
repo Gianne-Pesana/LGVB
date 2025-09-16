@@ -5,6 +5,9 @@
 package com.leshka_and_friends.lgvb.service;
 
 import com.leshka_and_friends.lgvb.dao.AccountDAO;
+import com.leshka_and_friends.lgvb.dao.UserDAO;
+import com.leshka_and_friends.lgvb.model.Account;
+import com.leshka_and_friends.lgvb.model.User;
 
 /**
  *
@@ -12,11 +15,20 @@ import com.leshka_and_friends.lgvb.dao.AccountDAO;
  */
 public class AccountService {
 
-    private final AccountDAO repo;
+    private final AccountDAO accountRepo;
+    private final UserDAO userRepo;
 
-    public AccountService(AccountDAO repo) {
-        this.repo = repo;
+    public AccountService(AccountDAO accountRepo, UserDAO userRepo) {
+        this.accountRepo = accountRepo;
+        this.userRepo = userRepo;
     }
-    
-    
+
+    public User getUserForAccount(int accountId) {
+        Account account = accountRepo.getAccountById(accountId);
+        if (account == null) {
+            throw new IllegalArgumentException("Account not found");
+        }
+
+        return userRepo.getUserById(account.getUserId());
+    }
 }
