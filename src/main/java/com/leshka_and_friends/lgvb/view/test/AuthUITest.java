@@ -7,7 +7,7 @@ package com.leshka_and_friends.lgvb.view.test;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
 import com.leshka_and_friends.lgvb.service.AuthService;
 import com.leshka_and_friends.lgvb.dao.UserDAO;
-import com.leshka_and_friends.lgvb.dao.UserDAOImpl;
+import com.leshka_and_friends.lgvb.dao.UserSQL;
 import com.leshka_and_friends.lgvb.model.User;
 import com.leshka_and_friends.lgvb.service.SessionService;
 
@@ -24,8 +24,8 @@ public class AuthUITest {
     private final AuthService auth;
 
     public AuthUITest() {
-        // Pass UserDAOImpl into the AuthService
-        UserDAO userDAO = new UserDAOImpl();
+        // Pass UserSQL into the AuthService
+        UserDAO userDAO = new UserSQL();
         this.auth = new AuthService(userDAO);
     }
 

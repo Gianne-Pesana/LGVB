@@ -4,6 +4,8 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
+import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.dto.DashboardDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
@@ -21,6 +23,7 @@ public class Dashboard extends JPanel {
     
     private String username;
     private double balance;
+    private DashboardDTO dashboardDTO;
 
     private HeaderPanel headerPanel;
     private CardPanel cardPanel;
@@ -30,7 +33,8 @@ public class Dashboard extends JPanel {
 
     private List<MenuItemButtonDashboard> menuItems = new ArrayList<>();
 
-    public Dashboard() {
+    public Dashboard(DashboardDTO dashboardDTO) {
+        this.dashboardDTO = dashboardDTO;
         setOpaque(false);
         // Set a border similar to DHB.java
         setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
@@ -55,6 +59,7 @@ public class Dashboard extends JPanel {
     private JPanel createHeaderPanel() {
         // Reusing the existing HeaderFactory
         headerPanel = HeaderFactory.createDashboardHeader();
+        
         // DHB's header has a different text, but for now, we use the factory.
         // To match DHB exactly, we might need to change the title.
         // headerPanel.setTitle("Hi, Leshka");
@@ -64,8 +69,10 @@ public class Dashboard extends JPanel {
     private JPanel createInfoSection() {
         JPanel infoSection = new JPanel(new BorderLayout(10, 10));
         infoSection.setOpaque(false);
-        infoSection.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
-        infoSection.setPreferredSize(new Dimension(getPreferredSize().width, 190));
+        infoSection.setMaximumSize(new Dimension(Integer.MAX_VALUE, UIScale.scale(200)));
+        infoSection.setPreferredSize(new Dimension(getPreferredSize().width, UIScale.scale(190)));
+        
+        
 
         // Card Panel on the East
         cardPanel = new CardPanel("DEBIT", "4319   5312   0215   1289", "10/27", "Leshka Alcontin");

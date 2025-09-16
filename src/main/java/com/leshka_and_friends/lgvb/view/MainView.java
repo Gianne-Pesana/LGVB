@@ -4,6 +4,8 @@
  */
 package com.leshka_and_friends.lgvb.view;
 
+import com.leshka_and_friends.lgvb.dto.DashboardDTO;
+import com.leshka_and_friends.lgvb.dto.UserDTO;
 import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
@@ -35,7 +37,10 @@ public class MainView extends JFrame {
     private final double widthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.width.scaleFactor");
     private final double heigthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.height.scaleFactor");
 
-    public MainView() {
+    private UserDTO dto;
+    
+    public MainView(UserDTO dto) {
+        this.dto = dto;
         // Load fonts first
         FontLoader.loadFonts();
 
@@ -109,7 +114,7 @@ public class MainView extends JFrame {
     private void createContentPanels() {
         // Create dashboard panel with sample data
         String dashboardTitle = ThemeGlobalDefaults.getString("Panel.Dashboard.title");
-        dashboardPanel = new Dashboard();
+        dashboardPanel = new Dashboard(new DashboardDTO(dto));
 
         // Create other panels
         String walletTitle = ThemeGlobalDefaults.getString("Panel.Wallet.title");

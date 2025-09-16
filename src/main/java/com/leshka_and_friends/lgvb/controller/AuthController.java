@@ -6,6 +6,8 @@ package com.leshka_and_friends.lgvb.controller;
 
 import com.leshka_and_friends.lgvb.dao.AccountDAO;
 import com.leshka_and_friends.lgvb.dao.*;
+import com.leshka_and_friends.lgvb.dto.AccountDTO;
+import com.leshka_and_friends.lgvb.dto.UserDTO;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
 import com.leshka_and_friends.lgvb.model.User;
 import com.leshka_and_friends.lgvb.service.*;
@@ -27,7 +29,7 @@ public class AuthController {
     private final AuthService auth;
 
     public AuthController() {
-        UserDAO userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserSQL();
         this.auth = new AuthService(userDAO);
     }
 
@@ -62,10 +64,10 @@ public class AuthController {
             SessionService.getInstance().login(user);
 
             // DAOs
-            AccountDAO accountDAO = new AccountDAOImpl();
-            CardDAO cardDAO = new CardDAOImpl();
-            TransactionDAO transactionDAO = new TransactionDAOImpl();
-            UserDAO userDAO = new UserDAOImpl();
+            AccountDAO accountDAO = new AccountSQL();
+            CardDAO cardDAO = new CardSQL();
+            TransactionDAO transactionDAO = new TransactionSQL();
+            UserDAO userDAO = new UserSQL();
 
             // Services
             SessionService sessionService = SessionService.getInstance();
@@ -74,7 +76,8 @@ public class AuthController {
             TransactionService transactionService = new TransactionService(transactionDAO);
 
             // Main view
-            MainView mainView = new MainView();
+            UserService userService = new UserService(userDAO, accountDAO, cardDAO);
+            MainView mainView = new MainView(userService.getUserDisplayObjects());
 
             // Main controller orchestrates everything
             MainController mainController = new MainController(

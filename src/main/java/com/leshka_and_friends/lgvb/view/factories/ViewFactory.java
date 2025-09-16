@@ -7,11 +7,6 @@ import com.leshka_and_friends.lgvb.view.MainView;
  */
 public final class ViewFactory {
 
-	private ViewFactory() { }
-
-	public static MainView createMainView() {
-		return new MainView();
-	}
 }
 
 

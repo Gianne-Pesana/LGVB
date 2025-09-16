@@ -11,6 +11,20 @@ import java.util.List;
  * @author giann
  */
 public class DashboardDTO {
-    private String username;
-    private List<AccountDTO> accounts;
+    private UserDTO userDTO;
+
+    public DashboardDTO() {
+    }
+
+    public DashboardDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
+    }
 }

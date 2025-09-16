@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-public class AccountDAOImpl implements AccountDAO {
+public class AccountSQL implements AccountDAO {
 
     @Override
     public void addAccount(Account account) {

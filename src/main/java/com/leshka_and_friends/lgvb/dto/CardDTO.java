@@ -12,6 +12,7 @@ import java.time.YearMonth;
  * @author giann
  */
 public class CardDTO {
+
     private CardType type;
     private String maskedNumber;
     private String holder;
@@ -39,8 +40,12 @@ public class CardDTO {
         return maskedNumber;
     }
 
-    public void setMaskedNumber(String maskedNumber) {
-        this.maskedNumber = maskedNumber;
+    public void setMaskedNumber(String raw) {
+        if (raw == null || raw.isBlank()) {
+            this.maskedNumber = "#".repeat(16);
+        }
+
+        this.maskedNumber = "*".repeat(raw.length() - 4) + raw.substring(raw.length() - 4);
     }
 
     public String getHolder() {
@@ -58,6 +63,5 @@ public class CardDTO {
     public void setExpiryDate(YearMonth expiryDate) {
         this.expiryDate = expiryDate;
     }
-    
-    
+
 }

@@ -7,7 +7,7 @@ package com.leshka_and_friends.lgvb.service;
 import com.leshka_and_friends.lgvb.dao.AccountDAO;
 import com.leshka_and_friends.lgvb.dao.CardDAO;
 import com.leshka_and_friends.lgvb.dao.UserDAO;
-import com.leshka_and_friends.lgvb.dao.UserDAOImpl;
+import com.leshka_and_friends.lgvb.dao.UserSQL;
 import com.leshka_and_friends.lgvb.dto.CardDTO;
 import com.leshka_and_friends.lgvb.model.Account;
 import com.leshka_and_friends.lgvb.model.Card;
@@ -48,7 +48,7 @@ public class CardService {
         for (Card card : cardRepo.getCardsByAccountId(accountId)) {
             cardDtos.add(new CardDTO(
                     card.getCardType(),
-                    maskCardNumber(card.getCardNumber()),
+                    card.getCardNumber(),
                     user.getFullName(), // ✅ resolve holder here
                     card.getExpiryDate()
             ));
@@ -89,13 +89,5 @@ public class CardService {
         }
 
         cardRepo.deleteCard(card.getCardId());
-    }
-
-    public String maskCardNumber(String raw) {
-        if (raw == null || raw.isBlank()) {
-            return "#".repeat(16);
-        }
-
-        return "*".repeat(12) + raw.substring(raw.length() - 4);
     }
 }

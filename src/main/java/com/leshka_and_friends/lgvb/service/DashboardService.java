@@ -19,21 +19,22 @@ import java.util.List;
  *
  * @author giann
  */
-public class UserService {
+public class DashboardService {
+
     UserDAO userRepo;
     AccountDAO accountRepo;
     CardDAO cardRepo;
 
-    public UserService() {
+    public DashboardService() {
     }
 
-    public UserService(UserDAO userRepo, AccountDAO accoutRepo, CardDAO cardRepo) {
+    public DashboardService(UserDAO userRepo, AccountDAO accoutRepo, CardDAO cardRepo) {
         this.userRepo = userRepo;
         this.accountRepo = accoutRepo;
         this.cardRepo = cardRepo;
     }
-    
-    public UserDTO getUserDisplayObjects() {
+
+    public DashboardDTO getDashboardData() {
         User user = SessionService.getInstance().getCurrentUser();
 
         List<Account> accounts = accountRepo.getAccountsByUserId(user.getUserId());
@@ -57,7 +58,10 @@ public class UserService {
                 .toList();
 
         userDTO.setAccounts(accountDTOs);
-        return userDTO;
-    }
         
+        return new DashboardDTO(userDTO);
+    }
+
+    
+    
 }

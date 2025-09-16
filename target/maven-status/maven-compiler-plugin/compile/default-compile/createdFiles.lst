@@ -10,6 +10,7 @@ com\leshka_and_friends\lgvb\model\User.class
 com\leshka_and_friends\lgvb\dto\CardDTO.class
 com\leshka_and_friends\lgvb\controller\MainController.class
 com\leshka_and_friends\lgvb\view\ui_utils\FontLoader.class
+com\leshka_and_friends\lgvb\dao\UserSQL.class
 com\leshka_and_friends\lgvb\view\MainView$1.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel$2.class
 com\leshka_and_friends\lgvb\view\components\panels\AvatarPanel.class
@@ -27,7 +28,6 @@ com\leshka_and_friends\lgvb\view\forms\Sidebar.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$1.class
 com\leshka_and_friends\lgvb\view\factories\ViewFactory.class
 com\leshka_and_friends\lgvb\dao\TransactionDAO.class
-com\leshka_and_friends\lgvb\dao\AccountDAOImpl.class
 com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.class
 com\leshka_and_friends\lgvb\view\factories\PanelFactory.class
 com\leshka_and_friends\lgvb\model\Card.class
@@ -37,14 +37,15 @@ com\leshka_and_friends\lgvb\view\ContentManager.class
 com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.class
 com\leshka_and_friends\lgvb\dao\CardDAO.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.class
+com\leshka_and_friends\lgvb\service\DashboardService.class
 com\leshka_and_friends\lgvb\model\Transaction.class
+com\leshka_and_friends\lgvb\dao\AccountSQL.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel$2.class
 com\leshka_and_friends\lgvb\view\components\panels\RoundedPanel.class
 com\leshka_and_friends\lgvb\service\SessionService.class
 com\leshka_and_friends\lgvb\util\DBConnection.class
+com\leshka_and_friends\lgvb\dto\UserDTO.class
 com\leshka_and_friends\lgvb\exceptions\AuthException.class
-com\leshka_and_friends\lgvb\dao\UserDAOImpl.class
-com\leshka_and_friends\lgvb\dao\TransactionDAOImpl.class
 com\leshka_and_friends\lgvb\view\components\buttons\StaticItemButton.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
@@ -61,6 +62,7 @@ com\leshka_and_friends\lgvb\model\Account.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\ViewPage.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
+com\leshka_and_friends\lgvb\dao\CardSQL.class
 com\leshka_and_friends\lgvb\view\ui_utils\SvgTspanCleaner.class
 com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGCardIconHelper.class
@@ -69,7 +71,7 @@ com\leshka_and_friends\lgvb\dao\AccountDAO.class
 com\leshka_and_friends\lgvb\service\UserService.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory$1.class
-com\leshka_and_friends\lgvb\dao\CardDAOImpl.class
+com\leshka_and_friends\lgvb\dao\TransactionSQL.class
 com\leshka_and_friends\lgvb\util\AppConfig.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\service\TransactionService.class

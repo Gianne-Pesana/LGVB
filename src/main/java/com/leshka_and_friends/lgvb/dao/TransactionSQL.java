@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-public class TransactionDAOImpl implements TransactionDAO {
+public class TransactionSQL implements TransactionDAO {
 
     @Override
     public void addTransaction(Transaction transaction) {

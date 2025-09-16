@@ -9,7 +9,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardDAOImpl implements CardDAO {
+public class CardSQL implements CardDAO {
 
     @Override
     public Card getCardById(int cardId) {
