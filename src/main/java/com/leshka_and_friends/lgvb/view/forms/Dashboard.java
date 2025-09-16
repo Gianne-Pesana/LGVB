@@ -75,7 +75,13 @@ public class Dashboard extends JPanel {
         
 
         // Card Panel on the East
-        cardPanel = new CardPanel("DEBIT", "4319   5312   0215   1289", "10/27", "Leshka Alcontin");
+        cardPanel = new CardPanel(dashboardDTO.
+                getUserDTO().
+                getAccounts().
+                getFirst().
+                getCards().
+                getFirst()
+        );
         JPanel cardPanelContainer = new JPanel(new BorderLayout());
         cardPanelContainer.setOpaque(false);
         cardPanelContainer.setPreferredSize(new Dimension(300, 190));

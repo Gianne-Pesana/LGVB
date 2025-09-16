@@ -2,6 +2,8 @@ package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.dto.CardDTO;
+import com.leshka_and_friends.lgvb.dto.UserDTO;
 import com.leshka_and_friends.lgvb.view.ui_utils.*;
 
 import javax.swing.*;
@@ -11,10 +13,10 @@ import java.awt.*;
 public class CardPanel extends RoundedPanel {
 
     // --- Dynamic values ---
-    private String cardType = "placeholder";
-    private String cardNumber = formatCardNumber("123456789");
-    private String expiryDate;
-    private String cardHolderName;
+    private String cardType;
+    private String cardNumber = "1234567887654321";
+    private String expiryDate = "03/24";
+    private String cardHolderName = "test test";
 
     // --- Labels ---
     private JLabel cardTypeLabel;
@@ -22,13 +24,13 @@ public class CardPanel extends RoundedPanel {
     private JLabel cardNumberLabel;
     private JLabel expiryDateLabel;
     private JLabel cardHolderNameLabel;
+    
+    private CardDTO cardDTO;
+    
 
     // --- Constructors ---
-    public CardPanel(String cardType, String cardNumber, String expiryDate, String cardHolderName) {
-        this.cardType = cardType;
-        this.cardNumber = cardNumber;
-        this.expiryDate = expiryDate;
-        this.cardHolderName = cardHolderName;
+    public CardPanel(CardDTO cardDTO) {
+        this.cardDTO = cardDTO;
         initComponents();
     }
 
@@ -83,7 +85,7 @@ public class CardPanel extends RoundedPanel {
         JPanel headerEast = new JPanel(new GridLayout(1, 2, 20, 0));
         headerEast.setOpaque(false);
 
-        cardTypeLabel = new JLabel(getCardType());
+        cardTypeLabel = new JLabel(cardDTO.getType().getName());
         cardTypeLabel.setFont(FontLoader.getFont("ibmplexmono-semibold",
                 ThemeGlobalDefaults.getScaledInt("card.font.small")));
         ThemeManager.putThemeAwareProperty(cardTypeLabel, "foreground: $LGVB.foreground;");

@@ -56,7 +56,8 @@ public class MainView extends JFrame {
         setSize(width, height);
 
         // Sidebar panel (left)
-        sidebar = new Sidebar();
+        System.out.println("Inside Main View: " + dto.getFullName());
+        sidebar = new Sidebar(this.dto);
         sidebar.setSelectionListener(new Sidebar.SelectionListener() {
             @Override
             public void onSelectDashboard() {
@@ -130,5 +131,10 @@ public class MainView extends JFrame {
     public Sidebar getSidebarPanel() {
         return sidebar;
     }
+
+    public String getUserFullName() {
+        return dto.getFullName();
+    }
+    
 
 }

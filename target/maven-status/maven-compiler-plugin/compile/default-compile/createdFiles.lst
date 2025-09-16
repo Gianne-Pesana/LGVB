@@ -52,7 +52,6 @@ com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
 com\leshka_and_friends\lgvb\service\AccountService.class
 com\leshka_and_friends\lgvb\service\PasswordUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\HeaderPanel.class
-com\leshka_and_friends\lgvb\view\test\CardPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile.class
 com\leshka_and_friends\lgvb\view\components\panels\BalancePanel.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class

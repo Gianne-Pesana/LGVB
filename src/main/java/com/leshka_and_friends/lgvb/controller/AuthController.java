@@ -78,6 +78,7 @@ public class AuthController {
             // Main view
             UserService userService = new UserService(userDAO, accountDAO, cardDAO);
             MainView mainView = new MainView(userService.getUserDisplayObjects());
+            System.out.println("Main View: " + mainView.getUserFullName());
 
             // Main controller orchestrates everything
             MainController mainController = new MainController(

@@ -27,7 +27,6 @@ public class MainController {
         this.cardService = cardService;
         this.transactionService = transactionService;
         
-        mainView.getSidebarPanel().updateUserProfile(session.getCurrentUser().getFullName(), session.getCurrentUser().getImagePath());
     }
     
     

@@ -37,9 +37,6 @@ public class UserService {
         User user = SessionService.getInstance().getCurrentUser();
 
         List<Account> accounts = accountRepo.getAccountsByUserId(user.getUserId());
-        UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
 
         List<AccountDTO> accountDTOs = accounts.stream()
                 .map(acc -> {
@@ -56,6 +53,8 @@ public class UserService {
                 })
                 .toList();
 
+        UserDTO userDTO = new UserDTO(user.getFirstName(), user.getLastName(), user.getImagePath(), accountDTOs);
+        System.out.println("Service: " + userDTO.getFullName());
         userDTO.setAccounts(accountDTOs);
         return userDTO;
     }
