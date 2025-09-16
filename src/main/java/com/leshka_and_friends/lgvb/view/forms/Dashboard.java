@@ -70,7 +70,6 @@ public class Dashboard extends JPanel {
     private JPanel createInfoSection() {
         JPanel infoSection = new JPanel(new BorderLayout(10, 10));
         infoSection.setOpaque(false);
-        
 
         // Card Panel on the East
         cardPanel = new CardPanel(dashboardDTO.
@@ -108,7 +107,9 @@ public class Dashboard extends JPanel {
         currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
         currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, 120));
 
-        JLabel balanceLabel = new JLabel("₱ 10,000.00");
+        JLabel balanceLabel = new JLabel("₱ " + 
+                dashboardDTO.getUserDTO().getAccounts().getFirst().getBalance()
+        );
         balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));
         ThemeManager.putThemeAwareProperty(balanceLabel, "foreground: $LGVB.foreground");
 
@@ -174,9 +175,15 @@ public class Dashboard extends JPanel {
 
     private JPanel createTransactionsPanel() {
         transactionsPanel = new JPanel();
-        // This is a placeholder
+        transactionsPanel.setOpaque(false);
+        transactionsPanel.setLayout(new BorderLayout()); // Allows content to expand
         ThemeManager.putThemeAwareProperty(transactionsPanel, "background: $Panel.background");
         transactionsPanel.setBorder(BorderFactory.createTitledBorder("Recent Transactions"));
+
+        // Make it expand in Y-axis inside BoxLayout
+        transactionsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        transactionsPanel.setPreferredSize(new Dimension(0, 300)); // starting height
+
         return transactionsPanel;
     }
 

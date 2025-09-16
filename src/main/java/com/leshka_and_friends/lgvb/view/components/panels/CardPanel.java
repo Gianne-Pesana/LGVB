@@ -46,10 +46,11 @@ public class CardPanel extends RoundedPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(createHeaderPanel());
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(15));
         add(createIconContainer());
-        add(createCardNumberPanel());
         add(Box.createVerticalStrut(10));
+        add(createCardNumberPanel());
+        add(Box.createVerticalStrut(15));
         add(createCardDetailsPanel());
     }
 
