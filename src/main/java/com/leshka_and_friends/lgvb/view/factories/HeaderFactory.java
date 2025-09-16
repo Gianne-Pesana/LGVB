@@ -13,8 +13,8 @@ import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
 public class HeaderFactory {
 
 
-    public static HeaderPanel createDashboardHeader() {
-        return new HeaderPanel("Dashboard");
+    public static HeaderPanel createDashboardHeader(String name) {
+        return new HeaderPanel("Hi, " + name);
     }
 
     public static HeaderPanel createWalletHeader() {

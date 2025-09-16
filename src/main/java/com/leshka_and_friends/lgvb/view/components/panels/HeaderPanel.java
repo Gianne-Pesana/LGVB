@@ -45,12 +45,12 @@ public class HeaderPanel extends JPanel {
         labelContainer.setOpaque(false);
 
         titleLabel = new JLabel(title);
-        titleLabel.putClientProperty("FlatLaf.style", "foreground: $LGVB.header;");
+        ThemeManager.putThemeAwareProperty(titleLabel, "foreground: $LGVB.header;");
         titleLabel.setFont(FontLoader.getInter(35f).deriveFont(Font.BOLD));
         titleLabel.setAlignmentX(LEFT_ALIGNMENT);
 
         dateLabel = new JLabel(LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
-        dateLabel.putClientProperty("FlatLaf.style", "foreground: $LGVB.header;");
+        ThemeManager.putThemeAwareProperty(dateLabel, "foreground: $LGVB.header;");
         dateLabel.setFont(FontLoader.getInter(12f));
         dateLabel.setAlignmentX(LEFT_ALIGNMENT);
 

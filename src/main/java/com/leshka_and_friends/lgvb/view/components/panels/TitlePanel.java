@@ -20,7 +20,7 @@ public class TitlePanel extends JPanel {
 
         titleLabel = new JLabel(title);
         titleLabel.setFont(FontLoader.getInter(35f).deriveFont(Font.BOLD));
-        ThemeManager.putThemeAwareProperty(titleLabel, "foreground: $LGVB.foreground");
+        ThemeManager.putThemeAwareProperty(titleLabel, "foreground: $LGVB.header");
 
         add(titleLabel, BorderLayout.CENTER);
     }

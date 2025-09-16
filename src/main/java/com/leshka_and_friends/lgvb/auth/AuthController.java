@@ -22,6 +22,7 @@ import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.auth.AuthService;
 import com.leshka_and_friends.lgvb.auth.AuthException;
 import com.leshka_and_friends.lgvb.auth.SessionService;
+import com.leshka_and_friends.lgvb.core.StringUtils;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
@@ -115,7 +116,7 @@ public class AuthController {
         try {
             user = auth.login(email, pwd);
             loggedIn = true;
-            JOptionPane.showMessageDialog(null, "Welcome, " + user.getFullName());
+//            JOptionPane.showMessageDialog(null, "Welcome, " + user.getFullName());
         } catch (AuthException e) {
             JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
         } finally {
@@ -133,8 +134,8 @@ public class AuthController {
         }
         char[] pwd = pf.getPassword();
 
-        String firstName = JOptionPane.showInputDialog("First name:");
-        String lastName = JOptionPane.showInputDialog("Last name:");
+        String firstName = StringUtils.toProperCase(JOptionPane.showInputDialog("First name:"));
+        String lastName = StringUtils.toProperCase(JOptionPane.showInputDialog("Last name:"));
         String phone = JOptionPane.showInputDialog("Phone (optional):");
         String dobStr = JOptionPane.showInputDialog("Date of birth (YYYY-MM-DD):");
 

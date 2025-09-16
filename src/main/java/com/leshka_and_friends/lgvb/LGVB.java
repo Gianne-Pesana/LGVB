@@ -30,41 +30,10 @@ public class LGVB {
             e.printStackTrace();
         }
 
-//        SwingUtilities.invokeLater(() -> {
-//            new ThemeDemo(UIManager.getLookAndFeel()).setVisible(true);
-//        });
         SwingUtilities.invokeLater(() -> {
-//            cardTest();
             AuthController authController = new AuthController();
             authController.start();
-//            new CardTest();
-//            new MainView();
-//            AuthUITest test = new AuthUITest();
-//            test.showRegisterDialog();
-//            test.showLoginDialog();
 
         });
     }
-
-//    private static void cardTest() {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("CardPanel Test");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            frame.setSize(500, 500);
-//            frame.setLayout(new FlowLayout());
-//
-//            // Create a test CardPanel with dummy data
-//            CardPanel testCard = new CardPanel(
-//                    "Visa", // card type
-//                    "1234567812345678", // card number (will auto-format as XXXX XXXX XXXX XXXX)
-//                    "12/29", // expiry
-//                    "John Doe" // card holder
-//            );
-//
-//            frame.add(testCard);
-//
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        });
-//    }
 }

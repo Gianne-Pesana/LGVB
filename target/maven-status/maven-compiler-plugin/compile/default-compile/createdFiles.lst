@@ -64,6 +64,7 @@ com\leshka_and_friends\lgvb\card\CardService.class
 com\leshka_and_friends\lgvb\card\CardDAO.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.class
+com\leshka_and_friends\lgvb\core\StringUtils.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\ViewPage.class
 com\leshka_and_friends\lgvb\account\AccountDAO.class

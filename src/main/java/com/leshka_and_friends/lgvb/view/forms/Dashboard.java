@@ -59,7 +59,7 @@ public class Dashboard extends JPanel {
 
     private JPanel createHeaderPanel() {
         // Reusing the existing HeaderFactory
-        headerPanel = HeaderFactory.createDashboardHeader();
+        headerPanel = HeaderFactory.createDashboardHeader(dashboardDTO.getUserDTO().getFirstName());
 
         // DHB's header has a different text, but for now, we use the factory.
         // To match DHB exactly, we might need to change the title.
