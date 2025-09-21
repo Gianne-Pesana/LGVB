@@ -104,8 +104,8 @@ public class Dashboard extends JPanel {
         ThemeManager.putThemeAwareProperty(currentBalancePanel, "background: $LGVB.primary");
         currentBalancePanel.setLayout(new BoxLayout(currentBalancePanel, BoxLayout.Y_AXIS));
         currentBalancePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 1, 1));
-        currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
-        currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, 120));
+        currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, UIScale.scale(120)));
+        currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, UIScale.scale(120)));
 
         JLabel balanceLabel = new JLabel("₱ " +
                 dashboardDTO.getUserDTO().getAccounts().getFirst().getBalance()
@@ -129,7 +129,7 @@ public class Dashboard extends JPanel {
         actionContainer.setOpaque(false);
         actionContainer.setLayout(new BoxLayout(actionContainer, BoxLayout.X_AXIS));
         actionContainer.setBorder(BorderFactory.createEmptyBorder(1, 30, 1, 1));
-        actionContainer.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+        actionContainer.setMaximumSize(new Dimension(Integer.MAX_VALUE, UIScale.scale(80)));
 
         initMenuItems(actionContainer);
 
@@ -158,12 +158,11 @@ public class Dashboard extends JPanel {
             MenuItemButtonDashboard btn = new MenuItemButtonDashboard(svgPaths[i], labels[i], true);
             btn.setFocusable(false);
 
-            // In DHB, the buttons are JPanels with JLabels. Here we use the existing button class.
-            // To match the size, we can set preferred/max sizes.
-            Dimension buttonSize = new Dimension(71, 71);
-            btn.setPreferredSize(buttonSize);
-            btn.setMaximumSize(buttonSize);
-            btn.setMinimumSize(buttonSize);
+            int buttonSize = ThemeGlobalDefaults.getScaledInt("DashboardMenuItems.button.size");
+            Dimension buttonDim = new Dimension(buttonSize, buttonSize);
+            btn.setPreferredSize(buttonDim);
+            btn.setMaximumSize(buttonDim);
+            btn.setMinimumSize(buttonDim);
 
             menuItems.add(btn);
             menuBarDashboard.add(btn);
@@ -176,13 +175,12 @@ public class Dashboard extends JPanel {
     private JPanel createTransactionsPanel() {
         transactionsPanel = new JPanel();
         transactionsPanel.setOpaque(false);
-        transactionsPanel.setLayout(new BorderLayout()); // Allows content to expand
+        transactionsPanel.setLayout(new BorderLayout()); 
         ThemeManager.putThemeAwareProperty(transactionsPanel, "background: $Panel.background");
         transactionsPanel.setBorder(BorderFactory.createTitledBorder("Recent Transactions"));
 
-        // Make it expand in Y-axis inside BoxLayout
         transactionsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-        transactionsPanel.setPreferredSize(new Dimension(0, 300)); // starting height
+        transactionsPanel.setPreferredSize(new Dimension(0, ThemeGlobalDefaults.getScaledInt("transactionPanel.height"))); 
 
         return transactionsPanel;
     }

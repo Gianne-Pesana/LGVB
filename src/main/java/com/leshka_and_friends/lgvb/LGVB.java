@@ -6,8 +6,6 @@ package com.leshka_and_friends.lgvb;
 import com.leshka_and_friends.lgvb.auth.AuthController;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
-import com.leshka_and_friends.lgvb.view.test.AuthUITest;
-import com.leshka_and_friends.lgvb.view.test.CardTest;
 import com.leshka_and_friends.lgvb.view.themes.*;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import java.awt.FlowLayout;

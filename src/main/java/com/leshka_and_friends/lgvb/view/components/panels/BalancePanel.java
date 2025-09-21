@@ -11,8 +11,8 @@ import java.awt.*;
  * @author vongiedyaguilar
  */
 public class BalancePanel extends RoundedPanel {
-    private int width = UIScale.scale(380);
-    private int height = UIScale.scale(80); 
+    private int width = ThemeGlobalDefaults.getScaledInt("Dashboard.balancePanel.width");
+    private int height = ThemeGlobalDefaults.getScaledInt("Dashboard.balancePanel.height");
     private int balance;
 
     private final String curr = "Current Balance";
@@ -33,25 +33,32 @@ public class BalancePanel extends RoundedPanel {
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
         JLabel titleLabel = new JLabel(curr);
-        titleLabel.putClientProperty("FlatLaf.style", "foreground: $LGVB.foreground");
-        titleLabel.setFont(FontLoader.getInter(10f).deriveFont(Font.BOLD));
+        ThemeManager.putThemeAwareProperty(titleLabel, "foreground: $LGVB.foreground");
+        titleLabel.setFont(FontLoader.getBaloo2Medium(
+                ThemeGlobalDefaults.getScaledFloat("Dashboard.balancePanel.titleLabel.font.size"))
+                .deriveFont(Font.PLAIN)
+        );
 
         JLabel balanceValue = new JLabel("₱ " + balance);
-        balanceValue.putClientProperty("FlatLaf.style", "font: bold +20; foreground: $LGVB.foreground");
+        ThemeManager.putThemeAwareProperty(balanceValue, "foreground: $LGVB.foreground");
+//        balanceValue.putClientProperty("FlatLaf.style", "font: bold +20; foreground: $LGVB.foreground");
+        balanceValue.setFont(FontLoader.getBaloo2ExtraBold(
+                ThemeGlobalDefaults.getScaledFloat("Dashboard.balancePanel.balanceValue.font.size"))
+        );
 
         leftPanel.add(titleLabel);
-        leftPanel.add(Box.createVerticalStrut(5));
+        leftPanel.add(Box.createVerticalStrut(UIScale.scale(5)));
         leftPanel.add(balanceValue);
 
         add(leftPanel, BorderLayout.WEST);
 
         // Right panel: SVG icon
-        JLabel iconLabel = new JLabel();
-        FlatSVGIcon icon = SVGUtils.loadIcon("icons/svg/addbalance.svg", UIScale.scale(40));
+        JLabel addBalance = new JLabel();
+        FlatSVGIcon icon = SVGUtils.loadIcon("icons/svg/addbalance.svg", ThemeGlobalDefaults.getScaledInt("Dashboard.balancePanel.addBalanceIcon.size"));
         icon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
-        iconLabel.setIcon(icon);
-        iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(iconLabel, BorderLayout.EAST);
+        addBalance.setIcon(icon);
+        addBalance.setHorizontalAlignment(SwingConstants.CENTER);
+        add(addBalance, BorderLayout.EAST);
     }
 
     public void setBalance(int balance) {

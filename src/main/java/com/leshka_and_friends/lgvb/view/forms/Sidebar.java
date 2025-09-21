@@ -28,8 +28,8 @@ import javax.swing.*;
  */
 public class Sidebar extends JPanel {
 
-    private int width = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.width"));
-    private int height = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.height"));
+    private int sidebarWidth = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.width"));
+    private int sidebarHeight = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.height"));
 
     private final int separation = UIScale.scale(ThemeGlobalDefaults.getInt("Sidebar.separation"));
     private static boolean isDarkMode;
@@ -59,8 +59,8 @@ public class Sidebar extends JPanel {
 
     public Sidebar(UserDTO userDTO) {
         this.userDTO = userDTO;
-        System.out.println("Sidebar width: " + width);
-        Dimension sidebarSize = new Dimension(width, height);
+//        System.out.println("Sidebar width: " + width);
+        Dimension sidebarSize = new Dimension(sidebarWidth, sidebarHeight);
         setPreferredSize(sidebarSize);
         setMaximumSize(sidebarSize);
         ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
@@ -87,8 +87,8 @@ public class Sidebar extends JPanel {
 
         JLabel logo = new JLabel(ImageParser.loadScaled(
                 ThemeGlobalDefaults.getString("Sidebar.logo.path"),
-                ThemeGlobalDefaults.getInt("Sidebar.logo.size"),
-                ThemeGlobalDefaults.getInt("Sidebar.logo.size")
+                ThemeGlobalDefaults.getScaledInt("Sidebar.logo.size"),
+                ThemeGlobalDefaults.getScaledInt("Sidebar.logo.size")
         ));
         northContainer.add(logo);
 
@@ -97,11 +97,12 @@ public class Sidebar extends JPanel {
 
     private JPanel createMiddlePanel() {
         JPanel middleContainer = new JPanel();
+        int middleContainerHeigth = ThemeGlobalDefaults.getScaledInt("Sidebar.middleContainer.height");
         middleContainer.setLayout(new BoxLayout(middleContainer, BoxLayout.Y_AXIS));
         middleContainer.setOpaque(false);
         middleContainer.setBorder(BorderFactory.createEmptyBorder(10, 25, 0, 20));
-        middleContainer.setPreferredSize(new Dimension(width, UIScale.scale(550)));
-        middleContainer.setMaximumSize(new Dimension(width, UIScale.scale(550)));
+        middleContainer.setPreferredSize(new Dimension(sidebarWidth, middleContainerHeigth));
+        middleContainer.setMaximumSize(new Dimension(sidebarWidth, middleContainerHeigth));
 
         JPanel menuItemContainer = new JPanel();
         menuItemContainer.setLayout(new BoxLayout(menuItemContainer, BoxLayout.Y_AXIS));
@@ -117,7 +118,7 @@ public class Sidebar extends JPanel {
         separatorPanel.setOpaque(false); // keep it transparent
 
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-        separator.setForeground(new Color(200, 200, 200));
+        separator.setForeground(ThemeGlobalDefaults.getColor("Sidebar.separator.color"));
         separatorPanel.add(separator, BorderLayout.CENTER);
 
         separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
@@ -151,8 +152,9 @@ public class Sidebar extends JPanel {
         southContainer.add(userProfileItem);
 
         // Ensure SOUTH panel has a proper preferred height
-        southContainer.setPreferredSize(new Dimension(width, UIScale.scale(80)));
-        southContainer.setMaximumSize(new Dimension(width, UIScale.scale(80)));
+        int southContainerHeight = ThemeGlobalDefaults.getScaledInt("Sidebar.southContainer.height");
+        southContainer.setPreferredSize(new Dimension(sidebarWidth, southContainerHeight));
+        southContainer.setMaximumSize(new Dimension(sidebarWidth, southContainerHeight));
 
         return southContainer;
     }
