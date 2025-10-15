@@ -1,26 +1,22 @@
-package com.leshka_and_friends.lgvb.view.components.panels;
+package com.leshka_and_friends.lgvb.view.components;
 
-import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Dumb base panel that paints a rounded rectangle. No hover or click behavior.
- */
 public class RoundedPanel extends JPanel {
 
     protected int radius;
 
     public RoundedPanel() {
-        radius = ThemeGlobalDefaults.getInt("Button.arc");
+        this(20);
         setOpaque(false); // we'll handle painting ourselves
     }
-    
+
     public RoundedPanel(int radius) {
         this.radius = radius;
         setOpaque(false);
     }
-    
+
     public void setRadius(int radius) {
         this.radius = radius;
         repaint();
@@ -40,5 +36,4 @@ public class RoundedPanel extends JPanel {
         // so child components (like JLabel) render on top
         super.paintComponent(g);
     }
-
 }

@@ -7,9 +7,11 @@ com\leshka_and_friends\lgvb\core\PasswordUtils.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$2.class
 com\leshka_and_friends\lgvb\view\MainView.class
 com\leshka_and_friends\lgvb\dashboard\DashboardService.class
+com\leshka_and_friends\lgvb\view\components\RoundedPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.class
 com\leshka_and_friends\lgvb\view\test\AuthUITest.class
 com\leshka_and_friends\lgvb\core\DBConnection.class
+com\leshka_and_friends\lgvb\view\matisse_ui\Login.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$1.class
 com\leshka_and_friends\lgvb\view\factories\ViewFactory.class
@@ -32,6 +34,7 @@ com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
 com\leshka_and_friends\lgvb\view\ui_utils\SvgTspanCleaner.class
 com\leshka_and_friends\lgvb\user\UserSQL.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory$1.class
+com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
 com\leshka_and_friends\lgvb\view\ui_utils\common\FontLoader.class
 com\leshka_and_friends\lgvb\auth\SessionService.class
 com\leshka_and_friends\lgvb\LGVB.class
@@ -48,12 +51,14 @@ com\leshka_and_friends\lgvb\account\AccountSQL.class
 com\leshka_and_friends\lgvb\view\test\TestCardIcon.class
 com\leshka_and_friends\lgvb\view\ui_utils\CardFormatter.class
 com\leshka_and_friends\lgvb\dashboard\DashboardController.class
+com\leshka_and_friends\lgvb\view\components\RoundedPasswordField.class
 com\leshka_and_friends\lgvb\view\factories\HeaderFactory.class
 com\leshka_and_friends\lgvb\view\ui_utils\card\SvgTspanCleaner.class
 com\leshka_and_friends\lgvb\user\UserService.class
 com\leshka_and_friends\lgvb\card\Card.class
 com\leshka_and_friends\lgvb\card\CardType.class
 com\leshka_and_friends\lgvb\view\ui_utils\common\ThemeGlobalDefaults.class
+com\leshka_and_friends\lgvb\view\matisse_ui\RoundedPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.class
 com\leshka_and_friends\lgvb\card\CardDTO.class
 com\leshka_and_friends\lgvb\transaction\TransactionSQL.class
@@ -62,6 +67,7 @@ com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButton.class
 com\leshka_and_friends\lgvb\view\test\DHB.class
 com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.class
 com\leshka_and_friends\lgvb\auth\AuthController.class
+com\leshka_and_friends\lgvb\view\matisse_ui\Login$1.class
 com\leshka_and_friends\lgvb\card\CardTypeSQL.class
 com\leshka_and_friends\lgvb\view\ui_utils\common\ImageParser.class
 com\leshka_and_friends\lgvb\account\AccountService.class
@@ -75,7 +81,10 @@ com\leshka_and_friends\lgvb\auth\AuthException.class
 com\leshka_and_friends\lgvb\dashboard\DashboardDTO.class
 com\leshka_and_friends\lgvb\transaction\Transaction.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
+com\leshka_and_friends\lgvb\view\components\RoundedButton.class
 com\leshka_and_friends\lgvb\view\components\panels\BalancePanel.class
+com\leshka_and_friends\lgvb\view\components\RoundedButton$1.class
+com\leshka_and_friends\lgvb\view\components\RoundedTextField$1.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
 com\leshka_and_friends\lgvb\view\ui_utils\card\SVGCardIconHelper.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
@@ -90,5 +99,7 @@ com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\view\themes\Theme.class
 com\leshka_and_friends\lgvb\transaction\TransactionDAO.class
+com\leshka_and_friends\lgvb\view\components\RoundedPasswordField$1.class
 com\leshka_and_friends\lgvb\view\forms\Dashboard.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel$1.class
+com\leshka_and_friends\lgvb\view\LoginPage.class

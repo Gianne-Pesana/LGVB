@@ -19,12 +19,9 @@ import com.leshka_and_friends.lgvb.user.UserDAO;
 import com.leshka_and_friends.lgvb.user.UserSQL;
 import com.leshka_and_friends.lgvb.user.UserService;
 import com.leshka_and_friends.lgvb.view.MainView;
-import com.leshka_and_friends.lgvb.auth.AuthService;
-import com.leshka_and_friends.lgvb.auth.AuthException;
-import com.leshka_and_friends.lgvb.auth.SessionService;
 import com.leshka_and_friends.lgvb.core.StringUtils;
+import com.leshka_and_friends.lgvb.view.LoginPage;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -60,68 +57,53 @@ public class AuthController {
     }
 
     public void start() {
-        String[] opts = {"Register", "Login", "Exit"};
+        LoginPage loginPage = new LoginPage();
+        loginPage.setVisible(true);
 
-        boolean running = true;
+        loginPage.loginBtn.addActionListener(e -> {
+            String email = loginPage.getInputUsername();
+            char[] pwd = loginPage.getInputPassword();
 
-        while (running) {
-            int choice = JOptionPane.showOptionDialog(null, "Choose", "Auth Demo",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opts, opts[0]);
+            try {
+                user = auth.login(email, pwd);
+                loggedIn = true;
+                sessionService.login(user);
 
-            switch (choice) {
-                case 0 ->
-                    showRegisterDialog();
-                case 1 -> {
-                    showLoginDialog();
-                    if (loggedIn) {
-                        running = false; // exit the loop
-                    }
-                }
-                case 2 -> {
-                    System.out.println("Exiting...");
-                    return;
-                }
-                default ->
-                    JOptionPane.showMessageDialog(null, "Invalid\n");
+                // Main view
+                MainView mainView = new MainView(userService.getUserDisplayObjects());
+                System.out.println("Main View: " + mainView.getUserFullName());
+
+                // Main controller orchestrates everything
+                DashboardController mainController = new DashboardController(
+                        mainView, sessionService, accountService, cardService, transactionService
+                );
+
+                mainView.setVisible(true);
+                loginPage.dispose();
+                
+            } catch (AuthException ae) {
+                JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage());
+            } finally {
+                java.util.Arrays.fill(pwd, '\0');
             }
-        }
+        });
 
         if (loggedIn) {
-            sessionService.login(user);
 
-            // Main view
-            MainView mainView = new MainView(userService.getUserDisplayObjects());
-            System.out.println("Main View: " + mainView.getUserFullName());
-
-            // Main controller orchestrates everything
-            DashboardController mainController = new DashboardController(
-                    mainView, sessionService, accountService, cardService, transactionService
-            );
-
-            mainView.setVisible(true);
         }
     }
 
     public void showLoginDialog() {
         String email = JOptionPane.showInputDialog("Email:");
-        if (email == null) return; // User cancelled
-
+        if (email == null) {
+            return; // User cancelled
+        }
         JPasswordField pf = new JPasswordField();
         int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (ok != JOptionPane.OK_OPTION) {
             return;
         }
-        char[] pwd = pf.getPassword();
 
-        try {
-            user = auth.login(email, pwd);
-            loggedIn = true;
-//            JOptionPane.showMessageDialog(null, "Welcome, " + user.getFullName());
-        } catch (AuthException e) {
-            JOptionPane.showMessageDialog(null, "Login failed: " + e.getMessage());
-        } finally {
-            java.util.Arrays.fill(pwd, '\0');
-        }
     }
 
     public void showRegisterDialog() {

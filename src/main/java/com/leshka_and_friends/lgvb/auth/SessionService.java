@@ -14,6 +14,7 @@ public class SessionService {
 
     private static SessionService instance;
     private User currentUser;
+    
 
     private SessionService() {
     }
@@ -21,6 +22,7 @@ public class SessionService {
     public static SessionService getInstance() {
         if (instance == null) {
             instance = new SessionService();
+            
         }
         return instance;
     }

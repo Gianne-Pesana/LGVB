@@ -44,13 +44,9 @@ public class Sidebar extends JPanel {
     private UserProfile userProfileItem;
 
     public interface SelectionListener {
-
         void onSelectDashboard();
-
         void onSelectWallet();
-
         void onSelectLoan();
-
         void onSelectCards();
     }
 
