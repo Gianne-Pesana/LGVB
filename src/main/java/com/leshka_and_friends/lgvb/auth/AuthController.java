@@ -43,6 +43,8 @@ public class AuthController {
     private final TransactionService transactionService;
     private final UserService userService;
 
+    private LoginPage loginPage;
+
     public AuthController() {
         userDAO = new UserSQL();
         accountDAO = new AccountSQL();
@@ -57,40 +59,17 @@ public class AuthController {
     }
 
     public void start() {
-        LoginPage loginPage = new LoginPage();
+        loginPage = new LoginPage();
         loginPage.setVisible(true);
 
         loginPage.loginBtn.addActionListener(e -> {
-            String email = loginPage.getInputUsername();
-            char[] pwd = loginPage.getInputPassword();
-
-            try {
-                user = auth.login(email, pwd);
-                loggedIn = true;
-                sessionService.login(user);
-
-                // Main view
-                MainView mainView = new MainView(userService.getUserDisplayObjects());
-                System.out.println("Main View: " + mainView.getUserFullName());
-
-                // Main controller orchestrates everything
-                DashboardController mainController = new DashboardController(
-                        mainView, sessionService, accountService, cardService, transactionService
-                );
-
-                mainView.setVisible(true);
-                loginPage.dispose();
-                
-            } catch (AuthException ae) {
-                JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage());
-            } finally {
-                java.util.Arrays.fill(pwd, '\0');
-            }
+            handleLogin();
         });
 
-        if (loggedIn) {
+        loginPage.registerBtn.addActionListener(e -> {
+            handleRegister();
+        });
 
-        }
     }
 
     public void showLoginDialog() {
@@ -106,29 +85,84 @@ public class AuthController {
 
     }
 
-    public void showRegisterDialog() {
-        String username = JOptionPane.showInputDialog("Username:");
-        String email = JOptionPane.showInputDialog("Email:");
-        JPasswordField pf = new JPasswordField();
-        int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (ok != JOptionPane.OK_OPTION) {
-            return;
-        }
-        char[] pwd = pf.getPassword();
-
-        String firstName = StringUtils.toProperCase(JOptionPane.showInputDialog("First name:"));
-        String lastName = StringUtils.toProperCase(JOptionPane.showInputDialog("Last name:"));
-        String phone = JOptionPane.showInputDialog("Phone (optional):");
-        String dobStr = JOptionPane.showInputDialog("Date of birth (YYYY-MM-DD):");
+    private void handleLogin() {
+        String email = loginPage.getInputUsername();
+        char[] pwd = loginPage.getInputPassword();
 
         try {
-            LocalDate dob = LocalDate.parse(dobStr);
-            auth.register(username, email, pwd, firstName, lastName, phone, dob);
-            JOptionPane.showMessageDialog(null, "Registered successfully.");
-        } catch (AuthException e) {
-            JOptionPane.showMessageDialog(null, "Registration error: " + e.getMessage());
+            user = auth.login(email, pwd);
+            loggedIn = true;
+            sessionService.login(user);
+
+            // Main view
+            MainView mainView = new MainView(userService.getUserDisplayObjects());
+            System.out.println("Main View: " + mainView.getUserFullName());
+
+            // Main controller orchestrates everything
+            DashboardController mainController = new DashboardController(
+                    mainView, sessionService, accountService, cardService, transactionService
+            );
+
+            mainView.setVisible(true);
+            loginPage.dispose();
+
+        } catch (AuthException ae) {
+            JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage());
         } finally {
             java.util.Arrays.fill(pwd, '\0');
+        }
+    }
+
+    private void handleRegister() {
+        // Hide login page while doing registration
+        loginPage.setVisible(false);
+
+        try {
+            String username = JOptionPane.showInputDialog("Username:");
+            if (username == null) {
+                return;
+            }
+
+            String email = JOptionPane.showInputDialog("Email:");
+            if (email == null) {
+                return;
+            }
+
+            JPasswordField pf = new JPasswordField();
+            int ok = JOptionPane.showConfirmDialog(null, pf, "Password",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (ok != JOptionPane.OK_OPTION) {
+                return;
+            }
+            char[] pwd = pf.getPassword();
+
+            String firstName = StringUtils.toProperCase(JOptionPane.showInputDialog("First name:"));
+            if (firstName == null) {
+                return;
+            }
+
+            String lastName = StringUtils.toProperCase(JOptionPane.showInputDialog("Last name:"));
+            if (lastName == null) {
+                return;
+            }
+
+            String phone = JOptionPane.showInputDialog("Phone (optional):");
+            String dobStr = JOptionPane.showInputDialog("Date of birth (YYYY-MM-DD):");
+            if (dobStr == null) {
+                return;
+            }
+
+            LocalDate dob = LocalDate.parse(dobStr);
+            auth.register(username, email, pwd, firstName, lastName, phone, dob);
+
+            JOptionPane.showMessageDialog(null, "Registered successfully!");
+        } catch (AuthException e) {
+            JOptionPane.showMessageDialog(null, "Registration error: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Unexpected error: " + e.getMessage());
+        } finally {
+            // Always show login page again
+            loginPage.setVisible(true);
         }
     }
 

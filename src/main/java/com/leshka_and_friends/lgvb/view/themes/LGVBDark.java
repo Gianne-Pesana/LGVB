@@ -9,7 +9,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 
-public class LGVBDark extends FlatMacDarkLaf {
+public class LGVBDark extends FlatDarkLaf {
     public static final String NAME = "LGVB Dark";
 
     public static boolean setup() {
