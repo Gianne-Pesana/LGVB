@@ -36,11 +36,9 @@ com\leshka_and_friends\lgvb\view\ui_utils\SvgTspanCleaner.class
 com\leshka_and_friends\lgvb\user\UserSQL.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory$1.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
-com\leshka_and_friends\lgvb\view\ui_utils\common\FontLoader.class
 com\leshka_and_friends\lgvb\auth\SessionService.class
 com\leshka_and_friends\lgvb\LGVB.class
 com\leshka_and_friends\lgvb\view\forms\Wallet.class
-com\leshka_and_friends\lgvb\view\ui_utils\common\SVGUtils.class
 com\leshka_and_friends\lgvb\view\ui_utils\FontLoader.class
 com\leshka_and_friends\lgvb\view\MainView$1.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel$2.class
@@ -58,7 +56,6 @@ com\leshka_and_friends\lgvb\view\ui_utils\card\SvgTspanCleaner.class
 com\leshka_and_friends\lgvb\user\UserService.class
 com\leshka_and_friends\lgvb\card\Card.class
 com\leshka_and_friends\lgvb\card\CardType.class
-com\leshka_and_friends\lgvb\view\ui_utils\common\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\view\matisse_ui\RoundedPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.class
 com\leshka_and_friends\lgvb\card\CardDTO.class
@@ -70,7 +67,6 @@ com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.class
 com\leshka_and_friends\lgvb\auth\AuthController.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login$1.class
 com\leshka_and_friends\lgvb\card\CardTypeSQL.class
-com\leshka_and_friends\lgvb\view\ui_utils\common\ImageParser.class
 com\leshka_and_friends\lgvb\account\AccountService.class
 com\leshka_and_friends\lgvb\auth\AuthService.class
 com\leshka_and_friends\lgvb\core\AppConfig.class
@@ -95,7 +91,6 @@ com\leshka_and_friends\lgvb\card\CardSQL.class
 com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGCardIconHelper.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
-com\leshka_and_friends\lgvb\view\ui_utils\common\ThemeManager.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\view\themes\Theme.class

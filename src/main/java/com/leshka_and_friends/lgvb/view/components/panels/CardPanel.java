@@ -64,7 +64,7 @@ public class CardPanel extends RoundedPanel {
 //        ImageIcon logoImage = ImageParser.loadScaled("/Logo/logo-card.png", UIScale.scale(38), UIScale.scale(16));
 
         FlatSVGIcon logoIcon = SVGUtils.loadIcon(
-                ThemeGlobalDefaults.getString("card.logo.path"),
+                ThemeGlobalDefaults.getString("Logo.path"),
                 ThemeGlobalDefaults.getScaledInt("card.logo.width"),
                 ThemeGlobalDefaults.getScaledInt("card.logo.height")
         );

@@ -4,8 +4,8 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.components.panels.AvatarPanel;
-import com.leshka_and_friends.lgvb.view.ui_utils.common.FontLoader;
-import com.leshka_and_friends.lgvb.view.ui_utils.common.ThemeManager;
+import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

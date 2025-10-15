@@ -4,7 +4,13 @@
  */
 package com.leshka_and_friends.lgvb.view;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.components.*;
+import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,21 +19,22 @@ import javax.swing.border.EmptyBorder;
  * @author giann
  */
 public class LoginPage extends JFrame {
-    
+
     public RoundedTextField usernameField;
     public RoundedPasswordField passwordField;
     public RoundedButton loginBtn;
     public RoundedButton registerBtn;
 
     public LoginPage() {
-        setSize(800, 540);
+        setSize(ThemeGlobalDefaults.getScaledInt("LoginPage.width"), ThemeGlobalDefaults.getScaledInt("LoginPage.height"));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(0, 2));
         setResizable(false);
 
-        Image image = new ImageIcon(getClass().getResource("/icons/app_icon.png")).getImage();
-        setIconImage(image);
-        setTitle("LGVB Digital Banking");
+        FlatSVGIcon svgIcon = new FlatSVGIcon("icons/svg/appIcon.svg", 32, 32);
+        setIconImage(svgIcon.getImage());
+
+        setTitle(ThemeGlobalDefaults.getString("App.title"));
 
         add(createLeftSide());
         add(createRightSide());
@@ -37,35 +44,39 @@ public class LoginPage extends JFrame {
 
     private JPanel createLeftSide() {
         JPanel loginPanel = new JPanel();
-        loginPanel.setPreferredSize(new Dimension(400, 540));
-        loginPanel.setBackground(new Color(17, 17, 51));
+//        loginPanel.setPreferredSize(new Dimension(400, 540));
+        ThemeManager.putThemeAwareProperty(loginPanel, "background: $LGVB.background");
         loginPanel.setLayout(new BorderLayout());
 
         JPanel logoPanel = new JPanel(new BorderLayout());
-        logoPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 50));
+//        logoPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 50));
         logoPanel.setOpaque(false);
-        logoPanel.setBorder(new EmptyBorder(0, 20, 0, 0));
+        logoPanel.setBorder(new EmptyBorder(UIScale.scale(20), UIScale.scale(20), 0, 0));
 
         JLabel logoLabel = new JLabel();
-        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Logo/logo-white.png"));
-        Image scaledImage = originalIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-        logoLabel.setIcon(new ImageIcon(scaledImage));
+        FlatSVGIcon logoIcon = SVGUtils.loadIcon(
+                ThemeGlobalDefaults.getString("Logo.path"),
+                ThemeGlobalDefaults.getScaledInt("LoginPage.logo.width"),
+                ThemeGlobalDefaults.getScaledInt("LoginPage.logo.height")
+        );
+        logoIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
+        logoLabel.setIcon(logoIcon);
 
         logoPanel.add(logoLabel, BorderLayout.CENTER);
 
         JPanel container = new JPanel();
         container.setOpaque(false);
         container.setLayout(new GridBagLayout());
-        container.setBorder(new EmptyBorder(0, 50, 0, 50));
+        int containerPadding = ThemeGlobalDefaults.getScaledInt("LoginPage.container.padding");
+        container.setBorder(new EmptyBorder(0, containerPadding, 0, containerPadding));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 1;  // fill horizontally if needed
-        gbc.weighty = 1;  // space to push vertically
+        gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL; // FILL HORIZONTALLY
         gbc.anchor = GridBagConstraints.CENTER; // center in the available space
         // add some top margin to move it up
-        gbc.insets = new Insets(-50, 0, 0, 0);
+        gbc.insets = new Insets(ThemeGlobalDefaults.getScaledInt("LoginPage.container.top.margin"), 0, 0, 0);
 
         container.add(createLoginContainer(), gbc);
 
@@ -78,13 +89,14 @@ public class LoginPage extends JFrame {
         JPanel loginContainer = new JPanel();
         loginContainer.setOpaque(false);
         loginContainer.setLayout(new BoxLayout(loginContainer, BoxLayout.Y_AXIS));
-        loginContainer.setBorder(new EmptyBorder(10, 10, 10, 10));
+        int lcBorderSize = UIScale.scale(10);
+        loginContainer.setBorder(new EmptyBorder(lcBorderSize, lcBorderSize, lcBorderSize, lcBorderSize));
 //        loginContainer.setPreferredSize(new Dimension(280, 300));
 //        loginContainer.setMaximumSize(new Dimension(280, Integer.MAX_VALUE));
 
         JLabel header = new JLabel("Login");
-        header.setFont(new Font("Inter", Font.PLAIN, 30));
-        header.setForeground(Color.WHITE);
+        header.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.header.fontSize")));
+        ThemeManager.putThemeAwareProperty(header, "foreground: $LGVB.foreground");
         header.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // ---- text fields ----
@@ -93,30 +105,36 @@ public class LoginPage extends JFrame {
         textFields.setOpaque(false);
 
         JLabel usernameLabel = new JLabel("Username");
-        usernameLabel.setFont(new Font("Inter", Font.PLAIN, 14));
-        usernameLabel.setForeground(Color.WHITE);
+        usernameLabel.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.body.fontSize")));
+        ThemeManager.putThemeAwareProperty(usernameLabel, "foreground: $TextField.background");
         usernameLabel.setAlignmentX(LEFT_ALIGNMENT);
 
-        int textFieldHeight = 30;
-        usernameField = new RoundedTextField(25);
+        int textFieldCornerRadius = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.arc");
+        int textFieldHeight = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.height");
+        
+        usernameField = new RoundedTextField(textFieldCornerRadius);
+        usernameField.setCaretColor(ThemeGlobalDefaults.getColor("TextField.caretColor"));
         usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textFieldHeight));
+        usernameField.setFont(FontLoader.getBaloo2Regular(ThemeGlobalDefaults.getScaledFloat("LoginPage.textField.fontSize")));
         usernameField.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel passwordLabel = new JLabel("Password");
-        passwordLabel.setFont(new Font("Inter", Font.PLAIN, 14));
-        passwordLabel.setForeground(Color.WHITE);
+        passwordLabel.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.body.fontSize")));
+        ThemeManager.putThemeAwareProperty(passwordLabel, "foreground: $TextField.background");
         passwordLabel.setAlignmentX(LEFT_ALIGNMENT);
 
-        passwordField = new RoundedPasswordField(25);
+        passwordField = new RoundedPasswordField(textFieldCornerRadius);
         passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textFieldHeight));
+        passwordField.setCaretColor(ThemeGlobalDefaults.getColor("TextField.caretColor"));
+        passwordField.setFont(FontLoader.getBaloo2Regular(ThemeGlobalDefaults.getScaledFloat("LoginPage.textField.fontSize")));
         passwordField.setAlignmentX(LEFT_ALIGNMENT);
 
         textFields.add(usernameLabel);
-        textFields.add(Box.createRigidArea(new Dimension(0, 5)));
+        textFields.add(Box.createRigidArea(new Dimension(0, UIScale.scale(5))));
         textFields.add(usernameField);
-        textFields.add(Box.createRigidArea(new Dimension(0, 15)));
+        textFields.add(Box.createRigidArea(new Dimension(0, UIScale.scale(15))));
         textFields.add(passwordLabel);
-        textFields.add(Box.createRigidArea(new Dimension(0, 5)));
+        textFields.add(Box.createRigidArea(new Dimension(0, UIScale.scale(5))));
         textFields.add(passwordField);
         textFields.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -124,13 +142,14 @@ public class LoginPage extends JFrame {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
         buttonsPanel.setOpaque(false);
-        buttonsPanel.setBorder(new EmptyBorder(0, 30, 0, 30));
+        int bpBorder = ThemeGlobalDefaults.getScaledInt("LoginPage.buttonsPanel.border");
+        buttonsPanel.setBorder(new EmptyBorder(0, bpBorder, 0, bpBorder));
         buttonsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        Dimension buttonSize = new Dimension(Integer.MAX_VALUE, 30);
+        Dimension buttonSize = new Dimension(Integer.MAX_VALUE, ThemeGlobalDefaults.getScaledInt("LoginPage.buttonSize"));
 
-        loginBtn = new RoundedButton("Login", 30);
-        
+        loginBtn = new RoundedButton("Login", ThemeGlobalDefaults.getScaledInt("LoginPage.buttonArc"));
+
         loginBtn.setPreferredSize(buttonSize);
         loginBtn.setMaximumSize(buttonSize);
         loginBtn.setForeground(Color.WHITE);
@@ -139,7 +158,7 @@ public class LoginPage extends JFrame {
         loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         registerBtn = new RoundedButton("Register", 30);
-        
+
         registerBtn.setPreferredSize(buttonSize);
         registerBtn.setMaximumSize(buttonSize);
         registerBtn.setForeground(new Color(23, 80, 110));
@@ -167,18 +186,22 @@ public class LoginPage extends JFrame {
         Image scaledImage = new ImageIcon(
                 getClass().getResource("/images/log_in_focal.png"))
                 .getImage()
-                .getScaledInstance(420, 567, Image.SCALE_SMOOTH);
+                .getScaledInstance(
+                        ThemeGlobalDefaults.getScaledInt("LoginPage.focalPhoto.width"),
+                        ThemeGlobalDefaults.getScaledInt("LoginPage.focalPhoto.height"),
+                        Image.SCALE_SMOOTH
+                );
 
         imageLabel.setIcon(new ImageIcon(scaledImage));
 
         imageContainer.add(imageLabel);
         return imageContainer;
     }
-    
+
     public String getInputUsername() {
         return usernameField.getText().trim();
     }
-    
+
     public char[] getInputPassword() {
         return passwordField.getPassword();
     }

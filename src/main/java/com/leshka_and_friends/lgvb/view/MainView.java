@@ -45,7 +45,7 @@ public class MainView extends JFrame {
         FontLoader.loadFonts();
 
         // Frame settings
-        setTitle(ThemeGlobalDefaults.getString("MainView.title"));
+        setTitle(ThemeGlobalDefaults.getString("App.title"));
         Image image = new ImageIcon(getClass().getResource("/icons/app_icon.png")).getImage();
         setIconImage(image);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

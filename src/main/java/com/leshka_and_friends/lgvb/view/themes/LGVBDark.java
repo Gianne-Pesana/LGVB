@@ -6,9 +6,10 @@ package com.leshka_and_friends.lgvb.view.themes;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 
-public class LGVBDark extends FlatDarkLaf {
+public class LGVBDark extends FlatMacDarkLaf {
     public static final String NAME = "LGVB Dark";
 
     public static boolean setup() {
