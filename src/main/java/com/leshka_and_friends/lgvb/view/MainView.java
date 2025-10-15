@@ -46,6 +46,8 @@ public class MainView extends JFrame {
 
         // Frame settings
         setTitle(ThemeGlobalDefaults.getString("MainView.title"));
+        Image image = new ImageIcon(getClass().getResource("/icons/app_icon.png")).getImage();
+        setIconImage(image);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set size to screen resolution

@@ -8,7 +8,7 @@ import com.leshka_and_friends.lgvb.core.AppConfig;
 import org.mindrot.jbcrypt.BCrypt;
 
 public final class PasswordUtils {
-    private static final int WORK_FACTOR = AppConfig.getInt("security.password.hash.strength"); // configurable, higher = more secure but slower
+    private static final int WORK_FACTOR = AppConfig.getInt("security.password.hash.strength"); 
 
     private PasswordUtils() {}
 

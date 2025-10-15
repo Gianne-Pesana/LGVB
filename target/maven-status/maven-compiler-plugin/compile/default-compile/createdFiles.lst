@@ -8,6 +8,7 @@ com\leshka_and_friends\lgvb\view\forms\Sidebar$2.class
 com\leshka_and_friends\lgvb\view\MainView.class
 com\leshka_and_friends\lgvb\dashboard\DashboardService.class
 com\leshka_and_friends\lgvb\view\components\RoundedPanel.class
+com\leshka_and_friends\lgvb\view\matisse_ui\Register.class
 com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.class
 com\leshka_and_friends\lgvb\view\test\AuthUITest.class
 com\leshka_and_friends\lgvb\core\DBConnection.class
