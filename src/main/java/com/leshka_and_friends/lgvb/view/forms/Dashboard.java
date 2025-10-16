@@ -6,6 +6,7 @@ package com.leshka_and_friends.lgvb.view.forms;
 
 import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.dashboard.DashboardDTO;
+import com.leshka_and_friends.lgvb.user.UserDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
@@ -24,7 +25,7 @@ public class Dashboard extends JPanel {
 
     private String username;
     private double balance;
-    private DashboardDTO dashboardDTO;
+    private UserDTO userdto;
 
     private HeaderPanel headerPanel;
     private CardPanel cardPanel;
@@ -34,8 +35,8 @@ public class Dashboard extends JPanel {
 
     private List<MenuItemButtonDashboard> menuItems = new ArrayList<>();
 
-    public Dashboard(DashboardDTO dashboardDTO) {
-        this.dashboardDTO = dashboardDTO;
+    public Dashboard(UserDTO userdto) {
+        this.userdto = userdto;
         setOpaque(false);
         // Set a border similar to DHB.java
         setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
@@ -59,7 +60,7 @@ public class Dashboard extends JPanel {
 
     private JPanel createHeaderPanel() {
         // Reusing the existing HeaderFactory
-        headerPanel = HeaderFactory.createDashboardHeader(dashboardDTO.getUserDTO().getFirstName());
+        headerPanel = HeaderFactory.createDashboardHeader(userdto.getFirstName());
 
         // DHB's header has a different text, but for now, we use the factory.
         // To match DHB exactly, we might need to change the title.
@@ -72,13 +73,7 @@ public class Dashboard extends JPanel {
         infoSection.setOpaque(false);
 
         // Card Panel on the East
-        cardPanel = new CardPanel(dashboardDTO.
-                getUserDTO().
-                getAccounts().
-                getFirst().
-                getCards().
-                getFirst()
-        );
+        cardPanel = new CardPanel(userdto.getAccount().getCard());
 
         JPanel cardWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         cardWrapper.setOpaque(false);
@@ -108,7 +103,7 @@ public class Dashboard extends JPanel {
         currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, UIScale.scale(120)));
 
         JLabel balanceLabel = new JLabel("₱ " +
-                dashboardDTO.getUserDTO().getAccounts().getFirst().getBalance()
+                userdto.getAccount().getBalance()
         );
         balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));
         ThemeManager.putThemeAwareProperty(balanceLabel, "foreground: $LGVB.foreground");

@@ -4,7 +4,6 @@
  */
 package com.leshka_and_friends.lgvb.card;
 
-import com.leshka_and_friends.lgvb.card.CardType;
 import java.time.YearMonth;
 
 /**
@@ -12,8 +11,7 @@ import java.time.YearMonth;
  * @author giann
  */
 public class CardDTO {
-
-    private CardType type;
+    private String type;
     private String maskedNumber;
     private String holder;
     private YearMonth expiryDate;
@@ -21,18 +19,18 @@ public class CardDTO {
     public CardDTO() {
     }
 
-    public CardDTO(CardType type, String maskedNumber, String holder, YearMonth expiryDate) {
+    public CardDTO(String type, String maskedNumber, String holder, YearMonth expiryDate) {
         this.type = type;
         setMaskedNumber(maskedNumber);
         this.holder = holder;
         this.expiryDate = expiryDate;
     }
 
-    public CardType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(CardType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -40,12 +38,12 @@ public class CardDTO {
         return maskedNumber;
     }
 
-    public void setMaskedNumber(String raw) {
-        if (raw == null || raw.isBlank()) {
+    public void setMaskedNumber(String cardLast4) {
+        if (cardLast4 == null || cardLast4.isBlank()) {
             this.maskedNumber = "#".repeat(16);
         }
 
-        this.maskedNumber = "*".repeat(raw.length() - 4) + raw.substring(raw.length() - 4);
+        this.maskedNumber = "*".repeat(12) + cardLast4;
     }
 
     public String getHolder() {
@@ -60,8 +58,8 @@ public class CardDTO {
         return expiryDate;
     }
 
-    public void setExpiryDate(YearMonth expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setExpiryDate(int year, int month) {
+        this.expiryDate = YearMonth.of(year, month);
     }
 
 }

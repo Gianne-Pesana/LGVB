@@ -7,7 +7,6 @@ package com.leshka_and_friends.lgvb.dashboard;
 import com.leshka_and_friends.lgvb.user.User;
 import com.leshka_and_friends.lgvb.auth.SessionService;
 import com.leshka_and_friends.lgvb.account.AccountService;
-import com.leshka_and_friends.lgvb.card.CardService;
 import com.leshka_and_friends.lgvb.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.view.MainView;
 
@@ -20,14 +19,12 @@ public class DashboardController {
     MainView mainView;
     SessionService session;
     AccountService accountService;
-    CardService cardService;
     TransactionService transactionService;
 
-    public DashboardController(MainView mainView, SessionService session, AccountService accountService, CardService cardService, TransactionService transactionService) {
+    public DashboardController(MainView mainView, SessionService session, AccountService accountService, TransactionService transactionService) {
         this.mainView = mainView;
         this.session = session;
         this.accountService = accountService;
-        this.cardService = cardService;
         this.transactionService = transactionService;
         
     }

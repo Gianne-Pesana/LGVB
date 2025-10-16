@@ -12,25 +12,28 @@ import java.util.List;
  * @author giann
  */
 public class AccountDTO {
-    private String accNumberMasked;
+    private String accountNumber;
     private double balance;
+    private double interestRate;
+    private String status;
+    
     private CardDTO card;
 
     public AccountDTO() {
     }
 
     public AccountDTO(String accNumberMasked, double balance, CardDTO cards) {
-        this.accNumberMasked = accNumberMasked;
+        this.accountNumber = accNumberMasked;
         this.balance = balance;
         this.card = card;
     }
 
-    public String getAccNumberMasked() {
-        return accNumberMasked;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setAccNumberMasked(String accNumberMasked) {
-        this.accNumberMasked = accNumberMasked;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public double getBalance() {
@@ -48,5 +51,23 @@ public class AccountDTO {
     public void setCard(CardDTO card) {
         this.card = card;
     }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 
 }

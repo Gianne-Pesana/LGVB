@@ -7,7 +7,6 @@ package com.leshka_and_friends.lgvb.view.test;
 import com.leshka_and_friends.lgvb.auth.AuthException;
 import com.leshka_and_friends.lgvb.auth.AuthService;
 import com.leshka_and_friends.lgvb.user.UserDAO;
-import com.leshka_and_friends.lgvb.user.UserSQL;
 import com.leshka_and_friends.lgvb.user.User;
 import com.leshka_and_friends.lgvb.auth.SessionService;
 
@@ -25,7 +24,7 @@ public class AuthUITest {
 
     public AuthUITest() {
         // Pass UserSQL into the AuthService
-        UserDAO userDAO = new UserSQL();
+        UserDAO userDAO = new UserDAO();
         this.auth = new AuthService(userDAO);
     }
 
@@ -44,17 +43,17 @@ public class AuthUITest {
         String phone = JOptionPane.showInputDialog("Phone (optional):");
         String dobStr = JOptionPane.showInputDialog("Date of birth (YYYY-MM-DD):");
 
-        try {
-            LocalDate dob = LocalDate.parse(dobStr);
-            auth.register(email, pwd, firstName, lastName, phone, dob);
-            JOptionPane.showMessageDialog(null, "Registered successfully.");
-        } catch (DateTimeParseException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid date format.");
-        } catch (AuthException e) {
-            JOptionPane.showMessageDialog(null, "Registration error: " + e.getMessage());
-        } finally {
-            java.util.Arrays.fill(pwd, '\0');
-        }
+//        try {
+//            LocalDate dob = LocalDate.parse(dobStr);
+////            auth.register(email, pwd, firstName, lastName, phone, dob);
+//            JOptionPane.showMessageDialog(null, "Registered successfully.");
+//        } catch (DateTimeParseException ex) {
+//            JOptionPane.showMessageDialog(null, "Invalid date format.");
+//        } catch (AuthException e) {
+//            JOptionPane.showMessageDialog(null, "Registration error: " + e.getMessage());
+//        } finally {
+//            java.util.Arrays.fill(pwd, '\0');
+//        }
     }
 
     public void showLoginDialog() {

@@ -41,7 +41,20 @@ public class MainView extends JFrame {
     
     public MainView(UserDTO dto) {
         this.dto = dto;
-        // Load fonts first
+        initializeFrame();
+        initializeSidebar();
+        createContentPanels();
+        createMainContent();
+
+        // Add split pane to frame
+        setLayout(new BorderLayout());
+        add(splitPane, BorderLayout.CENTER);
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    
+    private void initializeFrame() {
         FontLoader.loadFonts();
 
         // Frame settings
@@ -56,7 +69,9 @@ public class MainView extends JFrame {
         height = (int) Math.floor(screenSize.getHeight() * heigthScaleFactor);
 
         setSize(width, height);
-
+    }
+    
+    private void initializeSidebar() {
         // Sidebar panel (left)
         System.out.println("Inside Main View: " + dto.getFullName());
         sidebar = new Sidebar(this.dto);
@@ -81,34 +96,6 @@ public class MainView extends JFrame {
                 contentLayout.show(mainContentPanel, "CARDS");
             }
         });
-
-        // Create main content panels
-        createContentPanels();
-
-        // Main content panel (right) with CardLayout
-        contentLayout = new CardLayout();
-        mainContentPanel = new JPanel(contentLayout);
-        ThemeManager.putThemeAwareProperty(mainContentPanel, "background: $Panel.background");
-
-        // Add panels to card layout
-        mainContentPanel.add(dashboardPanel, "DASHBOARD");
-        mainContentPanel.add(walletPanel, "WALLET");
-        mainContentPanel.add(loanPanel, "LOAN");
-        mainContentPanel.add(cardsPanel, "CARDS");
-
-        // Show dashboard by default
-        contentLayout.show(mainContentPanel, "DASHBOARD");
-
-        // Split pane
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, mainContentPanel);
-        splitPane.setDividerSize(0);
-
-        // Add split pane to frame
-        setLayout(new BorderLayout());
-        add(splitPane, BorderLayout.CENTER);
-
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     /**
@@ -117,7 +104,7 @@ public class MainView extends JFrame {
     private void createContentPanels() {
         // Create dashboard panel with sample data
         String dashboardTitle = ThemeGlobalDefaults.getString("Panel.Dashboard.title");
-        dashboardPanel = new Dashboard(new DashboardDTO(dto));
+        dashboardPanel = new Dashboard(this.dto);
 
         // Create other panels
         String walletTitle = ThemeGlobalDefaults.getString("Panel.Wallet.title");
@@ -138,5 +125,23 @@ public class MainView extends JFrame {
         return dto.getFullName();
     }
     
+    private void createMainContent() {
+        // Main content panel (right) with CardLayout
+        contentLayout = new CardLayout();
+        mainContentPanel = new JPanel(contentLayout);
+        ThemeManager.putThemeAwareProperty(mainContentPanel, "background: $Panel.background");
 
+        // Add panels to card layout
+        mainContentPanel.add(dashboardPanel, "DASHBOARD");
+        mainContentPanel.add(walletPanel, "WALLET");
+        mainContentPanel.add(loanPanel, "LOAN");
+        mainContentPanel.add(cardsPanel, "CARDS");
+
+        // Show dashboard by default
+        contentLayout.show(mainContentPanel, "DASHBOARD");
+
+        // Split pane
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, mainContentPanel);
+        splitPane.setDividerSize(0);
+    }
 }

@@ -11,7 +11,6 @@ import com.leshka_and_friends.lgvb.account.AccountDTO;
 import com.leshka_and_friends.lgvb.card.CardDTO;
 import com.leshka_and_friends.lgvb.user.UserDTO;
 import com.leshka_and_friends.lgvb.account.Account;
-import com.leshka_and_friends.lgvb.card.CardType;
 import com.leshka_and_friends.lgvb.user.User;
 import com.leshka_and_friends.lgvb.auth.SessionService;
 import java.util.List;

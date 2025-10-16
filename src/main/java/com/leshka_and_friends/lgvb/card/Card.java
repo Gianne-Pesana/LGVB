@@ -4,76 +4,18 @@
  */
 package com.leshka_and_friends.lgvb.card;
 
-import java.sql.Timestamp;
-import java.time.YearMonth;
-import java.util.Date;
 
 public class Card {
     private int cardId;
     private int accountId;
-    private String cardNumber;
-    private YearMonth expiryDate;
-    private String cvv;
     private String cardType;
+    private String fullCardNumber;
+    private String cardLast4;
+    private int expiryMonth;
+    private int expiryYear;
     private String status;
-    private Timestamp issuedAt;
 
-    public Card() {}
-
-    public Card(int cardId, int accountId, String cardNumber, YearMonth expiryDate, String cvv, String cardType, String status, Timestamp issuedAt) {
-        this.cardId = cardId;
-        this.accountId = accountId;
-        this.cardNumber = cardNumber;
-        this.expiryDate = expiryDate;
-        this.cvv = cvv;
-        this.cardType = cardType;
-        this.status = status;
-        this.issuedAt = issuedAt;
-    }
-
-    
-
-    // --- getters & setters ---
-
-    public int getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
-
-    public int getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public YearMonth getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(YearMonth expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
-    }
+    // getters and setters
 
     public String getCardType() {
         return cardType;
@@ -82,21 +24,37 @@ public class Card {
     public void setCardType(String cardType) {
         this.cardType = cardType;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Timestamp getIssuedAt() {
-        return issuedAt;
-    }
-
-    public void setIssuedAt(Timestamp issuedAt) {
-        this.issuedAt = issuedAt;
-    }
     
+    
+    public int getCardId() { return cardId; }
+    public void setCardId(int cardId) { this.cardId = cardId; }
+
+    public int getAccountId() { return accountId; }
+    public void setAccountId(int accountId) { this.accountId = accountId; }
+
+    public String getFullCardNumber() { return fullCardNumber; }
+    public void setFullCardNumber(String fullCardNumber) { this.fullCardNumber = fullCardNumber; }
+
+    public String getCardLast4() { return cardLast4; }
+    public void setCardLast4(String cardLast4) { this.cardLast4 = cardLast4; }
+
+    public int getExpiryMonth() { return expiryMonth; }
+    public void setExpiryMonth(int expiryMonth) { this.expiryMonth = expiryMonth; }
+
+    public int getExpiryYear() { return expiryYear; }
+    public void setExpiryYear(int expiryYear) { this.expiryYear = expiryYear; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+    
+    public void printInfo() {
+        System.out.println("cardId: " + (cardId < 1 ? "wala" : cardId));
+        System.out.println("accountId: " + accountId);
+        System.out.println("cardType: " + (cardType == null ? "wala pudt" : cardType));
+        System.out.println("cardLast4: " + cardLast4);
+        System.out.println("Expiry month: " + expiryMonth);
+        System.out.println("Expiry year: " + expiryYear);
+        System.out.println("status: " + cardId);
+    }
 }
+

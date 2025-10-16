@@ -78,7 +78,7 @@ public class CardPanel extends RoundedPanel {
         JPanel headerEast = new JPanel(new GridLayout(1, 2, 20, 0));
         headerEast.setOpaque(false);
 
-        cardTypeLabel = new JLabel(cardDTO.getType().getName());
+        cardTypeLabel = new JLabel(cardDTO.getType());
         cardTypeLabel.setFont(FontLoader.getFont("ibmplexmono-semibold",
                 ThemeGlobalDefaults.getScaledInt("card.font.small")));
         ThemeManager.putThemeAwareProperty(cardTypeLabel, "foreground: $LGVB.foreground;");
