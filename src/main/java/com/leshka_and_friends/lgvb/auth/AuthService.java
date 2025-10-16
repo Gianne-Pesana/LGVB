@@ -13,6 +13,7 @@ import com.leshka_and_friends.lgvb.card.Card;
 import com.leshka_and_friends.lgvb.card.CardDAO;
 import com.leshka_and_friends.lgvb.user.User;
 import com.leshka_and_friends.lgvb.core.PasswordUtils;
+import com.leshka_and_friends.lgvb.user.Role;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -58,7 +59,7 @@ public class AuthService {
         u.setLastName(lastName);
         u.setPhoneNumber(phone);
         u.setDateOfBirth(java.sql.Date.valueOf(dob));
-        u.setRole("customer");
+        u.setRole(Role.CUSTOMER);
         u.setImagePath("/profile/default.jpg");
 
         try {
@@ -97,9 +98,6 @@ public class AuthService {
             throw new AuthException("Invalid credentials");
         }
 
-        System.out.println("AuthService - login");
-        user.getAccount().getCard().printInfo();
-        
         return user;
     }
 

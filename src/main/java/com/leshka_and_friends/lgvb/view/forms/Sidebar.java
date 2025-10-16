@@ -7,7 +7,7 @@ package com.leshka_and_friends.lgvb.view.forms;
 import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.user.UserDTO;
+import com.leshka_and_friends.lgvb.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
 import com.leshka_and_friends.lgvb.view.components.buttons.UserProfile;
 import com.leshka_and_friends.lgvb.view.factories.SidebarButtonFactory;
@@ -51,10 +51,10 @@ public class Sidebar extends JPanel {
     }
 
     private SelectionListener selectionListener;
-    private UserDTO userDTO;
+    private CustomerDTO customerdto;
 
-    public Sidebar(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public Sidebar(CustomerDTO customerdto) {
+        customerdto = customerdto;
 //        System.out.println("Sidebar width: " + width);
         Dimension sidebarSize = new Dimension(sidebarWidth, sidebarHeight);
         setPreferredSize(sidebarSize);
@@ -143,7 +143,7 @@ public class Sidebar extends JPanel {
         southContainer.setOpaque(false);
 
         userProfileItem = new UserProfile();
-        userProfileItem.setUserProfile(userDTO.getFullName(), userDTO.getProfileIconPath());
+        userProfileItem.setUserProfile(customerdto.getFullName(), customerdto.getProfileIconPath());
 
         southContainer.add(userProfileItem);
 

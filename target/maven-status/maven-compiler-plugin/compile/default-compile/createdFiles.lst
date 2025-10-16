@@ -12,6 +12,7 @@ com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.clas
 com\leshka_and_friends\lgvb\view\test\AuthUITest.class
 com\leshka_and_friends\lgvb\core\DBConnection.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login.class
+com\leshka_and_friends\lgvb\user\Role.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$1.class
 com\leshka_and_friends\lgvb\view\factories\ViewFactory.class

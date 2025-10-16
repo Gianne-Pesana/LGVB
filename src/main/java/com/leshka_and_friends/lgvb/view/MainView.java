@@ -4,8 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.view;
 
-import com.leshka_and_friends.lgvb.dashboard.DashboardDTO;
-import com.leshka_and_friends.lgvb.user.UserDTO;
+import com.leshka_and_friends.lgvb.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
@@ -37,9 +36,9 @@ public class MainView extends JFrame {
     private final double widthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.width.scaleFactor");
     private final double heigthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.height.scaleFactor");
 
-    private UserDTO dto;
+    private CustomerDTO dto;
     
-    public MainView(UserDTO dto) {
+    public MainView(CustomerDTO dto) {
         this.dto = dto;
         initializeFrame();
         initializeSidebar();

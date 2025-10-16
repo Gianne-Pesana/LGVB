@@ -20,9 +20,6 @@ import java.util.List;
 
 public class UserDAO {
 
-    private final AccountDAO accountDAO = new AccountDAO();
-    private final CardDAO cardDAO = new CardDAO();
-
     public User addUser(User user) {
         String sql = "INSERT INTO users (email, password_hash, first_name, last_name, phone_number, date_of_birth, role, profile_image) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,7 +32,7 @@ public class UserDAO {
             stmt.setString(4, user.getLastName());
             stmt.setString(5, user.getPhoneNumber());
             stmt.setDate(6, user.getDateOfBirth());
-            stmt.setString(7, user.getRole());
+            stmt.setString(7, user.getRole().name());
             stmt.setString(8, user.getImagePath());
 
             int affectedRows = stmt.executeUpdate();
@@ -80,9 +77,6 @@ public class UserDAO {
             e.printStackTrace();
         }
 
-        if (u != null) {
-            loadAccountAndCard(u);
-        }
         return u;
     }
 
@@ -100,9 +94,6 @@ public class UserDAO {
             e.printStackTrace();
         }
         
-        if (u != null) {
-            loadAccountAndCard(u);
-        }
         return u;
     }
 
@@ -119,7 +110,6 @@ public class UserDAO {
             e.printStackTrace();
         }
 
-        loadAccountAndCard(users);
         return users;
     }
 
@@ -133,7 +123,7 @@ public class UserDAO {
             stmt.setString(4, user.getLastName());
             stmt.setString(5, user.getPhoneNumber());
             stmt.setDate(6, user.getDateOfBirth());
-            stmt.setString(7, user.getRole());
+            stmt.setString(7, user.getRole().name());
             stmt.setString(8, user.getImagePath());
             stmt.setInt(9, user.getUserId());
             stmt.executeUpdate();
@@ -162,26 +152,9 @@ public class UserDAO {
         u.setLastName(rs.getString("last_name"));
         u.setPhoneNumber(rs.getString("phone_number"));
         u.setDateOfBirth(rs.getDate("date_of_birth"));
-        u.setRole(rs.getString("role"));
+        u.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
         u.setCreatedAt(rs.getTimestamp("created_at"));
         u.setImagePath(rs.getString("profile_image"));
         return u;
-    }
-
-    // Single user
-    private void loadAccountAndCard(User u) {
-        Account acc = accountDAO.getAccountByUserId(u.getUserId());
-        if (acc != null) {
-            Card card = cardDAO.getCardByAccountId(acc.getAccountId());
-            acc.setCard(card);
-        }
-        u.setAccount(acc);
-    }
-
-// List of users
-    private void loadAccountAndCard(List<User> users) {
-        for (User u : users) {
-            loadAccountAndCard(u);
-        }
     }
 }

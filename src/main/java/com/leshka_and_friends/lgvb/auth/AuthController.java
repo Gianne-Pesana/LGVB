@@ -21,13 +21,10 @@ import javax.swing.JPasswordField;
 public class AuthController {
 
     private User user = null;
-    UserDTO userdto;
+    CustomerDTO customerdto;
     private boolean loggedIn = false;
     private final AuthService auth;
-    private final AccountDAO accountDAO;
-    private final CardDAO cardDAO;
-    private final TransactionDAO transactionDAO;
-    private final UserDAO userDAO;
+    private final CustomerService customerService;
     private final SessionService sessionService;
     private final AccountService accountService;
     private final TransactionService transactionService;
@@ -36,15 +33,19 @@ public class AuthController {
     private LoginPage loginPage;
 
     public AuthController() {
-        userDAO = new UserDAO();
-        accountDAO = new AccountDAO();
-        cardDAO = new CardDAO();
-        transactionDAO = new TransactionSQL();
+        // DAOs are now primarily used by services, not the controller.
+        UserDAO userDAO = new UserDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        CardDAO cardDAO = new CardDAO();
+        TransactionDAO transactionDAO = new TransactionSQL();
+        
+        // Services that encapsulate business logic
         auth = new AuthService(userDAO);
         sessionService = SessionService.getInstance();
-        accountService = new AccountService(accountDAO, userDAO);
+        accountService = new AccountService(accountDAO, userDAO, cardDAO);
+        customerService = new CustomerService(accountService);
         transactionService = new TransactionService(transactionDAO);
-        userService = new UserService(userDAO, accountDAO, cardDAO);
+        userService = new UserService(userDAO); // Updated constructor
 
     }
 
@@ -68,36 +69,14 @@ public class AuthController {
 
         try {
             user = auth.login(email, pwd);
-            loggedIn = true;
             sessionService.login(user);
 
-            Card card = user.getAccount().getCard();
-            System.out.println("AuthController");
-            card.printInfo();
-            CardDTO carddto = new CardDTO();
-            carddto.setType(card.getCardType());
-            carddto.setMaskedNumber(card.getCardLast4());
-            carddto.setHolder(user.getFullName());
-            carddto.setExpiryDate(card.getExpiryYear(), card.getExpiryMonth());
-
-            Account account = user.getAccount();
-            AccountDTO accdto = new AccountDTO();
-            accdto.setAccountNumber(account.getAccountNumber());
-            accdto.setBalance(account.getBalance());
-            accdto.setInterestRate(account.getInterestRate());
-            accdto.setStatus(account.getStatus());
-            accdto.setCard(carddto);
-
-            userdto = new UserDTO();
-            userdto.setFirstName(user.getFirstName());
-            userdto.setLastName(user.getLastName());
-            userdto.setProfileIconPath(user.getImagePath());
-            userdto.setAccount(accdto);
-
-            if (user.getRole().equalsIgnoreCase("admin")) {
-                JOptionPane.showMessageDialog(null, "Admin Page");
-            } else {
-                MainView mainView = new MainView(userdto);
+            if (user.getRole() == Role.ADMIN) {
+                JOptionPane.showMessageDialog(null, "Admin login successful. Admin dashboard not yet implemented.");
+                
+            } else if (user.getRole() == Role.CUSTOMER) {
+                CustomerDTO customerdto = customerService.buildCustomerDTO(user);
+                MainView mainView = new MainView(customerdto);
                 DashboardController mainController = new DashboardController(
                         mainView, sessionService, accountService, transactionService
                 );

@@ -140,7 +140,7 @@ public class AccountDAO {
 
     private Account mapAccount(ResultSet rs) throws SQLException {
         Account acc = new Account();
-        acc.setAccountId(rs.getInt("account_id")); // <-- ADD THIS
+        acc.setAccountId(rs.getInt("account_id"));
         acc.setUserId(rs.getInt("user_id"));
         acc.setAccountNumber(rs.getString("account_number"));
         acc.setBalance(rs.getDouble("balance"));

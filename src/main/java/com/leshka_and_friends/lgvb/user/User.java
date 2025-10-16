@@ -13,18 +13,16 @@ public class User {
     private String lastName;
     private String phoneNumber;
     private Date dateOfBirth;
-    private String role;
+    private Role role;
     private Timestamp createdAt;
     private String imagePath;
-
-    private Account account;
     
     private final String defaultProfile = "/profile/default.jpg";
 
     public User() {
     }
 
-    public User(int userId, String email, String passwordHash, String firstName, String lastName, String phoneNumber, Date dateOfBirth, String role, Timestamp createdAt, String imagePath) {
+    public User(int userId, String email, String passwordHash, String firstName, String lastName, String phoneNumber, Date dateOfBirth, Role role, Timestamp createdAt, String imagePath) {
         this.userId = userId;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -95,11 +93,11 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -121,14 +119,6 @@ public class User {
         } else {
             this.imagePath = imagePath;
         }
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
     
     
