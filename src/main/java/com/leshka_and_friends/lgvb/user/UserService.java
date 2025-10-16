@@ -1,5 +1,7 @@
 package com.leshka_and_friends.lgvb.user;
 
+import com.leshka_and_friends.lgvb.account.Account;
+
 public class UserService {
 
     private final UserDAO userRepo;

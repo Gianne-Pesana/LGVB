@@ -9,20 +9,21 @@ import java.util.List;
 public class CardDAO {
 
     // CREATE
-    public Card createCardForAccount(int accountId) throws Exception {
-        String cardNumber = generateCardNumber();
-        String last4 = cardNumber.substring(cardNumber.length() - 4);
-        int month = generateExpiryMonth();
-        int year = generateExpiryYear();
-        String encrypted = EncryptionUtils.encrypt(cardNumber);
+    public Card createCardForAccount(int accountId) {
+        int key = -1;
 
         String sql = """
             INSERT INTO cards (account_id, card_type, card_token, card_last4, expiry_month, expiry_year, status)
             VALUES (?, 'visa', ?, ?, ?, ?, 'active')
         """;
 
-        int key;
         try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            String cardNumber = generateCardNumber();
+            String last4 = cardNumber.substring(cardNumber.length() - 4);
+            int month = generateExpiryMonth();
+            int year = generateExpiryYear();
+            String encrypted = EncryptionUtils.encrypt(cardNumber);
+
             ps.setInt(1, accountId);
             ps.setBytes(2, encrypted.getBytes());
             ps.setString(3, last4);
@@ -34,10 +35,11 @@ public class CardDAO {
                 if (generatedKeys.next()) {
                     key = generatedKeys.getInt(1);
                 } else {
-                    key = -1;
                     throw new SQLException("Creating card failed, no ID obtained.");
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Failed to create card for account: " + accountId);
         }
 
         return getCardById(key);
@@ -133,7 +135,7 @@ public class CardDAO {
         if (tokenBytes != null) {
             c.setFullCardNumber(EncryptionUtils.decrypt(new String(tokenBytes)));
         }
-        
+
         c.printInfo();
         return c;
     }

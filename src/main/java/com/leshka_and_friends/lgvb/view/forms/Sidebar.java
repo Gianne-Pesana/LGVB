@@ -54,7 +54,7 @@ public class Sidebar extends JPanel {
     private CustomerDTO customerdto;
 
     public Sidebar(CustomerDTO customerdto) {
-        customerdto = customerdto;
+        this.customerdto = customerdto;
 //        System.out.println("Sidebar width: " + width);
         Dimension sidebarSize = new Dimension(sidebarWidth, sidebarHeight);
         setPreferredSize(sidebarSize);

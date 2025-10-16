@@ -24,11 +24,17 @@ public class AuthController {
     CustomerDTO customerdto;
     private boolean loggedIn = false;
     private final AuthService auth;
-    private final CustomerService customerService;
-    private final SessionService sessionService;
-    private final AccountService accountService;
-    private final TransactionService transactionService;
+    
     private final UserService userService;
+    
+    private final AccountService accountService;
+    private final CardService cardService;
+    private final CustomerService customerService;
+    
+    private final SessionService sessionService;
+    private final TransactionService transactionService;
+    
+    private final RegistrationService registrationService;
 
     private LoginPage loginPage;
 
@@ -40,13 +46,17 @@ public class AuthController {
         TransactionDAO transactionDAO = new TransactionSQL();
         
         // Services that encapsulate business logic
-        auth = new AuthService(userDAO);
+        userService = new UserService(userDAO);
+        auth = new AuthService(userService);
         sessionService = SessionService.getInstance();
-        accountService = new AccountService(accountDAO, userDAO, cardDAO);
-        customerService = new CustomerService(accountService);
+        
+        accountService = new AccountService(accountDAO);
+        cardService = new CardService(cardDAO);
+        customerService = new CustomerService(accountService, cardService);
+        
         transactionService = new TransactionService(transactionDAO);
-        userService = new UserService(userDAO); // Updated constructor
 
+        registrationService = new RegistrationService(userService, accountService, cardService);
     }
 
     public void start() {
@@ -169,7 +179,7 @@ public class AuthController {
                 }
             }
 
-            auth.register(email, pwd, firstName, lastName, phone, dob);
+            registrationService.registerCustomer(email, pwd, firstName, lastName, phone, dob);
             JOptionPane.showMessageDialog(null, "Registered successfully!");
 
         } catch (Exception e) {

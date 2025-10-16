@@ -36,7 +36,7 @@ public class Dashboard extends JPanel {
     private List<MenuItemButtonDashboard> menuItems = new ArrayList<>();
 
     public Dashboard(CustomerDTO customerdto) {
-        customerdto = customerdto;
+        this.customerdto = customerdto;
         setOpaque(false);
         // Set a border similar to DHB.java
         setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));

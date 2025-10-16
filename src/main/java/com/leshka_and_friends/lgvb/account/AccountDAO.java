@@ -48,17 +48,6 @@ public class AccountDAO {
         return null;
     }
 
-    public Account createDefaultAccount(int userID) {
-        Account account = new Account();
-        account.setUserId(userID);
-        account.setAccountNumber(AccountService.generateAccountNumber());
-        account.setBalance(0.0);
-        account.setInterestRate(0.0);
-        account.setStatus("pending");
-
-        return addAccount(account);
-    }
-
     public Account getAccountById(int id) {
         String sql = "SELECT * FROM accounts WHERE account_id = ?";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {

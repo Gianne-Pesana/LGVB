@@ -9,7 +9,6 @@ com\leshka_and_friends\lgvb\view\MainView.class
 com\leshka_and_friends\lgvb\view\components\RoundedPanel.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Register.class
 com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.class
-com\leshka_and_friends\lgvb\view\test\AuthUITest.class
 com\leshka_and_friends\lgvb\core\DBConnection.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login.class
 com\leshka_and_friends\lgvb\user\Role.class
@@ -28,6 +27,8 @@ com\leshka_and_friends\lgvb\view\components\buttons\StaticItemButton.class
 com\leshka_and_friends\lgvb\view\factories\LookAndFeelFactory.class
 com\leshka_and_friends\lgvb\view\components\panels\HeaderPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile.class
+com\leshka_and_friends\lgvb\user\CustomerService.class
+com\leshka_and_friends\lgvb\card\CardService.class
 com\leshka_and_friends\lgvb\card\CardDAO.class
 com\leshka_and_friends\lgvb\loan\Loan.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.class
@@ -89,6 +90,7 @@ com\leshka_and_friends\lgvb\view\ui_utils\SVGCardIconHelper.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
+com\leshka_and_friends\lgvb\user\CustomerDTO.class
 com\leshka_and_friends\lgvb\view\themes\Theme.class
 com\leshka_and_friends\lgvb\transaction\TransactionDAO.class
 com\leshka_and_friends\lgvb\view\components\RoundedPasswordField$1.class

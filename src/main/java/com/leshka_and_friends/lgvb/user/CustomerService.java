@@ -10,6 +10,7 @@ import com.leshka_and_friends.lgvb.account.AccountService;
 import com.leshka_and_friends.lgvb.auth.AuthException;
 import com.leshka_and_friends.lgvb.card.Card;
 import com.leshka_and_friends.lgvb.card.CardDTO;
+import com.leshka_and_friends.lgvb.card.CardService;
 
 /**
  *
@@ -18,9 +19,11 @@ import com.leshka_and_friends.lgvb.card.CardDTO;
 public class CustomerService {
 
     private final AccountService accountService;
+    private final CardService cardService;
 
-    public CustomerService(AccountService accountService) {
+    public CustomerService(AccountService accountService, CardService cardService) {
         this.accountService = accountService;
+        this.cardService = cardService;
     }
 
     
@@ -33,7 +36,7 @@ public class CustomerService {
         }
 
         // Fetch the card using the service
-        Card card = accountService.getCardForAccount(account.getAccountId());
+        Card card = cardService.getCardForAccount(account.getAccountId());
         if (card == null) {
             throw new AuthException("Account has no associated card.");
         }
