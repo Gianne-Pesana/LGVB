@@ -34,39 +34,39 @@ public class UserService {
         this.cardRepo = cardRepo;
     }
     
-    public UserDTO getUserDisplayObjects() {
-        User user = SessionService.getInstance().getCurrentUser();
-
-        List<Account> accounts = accountRepo.getAccountsByUserId(user.getUserId());
-
-        List<AccountDTO> accountDTOs = accounts.stream()
-                .map(acc -> {
-                    AccountDTO a = new AccountDTO();
-                    a.setAccNumberMasked(acc.getAccountNumber());
-                    a.setBalance(acc.getBalance());
-
-                    List<CardDTO> cards = cardRepo.getCardsByAccountId(acc.getAccountId()).stream()
-                            .map(c -> {
-                                String typeName = switch (c.getCardTypeId()) {
-                                    case 1 -> "Debit";
-                                    case 2 -> "Credit";
-                                    case 3 -> "Prepaid";
-                                    default -> "Card";
-                                };
-                                CardType type = new CardType(c.getCardTypeId(), typeName); 
-                                return new CardDTO(type, c.getCardNumber(), user.getFullName(), c.getExpiryDate());
-                            })
-                            .toList();
-
-                    a.setCards(cards);
-                    return a;
-                })
-                .toList();
-
-        UserDTO userDTO = new UserDTO(user.getFirstName(), user.getLastName(), user.getImagePath(), accountDTOs);
-        System.out.println("Service: " + userDTO.getFullName());
-        userDTO.setAccounts(accountDTOs);
-        return userDTO;
-    }
+//    public UserDTO getUserDisplayObjects() {
+//        User user = SessionService.getInstance().getCurrentUser();
+//
+//        List<Account> accounts = accountRepo.getAccountsByUserId(user.getUserId());
+//
+//        List<AccountDTO> accountDTOs = accounts.stream()
+//                .map(acc -> {
+//                    AccountDTO a = new AccountDTO();
+//                    a.setAccNumberMasked(acc.getAccountNumber());
+//                    a.setBalance(acc.getBalance());
+//
+//                    List<CardDTO> cards = cardRepo.getCardsByAccountId(acc.getAccountId()).stream()
+//                            .map(c -> {
+//                                String typeName = switch (c.getCardTypeId()) {
+//                                    case 1 -> "Debit";
+//                                    case 2 -> "Credit";
+//                                    case 3 -> "Prepaid";
+//                                    default -> "Card";
+//                                };
+//                                CardType type = new CardType(c.getCardTypeId(), typeName); 
+//                                return new CardDTO(type, c.getCardNumber(), user.getFullName(), c.getExpiryDate());
+//                            })
+//                            .toList();
+//
+//                    a.setCards(cards);
+//                    return a;
+//                })
+//                .toList();
+//
+//        UserDTO userDTO = new UserDTO(user.getFirstName(), user.getLastName(), user.getImagePath(), accountDTOs);
+//        System.out.println("Service: " + userDTO.getFullName());
+//        userDTO.setAccounts(accountDTOs);
+//        return userDTO;
+//    }
         
 }

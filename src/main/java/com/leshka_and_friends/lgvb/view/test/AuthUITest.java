@@ -46,7 +46,7 @@ public class AuthUITest {
 
         try {
             LocalDate dob = LocalDate.parse(dobStr);
-            auth.register(username, email, pwd, firstName, lastName, phone, dob);
+            auth.register(email, pwd, firstName, lastName, phone, dob);
             JOptionPane.showMessageDialog(null, "Registered successfully.");
         } catch (DateTimeParseException ex) {
             JOptionPane.showMessageDialog(null, "Invalid date format.");

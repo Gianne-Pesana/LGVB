@@ -21,13 +21,31 @@ public class AuthService {
     public AuthService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
-
-    public void register(String username, String email, char[] password,
-            String firstName, String lastName, String phone, LocalDate dob) throws AuthException {
+    
+    public boolean isValidUsername(String username) throws AuthException {
         // Validate
         if (username == null || username.isBlank()) {
-            throw new AuthException("Username is required");
+            throw new AuthException("Username is required!");
         }
+        
+        return true;
+    }
+    
+    public boolean isValidEmail(String email) throws AuthException {
+        if (email == null || !EMAIL_RE.matcher(email).matches()) {
+            throw new AuthException("Invalid email");
+        }
+        
+        if (userDAO.getUserByEmail(email) != null) {
+            throw new AuthException("Email already linked to an account, please log in.");
+        }
+        
+        return true;
+    }
+
+    public void register(String email, char[] password,
+            String firstName, String lastName, String phone, LocalDate dob) throws AuthException {
+        // Validate
         if (email == null || !EMAIL_RE.matcher(email).matches()) {
             throw new AuthException("Invalid email");
         }
@@ -38,25 +56,15 @@ public class AuthService {
             throw new AuthException("Date of birth required");
         }
 
-        // Check duplicates
-        try {
-            if (userDAO.getUserByUsername(username) != null) {
-                throw new AuthException("Username already taken");
-            }
-            // If you add getUserByEmail() in DAO, check email too
-        } catch (Exception e) {
-            throw new AuthException("Database error", e);
-        }
 
         // Hash password
         String hashed = PasswordUtils.hashPassword(password);
 
         User u = new User();
-        u.setUsername(username);
+        u.setEmail(email);
         u.setPasswordHash(hashed);
         u.setFirstName(firstName);
         u.setLastName(lastName);
-        u.setEmail(email);
         u.setPhoneNumber(phone);
         u.setDateOfBirth(java.sql.Date.valueOf(dob));
         u.setRole("customer");

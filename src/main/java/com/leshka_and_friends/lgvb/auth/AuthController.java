@@ -20,6 +20,7 @@ import com.leshka_and_friends.lgvb.user.UserSQL;
 import com.leshka_and_friends.lgvb.user.UserService;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.core.StringUtils;
+import com.leshka_and_friends.lgvb.user.UserDTO;
 import com.leshka_and_friends.lgvb.view.LoginPage;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ import javax.swing.JPasswordField;
 public class AuthController {
 
     private User user = null;
+    UserDTO userdto;
     private boolean loggedIn = false;
     private final AuthService auth;
     private final AccountDAO accountDAO;
@@ -56,6 +58,7 @@ public class AuthController {
         cardService = new CardService(cardDAO, accountDAO, userDAO);
         transactionService = new TransactionService(transactionDAO);
         userService = new UserService(userDAO, accountDAO, cardDAO);
+        
     }
 
     public void start() {
@@ -72,19 +75,6 @@ public class AuthController {
 
     }
 
-    public void showLoginDialog() {
-        String email = JOptionPane.showInputDialog("Email:");
-        if (email == null) {
-            return; // User cancelled
-        }
-        JPasswordField pf = new JPasswordField();
-        int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (ok != JOptionPane.OK_OPTION) {
-            return;
-        }
-
-    }
-
     private void handleLogin() {
         String email = loginPage.getInputUsername();
         char[] pwd = loginPage.getInputPassword();
@@ -93,19 +83,24 @@ public class AuthController {
             user = auth.login(email, pwd);
             loggedIn = true;
             sessionService.login(user);
+            userdto = new UserDTO();
+            userdto.setFirstName(user.getEmail());
+            userdto.setLastName(user.getLastName());
+            userdto.setAccount(user.getAccount());
+            
 
-            // Main view
-            MainView mainView = new MainView(userService.getUserDisplayObjects());
-            System.out.println("Main View: " + mainView.getUserFullName());
+            if (user.getRole().equalsIgnoreCase("admin")) {
+                JOptionPane.showMessageDialog(null, "Admin Page");
+            } else {
+                MainView mainView = new MainView();
+                DashboardController mainController = new DashboardController(
+                        mainView, sessionService, accountService, cardService, transactionService
+                );
 
-            // Main controller orchestrates everything
-            DashboardController mainController = new DashboardController(
-                    mainView, sessionService, accountService, cardService, transactionService
-            );
-
-            mainView.setVisible(true);
+                mainView.setVisible(true);
+            }
+            
             loginPage.dispose();
-
         } catch (AuthException ae) {
             JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage());
         } finally {
@@ -118,11 +113,6 @@ public class AuthController {
         loginPage.setVisible(false);
 
         try {
-            String username = JOptionPane.showInputDialog("Username:");
-            if (username == null) {
-                return;
-            }
-
             String email = JOptionPane.showInputDialog("Email:");
             if (email == null) {
                 return;
@@ -153,7 +143,7 @@ public class AuthController {
             }
 
             LocalDate dob = LocalDate.parse(dobStr);
-            auth.register(username, email, pwd, firstName, lastName, phone, dob);
+            auth.register(email, pwd, firstName, lastName, phone, dob);
 
             JOptionPane.showMessageDialog(null, "Registered successfully!");
         } catch (AuthException e) {

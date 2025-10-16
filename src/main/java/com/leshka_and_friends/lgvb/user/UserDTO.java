@@ -15,16 +15,16 @@ public class UserDTO {
     String firstName;
     String lastName;
     String profileIconPath;
-    List<AccountDTO> accounts;
+    AccountDTO account;
 
     public UserDTO() {
     }
     
-    public UserDTO(String firstName, String lastName, String profileIconPath, List<AccountDTO> accounts) {
+    public UserDTO(String firstName, String lastName, String profileIconPath, AccountDTO account) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.profileIconPath = profileIconPath;
-        this.accounts = accounts;
+        this.account = account;
     }
 
     public String getFirstName() {
@@ -43,12 +43,12 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public List<AccountDTO> getAccounts() {
-        return accounts;
+    public AccountDTO getAccount() {
+        return account;
     }
 
-    public void setAccounts(List<AccountDTO> accounts) {
-        this.accounts = accounts;
+    public void setAccount(AccountDTO accounts) {
+        this.account = accounts;
     }
 
     public String getProfileIconPath() {

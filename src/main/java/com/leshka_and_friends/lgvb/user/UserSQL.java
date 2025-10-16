@@ -16,18 +16,17 @@ public class UserSQL implements UserDAO {
 
     @Override
     public void addUser(User user) {
-        String sql = "INSERT INTO users (username, password_hash, first_name, last_name, email, phone_number, date_of_birth, role, profile_image) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (email, password_hash, first_name, last_name, phone_number, date_of_birth, role, profile_image) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, user.getUsername());
+            stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getFirstName());
             stmt.setString(4, user.getLastName());
-            stmt.setString(5, user.getEmail());
-            stmt.setString(6, user.getPhoneNumber());
-            stmt.setDate(7, user.getDateOfBirth());
-            stmt.setString(8, user.getRole());
-            stmt.setString(9, user.getImagePath());
+            stmt.setString(5, user.getPhoneNumber());
+            stmt.setDate(6, user.getDateOfBirth());
+            stmt.setString(7, user.getRole());
+            stmt.setString(8, user.getImagePath());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,22 +47,7 @@ public class UserSQL implements UserDAO {
         }
         return null;
     }
-
-    @Override
-    public User getUserByUsername(String username) {
-        String sql = "SELECT * FROM users WHERE username = ?";
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return mapUser(rs);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    
     @Override
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
@@ -96,19 +80,18 @@ public class UserSQL implements UserDAO {
     // TODO: FIX IMPLEMENTATION FOR FULL NAME
     @Override
     public void updateUser(User user) {
-        String sql = "UPDATE users SET username=?, password_hash=?, first_name=?, last_name=?, email=?, phone_number=?, date_of_birth=?, role=?, profile_image=? WHERE user_id=?";
+        String sql = "UPDATE users SET email=?, password_hash=?, first_name=?, last_name=?, phone_number=?, date_of_birth=?, role=?, profile_image=? WHERE user_id=?";
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, user.getUsername());
+            stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getFirstName());
             stmt.setString(4, user.getLastName());
-            stmt.setString(5, user.getEmail());
-            stmt.setString(6, user.getPhoneNumber());
-            stmt.setDate(7, user.getDateOfBirth());
-            stmt.setString(8, user.getRole());
-            stmt.setString(9, user.getImagePath());
-            stmt.setInt(10, user.getUserId());
+            stmt.setString(5, user.getPhoneNumber());
+            stmt.setDate(6, user.getDateOfBirth());
+            stmt.setString(7, user.getRole());
+            stmt.setString(8, user.getImagePath());
+            stmt.setInt(9, user.getUserId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,11 +113,10 @@ public class UserSQL implements UserDAO {
     private User mapUser(ResultSet rs) throws SQLException {
         User u = new User();
         u.setUserId(rs.getInt("user_id"));
-        u.setUsername(rs.getString("username"));
+        u.setEmail(rs.getString("email"));
         u.setPasswordHash(rs.getString("password_hash"));
         u.setFirstName(rs.getString("first_name"));
         u.setLastName(rs.getString("last_name"));
-        u.setEmail(rs.getString("email"));
         u.setPhoneNumber(rs.getString("phone_number"));
         u.setDateOfBirth(rs.getDate("date_of_birth"));
         u.setRole(rs.getString("role"));

@@ -14,15 +14,15 @@ import java.util.List;
 public class AccountDTO {
     private String accNumberMasked;
     private double balance;
-    private List<CardDTO> cards;
+    private CardDTO card;
 
     public AccountDTO() {
     }
 
-    public AccountDTO(String accNumberMasked, double balance, List<CardDTO> cards) {
+    public AccountDTO(String accNumberMasked, double balance, CardDTO cards) {
         this.accNumberMasked = accNumberMasked;
         this.balance = balance;
-        this.cards = cards;
+        this.card = card;
     }
 
     public String getAccNumberMasked() {
@@ -41,12 +41,12 @@ public class AccountDTO {
         this.balance = balance;
     }
 
-    public List<CardDTO> getCards() {
-        return cards;
+    public CardDTO getCard() {
+        return card;
     }
 
-    public void setCards(List<CardDTO> cards) {
-        this.cards = cards;
+    public void setCard(CardDTO card) {
+        this.card = card;
     }
 
 }

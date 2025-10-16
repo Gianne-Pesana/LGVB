@@ -14,47 +14,89 @@ public class Card {
     private String cardNumber;
     private YearMonth expiryDate;
     private String cvv;
-    private int cardTypeId;   // Use int instead of CardType
-    private String status;       // "active", "blocked", "expired"
+    private String cardType;
+    private String status;
     private Timestamp issuedAt;
 
     public Card() {}
 
-    public Card(int cardId, int accountId, String cardNumber, YearMonth expiryDate,
-                String cvv, int cardTypeId, String status, Timestamp issuedAt) {
+    public Card(int cardId, int accountId, String cardNumber, YearMonth expiryDate, String cvv, String cardType, String status, Timestamp issuedAt) {
         this.cardId = cardId;
         this.accountId = accountId;
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.cvv = cvv;
-        this.cardTypeId = cardTypeId;
+        this.cardType = cardType;
         this.status = status;
         this.issuedAt = issuedAt;
     }
 
+    
+
     // --- getters & setters ---
 
-    public int getCardId() { return cardId; }
-    public void setCardId(int cardId) { this.cardId = cardId; }
+    public int getCardId() {
+        return cardId;
+    }
 
-    public int getAccountId() { return accountId; }
-    public void setAccountId(int accountId) { this.accountId = accountId; }
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
+    }
 
-    public String getCardNumber() { return cardNumber; }
-    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+    public int getAccountId() {
+        return accountId;
+    }
 
-    public YearMonth getExpiryDate() { return expiryDate; }
-    public void setExpiryDate(YearMonth expiryDate) { this.expiryDate = expiryDate; }
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
 
-    public String getCvv() { return cvv; }
-    public void setCvv(String cvv) { this.cvv = cvv; }
+    public String getCardNumber() {
+        return cardNumber;
+    }
 
-    public int getCardTypeId() { return cardTypeId; }
-    public void setCardTypeId(int cardTypeId) { this.cardTypeId = cardTypeId; }
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public YearMonth getExpiryDate() {
+        return expiryDate;
+    }
 
-    public Timestamp getIssuedAt() { return issuedAt; }
-    public void setIssuedAt(Timestamp issuedAt) { this.issuedAt = issuedAt; }
+    public void setExpiryDate(YearMonth expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Timestamp getIssuedAt() {
+        return issuedAt;
+    }
+
+    public void setIssuedAt(Timestamp issuedAt) {
+        this.issuedAt = issuedAt;
+    }
+    
 }

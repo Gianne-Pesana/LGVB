@@ -11,9 +11,10 @@ import java.util.List;
 public interface AccountDAO {
     int addAccount(Account account);
     Account getAccountById(int id);
-    List<Account> getAccountsByUserId(int userId);
     List<Account> getAllAccounts();
     void updateAccount(Account account);
     void deleteAccount(int id);
+    int createDefaultAccount(int userID);
+    Account getAccountByNumber(String accNum);
 }
 
