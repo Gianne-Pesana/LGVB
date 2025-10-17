@@ -5,7 +5,10 @@
 package com.leshka_and_friends.lgvb.view.forms;
 
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.core.DBConnection;
 import com.leshka_and_friends.lgvb.dashboard.DashboardDTO;
+import com.leshka_and_friends.lgvb.transaction.Transaction;
+import com.leshka_and_friends.lgvb.transaction.TransactionDAO;
 import com.leshka_and_friends.lgvb.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
@@ -18,8 +21,13 @@ import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.swing.border.EmptyBorder;
 
 public class Dashboard extends JPanel {
 
@@ -52,7 +60,19 @@ public class Dashboard extends JPanel {
         JPanel middlePanel = new JPanel();
         middlePanel.setOpaque(false);
         middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
+
+        // Add info section
         middlePanel.add(createInfoSection());
+
+        // Add a separator
+        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+        separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1)); // full width, 1px height
+        separator.setForeground(ThemeGlobalDefaults.getColor("Separator.color")); // optional color
+        middlePanel.add(Box.createRigidArea(new Dimension(0, 10))); // optional spacing before
+        middlePanel.add(separator);
+        middlePanel.add(Box.createRigidArea(new Dimension(0, 10))); // optional spacing after
+
+        // Add transactions panel
         middlePanel.add(createTransactionsPanel());
 
         add(middlePanel, BorderLayout.CENTER);
@@ -102,8 +122,8 @@ public class Dashboard extends JPanel {
         currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, UIScale.scale(120)));
         currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, UIScale.scale(120)));
 
-        JLabel balanceLabel = new JLabel("₱ " +
-                customerdto.getAccount().getBalance()
+        JLabel balanceLabel = new JLabel("₱ "
+                + customerdto.getAccount().getBalance()
         );
         balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));
         ThemeManager.putThemeAwareProperty(balanceLabel, "foreground: $LGVB.foreground");
@@ -168,16 +188,43 @@ public class Dashboard extends JPanel {
     }
 
     private JPanel createTransactionsPanel() {
-        transactionsPanel = new JPanel();
-        transactionsPanel.setOpaque(false);
-        transactionsPanel.setLayout(new BorderLayout()); 
-        ThemeManager.putThemeAwareProperty(transactionsPanel, "background: $Panel.background");
-        transactionsPanel.setBorder(BorderFactory.createTitledBorder("Recent Transactions"));
+        List<Transaction> allTransactions = null;
+        try {
+            TransactionDAO tdao = new TransactionDAO();
+            // TEST
+            allTransactions = tdao.getTransactionsByAccount(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        transactionsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-        transactionsPanel.setPreferredSize(new Dimension(0, ThemeGlobalDefaults.getScaledInt("transactionPanel.height"))); 
+        Map<LocalDate, List<Transaction>> grouped = allTransactions.stream()
+                .collect(Collectors.groupingBy(Transaction::getDate, LinkedHashMap::new, Collectors.toList()));
 
-        return transactionsPanel;
+        TransactionFeedPanel feedPanel = new TransactionFeedPanel(grouped);
+
+        JScrollPane scrollPane = new JScrollPane(feedPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // default is ~1-5; 16 is faster
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(16); // optional for horizontal
+
+        JLabel transactionLabel = new JLabel();
+        transactionLabel.setText("Transactions");
+        ThemeManager.putThemeAwareProperty(transactionLabel, "foreground: $LGVB.header");
+        transactionLabel.setFont(FontLoader.getBaloo2Bold(ThemeGlobalDefaults.getScaledInt("Transaction.header.fontSize")));
+        transactionLabel.setBorder(new EmptyBorder(5, 5, 10, 5));
+
+        JPanel container = new JPanel(new BorderLayout());
+        container.setOpaque(false);
+        container.add(scrollPane, BorderLayout.CENTER);
+        container.add(transactionLabel, BorderLayout.NORTH);
+
+        container.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        container.setPreferredSize(new Dimension(0, ThemeGlobalDefaults.getScaledInt("transactionPanel.height")));
+
+        return container;
     }
 
     public void setHeaderTitle(String title) {

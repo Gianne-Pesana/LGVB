@@ -46,7 +46,7 @@ public class HeaderPanel extends JPanel {
 
         titleLabel = new JLabel(title);
         ThemeManager.putThemeAwareProperty(titleLabel, "foreground: $LGVB.header;");
-        titleLabel.setFont(FontLoader.getInter(35f).deriveFont(Font.BOLD));
+        titleLabel.setFont(FontLoader.getBaloo2Bold(35f).deriveFont(Font.BOLD));
         titleLabel.setAlignmentX(LEFT_ALIGNMENT);
 
         dateLabel = new JLabel(LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")));

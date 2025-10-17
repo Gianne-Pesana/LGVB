@@ -43,7 +43,7 @@ public class AuthController {
         UserDAO userDAO = new UserDAO();
         AccountDAO accountDAO = new AccountDAO();
         CardDAO cardDAO = new CardDAO();
-        TransactionDAO transactionDAO = new TransactionSQL();
+        TransactionDAO transactionDAO = new TransactionDAO();
         
         // Services that encapsulate business logic
         userService = new UserService(userDAO);
@@ -76,6 +76,8 @@ public class AuthController {
     private void handleLogin() {
         String email = loginPage.getInputUsername();
         char[] pwd = loginPage.getInputPassword();
+        email = "gianne@lgvb.com";
+        pwd = "#Gianne123".toCharArray();
 
         try {
             user = auth.login(email, pwd);
@@ -87,17 +89,20 @@ public class AuthController {
             } else if (user.getRole() == Role.CUSTOMER) {
                 CustomerDTO customerdto = customerService.buildCustomerDTO(user);
                 MainView mainView = new MainView(customerdto);
-                DashboardController mainController = new DashboardController(
-                        mainView, sessionService, accountService, transactionService
-                );
+//                DashboardController mainController = new DashboardController(
+//                        mainView, sessionService, accountService, transactionService
+//                );
 
                 mainView.setVisible(true);
             }
 
             loginPage.dispose();
         } catch (AuthException ae) {
-            JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage());
-        } finally {
+            JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage(), "Authentication", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Unexpected error", "error", JOptionPane.ERROR_MESSAGE);
+        } 
+        finally {
             java.util.Arrays.fill(pwd, '\0');
         }
     }

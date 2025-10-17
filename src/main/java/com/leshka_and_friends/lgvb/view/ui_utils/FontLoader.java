@@ -105,7 +105,6 @@ public class FontLoader {
         return switch (name.toLowerCase()) {
             case "inter" ->
                 interFont.deriveFont(size);
-
             case "baloo2-regular" ->
                 baloo2Regular.deriveFont(size);
             case "baloo2-medium" ->
@@ -116,7 +115,6 @@ public class FontLoader {
                 baloo2Bold.deriveFont(size);
             case "baloo2-extrabold" ->
                 baloo2ExtraBold.deriveFont(size);
-
             case "ibmplexmono-regular" ->
                 ibmPlexMonoRegular.deriveFont(size);
             case "ibmplexmono-medium" ->
@@ -133,4 +131,35 @@ public class FontLoader {
         };
     }
 
+    public static Font getFont(String name, int style,float size) {
+        return switch (name.toLowerCase()) {
+            case "inter" ->
+                interFont.deriveFont(style, size);
+            case "baloo2-regular" ->
+                baloo2Regular.deriveFont(style, size);
+            case "baloo2-medium" ->
+                baloo2Medium.deriveFont(style, size);
+            case "baloo2-semibold" ->
+                baloo2SemiBold.deriveFont(style, size);
+            case "baloo2-bold" ->
+                baloo2Bold.deriveFont(style, size);
+            case "baloo2-extrabold" ->
+                baloo2ExtraBold.deriveFont(style, size);
+            case "ibmplexmono-regular" ->
+                ibmPlexMonoRegular.deriveFont(style, size);
+            case "ibmplexmono-medium" ->
+                ibmPlexMonoMedium.deriveFont(style, size);
+            case "ibmplexmono-semibold" ->
+                ibmPlexMonoSemiBold.deriveFont(style, size);
+            case "ibmplexmono-bold" ->
+                ibmPlexMonoBold.deriveFont(style, size);
+            default -> {
+                System.err.println("Font not found: " + name);
+                yield interFont != null ? interFont.deriveFont(style, size)
+                : new Font("SansSerif", style, (int) size);
+            }
+        };
+    }
+
+//    public static Font getFont(String name, float size)
 }

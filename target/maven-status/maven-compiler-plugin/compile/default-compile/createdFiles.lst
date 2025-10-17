@@ -6,6 +6,7 @@ com\leshka_and_friends\lgvb\account\AccountDTO.class
 com\leshka_and_friends\lgvb\core\PasswordUtils.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$2.class
 com\leshka_and_friends\lgvb\view\MainView.class
+com\leshka_and_friends\lgvb\view\forms\TransactionFeedPanel.class
 com\leshka_and_friends\lgvb\view\components\RoundedPanel.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Register.class
 com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.class
@@ -20,6 +21,7 @@ com\leshka_and_friends\lgvb\view\factories\PanelFactory.class
 com\leshka_and_friends\lgvb\user\UserDTO.class
 com\leshka_and_friends\lgvb\view\ContentManager.class
 com\leshka_and_friends\lgvb\view\components\user\UserProfile.class
+com\leshka_and_friends\lgvb\view\forms\TransactionGroupPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.class
 com\leshka_and_friends\lgvb\core\EncryptionUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\RoundedPanel.class
@@ -58,7 +60,6 @@ com\leshka_and_friends\lgvb\card\Card.class
 com\leshka_and_friends\lgvb\view\matisse_ui\RoundedPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.class
 com\leshka_and_friends\lgvb\card\CardDTO.class
-com\leshka_and_friends\lgvb\transaction\TransactionSQL.class
 com\leshka_and_friends\lgvb\user\User.class
 com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButton.class
 com\leshka_and_friends\lgvb\view\test\DHB.class
@@ -66,6 +67,7 @@ com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.class
 com\leshka_and_friends\lgvb\auth\AuthController.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login$1.class
 com\leshka_and_friends\lgvb\account\AccountService.class
+com\leshka_and_friends\lgvb\core\AdminSeeder.class
 com\leshka_and_friends\lgvb\auth\AuthService.class
 com\leshka_and_friends\lgvb\core\AppConfig.class
 com\leshka_and_friends\lgvb\user\UserDAO.class
@@ -87,6 +89,7 @@ com\leshka_and_friends\lgvb\auth\RegistrationService.class
 com\leshka_and_friends\lgvb\auth\RegistrationException.class
 com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGCardIconHelper.class
+com\leshka_and_friends\lgvb\view\forms\TransactionCard.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class

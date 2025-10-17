@@ -5,18 +5,64 @@
 package com.leshka_and_friends.lgvb.transaction;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 public class Transaction {
 
     private int transactionId;
     private int accountId;
-    private String transactionType; // deposit, withdrawal, etc.
+    private String accountName;
+    private String transactionType;
     private double amount;
-    private Integer relatedAccountId; // nullable
+    private Integer relatedAccountId;
+    private String relatedAccountName;
     private Timestamp timestamp;
     private String status;
 
-    // Getters & setters...
+    public Transaction() {
+    }
+
+    public Transaction(int transactionId, int accountId, String transactionType, double amount,
+            Integer relatedAccountId, Timestamp timestamp, String status) {
+        this.transactionId = transactionId;
+        this.accountId = accountId;
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.relatedAccountId = relatedAccountId;
+        this.timestamp = timestamp;
+        this.status = status;
+    }
+
+    public LocalDate getDate() {
+        return timestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return timestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+    }
+
+    public String getIcon() {
+        return switch (transactionType.toLowerCase()) {
+            case "send money" ->
+                "💸";
+            case "cash in" ->
+                "🚀";
+            case "online payment" ->
+                "🛒";
+            case "received" ->
+                "🏦";
+            case "deposit" ->
+                "💰";
+            case "withdrawal" ->
+                "💵";
+            default ->
+                "❓";
+        };
+    }
+
+    // Getters & setters
     public int getTransactionId() {
         return transactionId;
     }
@@ -72,5 +118,20 @@ public class Transaction {
     public void setStatus(String status) {
         this.status = status;
     }
-}
 
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getRelatedAccountName() {
+        return relatedAccountName;
+    }
+
+    public void setRelatedAccountName(String relatedAccountName) {
+        this.relatedAccountName = relatedAccountName;
+    }
+}

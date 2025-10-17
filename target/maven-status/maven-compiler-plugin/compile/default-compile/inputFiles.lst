@@ -1,3 +1,4 @@
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\TransactionCard.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\user\CustomerService.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\Sidebar.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\ViewFactory.java
@@ -21,6 +22,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\user\UserProfile.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ContentManager.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\TransactionGroupPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\HeaderFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\LGVB.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\card\CardDAO.java
@@ -46,6 +48,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\transaction\Transaction.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\DBConnection.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\TransactionFeedPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\transaction\TransactionDAO.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\RoundedPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\card\SvgTspanCleaner.java
@@ -66,7 +69,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\panels\ViewPage.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\themes\Theme.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\components\panels\RoundedPanel.java
-C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\transaction\TransactionSQL.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\AdminSeeder.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\forms\Wallet.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\card\CardFormatter.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.java

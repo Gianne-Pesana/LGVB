@@ -11,8 +11,6 @@ import com.leshka_and_friends.lgvb.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
 import com.leshka_and_friends.lgvb.view.components.buttons.UserProfile;
 import com.leshka_and_friends.lgvb.view.factories.SidebarButtonFactory;
-import com.leshka_and_friends.lgvb.view.themes.*;
-import com.leshka_and_friends.lgvb.view.factories.LookAndFeelFactory;
 import com.leshka_and_friends.lgvb.view.ui_utils.ImageParser;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
@@ -55,7 +53,6 @@ public class Sidebar extends JPanel {
 
     public Sidebar(CustomerDTO customerdto) {
         this.customerdto = customerdto;
-//        System.out.println("Sidebar width: " + width);
         Dimension sidebarSize = new Dimension(sidebarWidth, sidebarHeight);
         setPreferredSize(sidebarSize);
         setMaximumSize(sidebarSize);

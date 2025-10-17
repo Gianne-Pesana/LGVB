@@ -9,6 +9,7 @@ import com.leshka_and_friends.lgvb.auth.SessionService;
 import com.leshka_and_friends.lgvb.account.AccountService;
 import com.leshka_and_friends.lgvb.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 
 /**
  *
@@ -16,13 +17,13 @@ import com.leshka_and_friends.lgvb.view.MainView;
  */
 public class DashboardController {
     
-    MainView mainView;
+    Dashboard dashboardView;
     SessionService session;
     AccountService accountService;
     TransactionService transactionService;
 
-    public DashboardController(MainView mainView, SessionService session, AccountService accountService, TransactionService transactionService) {
-        this.mainView = mainView;
+    public DashboardController(Dashboard dashboardView, SessionService session, AccountService accountService, TransactionService transactionService) {
+        this.dashboardView = dashboardView;
         this.session = session;
         this.accountService = accountService;
         this.transactionService = transactionService;
