@@ -4,16 +4,20 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.core.DBConnection;
 import com.leshka_and_friends.lgvb.dashboard.DashboardDTO;
 import com.leshka_and_friends.lgvb.transaction.Transaction;
 import com.leshka_and_friends.lgvb.transaction.TransactionDAO;
+import com.leshka_and_friends.lgvb.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
-import com.leshka_and_friends.lgvb.view.components.panels.RoundedPanel;
+import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
+import com.leshka_and_friends.lgvb.view.components.TransparentJScrollBar;
+import com.leshka_and_friends.lgvb.view.components.TransparentScrollbar;
 import com.leshka_and_friends.lgvb.view.factories.HeaderFactory;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
@@ -188,43 +192,67 @@ public class Dashboard extends JPanel {
     }
 
     private JPanel createTransactionsPanel() {
-        List<Transaction> allTransactions = null;
+        // from backend TEST
+        List<Transaction> transactions = null;
+        TransactionDAO tdao = new TransactionDAO();
+        TransactionService ts = new TransactionService(tdao);
+
         try {
-            TransactionDAO tdao = new TransactionDAO();
             // TEST
-            allTransactions = tdao.getTransactionsByAccount(1);
+            transactions = ts.loadTransactionsForAccount(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Map<LocalDate, List<Transaction>> grouped = allTransactions.stream()
-                .collect(Collectors.groupingBy(Transaction::getDate, LinkedHashMap::new, Collectors.toList()));
+        // 2. Group data
+        Map<LocalDate, List<Transaction>> grouped = ts.groupTransactionsByDate(transactions);
 
+        // 3. Create feed and scroll pane
         TransactionFeedPanel feedPanel = new TransactionFeedPanel(grouped);
+        JScrollPane scrollPane = createStyledScrollPane(feedPanel);
 
-        JScrollPane scrollPane = new JScrollPane(feedPanel);
+        // 4. Label and container layout
+        JLabel transactionLabel = createTransactionHeaderLabel();
+
+        JPanel container = new JPanel(new BorderLayout());
+        container.setOpaque(false);
+        container.add(transactionLabel, BorderLayout.NORTH);
+        container.add(scrollPane, BorderLayout.CENTER);
+        container.setPreferredSize(new Dimension(0, ThemeGlobalDefaults.getScaledInt("transactionPanel.height")));
+        container.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+        return container;
+    }
+
+    private JScrollPane createStyledScrollPane(JComponent content) {
+        JScrollPane scrollPane = new JScrollPane(content);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // default is ~1-5; 16 is faster
-        scrollPane.getHorizontalScrollBar().setUnitIncrement(16); // optional for horizontal
+        content.setOpaque(false);
 
-        JLabel transactionLabel = new JLabel();
-        transactionLabel.setText("Transactions");
-        ThemeManager.putThemeAwareProperty(transactionLabel, "foreground: $LGVB.header");
-        transactionLabel.setFont(FontLoader.getBaloo2Bold(ThemeGlobalDefaults.getScaledInt("Transaction.header.fontSize")));
-        transactionLabel.setBorder(new EmptyBorder(5, 5, 10, 5));
+        JScrollBar vBar = new JScrollBar(JScrollBar.VERTICAL);
+        vBar.setOpaque(false);
+        vBar.setUI(new TransparentScrollbar());
+        vBar.putClientProperty("CustomScrollbarUI", Boolean.TRUE);
+//        vBar.setBackground(new Color(0, 0, 0, 0));
+//        ThemeManager.putThemeAwareProperty(vBar, "background: $scrollbar.thumb.color");
 
-        JPanel container = new JPanel(new BorderLayout());
-        container.setOpaque(false);
-        container.add(scrollPane, BorderLayout.CENTER);
-        container.add(transactionLabel, BorderLayout.NORTH);
+        vBar.setUnitIncrement(16);
 
-        container.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-        container.setPreferredSize(new Dimension(0, ThemeGlobalDefaults.getScaledInt("transactionPanel.height")));
+        scrollPane.setVerticalScrollBar(vBar);
+        scrollPane.getVerticalScrollBar().setOpaque(false);
 
-        return container;
+        return scrollPane;
+    }
+
+    private JLabel createTransactionHeaderLabel() {
+        JLabel label = new JLabel("Transactions");
+        ThemeManager.putThemeAwareProperty(label, "foreground: $LGVB.header");
+        label.setFont(FontLoader.getBaloo2Bold(ThemeGlobalDefaults.getScaledInt("Transaction.header.fontSize")));
+        label.setBorder(new EmptyBorder(5, 5, 10, 5));
+        return label;
     }
 
     public void setHeaderTitle(String title) {

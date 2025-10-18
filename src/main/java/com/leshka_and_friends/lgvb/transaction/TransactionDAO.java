@@ -65,7 +65,7 @@ public class TransactionDAO {
     }
 
     // READ: all transactions for an account (includes account names)
-    public List<Transaction> getTransactionsByAccount(int accountId) throws SQLException {
+    public List<Transaction> getTransactionsByAccount(int accountId)  {
         List<Transaction> transactions = new ArrayList<>();
 
         String sql = """
@@ -94,7 +94,10 @@ public class TransactionDAO {
                     transactions.add(mapResultSetToTransaction(rs));
                 }
             }
-        }
+        } catch (SQLException se) {
+            System.out.println("Error in fetching transactions!");
+            se.printStackTrace();
+        } 
 
         return transactions;
     }

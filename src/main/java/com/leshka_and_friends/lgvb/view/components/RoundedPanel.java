@@ -1,5 +1,6 @@
 package com.leshka_and_friends.lgvb.view.components;
 
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,8 +9,8 @@ public class RoundedPanel extends JPanel {
     protected int radius;
 
     public RoundedPanel() {
-        this(20);
-        setOpaque(false); // we'll handle painting ourselves
+        radius = ThemeGlobalDefaults.getInt("Panel.arc");
+        setOpaque(false);
     }
 
     public RoundedPanel(int radius) {
@@ -32,8 +33,6 @@ public class RoundedPanel extends JPanel {
 
         g2.dispose();
 
-        // Call AFTER painting rounded background,
-        // so child components (like JLabel) render on top
         super.paintComponent(g);
     }
 }

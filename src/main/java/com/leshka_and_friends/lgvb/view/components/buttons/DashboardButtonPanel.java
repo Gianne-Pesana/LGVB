@@ -6,7 +6,7 @@ package com.leshka_and_friends.lgvb.view.components.buttons;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.components.panels.RoundedPanel;
+import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.*;
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +36,7 @@ public abstract class DashboardButtonPanel extends JPanel {
     public DashboardButtonPanel(String svgPath, String text) {
     this.svgPath = svgPath;
 
+    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     setOpaque(false);
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));

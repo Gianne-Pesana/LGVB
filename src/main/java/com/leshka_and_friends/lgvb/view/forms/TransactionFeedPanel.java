@@ -6,13 +6,15 @@ package com.leshka_and_friends.lgvb.view.forms;
 
 import com.leshka_and_friends.lgvb.transaction.Transaction;
 import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
+import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 
 /**
  *
@@ -25,7 +27,19 @@ public class TransactionFeedPanel extends JPanel {
         setBackground(new Color(245, 245, 245));
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setOpaque(false);
-        
+
+        // Check if there are no transactions
+        if (groupedTransactions == null || groupedTransactions.isEmpty()) {
+            JLabel noTransactionsLabel = new JLabel("No transactions");
+            noTransactionsLabel.setFont(FontLoader.getBaloo2SemiBold(14));
+            ThemeManager.putThemeAwareProperty(noTransactionsLabel, "foreground: $LGVB.header");
+            noTransactionsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            add(Box.createVerticalGlue()); // center vertically
+            add(noTransactionsLabel);
+            add(Box.createVerticalGlue());
+            return;
+        }
+
         groupedTransactions.entrySet().stream()
                 .sorted(Map.Entry.<LocalDate, List<Transaction>>comparingByKey().reversed())
                 .forEach(entry -> {

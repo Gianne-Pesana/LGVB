@@ -5,6 +5,12 @@
 package com.leshka_and_friends.lgvb.transaction;
 
 import com.leshka_and_friends.lgvb.transaction.TransactionDAO;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -17,5 +23,26 @@ public class TransactionService {
     public TransactionService(TransactionDAO repo) {
         this.repo = repo;
     }
-    
+
+    public List<Transaction> loadTransactionsForAccount(int accountId) {
+        try {
+            TransactionDAO dao = new TransactionDAO();
+            return dao.getTransactionsByAccount(accountId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public Map<LocalDate, List<Transaction>> groupTransactionsByDate(List<Transaction> transactions) {
+        return transactions.stream()
+                .collect(Collectors
+                        .groupingBy(
+                                Transaction::getDate,
+                                LinkedHashMap::new,
+                                Collectors.toList()
+                        )
+                );
+    }
+
 }

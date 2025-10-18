@@ -5,6 +5,7 @@
 package com.leshka_and_friends.lgvb.view.ui_utils;
 
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.view.components.TransparentScrollbar;
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
@@ -44,6 +45,23 @@ public class ThemeGlobalDefaults {
         // Program-defined defaults (not in config file)
         FontLoader.loadFonts();
         UIManager.put("defaultFont", FontLoader.getInter(14f));
+        UIManager.put("Color.transparent", new Color(0,0,0,0));
+        
+        configureTransparentScrollbar();
+
+    }
+
+    private static void configureTransparentScrollbar() {
+//        UIManager.put("ScrollBarUI", TransparentScrollbar.class.getName());
+//        UIManager.put("ScrollBar.trackInsets", new Insets(0, 0, 0, 0));
+//        UIManager.put("ScrollBar.thumbInsets", new Insets(0, 0, 0, 0));
+//        UIManager.put("ScrollBar.trackArc", 0);
+//        UIManager.put("ScrollBar.thumbArc", 0);
+//        UIManager.put("ScrollBar.showButtons", false);
+//        UIManager.put("ScrollBar.track", new Color(0, 0, 0, 0));
+//        UIManager.put("ScrollBar.thumb", new Color(0, 0, 0, 0));
+//        UIManager.put("ScrollBar.background", new Color(0, 0, 0, 0));
+//        UIManager.put("ScrollBar.foreground", new Color(0, 0, 0, 0));
     }
 
     /**
@@ -94,7 +112,7 @@ public class ThemeGlobalDefaults {
         Object val = UIManager.get(key);
         return (val instanceof Number) ? ((Number) val).doubleValue() : 0.0;
     }
-    
+
     public static float getFloat(String key) {
         Object val = UIManager.get(key);
         return (val instanceof Number) ? (float) ((Number) val).doubleValue() : 0.0f;
@@ -123,8 +141,9 @@ public class ThemeGlobalDefaults {
     public static double getScaledDouble(String key) {
         return (double) UIScale.scale((float) getDouble(key));
     }
-    
+
     public static float getScaledFloat(String key) {
         return UIScale.scale((float) getDouble(key));
     }
+
 }

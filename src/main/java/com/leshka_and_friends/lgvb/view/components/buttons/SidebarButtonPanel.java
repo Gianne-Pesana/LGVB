@@ -9,10 +9,11 @@ import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.components.panels.RoundedPanel;
+import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -42,7 +43,8 @@ public abstract class SidebarButtonPanel extends RoundedPanel {
         initPanel();
         this.label = createLabel();
         add(label, BorderLayout.CENTER);
-
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         applyCurrentStyle();
         initMouse();
     }

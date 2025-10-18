@@ -4,6 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.formdev.flatlaf.util.UIScale;
@@ -12,6 +13,7 @@ import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
 import com.leshka_and_friends.lgvb.view.components.buttons.UserProfile;
 import com.leshka_and_friends.lgvb.view.factories.SidebarButtonFactory;
 import com.leshka_and_friends.lgvb.view.ui_utils.ImageParser;
+import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import java.awt.*;
@@ -19,6 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -78,12 +81,20 @@ public class Sidebar extends JPanel {
         JPanel northContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
         northContainer.setOpaque(false);
 
-        JLabel logo = new JLabel(ImageParser.loadScaled(
-                ThemeGlobalDefaults.getString("Sidebar.logo.path"),
-                ThemeGlobalDefaults.getScaledInt("Sidebar.logo.size"),
-                ThemeGlobalDefaults.getScaledInt("Sidebar.logo.size")
-        ));
+        
+        FlatSVGIcon logoIcon = SVGUtils.loadIconAutoAspect(
+                ThemeGlobalDefaults.getString("Logo.path"), 
+                ThemeGlobalDefaults.getScaledInt("Sidebar.logo.height")
+        );
+        logoIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
+        
+        JLabel logo = new JLabel(logoIcon);
+        int borderVertical = ThemeGlobalDefaults.getScaledInt("Sidebar.logo.border.vertical");
+        int borderHorizontal = ThemeGlobalDefaults.getScaledInt("Sidebar.logo.border.horizontal");
+        logo.setBorder(new EmptyBorder(borderVertical, borderHorizontal, borderVertical, borderHorizontal));
+        
         northContainer.add(logo);
+        
 
         return northContainer;
     }

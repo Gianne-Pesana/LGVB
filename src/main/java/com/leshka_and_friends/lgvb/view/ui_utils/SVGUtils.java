@@ -15,8 +15,11 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SVGUtils {
 
@@ -48,6 +51,37 @@ public class SVGUtils {
             return new FlatSVGIcon("icons/svg/default.svg", width, height);
         }
     }
+    
+    public static FlatSVGIcon loadIconAutoAspect(String path, int height) {
+    String finalPath = path;
+
+    // check if resource exists
+    URL resource = SVGUtils.class.getResource("/" + path);
+    if (resource == null) {
+        finalPath = "icons/svg/default.svg";
+        resource = SVGUtils.class.getResource("/" + finalPath);
+    }
+
+    double aspectRatio = 1.0;
+    try (InputStream is = resource.openStream()) {
+        String content = new String(is.readAllBytes());
+        // Extract width and height from viewBox (e.g., viewBox="0 0 24 12")
+        Pattern viewBoxPattern = Pattern.compile("viewBox\\s*=\\s*\"[^\"]*?\\s+(\\d+(?:\\.\\d+)?)\\s+(\\d+(?:\\.\\d+)?)\"");
+        Matcher matcher = viewBoxPattern.matcher(content);
+        if (matcher.find()) {
+            double w = Double.parseDouble(matcher.group(1));
+            double h = Double.parseDouble(matcher.group(2));
+            aspectRatio = w / h;
+        }
+    } catch (Exception e) {
+        // fallback aspect ratio if something fails
+        aspectRatio = 1.0;
+    }
+
+    int width = (int) Math.round(height * aspectRatio);
+    return loadIcon(finalPath, width, height);
+}
+
 
     public static FlatSVGIcon loadCard(String resourcePath, int size,
             String name, String expiry, String number) {

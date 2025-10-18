@@ -4,6 +4,8 @@ import com.leshka_and_friends.lgvb.user.User;
 import com.leshka_and_friends.lgvb.user.UserService;
 import com.leshka_and_friends.lgvb.core.PasswordUtils;
 import java.util.regex.Pattern;
+import org.jboss.aerogear.security.otp.Totp;
+import org.jboss.aerogear.security.otp.api.Clock;
 
 public class AuthService {
 
@@ -33,8 +35,12 @@ public class AuthService {
     }
 
     public boolean isStrong(char[] pwd) throws AuthException {
-        if (pwd == null || pwd.length == 0) throw new AuthException("Please enter a password.");
-        if (pwd.length < 10) throw new AuthException("Password must be at least 10 characters long.");
+        if (pwd == null || pwd.length == 0) {
+            throw new AuthException("Please enter a password.");
+        }
+        if (pwd.length < 10) {
+            throw new AuthException("Password must be at least 10 characters long.");
+        }
 
         String s = new String(pwd);
         boolean hasLower = s.chars().anyMatch(Character::isLowerCase);
@@ -54,4 +60,32 @@ public class AuthService {
 
         return true;
     }
+
+    public boolean verifyTOTP(String secret, String code, int windowSteps   ) {
+        long stepSeconds = 30L;
+        long now = System.currentTimeMillis() / 1000L;
+        Totp totpCurrent = new Totp(secret);
+        if (totpCurrent.verify(code)) {
+            return true;
+        }
+
+        for (int i = 1; i <= windowSteps; i++) {
+            long past = now - (i * stepSeconds);
+
+            Clock pastClock = new Clock(30) {
+                @Override
+                public long getCurrentInterval() {
+                    return past / 30L;
+                }
+            };
+
+            Totp tPast = new Totp(secret, pastClock);
+            if (tPast.now().equals(code)) {
+                return true;
+            }
+        }
+
+        return false; // reject all old codes beyond allowed window
+    }
+
 }

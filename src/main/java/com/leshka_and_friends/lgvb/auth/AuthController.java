@@ -20,21 +20,28 @@ import javax.swing.JPasswordField;
  */
 public class AuthController {
 
+    String issuer = "LGVB";
+    String username = "test_user1";
+    String secret = "JBSWY3DPEHPK3PXP";
+
     private User user = null;
     CustomerDTO customerdto;
     private boolean loggedIn = false;
     private final AuthService auth;
-    
+
     private final UserService userService;
-    
+
     private final AccountService accountService;
     private final CardService cardService;
     private final CustomerService customerService;
-    
+
     private final SessionService sessionService;
     private final TransactionService transactionService;
-    
+
     private final RegistrationService registrationService;
+
+    private final String testEmail = "gianne@lgvb.com";
+    private final char[] testPwd = "#Gianne123".toCharArray();
 
     private LoginPage loginPage;
 
@@ -44,16 +51,16 @@ public class AuthController {
         AccountDAO accountDAO = new AccountDAO();
         CardDAO cardDAO = new CardDAO();
         TransactionDAO transactionDAO = new TransactionDAO();
-        
+
         // Services that encapsulate business logic
         userService = new UserService(userDAO);
         auth = new AuthService(userService);
         sessionService = SessionService.getInstance();
-        
+
         accountService = new AccountService(accountDAO);
         cardService = new CardService(cardDAO);
         customerService = new CustomerService(accountService, cardService);
-        
+
         transactionService = new TransactionService(transactionDAO);
 
         registrationService = new RegistrationService(userService, accountService, cardService);
@@ -76,33 +83,47 @@ public class AuthController {
     private void handleLogin() {
         String email = loginPage.getInputUsername();
         char[] pwd = loginPage.getInputPassword();
-        email = "gianne@lgvb.com";
-        pwd = "#Gianne123".toCharArray();
+        email = testEmail;
+        pwd = testPwd;
 
         try {
-            user = auth.login(email, pwd);
+            user = auth.login(email, pwd);  // initial username/password check
             sessionService.login(user);
 
-            if (user.getRole() == Role.ADMIN) {
-                JOptionPane.showMessageDialog(null, "Admin login successful. Admin dashboard not yet implemented.");
-                
-            } else if (user.getRole() == Role.CUSTOMER) {
-                CustomerDTO customerdto = customerService.buildCustomerDTO(user);
-                MainView mainView = new MainView(customerdto);
-//                DashboardController mainController = new DashboardController(
-//                        mainView, sessionService, accountService, transactionService
-//                );
+            // Show 2FA panel
+            loginPage.showTOTPPanel();
 
-                mainView.setVisible(true);
-            }
+            // Handle TOTP verification
+            loginPage.getTotpVerifyButton().addActionListener(e -> {
+                String code = loginPage.getTotpField().getText().trim();
+                try {
+                    boolean verified;
+                    verified = auth.verifyTOTP(secret, code, 1); // your TOTP service
+//                    verified = true;
+                    if (verified) {
+                        JOptionPane.showMessageDialog(loginPage, "2FA success!");
 
-            loginPage.dispose();
+                        // Open dashboard
+//                        if (user.getRole() == Role.ADMIN) {
+//                            JOptionPane.showMessageDialog(null, "Admin login successful. Admin dashboard not yet implemented.");
+//                        } else if (user.getRole() == Role.CUSTOMER) {
+//                            CustomerDTO customerdto = customerService.buildCustomerDTO(user);
+//                            MainView mainView = new MainView(customerdto);
+//                            mainView.setVisible(true);
+//                        }
+//
+//                        loginPage.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(loginPage, "Invalid 2FA code", "Authentication", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(loginPage, "Error verifying 2FA: " + ex.getMessage(), "Authentication", JOptionPane.ERROR_MESSAGE);
+                }
+            });
+
         } catch (AuthException ae) {
             JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage(), "Authentication", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Unexpected error", "error", JOptionPane.ERROR_MESSAGE);
-        } 
-        finally {
+        } finally {
             java.util.Arrays.fill(pwd, '\0');
         }
     }
@@ -185,6 +206,19 @@ public class AuthController {
             }
 
             registrationService.registerCustomer(email, pwd, firstName, lastName, phone, dob);
+
+            String otpAuthUrl = String.format("otpauth://totp/%s:%s?secret=%s&issuer=%s", issuer, username, secret, issuer);
+
+            // This line will block until user closes or presses confirm
+            boolean linked = TwoFALinkDialog.showDialog(null, otpAuthUrl);
+
+            if (linked) {
+                System.out.println("User confirmed they linked their account!");
+                // Continue registration flow...
+            } else {
+                System.out.println("User closed the dialog without confirming.");
+            }
+
             JOptionPane.showMessageDialog(null, "Registered successfully!");
 
         } catch (Exception e) {

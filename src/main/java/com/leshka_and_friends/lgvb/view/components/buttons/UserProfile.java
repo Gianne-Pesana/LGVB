@@ -32,6 +32,7 @@ public class UserProfile extends JPanel {
         // Use JPanel instead of RoundedPanel for simplicity; rounded effect handled in paintComponent
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setOpaque(false);
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Colors
         ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
