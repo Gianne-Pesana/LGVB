@@ -33,18 +33,26 @@ public class TwoFALinkPanel extends JPanel {
         setBorder(new EmptyBorder(40, 40, 40, 40));
 
         JLabel header = new JLabel("Account Pending Approval");
-        header.setFont(FontLoader.getInter(20f));
+        header.setFont(FontLoader.getInter(24f).deriveFont(Font.BOLD));
         ThemeManager.putThemeAwareProperty(header, "foreground: $LGVB.foreground");
         header.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Message JLabel
         JLabel message = new JLabel("<html><div style='text-align: center;'>"
-                + "While your account is pending approval, please link it<br>"
-                + "to an authenticator app by scanning this QR code."
+                + "<p>While your account is pending approval, "
+                + "<br>please link it to an authenticator app "
+                + "<br>by scanning this QR code."
+                + "<br><b>You cannot log in without this</b></p>"
                 + "</div></html>");
         message.setFont(FontLoader.getInter(14f));
         ThemeManager.putThemeAwareProperty(message, "foreground: $LGVB.foreground");
-        message.setAlignmentX(Component.CENTER_ALIGNMENT);
         message.setBorder(new EmptyBorder(20, 0, 20, 0));
+
+        // Wrapper panel to center the message
+        JPanel messageWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        messageWrapper.setOpaque(false);
+        messageWrapper.add(message);
+        messageWrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // QR Code
         JLabel qrLabel = new JLabel(new ImageIcon(generateQrImage(otpAuthUrl, 250, 250)));
@@ -52,17 +60,23 @@ public class TwoFALinkPanel extends JPanel {
         qrLabel.setBorder(new EmptyBorder(10, 0, 20, 0));
 
         // Button
-        confirmButton = new RoundedButton("I have linked my account", 15);
+        Dimension buttonSize = new Dimension(
+                ThemeGlobalDefaults.getScaledInt("TwoFALink.button.width"),
+                ThemeGlobalDefaults.getScaledInt("TwoFALink.button.height")
+        );
+
+        confirmButton = new RoundedButton("I have linked my account", ThemeGlobalDefaults.getInt("Button.arc"));
         confirmButton.setFont(FontLoader.getInter(14f));
         confirmButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        confirmButton.setMaximumSize(new Dimension(250, 40));
-        confirmButton.setBackground(new Color(44, 120, 101));
-        confirmButton.setForeground(Color.WHITE);
+        confirmButton.setPreferredSize(buttonSize);
+        confirmButton.setMaximumSize(buttonSize);
+        confirmButton.setBackground(ThemeGlobalDefaults.getColor("TwoFALink.button.background"));
+        confirmButton.setForeground(ThemeGlobalDefaults.getColor("TwoFALink.button.foreground"));
 
         add(Box.createVerticalGlue());
         add(header);
         add(Box.createRigidArea(new Dimension(0, 10)));
-        add(message);
+        add(messageWrapper);
         add(qrLabel);
         add(confirmButton);
         add(Box.createVerticalGlue());

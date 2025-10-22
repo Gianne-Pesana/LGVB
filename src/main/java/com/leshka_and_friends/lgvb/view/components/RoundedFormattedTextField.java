@@ -5,28 +5,28 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class RoundedTextField extends JTextField {
+public class RoundedFormattedTextField extends JFormattedTextField {
 
     private int radius = 15;
     private Color borderColor = new Color(200, 200, 200);
     private Color focusColor = new Color(120, 150, 255);
     private Color backgroundColor = new Color(240, 240, 240);
     private boolean focused = false;
-    private boolean invalid = false;
 
-    public RoundedTextField() {
-        this(15);
+    public RoundedFormattedTextField() {
+        this(15, 20);
     }
 
-    public RoundedTextField(int radius) {
+    public RoundedFormattedTextField(int radius) {
         this(15, radius);
     }
 
-    public RoundedTextField(int columns, int radius) {
-        super(columns);
+    public RoundedFormattedTextField(int columns, int radius) {
+        super();
+        setColumns(columns);
         this.radius = radius;
         setOpaque(false);
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // padding inside
+        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // padding
         setBackground(backgroundColor);
         setForeground(Color.BLACK);
         setFont(new Font("Inter", Font.PLAIN, 13));
@@ -56,20 +56,15 @@ public class RoundedTextField extends JTextField {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
 
         // Draw border
-        g2.setStroke(new BasicStroke(1.8f));
-        if (invalid) {
-            g2.setColor(Color.RED);
-        } else {
-            g2.setColor(focused ? focusColor : borderColor);
-        }
+        g2.setStroke(new BasicStroke(1.6f));
+        g2.setColor(focused ? focusColor : borderColor);
         g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
 
         g2.dispose();
-
         super.paintComponent(g);
     }
 
-    // --- Setters for customization ---
+    // Setters for customization
     public void setRadius(int radius) {
         this.radius = radius;
         repaint();
@@ -89,13 +84,5 @@ public class RoundedTextField extends JTextField {
         this.backgroundColor = backgroundColor;
         repaint();
     }
-
-    public void setInvalid(boolean invalid) {
-        this.invalid = invalid;
-        repaint();
-    }
-
-    public boolean isInvalid() {
-        return invalid;
-    }
 }
+

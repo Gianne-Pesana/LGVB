@@ -41,6 +41,7 @@ com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFAPanel.class
 com\leshka_and_friends\lgvb\view\components\TransparentJScrollBar.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
+com\mycompany\test\RoundedFormattedTextField$1.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkDialog.class
 com\leshka_and_friends\lgvb\auth\SessionService.class
 com\leshka_and_friends\lgvb\LGVB.class
@@ -70,6 +71,7 @@ com\leshka_and_friends\lgvb\view\test\DHB.class
 com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.class
 com\leshka_and_friends\lgvb\auth\AuthController.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login$1.class
+com\leshka_and_friends\lgvb\view\authpage\TOTPpanel.class
 com\leshka_and_friends\lgvb\account\AccountService.class
 com\leshka_and_friends\lgvb\core\AdminSeeder.class
 com\leshka_and_friends\lgvb\auth\AuthService.class
@@ -81,6 +83,7 @@ com\leshka_and_friends\lgvb\dashboard\DashboardDTO.class
 com\leshka_and_friends\lgvb\transaction\Transaction.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
 com\leshka_and_friends\lgvb\view\components\RoundedButton.class
+com\leshka_and_friends\lgvb\view\authpage\LoginPanel.class
 com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$1.class
 com\leshka_and_friends\lgvb\view\components\panels\BalancePanel.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkPanel.class
@@ -92,7 +95,9 @@ com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\ViewPage.class
 com\leshka_and_friends\lgvb\account\AccountDAO.class
 com\leshka_and_friends\lgvb\auth\RegistrationService.class
+com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$3.class
 com\leshka_and_friends\lgvb\auth\RegistrationException.class
+com\mycompany\test\RoundedFormattedTextField.class
 com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\forms\TransactionCard.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class

@@ -11,6 +11,7 @@ import com.leshka_and_friends.lgvb.account.AccountDTO;
  * @author giann
  */
 public class CustomerDTO {
+    int id;
     String firstName;
     String lastName;
     String profileIconPath;
@@ -19,13 +20,22 @@ public class CustomerDTO {
     public CustomerDTO() {
     }
     
-    public CustomerDTO(String firstName, String lastName, String profileIconPath, AccountDTO account) {
+    public CustomerDTO(int id, String firstName, String lastName, String profileIconPath, AccountDTO account) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profileIconPath = profileIconPath;
         this.account = account;
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

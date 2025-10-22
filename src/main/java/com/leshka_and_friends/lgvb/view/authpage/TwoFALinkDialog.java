@@ -14,8 +14,8 @@ public class TwoFALinkDialog extends JDialog {
 
     public TwoFALinkDialog(Frame parent, String otpAuthUrl) {
         super(parent, "Link Authenticator App", true); // <— 'true' makes it modal
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(420, 720);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setSize(480, 620);
         setLocationRelativeTo(parent);
         setResizable(false);
 

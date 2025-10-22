@@ -88,11 +88,36 @@ public class RoundedButton extends JButton {
     // Customization methods
     @Override
     public void setBackground(Color bg) {
-        super.setBackground(bg); // keeps JButton internal color consistent
+        super.setBackground(bg);
         this.baseColor = bg;
-        this.hoverColor = bg.brighter();
-        this.clickColor = bg.darker();
+
+        // Compute brightness (0=black, 1=white)
+        float brightness = (0.299f * bg.getRed() + 0.587f * bg.getGreen() + 0.114f * bg.getBlue()) / 255f;
+
+        if (brightness < 0.7f) {
+            // Dark base → brighten hover
+            this.hoverColor = brighten(bg, 1.2f); // 20% brighter
+        } else {
+            // Light base → darken hover
+            this.hoverColor = darken(bg, 0.85f);  // 15% darker
+        }
+
+        this.clickColor = darken(bg, 0.7f); // always darker on click
         repaint();
+    }
+
+    private Color darken(Color color, float factor) {
+        int r = Math.max((int) (color.getRed() * factor), 0);
+        int g = Math.max((int) (color.getGreen() * factor), 0);
+        int b = Math.max((int) (color.getBlue() * factor), 0);
+        return new Color(r, g, b);
+    }
+
+    private Color brighten(Color color, float factor) {
+        int r = Math.min((int) (color.getRed() * factor), 255);
+        int g = Math.min((int) (color.getGreen() * factor), 255);
+        int b = Math.min((int) (color.getBlue() * factor), 255);
+        return new Color(r, g, b);
     }
 
     public void setHoverColor(Color hoverColor) {

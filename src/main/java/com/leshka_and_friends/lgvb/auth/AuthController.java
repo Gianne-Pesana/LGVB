@@ -4,18 +4,18 @@
  */
 package com.leshka_and_friends.lgvb.auth;
 
+import com.leshka_and_friends.lgvb.LGVB;
 import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
+import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
 import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
 import com.leshka_and_friends.lgvb.account.*;
 import com.leshka_and_friends.lgvb.card.*;
-import com.leshka_and_friends.lgvb.dashboard.*;
 import com.leshka_and_friends.lgvb.transaction.*;
 import com.leshka_and_friends.lgvb.user.*;
 import com.leshka_and_friends.lgvb.view.*;
-import com.leshka_and_friends.lgvb.core.StringUtils;
-import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
+import java.time.LocalDate;
 
 /**
  * @author giann
@@ -29,7 +29,8 @@ public class AuthController {
     private User user = null;
     CustomerDTO customerdto;
     private boolean loggedIn = false;
-    private final AuthService auth;
+    private final AuthService authService;
+
 
     private final UserService userService;
 
@@ -45,7 +46,10 @@ public class AuthController {
     private final String testEmail = "gianne@lgvb.com";
     private final char[] testPwd = "#Gianne123".toCharArray();
 
-    private AuthPage loginPage;
+    private AuthPage authPage;
+
+    private boolean isValidEmail;
+    private boolean isStrongPassword;
 
     public AuthController() {
         // DAOs are now primarily used by services, not the controller.
@@ -56,7 +60,7 @@ public class AuthController {
 
         // Services that encapsulate business logic
         userService = new UserService(userDAO);
-        auth = new AuthService(userService);
+        authService = new AuthService(userService);
         sessionService = SessionService.getInstance();
 
         accountService = new AccountService(accountDAO);
@@ -69,42 +73,56 @@ public class AuthController {
     }
 
     public void start() {
-        loginPage = new AuthPage();
-        loginPage.setVisible(true);
+        authPage = new AuthPage();
+        authPage.setVisible(true);
 
-        loginPage.loginBtn.addActionListener(e -> {
+        authPage.getLoginPanel().getLoginBtn().addActionListener(e -> {
             handleLogin();
         });
 
-        loginPage.registerBtn.addActionListener(e -> {
-            registerTest();
-//            handleRegister();
+        authPage.getLoginPanel().getRegisterBtn().addActionListener(e -> {
+//            registerTest();
+            handleRegister();
         });
 
     }
 
     private void handleLogin() {
-        String email = loginPage.getInputUsername();
-        char[] pwd = loginPage.getInputPassword();
-//        email = testEmail;
-//        pwd = testPwd;
+        String email;
+        char[] pwd;
+
+        // Check for testing phase.
+        // TODO: REMOVE IN PRODUCTION PHASE
+        if (LGVB.testing) {
+            email = testEmail;
+            pwd = testPwd;
+        } else {
+            email = authPage.getLoginPanel().getUsernameInput();
+            pwd = authPage.getLoginPanel().getPasswordInput();
+        }
 
         try {
-            user = auth.login(email, pwd);  // initial username/password check
+            user = authService.login(email, pwd);  // initial username/password check
             sessionService.login(user);
 
             // Show 2FA panel
-            loginPage.showTOTPPanel();
+            authPage.showTOTPPanel();
 
             // Handle TOTP verification
-            loginPage.getTotpVerifyButton().addActionListener(e -> {
-                String code = loginPage.getTotpField().getText().trim();
+            authPage.getTotpPanel().getTotpVerifyButton().addActionListener(e -> {
+                String code = authPage.getTotpPanel().getTotpField().getText().trim();
                 try {
                     boolean verified;
-                    verified = auth.verifyTOTP(secret, code, 1);
-//                    verified = true;
+                    // Check for testing phase.
+                    // TODO: REMOVE IN PRODUCTION PHASE
+                    if (LGVB.testing) {
+                        verified = true;
+                    } else {
+
+                        verified = authService.verifyTOTP(secret, code, 1);
+                    }
                     if (verified) {
-                        JOptionPane.showMessageDialog(loginPage, "2FA success!");
+                        JOptionPane.showMessageDialog(authPage, "2FA success!");
 
                         // Open dashboard
                         if (user.getRole() == Role.ADMIN) {
@@ -115,12 +133,12 @@ public class AuthController {
                             mainView.setVisible(true);
                         }
 
-                        loginPage.dispose();
+                        authPage.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(loginPage, "Invalid 2FA code", "Authentication", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(authPage, "Invalid 2FA code", "Authentication", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(loginPage, "Error verifying 2FA: " + ex.getMessage(), "Authentication", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(authPage, "Error verifying 2FA: " + ex.getMessage(), "Authentication", JOptionPane.ERROR_MESSAGE);
                 }
             });
 
@@ -130,110 +148,80 @@ public class AuthController {
             java.util.Arrays.fill(pwd, '\0');
         }
     }
-    
+
     private void registerTest() {
-        loginPage.showRegisterPanel();
+        authPage.showRegisterPanel();
     }
 
     private void handleRegister() {
-        // Hide login page while doing registration
-        loginPage.setVisible(false);
+        authPage.showRegisterPanel();
+        RegistrationPanel registrationPanel = authPage.getRegistrationPanel();
 
-        try {
-            String email;
-            while (true) {
-                email = JOptionPane.showInputDialog("Email:");
-                if (email == null) {
-                    return; // Cancelled
-                }
-                try {
-                    auth.isValidEmail(email);
-                    break; // valid, continue
-                } catch (AuthException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Invalid Email", JOptionPane.ERROR_MESSAGE);
-                }
+        // --- NEXT BUTTON: email & password ---
+        registrationPanel.getNextButton().addActionListener(nb -> {
+            try {
+                String email = registrationPanel.getEmail();
+                char[] password = registrationPanel.getPassword();
+
+                authService.isValidEmail(email);
+                authService.isStrong(password);
+
+                // If valid, go to next page
+                registrationPanel.goToNextPage();
+
+            } catch (AuthException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
             }
+        });
 
-            char[] pwd;
-            while (true) {
-                JPasswordField pf = new JPasswordField();
-                int ok = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (ok != JOptionPane.OK_OPTION) {
-                    return; // Cancelled
-                }
-                pwd = pf.getPassword();
-                try {
-                    auth.isStrong(pwd);
-                    break;
-                } catch (AuthException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Weak Password", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+        // --- REGISTER BUTTON: remaining fields ---
+        registrationPanel.getRegisterButton().addActionListener(rb -> {
+            try {
+                String firstName = registrationPanel.getFirstName();
+                String lastName = registrationPanel.getLastName();
+                String phoneNum = registrationPanel.getPhoneNumber();
+                LocalDate dob = registrationPanel.getDOB();
+                boolean isTermsChecked = registrationPanel.isTermsChecked();
 
-            String firstName;
-            while (true) {
-                firstName = JOptionPane.showInputDialog("First name:");
-                if (firstName == null) {
+                registrationService.validateFirstName(firstName);
+                registrationService.validateLastName(lastName);
+                registrationService.validatePhoneNum(phoneNum);
+                registrationService.validateDateOfBirth(dob);
+
+                if (!isTermsChecked) {
+                    JOptionPane.showMessageDialog(null, "You must accept terms and conditions for you to register!", "Terms and Conditions", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-                firstName = StringUtils.toProperCase(firstName.trim());
-                if (!firstName.isEmpty()) {
-                    break;
+
+                // You may want to reuse email/password from before; get them from panel again
+                String email = registrationPanel.getEmail();
+                char[] password = registrationPanel.getPassword();
+
+                registrationService.registerCustomer(email, password, firstName, lastName, phoneNum, dob);
+
+                // TODO: Generate secret and store it on db
+                String otpAuthUrl = String.format(
+                        "otpauth://totp/%s:%s?secret=%s&issuer=%s", issuer, username, secret, issuer
+                );
+                boolean linked = TwoFALinkDialog.showDialog(null, otpAuthUrl);
+
+                if (linked) {
+                    JOptionPane.showMessageDialog(null, "Registered successfully!");
+                    authPage.showLoginPanel();
+                } else {
+                    System.out.println("User closed the dialog without confirming.");
                 }
-                JOptionPane.showMessageDialog(null, "First name cannot be empty.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+
+            } catch (RegistrationException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Unexpected error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
+        });
 
-            String lastName;
-            while (true) {
-                lastName = JOptionPane.showInputDialog("Last name:");
-                if (lastName == null) {
-                    return;
-                }
-                lastName = StringUtils.toProperCase(lastName.trim());
-                if (!lastName.isEmpty()) {
-                    break;
-                }
-                JOptionPane.showMessageDialog(null, "Last name cannot be empty.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            }
-
-            String phone = JOptionPane.showInputDialog("Phone (optional):");
-
-            LocalDate dob;
-            while (true) {
-                String dobStr = JOptionPane.showInputDialog("Date of birth (YYYY-MM-DD):");
-                if (dobStr == null) {
-                    return;
-                }
-                try {
-                    dob = LocalDate.parse(dobStr.trim());
-                    break;
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Invalid date format. Please use YYYY-MM-DD.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-            registrationService.registerCustomer(email, pwd, firstName, lastName, phone, dob);
-
-            String otpAuthUrl = String.format("otpauth://totp/%s:%s?secret=%s&issuer=%s", issuer, username, secret, issuer);
-
-            // This line will block until user closes or presses confirm
-            boolean linked = TwoFALinkDialog.showDialog(null, otpAuthUrl);
-
-            if (linked) {
-                System.out.println("User confirmed they linked their account!");
-                // Continue registration flow...
-            } else {
-                System.out.println("User closed the dialog without confirming.");
-            }
-
-            JOptionPane.showMessageDialog(null, "Registered successfully!");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Unexpected error", "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        } finally {
-            loginPage.setVisible(true);
-        }
+        authPage.setVisible(true);
     }
+
 
 }

@@ -198,8 +198,7 @@ public class Dashboard extends JPanel {
         TransactionService ts = new TransactionService(tdao);
 
         try {
-            // TEST
-            transactions = ts.loadTransactionsForAccount(1);
+            transactions = ts.loadTransactionsForAccount(customerdto.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }

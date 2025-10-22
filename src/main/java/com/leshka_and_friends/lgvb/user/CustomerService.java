@@ -58,6 +58,7 @@ public class CustomerService {
         accdto.setCard(carddto);
 
         customerdto = new CustomerDTO();
+        customerdto.setId(user.getUserId());
         customerdto.setFirstName(user.getFirstName());
         customerdto.setLastName(user.getLastName());
         customerdto.setProfileIconPath(user.getImagePath());

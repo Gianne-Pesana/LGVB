@@ -9,6 +9,8 @@ import javax.swing.UIManager;
 
 public class LGVB {
 
+    public static boolean testing = false;
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new LGVBDark());
