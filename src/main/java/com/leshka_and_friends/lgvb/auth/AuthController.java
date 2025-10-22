@@ -77,7 +77,8 @@ public class AuthController {
         });
 
         loginPage.registerBtn.addActionListener(e -> {
-            handleRegister();
+            registerTest();
+//            handleRegister();
         });
 
     }
@@ -128,6 +129,10 @@ public class AuthController {
         } finally {
             java.util.Arrays.fill(pwd, '\0');
         }
+    }
+    
+    private void registerTest() {
+        loginPage.showRegisterPanel();
     }
 
     private void handleRegister() {

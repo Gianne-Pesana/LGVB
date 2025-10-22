@@ -10,6 +10,7 @@ com\leshka_and_friends\lgvb\view\forms\Sidebar$2.class
 com\leshka_and_friends\lgvb\view\MainView.class
 com\leshka_and_friends\lgvb\view\forms\TransactionFeedPanel.class
 com\leshka_and_friends\lgvb\view\components\RoundedPanel.class
+com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Register.class
 com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.class
 com\leshka_and_friends\lgvb\core\DBConnection.class
@@ -22,6 +23,7 @@ com\leshka_and_friends\lgvb\view\factories\PanelFactory.class
 com\leshka_and_friends\lgvb\user\UserDTO.class
 com\leshka_and_friends\lgvb\view\ContentManager.class
 com\leshka_and_friends\lgvb\view\components\user\UserProfile.class
+com\leshka_and_friends\lgvb\view\authpage\AuthPage.class
 com\leshka_and_friends\lgvb\view\forms\TransactionGroupPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.class
 com\leshka_and_friends\lgvb\core\EncryptionUtils.class
@@ -74,7 +76,6 @@ com\leshka_and_friends\lgvb\auth\AuthService.class
 com\leshka_and_friends\lgvb\core\AppConfig.class
 com\leshka_and_friends\lgvb\user\UserDAO.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel$2.class
-com\leshka_and_friends\lgvb\view\authpage\LoginPage.class
 com\leshka_and_friends\lgvb\auth\AuthException.class
 com\leshka_and_friends\lgvb\dashboard\DashboardDTO.class
 com\leshka_and_friends\lgvb\transaction\Transaction.class
