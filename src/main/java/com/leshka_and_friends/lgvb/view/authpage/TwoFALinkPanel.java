@@ -56,7 +56,7 @@ public class TwoFALinkPanel extends JPanel {
         confirmButton.setFont(FontLoader.getInter(14f));
         confirmButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         confirmButton.setMaximumSize(new Dimension(250, 40));
-        confirmButton.setBaseColor(new Color(44, 120, 101));
+        confirmButton.setBackground(new Color(44, 120, 101));
         confirmButton.setForeground(Color.WHITE);
 
         add(Box.createVerticalGlue());

@@ -67,8 +67,11 @@ public class RoundedButton extends JButton {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         Color currentColor = baseColor;
-        if (isPressed) currentColor = clickColor;
-        else if (isHovered) currentColor = hoverColor;
+        if (isPressed) {
+            currentColor = clickColor;
+        } else if (isHovered) {
+            currentColor = hoverColor;
+        }
 
         g2.setColor(currentColor);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
@@ -83,10 +86,12 @@ public class RoundedButton extends JButton {
     }
 
     // Customization methods
-    public void setBaseColor(Color baseColor) {
-        this.baseColor = baseColor;
-        this.hoverColor = baseColor.brighter();
-        this.clickColor = baseColor.darker();
+    @Override
+    public void setBackground(Color bg) {
+        super.setBackground(bg); // keeps JButton internal color consistent
+        this.baseColor = bg;
+        this.hoverColor = bg.brighter();
+        this.clickColor = bg.darker();
         repaint();
     }
 

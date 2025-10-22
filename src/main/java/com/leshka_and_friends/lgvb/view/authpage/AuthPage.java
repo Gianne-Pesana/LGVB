@@ -123,8 +123,8 @@ public class AuthPage extends JFrame {
         loginContainer.setBorder(new EmptyBorder(lcBorderSize, lcBorderSize, lcBorderSize, lcBorderSize));
 
         JLabel header = new JLabel("Login");
-        header.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.header.fontSize")));
         ThemeManager.putThemeAwareProperty(header, "foreground: $LGVB.foreground");
+        header.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.header.fontSize")));
         header.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Text fields
@@ -133,8 +133,8 @@ public class AuthPage extends JFrame {
         textFields.setOpaque(false);
 
         JLabel usernameLabel = new JLabel("Username");
-        usernameLabel.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.body.fontSize")));
         ThemeManager.putThemeAwareProperty(usernameLabel, "foreground: $TextField.background");
+        usernameLabel.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.body.fontSize")));
         usernameLabel.setAlignmentX(LEFT_ALIGNMENT);
 
         int textFieldCornerRadius = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.arc");
@@ -180,7 +180,7 @@ public class AuthPage extends JFrame {
         loginBtn.setPreferredSize(buttonSize);
         loginBtn.setMaximumSize(buttonSize);
         loginBtn.setForeground(Color.WHITE);
-        loginBtn.setBaseColor(new Color(202, 28, 82));
+        loginBtn.setBackground(new Color(202, 28, 82));
         loginBtn.setFont(new Font("Inter", Font.PLAIN, 14));
         loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -188,7 +188,7 @@ public class AuthPage extends JFrame {
         registerBtn.setPreferredSize(buttonSize);
         registerBtn.setMaximumSize(buttonSize);
         registerBtn.setForeground(new Color(23, 80, 110));
-        registerBtn.setBaseColor(new Color(245, 247, 250));
+        registerBtn.setBackground(new Color(245, 247, 250));
         registerBtn.setFont(new Font("Inter", Font.PLAIN, 14));
         registerBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 

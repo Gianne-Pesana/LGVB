@@ -81,6 +81,7 @@ com\leshka_and_friends\lgvb\dashboard\DashboardDTO.class
 com\leshka_and_friends\lgvb\transaction\Transaction.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
 com\leshka_and_friends\lgvb\view\components\RoundedButton.class
+com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$1.class
 com\leshka_and_friends\lgvb\view\components\panels\BalancePanel.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkPanel.class
 com\leshka_and_friends\lgvb\view\components\RoundedButton$1.class
@@ -96,6 +97,7 @@ com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\forms\TransactionCard.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
+com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$2.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\user\CustomerDTO.class
 com\leshka_and_friends\lgvb\view\themes\Theme.class
