@@ -69,7 +69,9 @@ public class AuthPage extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    /** ----------------- Logo Panel ----------------- */
+    /**
+     * ----------------- Logo Panel -----------------
+     */
     private JPanel createLogoPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setOpaque(false);
@@ -86,15 +88,18 @@ public class AuthPage extends JFrame {
         return panel;
     }
 
-    /** ----------------- Login Panel ----------------- */
+    /**
+     * ----------------- Login Panel -----------------
+     */
     private JPanel createLoginPanel() {
         JPanel loginPanel = new JPanel(new BorderLayout());
         ThemeManager.putThemeAwareProperty(loginPanel, "background: $LGVB.background");
 
+        // Container
         JPanel container = new JPanel(new GridBagLayout());
         container.setOpaque(false);
-        container.setBorder(new EmptyBorder(0, ThemeGlobalDefaults.getScaledInt("LoginPage.container.padding"), 0,
-                ThemeGlobalDefaults.getScaledInt("LoginPage.container.padding")));
+        int containerPadding = ThemeGlobalDefaults.getScaledInt("LoginPage.container.padding");
+        container.setBorder(new EmptyBorder(0, containerPadding, 0, containerPadding));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -102,9 +107,11 @@ public class AuthPage extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(ThemeGlobalDefaults.getScaledInt("LoginPage.container.top.margin"), 0, 0, 0);
+
         container.add(createLoginContainer(), gbc);
 
         loginPanel.add(container, BorderLayout.CENTER);
+
         return loginPanel;
     }
 
@@ -120,50 +127,87 @@ public class AuthPage extends JFrame {
         ThemeManager.putThemeAwareProperty(header, "foreground: $LGVB.foreground");
         header.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        int textFieldCornerRadius = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.arc");
-        int textFieldHeight = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.height");
+        // Text fields
+        JPanel textFields = new JPanel();
+        textFields.setLayout(new BoxLayout(textFields, BoxLayout.Y_AXIS));
+        textFields.setOpaque(false);
 
         JLabel usernameLabel = new JLabel("Username");
         usernameLabel.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.body.fontSize")));
         ThemeManager.putThemeAwareProperty(usernameLabel, "foreground: $TextField.background");
-        usernameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        usernameLabel.setAlignmentX(LEFT_ALIGNMENT);
+
+        int textFieldCornerRadius = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.arc");
+        int textFieldHeight = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.height");
 
         usernameField = new RoundedTextField(textFieldCornerRadius);
         usernameField.setCaretColor(ThemeGlobalDefaults.getColor("TextField.caretColor"));
         usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textFieldHeight));
+        usernameField.setFont(FontLoader.getBaloo2Regular(ThemeGlobalDefaults.getScaledFloat("LoginPage.textField.fontSize")));
+        usernameField.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setFont(FontLoader.getInter(ThemeGlobalDefaults.getScaledFloat("LoginPage.body.fontSize")));
         ThemeManager.putThemeAwareProperty(passwordLabel, "foreground: $TextField.background");
+        passwordLabel.setAlignmentX(LEFT_ALIGNMENT);
 
         passwordField = new RoundedPasswordField(textFieldCornerRadius);
         passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textFieldHeight));
         passwordField.setCaretColor(ThemeGlobalDefaults.getColor("TextField.caretColor"));
-        passwordLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        passwordField.setFont(FontLoader.getBaloo2Regular(ThemeGlobalDefaults.getScaledFloat("LoginPage.textField.fontSize")));
+        passwordField.setAlignmentX(LEFT_ALIGNMENT);
+
+        textFields.add(usernameLabel);
+        textFields.add(Box.createRigidArea(new Dimension(0, UIScale.scale(5))));
+        textFields.add(usernameField);
+        textFields.add(Box.createRigidArea(new Dimension(0, UIScale.scale(15))));
+        textFields.add(passwordLabel);
+        textFields.add(Box.createRigidArea(new Dimension(0, UIScale.scale(5))));
+        textFields.add(passwordField);
+        textFields.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Buttons
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
+        buttonsPanel.setOpaque(false);
+        int bpBorder = ThemeGlobalDefaults.getScaledInt("LoginPage.buttonsPanel.border");
+        buttonsPanel.setBorder(new EmptyBorder(0, bpBorder, 0, bpBorder));
+        buttonsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        Dimension buttonSize = new Dimension(Integer.MAX_VALUE, ThemeGlobalDefaults.getScaledInt("LoginPage.buttonSize"));
 
         loginBtn = new RoundedButton("Login", ThemeGlobalDefaults.getScaledInt("LoginPage.buttonArc"));
+        loginBtn.setPreferredSize(buttonSize);
+        loginBtn.setMaximumSize(buttonSize);
         loginBtn.setForeground(Color.WHITE);
         loginBtn.setBaseColor(new Color(202, 28, 82));
+        loginBtn.setFont(new Font("Inter", Font.PLAIN, 14));
+        loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         registerBtn = new RoundedButton("Register", 30);
+        registerBtn.setPreferredSize(buttonSize);
+        registerBtn.setMaximumSize(buttonSize);
         registerBtn.setForeground(new Color(23, 80, 110));
         registerBtn.setBaseColor(new Color(245, 247, 250));
+        registerBtn.setFont(new Font("Inter", Font.PLAIN, 14));
+        registerBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        buttonsPanel.add(loginBtn);
+        buttonsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        buttonsPanel.add(registerBtn);
 
         loginContainer.add(header);
-        loginContainer.add(Box.createVerticalStrut(30));
-        loginContainer.add(usernameLabel);
-        loginContainer.add(usernameField);
-        loginContainer.add(Box.createVerticalStrut(15));
-        loginContainer.add(passwordLabel);
-        loginContainer.add(passwordField);
-        loginContainer.add(Box.createVerticalStrut(30));
-        loginContainer.add(loginBtn);
-        loginContainer.add(Box.createVerticalStrut(10));
-        loginContainer.add(registerBtn);
+        loginContainer.add(Box.createRigidArea(new Dimension(0, 30)));
+        loginContainer.add(textFields);
+        loginContainer.add(Box.createRigidArea(new Dimension(0, 30)));
+        loginContainer.add(buttonsPanel);
+
         return loginContainer;
     }
 
-    /** ----------------- Right Image ----------------- */
+    /**
+     * ----------------- Right Image -----------------
+     */
     private JPanel createRightSide() {
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel();
@@ -181,7 +225,9 @@ public class AuthPage extends JFrame {
         return panel;
     }
 
-    /** ----------------- TOTP Panel ----------------- */
+    /**
+     * ----------------- TOTP Panel -----------------
+     */
     private JPanel createTOTPPanel() {
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setOpaque(false);
@@ -234,9 +280,11 @@ public class AuthPage extends JFrame {
         return wrapper;
     }
 
-    /** ----------------- Switching ----------------- */
+    /**
+     * ----------------- Switching -----------------
+     */
     public void showTOTPPanel() {
-        mainPanel.removeAll(); 
+        mainPanel.removeAll();
         mainPanel.add(totpPanelWrapper, BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
@@ -260,10 +308,26 @@ public class AuthPage extends JFrame {
         mainPanel.repaint();
     }
 
-    /** ----------------- Getters ----------------- */
-    public String getInputUsername() { return usernameField.getText().trim(); }
-    public char[] getInputPassword() { return passwordField.getPassword(); }
-    public RoundedTextField getTotpField() { return totpField; }
-    public RoundedButton getTotpVerifyButton() { return totpVerifyBtn; }
-    public RegistrationPanel getRegistrationPanel() { return registrationPanel; }
+    /**
+     * ----------------- Getters -----------------
+     */
+    public String getInputUsername() {
+        return usernameField.getText().trim();
+    }
+
+    public char[] getInputPassword() {
+        return passwordField.getPassword();
+    }
+
+    public RoundedTextField getTotpField() {
+        return totpField;
+    }
+
+    public RoundedButton getTotpVerifyButton() {
+        return totpVerifyBtn;
+    }
+
+    public RegistrationPanel getRegistrationPanel() {
+        return registrationPanel;
+    }
 }
