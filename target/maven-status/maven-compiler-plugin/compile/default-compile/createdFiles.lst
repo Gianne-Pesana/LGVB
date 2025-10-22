@@ -1,4 +1,5 @@
 com\leshka_and_friends\lgvb\account\Account.class
+com\leshka_and_friends\lgvb\view\authpage\TwoFALinkFrame.class
 com\leshka_and_friends\lgvb\view\test\CardTest.class
 com\leshka_and_friends\lgvb\view\components\panels\TitlePanel.class
 com\leshka_and_friends\lgvb\view\themes\LGVBLight.class
@@ -14,13 +15,11 @@ com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.clas
 com\leshka_and_friends\lgvb\core\DBConnection.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login.class
 com\leshka_and_friends\lgvb\user\Role.class
-com\leshka_and_friends\lgvb\view\TwoFAPanel.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$1.class
 com\leshka_and_friends\lgvb\transaction\TransactionService.class
 com\leshka_and_friends\lgvb\view\factories\PanelFactory.class
 com\leshka_and_friends\lgvb\user\UserDTO.class
-com\leshka_and_friends\lgvb\view\TwoFALinkPanel.class
 com\leshka_and_friends\lgvb\view\ContentManager.class
 com\leshka_and_friends\lgvb\view\components\user\UserProfile.class
 com\leshka_and_friends\lgvb\view\forms\TransactionGroupPanel.class
@@ -37,10 +36,11 @@ com\leshka_and_friends\lgvb\loan\Loan.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.class
 com\leshka_and_friends\lgvb\core\StringUtils.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
+com\leshka_and_friends\lgvb\view\authpage\TwoFAPanel.class
 com\leshka_and_friends\lgvb\view\components\TransparentJScrollBar.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
+com\leshka_and_friends\lgvb\view\authpage\TwoFALinkDialog.class
 com\leshka_and_friends\lgvb\auth\SessionService.class
-com\leshka_and_friends\lgvb\view\TwoFALinkDialog.class
 com\leshka_and_friends\lgvb\LGVB.class
 com\leshka_and_friends\lgvb\view\forms\Wallet.class
 com\leshka_and_friends\lgvb\view\components\TransparentScrollbar.class
@@ -66,7 +66,6 @@ com\leshka_and_friends\lgvb\user\User.class
 com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButton.class
 com\leshka_and_friends\lgvb\view\test\DHB.class
 com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.class
-com\leshka_and_friends\lgvb\view\TwoFALinkFrame.class
 com\leshka_and_friends\lgvb\auth\AuthController.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login$1.class
 com\leshka_and_friends\lgvb\account\AccountService.class
@@ -75,12 +74,14 @@ com\leshka_and_friends\lgvb\auth\AuthService.class
 com\leshka_and_friends\lgvb\core\AppConfig.class
 com\leshka_and_friends\lgvb\user\UserDAO.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel$2.class
+com\leshka_and_friends\lgvb\view\authpage\LoginPage.class
 com\leshka_and_friends\lgvb\auth\AuthException.class
 com\leshka_and_friends\lgvb\dashboard\DashboardDTO.class
 com\leshka_and_friends\lgvb\transaction\Transaction.class
 com\leshka_and_friends\lgvb\view\factories\SidebarButtonFactory.class
 com\leshka_and_friends\lgvb\view\components\RoundedButton.class
 com\leshka_and_friends\lgvb\view\components\panels\BalancePanel.class
+com\leshka_and_friends\lgvb\view\authpage\TwoFALinkPanel.class
 com\leshka_and_friends\lgvb\view\components\RoundedButton$1.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField$1.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
@@ -101,4 +102,3 @@ com\leshka_and_friends\lgvb\transaction\TransactionDAO.class
 com\leshka_and_friends\lgvb\view\components\RoundedPasswordField$1.class
 com\leshka_and_friends\lgvb\view\forms\Dashboard.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel$1.class
-com\leshka_and_friends\lgvb\view\LoginPage.class

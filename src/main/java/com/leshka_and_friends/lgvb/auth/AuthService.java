@@ -61,7 +61,11 @@ public class AuthService {
         return true;
     }
 
-    public boolean verifyTOTP(String secret, String code, int windowSteps   ) {
+    public boolean verifyTOTP(String secret, String code, int windowSteps) throws AuthException {
+        if (code == null || code.isBlank()) {
+            throw new AuthException("Please enter a code!");
+        }
+        
         long stepSeconds = 30L;
         long now = System.currentTimeMillis() / 1000L;
         Totp totpCurrent = new Totp(secret);

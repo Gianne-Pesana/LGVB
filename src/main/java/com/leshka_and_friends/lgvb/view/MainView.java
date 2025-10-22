@@ -32,12 +32,12 @@ public class MainView extends JFrame {
 
     private int width;
     private int height;
-    
+
     private final double widthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.width.scaleFactor");
     private final double heigthScaleFactor = ThemeGlobalDefaults.getDouble("MainView.height.scaleFactor");
 
     private CustomerDTO dto;
-    
+
     public MainView(CustomerDTO dto) {
         this.dto = dto;
         initializeFrame();
@@ -52,7 +52,7 @@ public class MainView extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    
+
     private void initializeFrame() {
         FontLoader.loadFonts();
 
@@ -68,8 +68,14 @@ public class MainView extends JFrame {
         height = (int) Math.floor(screenSize.getHeight() * heigthScaleFactor);
 
         setSize(width, height);
+        setMinimumSize(
+                new Dimension(
+                        width - ThemeGlobalDefaults.getScaledInt("MainView.minimumWidth.difference"),
+                        height - ThemeGlobalDefaults.getScaledInt("MainView.minimumHeight.difference")
+                )
+        );
     }
-    
+
     private void initializeSidebar() {
         // Sidebar panel (left)
         System.out.println("Inside Main View: " + dto.getFullName());
@@ -123,7 +129,7 @@ public class MainView extends JFrame {
     public String getUserFullName() {
         return dto.getFullName();
     }
-    
+
     private void createMainContent() {
         // Main content panel (right) with CardLayout
         contentLayout = new CardLayout();

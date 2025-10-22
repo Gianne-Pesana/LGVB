@@ -4,6 +4,8 @@
  */
 package com.leshka_and_friends.lgvb.auth;
 
+import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
+import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
 import com.leshka_and_friends.lgvb.account.*;
 import com.leshka_and_friends.lgvb.card.*;
 import com.leshka_and_friends.lgvb.dashboard.*;
@@ -43,7 +45,7 @@ public class AuthController {
     private final String testEmail = "gianne@lgvb.com";
     private final char[] testPwd = "#Gianne123".toCharArray();
 
-    private LoginPage loginPage;
+    private AuthPage loginPage;
 
     public AuthController() {
         // DAOs are now primarily used by services, not the controller.
@@ -67,7 +69,7 @@ public class AuthController {
     }
 
     public void start() {
-        loginPage = new LoginPage();
+        loginPage = new AuthPage();
         loginPage.setVisible(true);
 
         loginPage.loginBtn.addActionListener(e -> {
@@ -83,8 +85,8 @@ public class AuthController {
     private void handleLogin() {
         String email = loginPage.getInputUsername();
         char[] pwd = loginPage.getInputPassword();
-        email = testEmail;
-        pwd = testPwd;
+//        email = testEmail;
+//        pwd = testPwd;
 
         try {
             user = auth.login(email, pwd);  // initial username/password check
@@ -98,21 +100,21 @@ public class AuthController {
                 String code = loginPage.getTotpField().getText().trim();
                 try {
                     boolean verified;
-                    verified = auth.verifyTOTP(secret, code, 1); // your TOTP service
+                    verified = auth.verifyTOTP(secret, code, 1);
 //                    verified = true;
                     if (verified) {
                         JOptionPane.showMessageDialog(loginPage, "2FA success!");
 
                         // Open dashboard
-//                        if (user.getRole() == Role.ADMIN) {
-//                            JOptionPane.showMessageDialog(null, "Admin login successful. Admin dashboard not yet implemented.");
-//                        } else if (user.getRole() == Role.CUSTOMER) {
-//                            CustomerDTO customerdto = customerService.buildCustomerDTO(user);
-//                            MainView mainView = new MainView(customerdto);
-//                            mainView.setVisible(true);
-//                        }
-//
-//                        loginPage.dispose();
+                        if (user.getRole() == Role.ADMIN) {
+                            JOptionPane.showMessageDialog(null, "Admin login successful. Admin dashboard not yet implemented.");
+                        } else if (user.getRole() == Role.CUSTOMER) {
+                            CustomerDTO customerdto = customerService.buildCustomerDTO(user);
+                            MainView mainView = new MainView(customerdto);
+                            mainView.setVisible(true);
+                        }
+
+                        loginPage.dispose();
                     } else {
                         JOptionPane.showMessageDialog(loginPage, "Invalid 2FA code", "Authentication", JOptionPane.ERROR_MESSAGE);
                     }

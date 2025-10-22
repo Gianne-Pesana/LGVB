@@ -1,4 +1,4 @@
-package com.leshka_and_friends.lgvb.view;
+package com.leshka_and_friends.lgvb.view.authpage;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class LoginPage extends JFrame {
+public class AuthPage extends JFrame {
 
     public RoundedTextField usernameField;
     public RoundedPasswordField passwordField;
@@ -29,7 +29,7 @@ public class LoginPage extends JFrame {
     private JPanel mainPanel;        // main container for swapping panels
     private JPanel rightImagePanel;  // right-side company image
 
-    public LoginPage() {
+    public AuthPage() {
         setSize(ThemeGlobalDefaults.getScaledInt("LoginPage.width"), ThemeGlobalDefaults.getScaledInt("LoginPage.height"));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -233,7 +233,7 @@ public class LoginPage extends JFrame {
         totpVerifyBtn.setContentAreaFilled(true);
         totpVerifyBtn.setOpaque(true);
         ThemeManager.putThemeAwareProperty(totpVerifyBtn, "background: $LoginPage.2fa.button.background");
-//        totpVerifyBtn.setBackground(ThemeGlobalDefaults.getColor("LoginPage.2fa.button.background"));
+//        totpVerifyBtn.setBackground(ThemeGlobalDefaults.getColor("AuthPage.2fa.button.background"));
 //        totpVerifyBtn.setBackground(new Color(0x238636));
         totpVerifyBtn.setForeground(ThemeGlobalDefaults.getColor("LoginPage.2fa.button.foreground"));
         totpVerifyBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
