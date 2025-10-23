@@ -52,13 +52,11 @@ public class AuthController {
     private boolean isStrongPassword;
 
     public AuthController() {
-        // DAOs are now primarily used by services, not the controller.
         UserDAO userDAO = new UserDAO();
         AccountDAO accountDAO = new AccountDAO();
         CardDAO cardDAO = new CardDAO();
         TransactionDAO transactionDAO = new TransactionDAO();
 
-        // Services that encapsulate business logic
         userService = new UserService(userDAO);
         authService = new AuthService(userService);
         sessionService = SessionService.getInstance();
@@ -118,7 +116,6 @@ public class AuthController {
                     if (LGVB.testing) {
                         verified = true;
                     } else {
-
                         verified = authService.verifyTOTP(secret, code, 1);
                     }
                     if (verified) {
@@ -222,6 +219,4 @@ public class AuthController {
 
         authPage.setVisible(true);
     }
-
-
 }

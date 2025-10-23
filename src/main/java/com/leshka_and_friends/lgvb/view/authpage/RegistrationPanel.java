@@ -45,7 +45,9 @@ public class RegistrationPanel extends JPanel {
         add(cardPanel, BorderLayout.CENTER);
     }
 
-    /** -------------------- PAGE 1: Credentials -------------------- **/
+    /**
+     * -------------------- PAGE 1: Credentials -------------------- *
+     */
     private JPanel createCredentialsPage() {
         JPanel page = new JPanel(new GridBagLayout());
         page.setOpaque(false);
@@ -115,7 +117,9 @@ public class RegistrationPanel extends JPanel {
         switchToLoginLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         switchToLoginLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                if (onSwitchToLogin != null) onSwitchToLogin.run();
+                if (onSwitchToLogin != null) {
+                    onSwitchToLogin.run();
+                }
             }
         });
 
@@ -134,12 +138,14 @@ public class RegistrationPanel extends JPanel {
         return page;
     }
 
-    /** -------------------- PAGE 2: Personal Info -------------------- **/
+    /**
+     * -------------------- PAGE 2: Personal Info -------------------- *
+     */
     private JPanel createPersonalInfoPage() {
         JPanel page = new JPanel(new GridBagLayout());
         page.setOpaque(false);
 
-        final int FORM_WIDTH = 350;
+        final int FORM_WIDTH = UIScale.scale(350);
         int textFieldArc = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.arc");
         int textFieldHeight = ThemeGlobalDefaults.getScaledInt("RegistrationPage.textField.height");
 
@@ -177,6 +183,7 @@ public class RegistrationPanel extends JPanel {
         lastNamePanel.setLayout(new BoxLayout(lastNamePanel, BoxLayout.Y_AXIS));
         lastNamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         lastNamePanel.setMaximumSize(new Dimension(FORM_WIDTH, Short.MAX_VALUE));
+
         JLabel lastNameLabel = new JLabel("Last Name");
         lastNameLabel.setFont(FontLoader.getInter(14f));
         ThemeManager.putThemeAwareProperty(lastNameLabel, "foreground: $TextField.background");
@@ -230,6 +237,7 @@ public class RegistrationPanel extends JPanel {
         termsCheckBox = new JCheckBox("I have read and agree to LGVB's");
         termsCheckBox.setForeground(Color.WHITE);
         termsCheckBox.setOpaque(false);
+
         JLabel termsLabel = new JLabel("<html><a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a></html>");
         termsLabel.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
         termsLabel.setForeground(Color.WHITE);
@@ -250,6 +258,7 @@ public class RegistrationPanel extends JPanel {
         backButton.setBackground(ThemeGlobalDefaults.getColor("AuthPage.buttonSub.background"));
         backButton.setForeground(ThemeGlobalDefaults.getColor("AuthPage.buttonSub.foreground"));
         backButton.setPreferredSize(buttonSize);
+        backButton.setMaximumSize(buttonSize);
         backButton.addActionListener(e -> cardLayout.show(cardPanel, "PAGE1"));
 
         registerButton = new RoundedButton("Register", ThemeGlobalDefaults.getInt("LoginPage.buttonArc"));
@@ -282,16 +291,35 @@ public class RegistrationPanel extends JPanel {
         container.add(Box.createRigidArea(new Dimension(0, 30)));
         container.add(buttonPanel);
 
+        // Wrap in JScrollPane
+        // Wrap container in JScrollPane
+        JScrollPane scrollPane = new JScrollPane(container);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); // allow scrolling
+
+// Hide scrollbar visually but keep scrolling functional
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // smooth scroll with mouse wheel
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        page.add(container, gbc);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+
+        page.add(scrollPane, gbc);
 
         return page;
     }
 
-    /** -------------------- Helper methods -------------------- **/
+    /**
+     * -------------------- Helper methods -------------------- *
+     */
     private RoundedTextField createLabeledField(int arc, int height) {
         RoundedTextField tf = new RoundedTextField(arc);
         tf.setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
@@ -310,21 +338,54 @@ public class RegistrationPanel extends JPanel {
         return pf;
     }
 
-    /** -------------------- Public API -------------------- **/
-    public void setOnSwitchToLogin(Runnable callback) { this.onSwitchToLogin = callback; }
-    public void goToNextPage() { cardLayout.show(cardPanel, "PAGE2"); }
+    /**
+     * -------------------- Public API -------------------- *
+     */
+    public void setOnSwitchToLogin(Runnable callback) {
+        this.onSwitchToLogin = callback;
+    }
 
-    public RoundedButton getRegisterButton() { return registerButton; }
-    public RoundedButton getNextButton() { return nextButton; }
-    public RoundedButton getBackButton() { return backButton; }
-    public JCheckBox getTermsCheckBox() { return termsCheckBox; }
-    public JLabel getSwitchToLoginLabel() { return switchToLoginLabel; }
+    public void goToNextPage() {
+        cardLayout.show(cardPanel, "PAGE2");
+    }
+
+    public RoundedButton getRegisterButton() {
+        return registerButton;
+    }
+
+    public RoundedButton getNextButton() {
+        return nextButton;
+    }
+
+    public RoundedButton getBackButton() {
+        return backButton;
+    }
+
+    public JCheckBox getTermsCheckBox() {
+        return termsCheckBox;
+    }
+
+    public JLabel getSwitchToLoginLabel() {
+        return switchToLoginLabel;
+    }
 
     // --------- Value getters --------------
-    public String getEmail() { return emailField.getText().trim(); }
-    public char[] getPassword() { return passwordField.getPassword(); }
-    public String getFirstName() { return firstNameField.getText().trim(); }
-    public String getLastName() { return lastNameField.getText().trim(); }
+    public String getEmail() {
+        return emailField.getText().trim();
+    }
+
+    public char[] getPassword() {
+        return passwordField.getPassword();
+    }
+
+    public String getFirstName() {
+        return firstNameField.getText().trim();
+    }
+
+    public String getLastName() {
+        return lastNameField.getText().trim();
+    }
+
     public String getPhoneNumber() {
         // accepts input such as: +639765577846 and 09765577846
         // when the input starts with 0x, it will just replace it with +63, if it starts with +63 or just +, leave it as is
@@ -334,11 +395,14 @@ public class RegistrationPanel extends JPanel {
     public boolean isTermsChecked() {
         return termsCheckBox.isSelected();
     }
+
     public LocalDate getDOB() {
         String dateStr = dobField.getText().trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(dateStr, formatter);
     }
 
-    public void showInvalidColorToField(RoundedTextField field) { field.setInvalid(true); }
+    public void showInvalidColorToField(RoundedTextField field) {
+        field.setInvalid(true);
+    }
 }

@@ -1,5 +1,4 @@
 com\leshka_and_friends\lgvb\account\Account.class
-com\leshka_and_friends\lgvb\view\authpage\TwoFALinkFrame.class
 com\leshka_and_friends\lgvb\view\test\CardTest.class
 com\leshka_and_friends\lgvb\view\components\panels\TitlePanel.class
 com\leshka_and_friends\lgvb\view\themes\LGVBLight.class
@@ -38,10 +37,8 @@ com\leshka_and_friends\lgvb\loan\Loan.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.class
 com\leshka_and_friends\lgvb\core\StringUtils.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
-com\leshka_and_friends\lgvb\view\authpage\TwoFAPanel.class
 com\leshka_and_friends\lgvb\view\components\TransparentJScrollBar.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
-com\mycompany\test\RoundedFormattedTextField$1.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkDialog.class
 com\leshka_and_friends\lgvb\auth\SessionService.class
 com\leshka_and_friends\lgvb\LGVB.class
@@ -95,14 +92,11 @@ com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
 com\leshka_and_friends\lgvb\view\components\panels\ViewPage.class
 com\leshka_and_friends\lgvb\account\AccountDAO.class
 com\leshka_and_friends\lgvb\auth\RegistrationService.class
-com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$3.class
 com\leshka_and_friends\lgvb\auth\RegistrationException.class
-com\mycompany\test\RoundedFormattedTextField.class
 com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\forms\TransactionCard.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
-com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$2.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\user\CustomerDTO.class
 com\leshka_and_friends\lgvb\view\themes\Theme.class
