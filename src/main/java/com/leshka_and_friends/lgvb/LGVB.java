@@ -11,8 +11,8 @@ public class LGVB {
     public static boolean testing = false;
 
     public static void main(String[] args) {
-        DBConnection.testConnection();
         try {
+            DBConnection.testConnection();
             UIManager.setLookAndFeel(new LGVBDark());
             ThemeGlobalDefaults.apply();
         } catch (Exception e) {

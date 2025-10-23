@@ -6,6 +6,7 @@ package com.leshka_and_friends.lgvb.auth;
 
 import com.leshka_and_friends.lgvb.LGVB;
 import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
+import com.leshka_and_friends.lgvb.view.authpage.LoginPanel;
 import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
 import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
 import com.leshka_and_friends.lgvb.account.*;
@@ -53,6 +54,9 @@ public class AuthController {
     private boolean isValidEmail;
     private boolean isStrongPassword;
 
+    LoginPanel loginPanel;
+    RegistrationPanel registrationPanel;
+
     public AuthController() {
         UserDAO userDAO = new UserDAO();
         AccountDAO accountDAO = new AccountDAO();
@@ -77,15 +81,29 @@ public class AuthController {
         authPage = new AuthPage();
         authPage.setVisible(true);
 
+        loginPanel = authPage.getLoginPanel();
+        registrationPanel = authPage.getRegistrationPanel();
+
+        // ------------- LOGIN --------------
         authPage.getLoginPanel().getLoginBtn().addActionListener(e -> {
             handleLogin();
         });
 
+        // ------------- REGISTER --------------
         authPage.getLoginPanel().getRegisterBtn().addActionListener(e -> {
-//            registerTest();
-            handleRegister();
+            authPage.showRegisterPanel();
+            registrationPanel.resetFields();
         });
 
+        // NEXT BUTTON: email & password
+        registrationPanel.getNextButton().addActionListener(nb -> {
+            handleNextBtn();
+        });
+
+        // REGISTER BUTTON: personal info
+        registrationPanel.getRegisterButton().addActionListener(rb -> {
+            handleRegisterBtn();
+        });
     }
 
     private void handleLogin() {
@@ -149,84 +167,75 @@ public class AuthController {
             OutputUtils.showError(authPage, "Login failed: " + ae.getMessage());
         } finally {
             java.util.Arrays.fill(pwd, '\0');
+            authPage.getLoginPanel().resetFields();
         }
     }
 
-    private void registerTest() {
-        authPage.showRegisterPanel();
+    public void handleNextBtn() {
+        try {
+            String email = registrationPanel.getEmail();
+            char[] password = registrationPanel.getPassword();
+            char[] confirmPassword = registrationPanel.getConfirmPassword();
+
+            authService.isValidEmail(email);
+            authService.isStrong(password);
+            authService.passwordMatches(password, confirmPassword);
+
+            // If valid, go to next page
+            registrationPanel.goToNextPage();
+
+        } catch (AuthException e) {
+            OutputUtils.showError(authPage, e.getMessage());
+        }
     }
 
-    private void handleRegister() {
-        authPage.showRegisterPanel();
-        RegistrationPanel registrationPanel = authPage.getRegistrationPanel();
+    public void handleRegisterBtn() {
+        try {
+            String firstName = registrationPanel.getFirstName();
+            String lastName = registrationPanel.getLastName();
+            String phoneNum = registrationPanel.getPhoneNumber();
+            LocalDate dob = registrationPanel.getDOB();
+            boolean isTermsChecked = registrationPanel.isTermsChecked();
 
-        // --- NEXT BUTTON: email & password ---
-        registrationPanel.getNextButton().addActionListener(nb -> {
-            try {
-                String email = registrationPanel.getEmail();
-                char[] password = registrationPanel.getPassword();
+            registrationService.validateFirstName(firstName);
+            registrationService.validateLastName(lastName);
+            registrationService.validatePhoneNum(phoneNum);
+            registrationService.validateDateOfBirth(dob);
 
-                authService.isValidEmail(email);
-                authService.isStrong(password);
-
-                // If valid, go to next page
-                registrationPanel.goToNextPage();
-
-            } catch (AuthException e) {
-                OutputUtils.showError(authPage, e.getMessage());
+            if (!isTermsChecked) {
+                OutputUtils.showInfo(authPage, "You must accept terms and conditions for you to register!");
+                return;
             }
-        });
 
-        // --- REGISTER BUTTON: remaining fields ---
-        registrationPanel.getRegisterButton().addActionListener(rb -> {
-            try {
-                String firstName = registrationPanel.getFirstName();
-                String lastName = registrationPanel.getLastName();
-                String phoneNum = registrationPanel.getPhoneNumber();
-                LocalDate dob = registrationPanel.getDOB();
-                boolean isTermsChecked = registrationPanel.isTermsChecked();
+            String email = registrationPanel.getEmail();
+            char[] password = registrationPanel.getPassword();
 
-                registrationService.validateFirstName(firstName);
-                registrationService.validateLastName(lastName);
-                registrationService.validatePhoneNum(phoneNum);
-                registrationService.validateDateOfBirth(dob);
-
-                if (!isTermsChecked) {
-                    OutputUtils.showInfo(authPage, "You must accept terms and conditions for you to register!");
-                    return;
-                }
-
-                // You may want to reuse email/password from before; get them from panel again
-                String email = registrationPanel.getEmail();
-                char[] password = registrationPanel.getPassword();
-
-
-                String secret = authService.generateSecret();
-                String otpAuthUrl;
-                if (LGVB.testing) {
-                    otpAuthUrl = authService.getOtpAuthUrl(testUsername, testSecret);
-                } else {
-                    otpAuthUrl = authService.getOtpAuthUrl(firstName + "_" + lastName, secret);
-                }
-
-                boolean linked = TwoFALinkDialog.showDialog(null, otpAuthUrl);
-
-                if (linked) {
-                    registrationService.registerCustomer(email, password, firstName, lastName, phoneNum, dob, secret);
-                    OutputUtils.showInfo(authPage, "Registered successfully!");
-                    authPage.showLoginPanel();
-                } else {
-                    System.out.println("User closed the dialog without confirming.");
-                }
-
-            } catch (RegistrationException e) {
-                OutputUtils.showError(authPage, e.getMessage());
-            } catch (Exception e) {
-                OutputUtils.showError(authPage, "Unexpected error: " + e.getMessage());
-                e.printStackTrace();
+            String secret = authService.generateSecret();
+            String otpAuthUrl;
+            if (LGVB.testing) {
+                otpAuthUrl = authService.getOtpAuthUrl(testUsername, testSecret);
+            } else {
+                otpAuthUrl = authService.getOtpAuthUrl(firstName + "_" + lastName, secret);
             }
-        });
+
+            boolean linked = TwoFALinkDialog.showDialog(null, otpAuthUrl);
+
+            if (!linked) {
+                System.out.println("User closed the dialog without confirming.");
+            }
+
+            registrationService.registerCustomer(email, password, firstName, lastName, phoneNum, dob, secret);
+            OutputUtils.showInfo(authPage, "Registered successfully!");
+            authPage.showLoginPanel();
+        } catch (RegistrationException e) {
+            OutputUtils.showError(authPage, e.getMessage());
+        } catch (Exception e) {
+            OutputUtils.showError(authPage, "Unexpected error: " + e.getMessage());
+            registrationPanel.resetFields();
+            e.printStackTrace();
+        }
 
         authPage.setVisible(true);
     }
+
 }

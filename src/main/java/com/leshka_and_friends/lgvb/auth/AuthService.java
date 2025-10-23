@@ -6,10 +6,12 @@ import com.leshka_and_friends.lgvb.user.UserService;
 import com.leshka_and_friends.lgvb.core.PasswordUtils;
 
 import org.apache.commons.codec.binary.Base32;
+
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import org.jboss.aerogear.security.otp.Totp;
@@ -37,13 +39,6 @@ public class AuthService {
         return true;
     }
 
-    public User login(String email, char[] password) throws AuthException {
-        User user = userService.getUserByEmail(email);
-        if (user == null || !PasswordUtils.verifyPassword(password, user.getPasswordHash())) {
-            throw new AuthException("Invalid credentials");
-        }
-        return user;
-    }
 
     public boolean isStrong(char[] pwd) throws AuthException {
         if (pwd == null || pwd.length == 0) {
@@ -72,15 +67,33 @@ public class AuthService {
         return true;
     }
 
+    public boolean passwordMatches(char[] password, char[] confirmPassword) throws AuthException {
+        if (password == null || confirmPassword == null) {
+            throw new AuthException("Password fields cannot be empty.");
+        }
+
+        if (!Arrays.equals(password, confirmPassword)) {
+            throw new AuthException("Passwords do not match.");
+        }
+
+        return true;
+    }
+
+    public User login(String email, char[] password) throws AuthException {
+        User user = userService.getUserByEmail(email);
+        if (user == null || !PasswordUtils.verifyPassword(password, user.getPasswordHash())) {
+            throw new AuthException("Invalid credentials");
+        }
+        return user;
+    }
+
     public boolean checkActive(Account account) throws AuthException {
         String accountStatus = account.getStatus().toLowerCase();
         if (accountStatus.equals(Account.ACTIVE)) {
             return true;
-        }
-        else if (accountStatus.equals(Account.PENDING)) {
+        } else if (accountStatus.equals(Account.PENDING)) {
             throw new AuthException("Your account is pending for approval by the admins.");
-        }
-        else {
+        } else {
             throw new AuthException("Your account is blocked or closed.");
         }
     }
@@ -137,5 +150,6 @@ public class AuthService {
 
         return "otpauth://totp/" + encodedLabel + "?" + params;
     }
+
 
 }

@@ -18,6 +18,7 @@ public class RegistrationPanel extends JPanel {
     // --- Fields ---
     private RoundedTextField emailField;
     private RoundedPasswordField passwordField;
+    private RoundedPasswordField confirmPasswordField;
     private RoundedTextField firstNameField;
     private RoundedTextField lastNameField;
     private RoundedTextField phoneField;
@@ -30,6 +31,8 @@ public class RegistrationPanel extends JPanel {
     private RoundedButton registerButton;
     private JLabel switchToLoginLabel;
     private Runnable onSwitchToLogin;
+
+    private final int FORM_WIDTH = UIScale.scale(350);
 
     public RegistrationPanel() {
         setLayout(new BorderLayout());
@@ -55,8 +58,8 @@ public class RegistrationPanel extends JPanel {
         JPanel container = new JPanel();
         container.setOpaque(false);
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        container.setBorder(new EmptyBorder(UIScale.scale(40), UIScale.scale(50), UIScale.scale(60), UIScale.scale(50)));
-        container.setMaximumSize(new Dimension(350, Short.MAX_VALUE));
+        container.setBorder(new EmptyBorder(UIScale.scale(30), UIScale.scale(30), UIScale.scale(30), UIScale.scale(30)));
+        container.setMaximumSize(new Dimension(FORM_WIDTH, Short.MAX_VALUE));
         container.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel header = new JLabel("Register");
@@ -73,7 +76,7 @@ public class RegistrationPanel extends JPanel {
         emailPanel.setOpaque(false);
         emailPanel.setLayout(new BoxLayout(emailPanel, BoxLayout.Y_AXIS));
         emailPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        emailPanel.setMaximumSize(new Dimension(350, Short.MAX_VALUE));
+        emailPanel.setMaximumSize(new Dimension(FORM_WIDTH, Short.MAX_VALUE));
         JLabel emailLabel = new JLabel("Email");
         emailLabel.setFont(FontLoader.getInter(14f));
         ThemeManager.putThemeAwareProperty(emailLabel, "foreground: $TextField.background");
@@ -88,7 +91,7 @@ public class RegistrationPanel extends JPanel {
         passwordPanel.setOpaque(false);
         passwordPanel.setLayout(new BoxLayout(passwordPanel, BoxLayout.Y_AXIS));
         passwordPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        passwordPanel.setMaximumSize(new Dimension(350, textFieldHeight * 2));
+        passwordPanel.setMaximumSize(new Dimension(FORM_WIDTH, textFieldHeight * 2));
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setFont(FontLoader.getInter(14f));
         ThemeManager.putThemeAwareProperty(passwordLabel, "foreground: $TextField.background");
@@ -96,6 +99,21 @@ public class RegistrationPanel extends JPanel {
         passwordPanel.add(passwordLabel);
         passwordPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         passwordPanel.add(passwordField);
+
+        // --- Create Confirm Password Panel ---
+        confirmPasswordField = createLabeledPassword(textFieldArc, textFieldHeight);
+        JPanel confirmPasswordPanel = new JPanel();
+        confirmPasswordPanel.setOpaque(false);
+        confirmPasswordPanel.setLayout(new BoxLayout(confirmPasswordPanel, BoxLayout.Y_AXIS));
+        confirmPasswordPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        confirmPasswordPanel.setMaximumSize(new Dimension(FORM_WIDTH, textFieldHeight * 2));
+        JLabel confirmPasswordLabel = new JLabel("Confirm Password");
+        confirmPasswordLabel.setFont(FontLoader.getInter(14f));
+        ThemeManager.putThemeAwareProperty(confirmPasswordLabel, "foreground: $TextField.background");
+        confirmPasswordLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        confirmPasswordPanel.add(confirmPasswordLabel);
+        confirmPasswordPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        confirmPasswordPanel.add(confirmPasswordField);
 
         // --- Buttons ---
         Dimension buttonSize = new Dimension(
@@ -129,6 +147,8 @@ public class RegistrationPanel extends JPanel {
         container.add(emailPanel);
         container.add(Box.createRigidArea(new Dimension(0, 15)));
         container.add(passwordPanel);
+        container.add(Box.createRigidArea(new Dimension(0, 15)));
+        container.add(confirmPasswordPanel);
         container.add(Box.createRigidArea(new Dimension(0, 25)));
         container.add(nextButton);
         container.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -138,6 +158,7 @@ public class RegistrationPanel extends JPanel {
         return page;
     }
 
+
     /**
      * -------------------- PAGE 2: Personal Info -------------------- *
      */
@@ -145,7 +166,6 @@ public class RegistrationPanel extends JPanel {
         JPanel page = new JPanel(new GridBagLayout());
         page.setOpaque(false);
 
-        final int FORM_WIDTH = UIScale.scale(350);
         int textFieldArc = ThemeGlobalDefaults.getScaledInt("LoginPage.textField.arc");
         int textFieldHeight = ThemeGlobalDefaults.getScaledInt("RegistrationPage.textField.height");
 
@@ -300,7 +320,7 @@ public class RegistrationPanel extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); // allow scrolling
 
-// Hide scrollbar visually but keep scrolling functional
+        // Hide scrollbar visually but keep scrolling functional
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); // smooth scroll with mouse wheel
         scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
@@ -370,12 +390,18 @@ public class RegistrationPanel extends JPanel {
     }
 
     // --------- Value getters --------------
+
+
     public String getEmail() {
         return emailField.getText().trim();
     }
 
     public char[] getPassword() {
         return passwordField.getPassword();
+    }
+
+    public char[] getConfirmPassword() {
+        return confirmPasswordField.getPassword();
     }
 
     public String getFirstName() {
