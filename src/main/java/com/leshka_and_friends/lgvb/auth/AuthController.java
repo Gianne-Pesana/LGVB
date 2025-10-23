@@ -13,6 +13,7 @@ import com.leshka_and_friends.lgvb.card.*;
 import com.leshka_and_friends.lgvb.transaction.*;
 import com.leshka_and_friends.lgvb.user.*;
 import com.leshka_and_friends.lgvb.view.*;
+import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
@@ -22,9 +23,9 @@ import java.time.LocalDate;
  */
 public class AuthController {
 
-    String issuer = "LGVB";
-    String username = "test_user1";
-    String secret = "JBSWY3DPEHPK3PXP";
+    String testIssuer = "LGVB";
+    String testUsername = "test_user1";
+    String testSecret = "JBSWY3DPEHPK3PXP";
 
     private User user = null;
     CustomerDTO customerdto;
@@ -42,6 +43,7 @@ public class AuthController {
     private final TransactionService transactionService;
 
     private final RegistrationService registrationService;
+    private final TwoFAService twoFAService;
 
     private final String testEmail = "gianne@lgvb.com";
     private final char[] testPwd = "#Gianne123".toCharArray();
@@ -66,6 +68,7 @@ public class AuthController {
         customerService = new CustomerService(accountService, cardService);
 
         transactionService = new TransactionService(transactionDAO);
+        twoFAService = new TwoFAService();
 
         registrationService = new RegistrationService(userService, accountService, cardService);
     }
@@ -101,6 +104,7 @@ public class AuthController {
 
         try {
             user = authService.login(email, pwd);  // initial username/password check
+            authService.checkActive(accountService.getAccountByUserId(user.getUserId()));
             sessionService.login(user);
 
             // Show 2FA panel
@@ -116,31 +120,33 @@ public class AuthController {
                     if (LGVB.testing) {
                         verified = true;
                     } else {
-                        verified = authService.verifyTOTP(secret, code, 1);
+                        verified = authService.verifyTOTP(user.getTotpSecret(), code, 1);
                     }
-                    if (verified) {
-                        JOptionPane.showMessageDialog(authPage, "2FA success!");
 
-                        // Open dashboard
-                        if (user.getRole() == Role.ADMIN) {
-                            JOptionPane.showMessageDialog(null, "Admin login successful. Admin dashboard not yet implemented.");
-                        } else if (user.getRole() == Role.CUSTOMER) {
-                            CustomerDTO customerdto = customerService.buildCustomerDTO(user);
-                            MainView mainView = new MainView(customerdto);
-                            mainView.setVisible(true);
-                        }
-
-                        authPage.dispose();
-                    } else {
+                    if (!verified) {
                         JOptionPane.showMessageDialog(authPage, "Invalid 2FA code", "Authentication", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
+
+                    OutputUtils.showInfo(authPage, "2FA success!");
+
+                    // Open dashboard
+                    if (user.getRole() == Role.ADMIN) {
+                        OutputUtils.showInfo(authPage, "Admin login successful. Admin dashboard not yet implemented.");
+                    } else if (user.getRole() == Role.CUSTOMER) {
+                        CustomerDTO customerdto = customerService.buildCustomerDTO(user);
+                        MainView mainView = new MainView(customerdto);
+                        mainView.setVisible(true);
+                    }
+
+                    authPage.dispose();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(authPage, "Error verifying 2FA: " + ex.getMessage(), "Authentication", JOptionPane.ERROR_MESSAGE);
+                    OutputUtils.showError(authPage, "Error verifying 2FA: " + ex.getMessage());
                 }
             });
 
         } catch (AuthException ae) {
-            JOptionPane.showMessageDialog(null, "Login failed: " + ae.getMessage(), "Authentication", JOptionPane.ERROR_MESSAGE);
+            OutputUtils.showError(authPage, "Login failed: " + ae.getMessage());
         } finally {
             java.util.Arrays.fill(pwd, '\0');
         }
@@ -167,7 +173,7 @@ public class AuthController {
                 registrationPanel.goToNextPage();
 
             } catch (AuthException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                OutputUtils.showError(authPage, e.getMessage());
             }
         });
 
@@ -186,7 +192,7 @@ public class AuthController {
                 registrationService.validateDateOfBirth(dob);
 
                 if (!isTermsChecked) {
-                    JOptionPane.showMessageDialog(null, "You must accept terms and conditions for you to register!", "Terms and Conditions", JOptionPane.INFORMATION_MESSAGE);
+                    OutputUtils.showInfo(authPage, "You must accept terms and conditions for you to register!");
                     return;
                 }
 
@@ -194,25 +200,29 @@ public class AuthController {
                 String email = registrationPanel.getEmail();
                 char[] password = registrationPanel.getPassword();
 
-                registrationService.registerCustomer(email, password, firstName, lastName, phoneNum, dob);
 
-                // TODO: Generate secret and store it on db
-                String otpAuthUrl = String.format(
-                        "otpauth://totp/%s:%s?secret=%s&issuer=%s", issuer, username, secret, issuer
-                );
+                String secret = authService.generateSecret();
+                String otpAuthUrl;
+                if (LGVB.testing) {
+                    otpAuthUrl = authService.getOtpAuthUrl(testUsername, testSecret);
+                } else {
+                    otpAuthUrl = authService.getOtpAuthUrl(firstName + "_" + lastName, secret);
+                }
+
                 boolean linked = TwoFALinkDialog.showDialog(null, otpAuthUrl);
 
                 if (linked) {
-                    JOptionPane.showMessageDialog(null, "Registered successfully!");
+                    registrationService.registerCustomer(email, password, firstName, lastName, phoneNum, dob, secret);
+                    OutputUtils.showInfo(authPage, "Registered successfully!");
                     authPage.showLoginPanel();
                 } else {
                     System.out.println("User closed the dialog without confirming.");
                 }
 
             } catch (RegistrationException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                OutputUtils.showError(authPage, e.getMessage());
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Unexpected error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                OutputUtils.showError(authPage, "Unexpected error: " + e.getMessage());
                 e.printStackTrace();
             }
         });

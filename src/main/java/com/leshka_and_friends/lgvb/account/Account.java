@@ -7,10 +7,15 @@ package com.leshka_and_friends.lgvb.account;
 import com.leshka_and_friends.lgvb.card.Card;
 import com.leshka_and_friends.lgvb.loan.Loan;
 import com.leshka_and_friends.lgvb.transaction.Transaction;
+
 import java.sql.Timestamp;
 import java.util.List;
 
 public class Account {
+    public static final String ACTIVE = "active";
+    public static final String PENDING = "pending";
+    public static final String CLOSED = "closed";
+
     private int accountId;
     private int userId;
     private String accountNumber;
@@ -28,7 +33,7 @@ public class Account {
 
     public Account() {
     }
-    
+
 
     public Account(int accountId, int userId, String accountNumber, double balance, double interestRate, String status, Timestamp createdAt, Card card, List<Transaction> transactions, List<Loan> loans) {
         this.accountId = accountId;
@@ -122,6 +127,6 @@ public class Account {
     public void setLoans(List<Loan> loans) {
         this.loans = loans;
     }
-    
-    
+
+
 }

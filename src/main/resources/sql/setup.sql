@@ -50,9 +50,9 @@ CREATE TABLE users (
     date_of_birth DATE NOT NULL,
     role ENUM('customer', 'admin') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    profile_image VARCHAR(255) DEFAULT '/profile/default.jpg'
+    profile_image VARCHAR(255) DEFAULT '/profile/default.jpg',
+    totp_secret VARCHAR(64) DEFAULT NULL
 );
-
 
 -- ==============================
 -- ACCOUNTS

@@ -33,7 +33,7 @@ public class AccountService {
         account.setAccountNumber(generateAccountNumber());
         account.setBalance(0.0);
         account.setInterestRate(0.0);
-        account.setStatus("pending");
+        account.setStatus(Account.PENDING);
 
         return accountRepo.addAccount(account);
     }

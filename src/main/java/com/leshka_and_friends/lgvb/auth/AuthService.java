@@ -1,9 +1,17 @@
 package com.leshka_and_friends.lgvb.auth;
 
+import com.leshka_and_friends.lgvb.account.Account;
 import com.leshka_and_friends.lgvb.user.User;
 import com.leshka_and_friends.lgvb.user.UserService;
 import com.leshka_and_friends.lgvb.core.PasswordUtils;
+
+import org.apache.commons.codec.binary.Base32;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+
 import java.util.regex.Pattern;
+
 import org.jboss.aerogear.security.otp.Totp;
 import org.jboss.aerogear.security.otp.api.Clock;
 
@@ -11,6 +19,9 @@ public class AuthService {
 
     private final UserService userService;
     private static final Pattern EMAIL_RE = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    private static final SecureRandom RANDOM = new SecureRandom();
+    private static final Base32 BASE32 = new Base32();
+    private static final String ISSUER = "LGVB";
 
     public AuthService(UserService userService) {
         this.userService = userService;
@@ -50,22 +61,35 @@ public class AuthService {
 
         if (!(hasLower && hasUpper && hasDigit && hasSymbol)) {
             throw new AuthException("""
-                Password must include:
-                • at least one lowercase letter
-                • at least one uppercase letter
-                • at least one number
-                • at least one special character
-            """.trim());
+                        Password must include:
+                        • at least one lowercase letter
+                        • at least one uppercase letter
+                        • at least one number
+                        • at least one special character
+                    """.trim());
         }
 
         return true;
+    }
+
+    public boolean checkActive(Account account) throws AuthException {
+        String accountStatus = account.getStatus().toLowerCase();
+        if (accountStatus.equals(Account.ACTIVE)) {
+            return true;
+        }
+        else if (accountStatus.equals(Account.PENDING)) {
+            throw new AuthException("Your account is pending for approval by the admins.");
+        }
+        else {
+            throw new AuthException("Your account is blocked or closed.");
+        }
     }
 
     public boolean verifyTOTP(String secret, String code, int windowSteps) throws AuthException {
         if (code == null || code.isBlank()) {
             throw new AuthException("Please enter a code!");
         }
-        
+
         long stepSeconds = 30L;
         long now = System.currentTimeMillis() / 1000L;
         Totp totpCurrent = new Totp(secret);
@@ -90,6 +114,28 @@ public class AuthService {
         }
 
         return false; // reject all old codes beyond allowed window
+    }
+
+    // Generate a Base32 secret (recommended length: 16 chars -> 80 bits)
+    public String generateSecret() {
+        byte[] bytes = new byte[10]; // 10 bytes = 80 bits -> Base32 -> about 16 chars
+        RANDOM.nextBytes(bytes);
+        String base32 = BASE32.encodeToString(bytes);
+        // Commons Base32 may produce padding '='; remove and uppercase to be safe
+        return base32.replace("=", "").toUpperCase();
+    }
+
+    // Build an otpauth URL (URL-encode label and issuer)
+    public String getOtpAuthUrl(String accountName, String secret) {
+        String label = ISSUER + ":" + accountName;               // "LGVB:account"
+        String encodedLabel = URLEncoder.encode(label, StandardCharsets.UTF_8);
+        String encodedIssuer = URLEncoder.encode(ISSUER, StandardCharsets.UTF_8);
+
+        // include algorithm/digits/period explicitly
+        String params = String.format("secret=%s&issuer=%s&algorithm=SHA1&digits=6&period=30",
+                secret, encodedIssuer);
+
+        return "otpauth://totp/" + encodedLabel + "?" + params;
     }
 
 }

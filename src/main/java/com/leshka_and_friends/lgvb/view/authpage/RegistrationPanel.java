@@ -405,4 +405,15 @@ public class RegistrationPanel extends JPanel {
     public void showInvalidColorToField(RoundedTextField field) {
         field.setInvalid(true);
     }
+
+    public void resetFields() {
+        emailField.setText("");
+        passwordField.setText("");
+        firstNameField.setText("");
+        lastNameField.setText("");
+        phoneField.setText("");
+        dobField.setText("");
+        termsCheckBox.setSelected(false);
+    }
+
 }

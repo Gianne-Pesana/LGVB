@@ -41,6 +41,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version> 
         </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+
         <!-- TOTP generator -->
         <dependency>
             <groupId>org.jboss.aerogear</groupId>

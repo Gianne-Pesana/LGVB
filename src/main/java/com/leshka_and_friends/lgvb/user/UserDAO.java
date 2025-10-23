@@ -10,8 +10,8 @@ public class UserDAO {
     public User addUser(User user) {
         String sql = """
             INSERT INTO users 
-            (email, password_hash, first_name, last_name, phone_number, date_of_birth, role, profile_image)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            (email, password_hash, first_name, last_name, phone_number, date_of_birth, role, profile_image, totp_secret)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
 
         try (Connection conn = DBConnection.getConnection();
@@ -25,6 +25,7 @@ public class UserDAO {
             stmt.setDate(6, user.getDateOfBirth());
             stmt.setString(7, user.getRole() != null ? user.getRole().name() : Role.CUSTOMER.name());
             stmt.setString(8, user.getImagePath());
+            stmt.setString(9, user.getTotpSecret()); // new column
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0)
@@ -93,7 +94,7 @@ public class UserDAO {
         String sql = """
             UPDATE users 
             SET email=?, password_hash=?, first_name=?, last_name=?, phone_number=?, 
-                date_of_birth=?, role=?, profile_image=? 
+                date_of_birth=?, role=?, profile_image=?, totp_secret=?
             WHERE user_id=?
             """;
         try (Connection conn = DBConnection.getConnection();
@@ -107,9 +108,22 @@ public class UserDAO {
             stmt.setDate(6, user.getDateOfBirth());
             stmt.setString(7, user.getRole().name());
             stmt.setString(8, user.getImagePath());
-            stmt.setInt(9, user.getUserId());
+            stmt.setString(9, user.getTotpSecret());
+            stmt.setInt(10, user.getUserId());
             stmt.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTotpSecret(int userId, String secret) {
+        String sql = "UPDATE users SET totp_secret=? WHERE user_id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, secret);
+            stmt.setInt(2, userId);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -139,6 +153,7 @@ public class UserDAO {
         u.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
         u.setCreatedAt(rs.getTimestamp("created_at"));
         u.setImagePath(rs.getString("profile_image"));
+        u.setTotpSecret(rs.getString("totp_secret")); // new field
         return u;
     }
 }

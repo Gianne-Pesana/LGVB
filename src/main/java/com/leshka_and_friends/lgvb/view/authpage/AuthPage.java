@@ -111,11 +111,13 @@ public class AuthPage extends JFrame {
 
     public void showLoginPanel() {
         resetMainLayout();
+        loginPanel.resetFields();
         cardLayout.show(cardPanel, "LOGIN");
     }
 
     public void showRegisterPanel() {
         resetMainLayout();
+        registrationPanel.resetFields();
         cardLayout.show(cardPanel, "REGISTER");
     }
 

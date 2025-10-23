@@ -70,7 +70,7 @@ public class RegistrationService {
 
     public void registerCustomer(String email, char[] password,
                                  String firstName, String lastName,
-                                 String phone, LocalDate dob)
+                                 String phone, LocalDate dob, String secret)
             throws RegistrationException {
 
         try {
@@ -85,6 +85,7 @@ public class RegistrationService {
             user.setDateOfBirth(java.sql.Date.valueOf(dob));
             user.setRole(Role.CUSTOMER);
             user.setImagePath("/profile/default.jpg");
+            user.setTotpSecret(secret);
 
             // Create user
             user = userService.addUser(user);

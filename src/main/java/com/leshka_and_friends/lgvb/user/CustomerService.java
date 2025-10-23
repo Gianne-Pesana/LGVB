@@ -26,8 +26,6 @@ public class CustomerService {
         this.cardService = cardService;
     }
 
-    
-    
     public CustomerDTO buildCustomerDTO(User user) throws AuthException {
         CustomerDTO customerdto = new CustomerDTO();
         Account account = accountService.getAccountByUserId(user.getUserId());

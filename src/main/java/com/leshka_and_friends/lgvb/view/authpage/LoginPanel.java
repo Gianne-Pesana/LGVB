@@ -165,4 +165,9 @@ public class LoginPanel extends JPanel {
     public char[] getPasswordInput() {
         return passwordField.getPassword();
     }
+
+    public void resetFields() {
+        usernameField.setText("");
+        passwordField.setText("");
+    }
 }
