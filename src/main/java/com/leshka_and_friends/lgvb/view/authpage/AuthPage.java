@@ -27,7 +27,7 @@ public class AuthPage extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setTitle(ThemeGlobalDefaults.getString("App.title"));
-        setIconImage(new FlatSVGIcon("icons/svg/appIcon.svg", 32, 32).getImage());
+        setIconImage(new FlatSVGIcon(ThemeGlobalDefaults.getString("App.icon"), 32, 32).getImage());
 
         registrationPanel = new RegistrationPanel();
         registrationPanel.setOnSwitchToLogin(() -> showLoginPanel());

@@ -33,7 +33,6 @@ public class AuthController {
     private boolean loggedIn = false;
     private final AuthService authService;
 
-
     private final UserService userService;
 
     private final AccountService accountService;
@@ -46,8 +45,8 @@ public class AuthController {
     private final RegistrationService registrationService;
     private final TwoFAService twoFAService;
 
-    private final String testEmail = "gianne@lgvb.com";
-    private final char[] testPwd = "#Gianne123".toCharArray();
+    private final String testEmail = "test@lgvb.com";
+    private final char[] testPwd = "#Test12345678".toCharArray();
 
     private AuthPage authPage;
 
@@ -173,10 +172,20 @@ public class AuthController {
 
     public void handleNextBtn() {
         try {
-            String email = registrationPanel.getEmail();
-            char[] password = registrationPanel.getPassword();
-            char[] confirmPassword = registrationPanel.getConfirmPassword();
-
+            String email;
+            char[] password;
+            char[] confirmPassword;
+            
+            if (LGVB.testing) {
+                email = testEmail;
+                password = testPwd;
+                confirmPassword = testPwd;
+            } else {
+                email = registrationPanel.getEmail();
+                password = registrationPanel.getPassword();
+                confirmPassword = registrationPanel.getConfirmPassword();
+            }
+            
             authService.isValidEmail(email);
             authService.isStrong(password);
             authService.passwordMatches(password, confirmPassword);

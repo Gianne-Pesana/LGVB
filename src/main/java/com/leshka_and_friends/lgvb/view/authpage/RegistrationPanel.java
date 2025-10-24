@@ -158,7 +158,6 @@ public class RegistrationPanel extends JPanel {
         return page;
     }
 
-
     /**
      * -------------------- PAGE 2: Personal Info -------------------- *
      */
@@ -262,6 +261,18 @@ public class RegistrationPanel extends JPanel {
         termsLabel.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
         termsLabel.setForeground(Color.WHITE);
         termsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+// Detect mouse clicks
+        termsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                // Example: open your TermsPage
+                SwingUtilities.invokeLater(() -> {
+                    TermsPage termsPage = new TermsPage();  // your custom JFrame or JDialog
+                    termsPage.setVisible(true);
+                });
+            }
+        });
 
         JPanel termsPanel = new JPanel(new BorderLayout());
         termsPanel.setOpaque(false);
@@ -390,8 +401,6 @@ public class RegistrationPanel extends JPanel {
     }
 
     // --------- Value getters --------------
-
-
     public String getEmail() {
         return emailField.getText().trim();
     }

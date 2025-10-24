@@ -26,6 +26,7 @@ com\leshka_and_friends\lgvb\view\authpage\AuthPage.class
 com\leshka_and_friends\lgvb\view\forms\TransactionGroupPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.class
 com\leshka_and_friends\lgvb\core\EncryptionUtils.class
+com\leshka_and_friends\lgvb\view\ui_utils\MarkdownRenderer.class
 com\leshka_and_friends\lgvb\view\components\buttons\StaticItemButton.class
 com\leshka_and_friends\lgvb\view\ui_utils\TextFieldUtils$1.class
 com\leshka_and_friends\lgvb\view\components\panels\HeaderPanel.class
@@ -37,6 +38,7 @@ com\leshka_and_friends\lgvb\loan\Loan.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.class
 com\leshka_and_friends\lgvb\core\StringUtils.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
+com\leshka_and_friends\lgvb\view\ui_utils\MarkdownRenderer$1.class
 com\leshka_and_friends\lgvb\view\components\TransparentJScrollBar.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkDialog.class
@@ -97,6 +99,7 @@ com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
 com\leshka_and_friends\lgvb\view\forms\TransactionCard.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\view\components\buttons\UserProfile$1.class
+com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$2.class
 com\leshka_and_friends\lgvb\view\components\buttons\SidebarButtonPanel.class
 com\leshka_and_friends\lgvb\user\CustomerDTO.class
 com\leshka_and_friends\lgvb\view\themes\Theme.class
