@@ -45,7 +45,7 @@ public class AuthController {
     private final RegistrationService registrationService;
     private final TwoFAService twoFAService;
 
-    private final String testEmail = "test@lgvb.com";
+    private final String testEmail = "testing@lgvb.com";
     private final char[] testPwd = "#Test12345678".toCharArray();
 
     private AuthPage authPage;

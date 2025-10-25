@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.leshka_and_friends.lgvb.view.authpage;
 
 import com.google.zxing.BarcodeFormat;
@@ -18,11 +14,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
-/**
- * Panel displayed after registration, showing QR code for linking to Google
- * Authenticator or another TOTP app.
- */
 public class TwoFALinkPanel extends JPanel {
 
     private RoundedButton confirmButton;
@@ -37,7 +31,6 @@ public class TwoFALinkPanel extends JPanel {
         ThemeManager.putThemeAwareProperty(header, "foreground: $LGVB.foreground");
         header.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Message JLabel
         JLabel message = new JLabel("<html><div style='text-align: center;'>"
                 + "<p>While your account is pending approval, "
                 + "<br>please link it to an authenticator app "
@@ -48,7 +41,6 @@ public class TwoFALinkPanel extends JPanel {
         ThemeManager.putThemeAwareProperty(message, "foreground: $LGVB.foreground");
         message.setBorder(new EmptyBorder(20, 0, 20, 0));
 
-        // Wrapper panel to center the message
         JPanel messageWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         messageWrapper.setOpaque(false);
         messageWrapper.add(message);
@@ -57,7 +49,33 @@ public class TwoFALinkPanel extends JPanel {
         // QR Code
         JLabel qrLabel = new JLabel(new ImageIcon(generateQrImage(otpAuthUrl, 250, 250)));
         qrLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        qrLabel.setBorder(new EmptyBorder(10, 0, 20, 0));
+        qrLabel.setBorder(new EmptyBorder(10, 0, 10, 0));
+
+        // Extract actual secret from URL
+        String code = extractSecretFromOtpUrl(otpAuthUrl);
+
+        // Description label
+        JLabel codeLabel = new JLabel("Or enter this code manually:");
+        codeLabel.setFont(FontLoader.getInter(13f).deriveFont(Font.PLAIN));
+        ThemeManager.putThemeAwareProperty(codeLabel, "foreground: $LGVB.foreground");
+        codeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        codeLabel.setBorder(new EmptyBorder(10, 0, 5, 0));
+
+        // Copyable text field that looks like a label
+        JTextField codeField = new JTextField(code);
+        codeField.setForeground(ThemeGlobalDefaults.getColor("LGVB.foreground"));
+        codeField.setEditable(false);
+        codeField.setHorizontalAlignment(JTextField.CENTER);
+        codeField.setFont(FontLoader.getInter(20f).deriveFont(Font.BOLD));
+        ThemeManager.putThemeAwareProperty(codeField, "foreground: $LGVB.foreground");
+        ThemeManager.putThemeAwareProperty(codeField, "background: $LGVB.background");
+        codeField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        codeField.setMaximumSize(new Dimension(300, 40));
+        codeField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        codeField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        codeField.setFocusable(true);
+        codeField.setOpaque(false);
+
 
         // Button
         Dimension buttonSize = new Dimension(
@@ -78,13 +96,13 @@ public class TwoFALinkPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(messageWrapper);
         add(qrLabel);
+        add(codeLabel);
+        add(codeField);
+        add(Box.createRigidArea(new Dimension(0, 20)));
         add(confirmButton);
         add(Box.createVerticalGlue());
     }
 
-    /**
-     * Generates a QR code as an Image object.
-     */
     private Image generateQrImage(String otpAuthUrl, int width, int height) {
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -102,6 +120,20 @@ public class TwoFALinkPanel extends JPanel {
             g.dispose();
             return fallback;
         }
+    }
+
+    private String extractSecretFromOtpUrl(String otpAuthUrl) {
+        try {
+            String decoded = URLDecoder.decode(otpAuthUrl, StandardCharsets.UTF_8);
+            int idx = decoded.indexOf("secret=");
+            if (idx != -1) {
+                String secretPart = decoded.substring(idx + 7);
+                int ampIdx = secretPart.indexOf('&');
+                return ampIdx == -1 ? secretPart : secretPart.substring(0, ampIdx);
+            }
+        } catch (Exception ignored) {
+        }
+        return "(invalid code)";
     }
 
     public RoundedButton getConfirmButton() {

@@ -154,6 +154,7 @@ public class RegistrationPanel extends JPanel {
         container.add(Box.createRigidArea(new Dimension(0, 20)));
         container.add(switchToLoginLabel);
 
+        
         page.add(container);
         return page;
     }
@@ -233,7 +234,8 @@ public class RegistrationPanel extends JPanel {
         dobField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textFieldHeight));
         dobField.setPreferredSize(new Dimension(FORM_WIDTH, textFieldHeight));
         dobField.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+        dobField.setText("");
+        
         JPanel dobPanel = new JPanel();
         dobPanel.setOpaque(false);
         dobPanel.setLayout(new BoxLayout(dobPanel, BoxLayout.Y_AXIS));
@@ -343,6 +345,7 @@ public class RegistrationPanel extends JPanel {
         gbc.weightx = 1;
         gbc.weighty = 1;
 
+        
         page.add(scrollPane, gbc);
 
         return page;
