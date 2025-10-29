@@ -15,6 +15,7 @@ com\leshka_and_friends\lgvb\view\components\buttons\MenuItemButtonDashboard.clas
 com\leshka_and_friends\lgvb\core\DBConnection.class
 com\leshka_and_friends\lgvb\view\matisse_ui\Login.class
 com\leshka_and_friends\lgvb\user\Role.class
+com\leshka_and_friends\lgvb\view\components\RoundedFormattedTextField$1.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$1.class
 com\leshka_and_friends\lgvb\transaction\TransactionService.class
@@ -35,11 +36,14 @@ com\leshka_and_friends\lgvb\user\CustomerService.class
 com\leshka_and_friends\lgvb\card\CardService.class
 com\leshka_and_friends\lgvb\card\CardDAO.class
 com\leshka_and_friends\lgvb\loan\Loan.class
+com\leshka_and_friends\lgvb\view\ui_utils\OutputUtils.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.class
 com\leshka_and_friends\lgvb\core\StringUtils.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$SelectionListener.class
 com\leshka_and_friends\lgvb\view\ui_utils\MarkdownRenderer$1.class
+com\leshka_and_friends\lgvb\view\components\RoundedFormattedTextField.class
 com\leshka_and_friends\lgvb\view\components\TransparentJScrollBar.class
+com\leshka_and_friends\lgvb\auth\TwoFAService.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkDialog.class
 com\leshka_and_friends\lgvb\auth\SessionService.class
@@ -60,6 +64,7 @@ com\leshka_and_friends\lgvb\view\factories\HeaderFactory.class
 com\leshka_and_friends\lgvb\view\ui_utils\card\SvgTspanCleaner.class
 com\leshka_and_friends\lgvb\user\UserService.class
 com\leshka_and_friends\lgvb\card\Card.class
+com\leshka_and_friends\lgvb\view\matisse_ui\NewJFrame.class
 com\leshka_and_friends\lgvb\view\matisse_ui\RoundedPanel.class
 com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.class
 com\leshka_and_friends\lgvb\card\CardDTO.class
@@ -73,6 +78,7 @@ com\leshka_and_friends\lgvb\view\matisse_ui\Login$1.class
 com\leshka_and_friends\lgvb\view\authpage\TOTPpanel.class
 com\leshka_and_friends\lgvb\account\AccountService.class
 com\leshka_and_friends\lgvb\core\AdminSeeder.class
+com\leshka_and_friends\lgvb\view\authpage\TermsPage.class
 com\leshka_and_friends\lgvb\auth\AuthService.class
 com\leshka_and_friends\lgvb\core\AppConfig.class
 com\leshka_and_friends\lgvb\user\UserDAO.class
