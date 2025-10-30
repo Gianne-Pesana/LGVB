@@ -15,14 +15,14 @@ public class TransactionDAO {
                 throw new SQLException("Invalid transaction type: " + transaction.getTransactionType());
             }
 
-            String sql = "INSERT INTO transactions (account_id, transaction_type_id, amount, related_account_id, status) "
+            String sql = "INSERT INTO transactions (wallet_id, transaction_type_id, amount, related_wallet_id, status) "
                        + "VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-                stmt.setInt(1, transaction.getAccountId());
+                stmt.setInt(1, transaction.getWalletId());
                 stmt.setInt(2, typeId);
                 stmt.setDouble(3, transaction.getAmount());
-                if (transaction.getRelatedAccountId() != null) {
-                    stmt.setInt(4, transaction.getRelatedAccountId());
+                if (transaction.getRelatedWalletId() != null) {
+                    stmt.setInt(4, transaction.getRelatedWalletId());
                 } else {
                     stmt.setNull(4, Types.INTEGER);
                 }
@@ -44,9 +44,9 @@ public class TransactionDAO {
                 u2.last_name AS related_last_name
             FROM transactions t
             JOIN transaction_types tt ON t.transaction_type_id = tt.transaction_type_id
-            JOIN accounts a1 ON t.account_id = a1.account_id
+            JOIN wallets a1 ON t.wallet_id = a1.wallet_id
             JOIN users u1 ON a1.user_id = u1.user_id
-            LEFT JOIN accounts a2 ON t.related_account_id = a2.account_id
+            LEFT JOIN wallets a2 ON t.related_wallet_id = a2.wallet_id
             LEFT JOIN users u2 ON a2.user_id = u2.user_id
             WHERE t.transaction_id = ?
         """;
@@ -65,7 +65,7 @@ public class TransactionDAO {
     }
 
     // READ: all transactions for an account (includes account names)
-    public List<Transaction> getTransactionsByAccount(int accountId)  {
+    public List<Transaction> getTransactionsByWallet(int walletId)  {
         List<Transaction> transactions = new ArrayList<>();
 
         String sql = """
@@ -78,17 +78,17 @@ public class TransactionDAO {
                 u2.last_name AS related_last_name
             FROM transactions t
             JOIN transaction_types tt ON t.transaction_type_id = tt.transaction_type_id
-            JOIN accounts a1 ON t.account_id = a1.account_id
+            JOIN wallets a1 ON t.wallet_id = a1.wallet_id
             JOIN users u1 ON a1.user_id = u1.user_id
-            LEFT JOIN accounts a2 ON t.related_account_id = a2.account_id
+            LEFT JOIN wallets a2 ON t.related_wallet_id = a2.wallet_id
             LEFT JOIN users u2 ON a2.user_id = u2.user_id
-            WHERE t.account_id = ?
+            WHERE t.wallet_id = ?
             ORDER BY t.timestamp DESC
         """;
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, accountId);
+            stmt.setInt(1, walletId);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     transactions.add(mapResultSetToTransaction(rs));
@@ -144,12 +144,12 @@ public class TransactionDAO {
     private Transaction mapResultSetToTransaction(ResultSet rs) throws SQLException {
         Transaction t = new Transaction();
         t.setTransactionId(rs.getInt("transaction_id"));
-        t.setAccountId(rs.getInt("account_id"));
+        t.setWalletId(rs.getInt("wallet_id"));
         t.setTransactionType(rs.getString("transaction_type"));
         t.setAmount(rs.getDouble("amount"));
 
-        int relatedId = rs.getInt("related_account_id");
-        t.setRelatedAccountId(rs.wasNull() ? null : relatedId);
+        int relatedId = rs.getInt("related_wallet_id");
+        t.setRelatedWalletId(rs.wasNull() ? null : relatedId);
 
         t.setStatus(rs.getString("status"));
         t.setTimestamp(rs.getTimestamp("timestamp"));

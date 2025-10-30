@@ -23,10 +23,10 @@ public class TransactionService {
         this.repo = repo;
     }
 
-    public List<Transaction> loadTransactionsForAccount(int accountId) {
+    public List<Transaction> loadTransactionsForWallet(int walletId) {
         try {
             TransactionDAO dao = new TransactionDAO();
-            return dao.getTransactionsByAccount(accountId);
+            return dao.getTransactionsByWallet(walletId);
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();

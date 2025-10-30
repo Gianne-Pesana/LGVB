@@ -7,7 +7,7 @@ package com.leshka_and_friends.lgvb.core.card;
 
 public class Card {
     private int cardId;
-    private int accountId;
+    private int walletId;
     private String cardType;
     private String fullCardNumber;
     private String cardLast4;
@@ -29,8 +29,8 @@ public class Card {
     public int getCardId() { return cardId; }
     public void setCardId(int cardId) { this.cardId = cardId; }
 
-    public int getAccountId() { return accountId; }
-    public void setAccountId(int accountId) { this.accountId = accountId; }
+    public int getWalletId() { return walletId; }
+    public void setWalletId(int walletId) { this.walletId = walletId; }
 
     public String getFullCardNumber() { return fullCardNumber; }
     public void setFullCardNumber(String fullCardNumber) { this.fullCardNumber = fullCardNumber; }
@@ -49,7 +49,7 @@ public class Card {
     
     public void printInfo() {
         System.out.println("cardId: " + (cardId < 1 ? "wala" : cardId));
-        System.out.println("accountId: " + accountId);
+        System.out.println("walletId: " + walletId);
         System.out.println("cardType: " + (cardType == null ? "wala pudt" : cardType));
         System.out.println("cardLast4: " + cardLast4);
         System.out.println("Expiry month: " + expiryMonth);

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.leshka_and_friends.lgvb.core.user;
-import com.leshka_and_friends.lgvb.account.Account;
+import com.leshka_and_friends.lgvb.core.wallet.Wallet;
 import com.leshka_and_friends.lgvb.core.wallet.WalletDTO;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
@@ -27,18 +27,18 @@ public class CustomerService {
 
     public CustomerDTO buildCustomerDTO(User user) throws AuthException {
         CustomerDTO customerdto = new CustomerDTO();
-        Account account = walletService.getAccountByUserId(user.getUserId());
-        if (account == null) {
-            throw new AuthException("User is a customer but has no associated account.");
+        Wallet wallet = walletService.getWalletByUserId(user.getUserId());
+        if (wallet == null) {
+            throw new AuthException("User is a customer but has no associated wallet.");
         }
 
         // Fetch the card using the service
-        Card card = cardService.getCardForAccount(account.getAccountId());
+        Card card = cardService.createCardForWallet(wallet.getWalletId());
         if (card == null) {
-            throw new AuthException("Account has no associated card.");
+            throw new AuthException("Wallet has no associated card.");
         }
 
-        account.setCard(card);
+        wallet.setCard(card);
 
         // Now, build the DTOs with the fetched data
         CardDTO carddto = new CardDTO();
@@ -48,10 +48,10 @@ public class CustomerService {
         carddto.setExpiryDate(card.getExpiryYear(), card.getExpiryMonth());
 
         WalletDTO accdto = new WalletDTO();
-        accdto.setAccountNumber(account.getAccountNumber());
-        accdto.setBalance(account.getBalance());
-        accdto.setInterestRate(account.getInterestRate());
-        accdto.setStatus(account.getStatus());
+        accdto.setWalletId(wallet.getWalletId());
+        accdto.setAccountNumber(wallet.getAccountNumber());
+        accdto.setBalance(wallet.getBalance());
+        accdto.setStatus(wallet.getStatus());
         accdto.setCard(carddto);
 
         customerdto = new CustomerDTO();

@@ -10,6 +10,7 @@ import com.leshka_and_friends.lgvb.core.card.CardService;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.core.user.*;
+import com.leshka_and_friends.lgvb.core.wallet.WalletDAO;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
 import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
@@ -17,7 +18,7 @@ import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
 import com.leshka_and_friends.lgvb.view.authpage.LoginPanel;
 import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
 import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
-import com.leshka_and_friends.lgvb.account.*;
+
 import com.leshka_and_friends.lgvb.view.*;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
@@ -30,7 +31,7 @@ import java.time.LocalDate;
 public class AuthController {
 
     String testIssuer = "LGVB";
-    String testUsername = "test_user1";
+    String testUsername = "test123";
     String testSecret = "JBSWY3DPEHPK3PXP";
 
     private User user = null;
@@ -48,9 +49,8 @@ public class AuthController {
     private final TransactionService transactionService;
 
     private final RegistrationService registrationService;
-    private final TwoFAService twoFAService;
 
-    private final String testEmail = "testing@lgvb.com";
+    private final String testEmail = "test123@lgvb.com";
     private final char[] testPwd = "#Test12345678".toCharArray();
 
     private AuthPage authPage;
@@ -63,7 +63,7 @@ public class AuthController {
 
     public AuthController() {
         UserDAO userDAO = new UserDAO();
-        AccountDAO accountDAO = new AccountDAO();
+        WalletDAO walletDAO = new WalletDAO();
         CardDAO cardDAO = new CardDAO();
         TransactionDAO transactionDAO = new TransactionDAO();
 
@@ -71,12 +71,11 @@ public class AuthController {
         authService = new AuthService(userService);
         sessionService = SessionService.getInstance();
 
-        walletService = new WalletService(accountDAO);
+        walletService = new WalletService(walletDAO);
         cardService = new CardService(cardDAO);
         customerService = new CustomerService(walletService, cardService);
 
         transactionService = new TransactionService(transactionDAO);
-        twoFAService = new TwoFAService();
 
         registrationService = new RegistrationService(userService, walletService, cardService);
     }
@@ -126,7 +125,7 @@ public class AuthController {
 
         try {
             user = authService.login(email, pwd);  // initial username/password check
-            authService.checkActive(walletService.getAccountByUserId(user.getUserId()));
+            authService.checkActive(walletService.getWalletByUserId(user.getUserId()));
             sessionService.login(user);
 
             // Show 2FA panel

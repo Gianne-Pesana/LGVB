@@ -1,5 +1,4 @@
 package com.leshka_and_friends.lgvb.core.user;
-import com.leshka_and_friends.lgvb.account.Account;
 
 public class UserService {
 

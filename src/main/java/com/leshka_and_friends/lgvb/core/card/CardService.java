@@ -15,12 +15,12 @@ public class CardService {
         this.cardRepo = cardRepo;
     }
     
-    public Card getCardForAccount(int accountId) {
-        return cardRepo.getCardByAccountId(accountId);
+    public Card getCardForWallet(int walletId) {
+        return cardRepo.getCardByWalletId(walletId);
     }
     
-    public Card createCardForAccount(int accountId) {
-        return cardRepo.createCardForAccount(accountId);
+    public Card createCardForWallet(int walletId) {
+        return cardRepo.createCardForWallet(walletId);
     }
 }
 

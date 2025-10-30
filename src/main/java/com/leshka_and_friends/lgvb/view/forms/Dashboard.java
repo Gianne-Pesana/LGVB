@@ -4,6 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.core.transaction.Transaction;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
@@ -16,14 +17,17 @@ import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.components.TransparentScrollbar;
 import com.leshka_and_friends.lgvb.view.factories.HeaderFactory;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
+import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.border.EmptyBorder;
 
@@ -115,26 +119,75 @@ public class Dashboard extends JPanel {
         currentBalancePanel = new RoundedPanel();
         currentBalancePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         ThemeManager.putThemeAwareProperty(currentBalancePanel, "background: $LGVB.primary");
-        currentBalancePanel.setLayout(new BoxLayout(currentBalancePanel, BoxLayout.Y_AXIS));
-        currentBalancePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 1, 1));
+        currentBalancePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30)); // even padding top/bottom
         currentBalancePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, UIScale.scale(120)));
         currentBalancePanel.setPreferredSize(new Dimension(getPreferredSize().width, UIScale.scale(120)));
 
-        JLabel balanceLabel = new JLabel("₱ "
-                + customerdto.getAccount().getBalance()
-        );
+        // Use GridBagLayout for full control
+        GridBagLayout layout = new GridBagLayout();
+        currentBalancePanel.setLayout(layout);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weighty = 1.0;
+
+        // === LEFT SECTION (balance + subtext) ===
+        // === LEFT SECTION (balance + subtext) ===
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setOpaque(false);
+        leftPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        double balance = customerdto.getAccount().getBalance();
+        NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
+        String formattedBalance = formatter.format(balance);
+
+        JLabel balanceLabel = new JLabel("₱ " + formattedBalance);
         balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));
         ThemeManager.putThemeAwareProperty(balanceLabel, "foreground: $LGVB.foreground");
+        balanceLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
 
         JLabel subtextLabel = new JLabel("Current Balance");
         subtextLabel.setFont(FontLoader.getFont("inter", 18f));
         ThemeManager.putThemeAwareProperty(subtextLabel, "foreground: $LGVB.foreground");
+        subtextLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        currentBalancePanel.add(balanceLabel);
-        currentBalancePanel.add(subtextLabel);
+        leftPanel.add(subtextLabel);
+        leftPanel.add(Box.createVerticalStrut(5));
+        leftPanel.add(balanceLabel);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.weightx = 1.0;
+        currentBalancePanel.add(leftPanel, gbc);
+
+        // === RIGHT SECTION (plus icon) ===
+        JPanel plusPanel = new JPanel(new GridBagLayout());
+        plusPanel.setOpaque(false);
+
+        JLabel plusLabel = new JLabel();
+        FlatSVGIcon plusIcon = SVGUtils.loadIcon(
+                ThemeGlobalDefaults.getString("Dashboard.balancePanel.plusIcon.path"),
+                ThemeGlobalDefaults.getScaledInt("Dashboard.balancePanel.plusIcon.height")
+        );
+        plusIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
+        plusLabel.setIcon(plusIcon);
+
+        plusPanel.add(plusLabel, new GridBagConstraints());
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 0.0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        currentBalancePanel.add(plusPanel, gbc);
 
         return currentBalancePanel;
     }
+
 
     private JPanel createActionContainer() {
         actionContainer = new JPanel();
@@ -151,18 +204,18 @@ public class Dashboard extends JPanel {
 
     private void initMenuItems(JPanel menuBarDashboard) {
         String[] svgPaths = {
-            "icons/svg/send.svg",
-            "icons/svg/receive.svg",
-            "icons/svg/topup.svg",
-            "icons/svg/addmore.svg"
+                "icons/svg/send.svg",
+                "icons/svg/receive.svg",
+                "icons/svg/topup.svg",
+                "icons/svg/addmore.svg"
         };
 
         String[] labels = {
-            "Send",
-            "Receive",
-            // The reference DHB has "Deposit" and "Withdraw", but the original Dashboard has these.
-            "Top Up",
-            "Add More"
+                "Send",
+                "Receive",
+                // The reference DHB has "Deposit" and "Withdraw", but the original Dashboard has these.
+                "Top Up",
+                "Add More"
         };
 
         menuItems = new ArrayList<>();
@@ -192,7 +245,7 @@ public class Dashboard extends JPanel {
         TransactionService ts = new TransactionService(tdao);
 
         try {
-            transactions = ts.loadTransactionsForAccount(customerdto.getId());
+            transactions = ts.loadTransactionsForWallet(customerdto.getAccount().getWalletId());
         } catch (Exception e) {
             e.printStackTrace();
         }

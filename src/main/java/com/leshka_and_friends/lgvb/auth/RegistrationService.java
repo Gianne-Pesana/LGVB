@@ -7,7 +7,8 @@ import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.user.UserService;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
-import com.leshka_and_friends.lgvb.account.*;
+
+import com.leshka_and_friends.lgvb.core.wallet.Wallet;
 import com.leshka_and_friends.lgvb.utils.PasswordUtils;
 
 import java.time.LocalDate;
@@ -96,16 +97,16 @@ public class RegistrationService {
             user = userService.addUser(user);
             if (user == null) throw new RegistrationException("Failed to create user.");
 
-            // Create default account
-            Account acc = walletService.createDefaultAccount(user.getUserId());
-            if (acc == null) throw new RegistrationException("Failed to create account.");
+            // Create default wallet
+            Wallet wallet = walletService.createDefaultWallet(user.getUserId());
+            if (wallet == null) throw new RegistrationException("Failed to create wallet.");
 
-            // Create card for account
-            Card card = cardService.createCardForAccount(acc.getAccountId());
+            // Create card for wallet
+            Card card = cardService.createCardForWallet(wallet.getWalletId());
             if (card == null) throw new RegistrationException("Failed to create card.");
 
-            System.out.printf("Registered: UserID=%d, AccountID=%d, CardID=%d%n",
-                    user.getUserId(), acc.getAccountId(), card.getCardId());
+            System.out.printf("Registered: UserID=%d, WalletID=%d, CardID=%d%n",
+                    user.getUserId(), wallet.getWalletId(), card.getCardId());
 
         } catch (Exception e) {
             throw new RegistrationException("Registration failed: " + e.getMessage(), e);

@@ -9,11 +9,11 @@ import java.util.List;
 public class CardDAO {
 
     // CREATE
-    public Card createCardForAccount(int accountId) {
+    public Card createCardForWallet(int walletId) {
         int key = -1;
 
         String sql = """
-            INSERT INTO cards (account_id, card_type, card_token, card_last4, expiry_month, expiry_year, status)
+            INSERT INTO cards (wallet_id, card_type, card_token, card_last4, expiry_month, expiry_year, status)
             VALUES (?, 'visa', ?, ?, ?, ?, 'active')
         """;
 
@@ -24,7 +24,7 @@ public class CardDAO {
             int year = generateExpiryYear();
             String encrypted = EncryptionUtils.encrypt(cardNumber);
 
-            ps.setInt(1, accountId);
+            ps.setInt(1, walletId);
             ps.setBytes(2, encrypted.getBytes());
             ps.setString(3, last4);
             ps.setInt(4, month);
@@ -39,7 +39,7 @@ public class CardDAO {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Failed to create card for account: " + accountId);
+            System.out.println("Failed to create card for wallet: " + walletId);
         }
 
         return getCardById(key);
@@ -60,10 +60,10 @@ public class CardDAO {
         return null;
     }
 
-    public Card getCardByAccountId(int accountId) {
-        String sql = "SELECT * FROM cards WHERE account_id = ? LIMIT 1";
+    public Card getCardByWalletId(int walletId) {
+        String sql = "SELECT * FROM cards WHERE wallet_id = ? LIMIT 1";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, accountId);
+            stmt.setInt(1, walletId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return mapToCard(rs);
@@ -75,11 +75,11 @@ public class CardDAO {
     }
 
     // READ (by account)
-    public List<Card> getCardsByAccount(int accountId) throws Exception {
+    public List<Card> getCardsByWallet(int walletId) throws Exception {
         List<Card> cards = new ArrayList<>();
-        String sql = "SELECT * FROM cards WHERE account_id = ?";
+        String sql = "SELECT * FROM cards WHERE wallet_id = ?";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, accountId);
+            ps.setInt(1, walletId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 cards.add(mapToCard(rs));
@@ -124,7 +124,7 @@ public class CardDAO {
     private Card mapToCard(ResultSet rs) throws Exception {
         Card c = new Card();
         c.setCardId(rs.getInt("card_id"));
-        c.setAccountId(rs.getInt("account_id"));
+        c.setWalletId(rs.getInt("wallet_id"));
         c.setCardType(rs.getString("card_type"));
         c.setCardLast4(rs.getString("card_last4"));
         c.setExpiryMonth(rs.getInt("expiry_month"));

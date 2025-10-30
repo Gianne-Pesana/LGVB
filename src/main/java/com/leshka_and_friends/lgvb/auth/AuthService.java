@@ -1,6 +1,6 @@
 package com.leshka_and_friends.lgvb.auth;
 
-import com.leshka_and_friends.lgvb.account.Account;
+import com.leshka_and_friends.lgvb.core.wallet.Wallet;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.user.UserService;
@@ -88,11 +88,11 @@ public class AuthService {
         return user;
     }
 
-    public boolean checkActive(Account account) throws AuthException {
-        String accountStatus = account.getStatus().toLowerCase();
-        if (accountStatus.equals(Account.ACTIVE)) {
+    public boolean checkActive(Wallet wallet) throws AuthException {
+        String accountStatus = wallet.getStatus().toLowerCase();
+        if (accountStatus.equals(Wallet.ACTIVE)) {
             return true;
-        } else if (accountStatus.equals(Account.PENDING)) {
+        } else if (accountStatus.equals(Wallet.PENDING)) {
             throw new AuthException("Your account is pending for approval by the admins.");
         } else {
             throw new AuthException("Your account is blocked or closed.");

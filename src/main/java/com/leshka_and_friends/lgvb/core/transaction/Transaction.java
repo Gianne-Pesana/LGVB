@@ -12,11 +12,11 @@ import java.time.ZoneId;
 public class Transaction {
 
     private int transactionId;
-    private int accountId;
+    private int walletId;
     private String accountName;
     private String transactionType;
     private double amount;
-    private Integer relatedAccountId;
+    private Integer relatedWalletId;
     private String relatedAccountName;
     private Timestamp timestamp;
     private String status;
@@ -24,13 +24,13 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int transactionId, int accountId, String transactionType, double amount,
-            Integer relatedAccountId, Timestamp timestamp, String status) {
+    public Transaction(int transactionId, int walletId, String transactionType, double amount,
+            Integer relatedWalletId, Timestamp timestamp, String status) {
         this.transactionId = transactionId;
-        this.accountId = accountId;
+        this.walletId = walletId;
         this.transactionType = transactionType;
         this.amount = amount;
-        this.relatedAccountId = relatedAccountId;
+        this.relatedWalletId = relatedWalletId;
         this.timestamp = timestamp;
         this.status = status;
     }
@@ -71,12 +71,12 @@ public class Transaction {
         this.transactionId = transactionId;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public int getWalletId() {
+        return walletId;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setWalletId(int walletId) {
+        this.walletId = walletId;
     }
 
     public String getTransactionType() {
@@ -95,12 +95,12 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Integer getRelatedAccountId() {
-        return relatedAccountId;
+    public Integer getRelatedWalletId() {
+        return relatedWalletId;
     }
 
-    public void setRelatedAccountId(Integer relatedAccountId) {
-        this.relatedAccountId = relatedAccountId;
+    public void setRelatedWalletId(Integer relatedWalletId) {
+        this.relatedWalletId = relatedWalletId;
     }
 
     public Timestamp getTimestamp() {

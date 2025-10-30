@@ -11,9 +11,10 @@ import com.leshka_and_friends.lgvb.core.card.CardDTO;
  * @author giann
  */
 public class WalletDTO {
+    private int walletId;
     private String accountNumber;
     private double balance;
-    private double interestRate;
+
     private String status;
     
     private CardDTO card;
@@ -51,13 +52,7 @@ public class WalletDTO {
         this.card = card;
     }
 
-    public double getInterestRate() {
-        return interestRate;
-    }
 
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
-    }
 
     public String getStatus() {
         return status;
@@ -65,6 +60,14 @@ public class WalletDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getWalletId() {
+        return walletId;
+    }
+
+    public void setWalletId(int walletId) {
+        this.walletId = walletId;
     }
     
     
