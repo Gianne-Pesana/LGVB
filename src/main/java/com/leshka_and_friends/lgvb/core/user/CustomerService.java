@@ -4,8 +4,8 @@
  */
 package com.leshka_and_friends.lgvb.core.user;
 import com.leshka_and_friends.lgvb.account.Account;
-import com.leshka_and_friends.lgvb.account.AccountDTO;
-import com.leshka_and_friends.lgvb.account.AccountService;
+import com.leshka_and_friends.lgvb.core.wallet.WalletDTO;
+import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
 import com.leshka_and_friends.lgvb.core.card.Card;
 import com.leshka_and_friends.lgvb.core.card.CardDTO;
@@ -17,17 +17,17 @@ import com.leshka_and_friends.lgvb.core.card.CardService;
  */
 public class CustomerService {
 
-    private final AccountService accountService;
+    private final WalletService walletService;
     private final CardService cardService;
 
-    public CustomerService(AccountService accountService, CardService cardService) {
-        this.accountService = accountService;
+    public CustomerService(WalletService walletService, CardService cardService) {
+        this.walletService = walletService;
         this.cardService = cardService;
     }
 
     public CustomerDTO buildCustomerDTO(User user) throws AuthException {
         CustomerDTO customerdto = new CustomerDTO();
-        Account account = accountService.getAccountByUserId(user.getUserId());
+        Account account = walletService.getAccountByUserId(user.getUserId());
         if (account == null) {
             throw new AuthException("User is a customer but has no associated account.");
         }
@@ -47,7 +47,7 @@ public class CustomerService {
         carddto.setHolder(user.getFullName());
         carddto.setExpiryDate(card.getExpiryYear(), card.getExpiryMonth());
 
-        AccountDTO accdto = new AccountDTO();
+        WalletDTO accdto = new WalletDTO();
         accdto.setAccountNumber(account.getAccountNumber());
         accdto.setBalance(account.getBalance());
         accdto.setInterestRate(account.getInterestRate());

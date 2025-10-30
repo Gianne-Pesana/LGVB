@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.leshka_and_friends.lgvb.core.user;
-import com.leshka_and_friends.lgvb.account.AccountDTO;
-import java.util.List;
+import com.leshka_and_friends.lgvb.core.wallet.WalletDTO;
 
 /**
  *
@@ -14,12 +13,12 @@ public class UserDTO {
     String firstName;
     String lastName;
     String profileIconPath;
-    AccountDTO account;
+    WalletDTO account;
 
     public UserDTO() {
     }
     
-    public UserDTO(String firstName, String lastName, String profileIconPath, AccountDTO account) {
+    public UserDTO(String firstName, String lastName, String profileIconPath, WalletDTO account) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.profileIconPath = profileIconPath;
@@ -42,11 +41,11 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public AccountDTO getAccount() {
+    public WalletDTO getAccount() {
         return account;
     }
 
-    public void setAccount(AccountDTO accounts) {
+    public void setAccount(WalletDTO accounts) {
         this.account = accounts;
     }
 

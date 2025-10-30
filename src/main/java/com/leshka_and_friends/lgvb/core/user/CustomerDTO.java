@@ -4,7 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.core.user;
 
-import com.leshka_and_friends.lgvb.account.AccountDTO;
+import com.leshka_and_friends.lgvb.core.wallet.WalletDTO;
 
 /**
  *
@@ -15,12 +15,12 @@ public class CustomerDTO {
     String firstName;
     String lastName;
     String profileIconPath;
-    AccountDTO account;
+    WalletDTO account;
 
     public CustomerDTO() {
     }
     
-    public CustomerDTO(int id, String firstName, String lastName, String profileIconPath, AccountDTO account) {
+    public CustomerDTO(int id, String firstName, String lastName, String profileIconPath, WalletDTO account) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,11 +61,11 @@ public class CustomerDTO {
         this.profileIconPath = profileIconPath;
     }
 
-    public AccountDTO getAccount() {
+    public WalletDTO getAccount() {
         return account;
     }
 
-    public void setAccount(AccountDTO account) {
+    public void setAccount(WalletDTO account) {
         this.account = account;
     }
     

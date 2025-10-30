@@ -10,6 +10,7 @@ import com.leshka_and_friends.lgvb.core.card.CardService;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.core.user.*;
+import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
 import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
 import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
@@ -39,7 +40,7 @@ public class AuthController {
 
     private final UserService userService;
 
-    private final AccountService accountService;
+    private final WalletService walletService;
     private final CardService cardService;
     private final CustomerService customerService;
 
@@ -70,14 +71,14 @@ public class AuthController {
         authService = new AuthService(userService);
         sessionService = SessionService.getInstance();
 
-        accountService = new AccountService(accountDAO);
+        walletService = new WalletService(accountDAO);
         cardService = new CardService(cardDAO);
-        customerService = new CustomerService(accountService, cardService);
+        customerService = new CustomerService(walletService, cardService);
 
         transactionService = new TransactionService(transactionDAO);
         twoFAService = new TwoFAService();
 
-        registrationService = new RegistrationService(userService, accountService, cardService);
+        registrationService = new RegistrationService(userService, walletService, cardService);
     }
 
     public void start() {
@@ -125,7 +126,7 @@ public class AuthController {
 
         try {
             user = authService.login(email, pwd);  // initial username/password check
-            authService.checkActive(accountService.getAccountByUserId(user.getUserId()));
+            authService.checkActive(walletService.getAccountByUserId(user.getUserId()));
             sessionService.login(user);
 
             // Show 2FA panel

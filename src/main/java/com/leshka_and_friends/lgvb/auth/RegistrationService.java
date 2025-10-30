@@ -5,6 +5,7 @@ import com.leshka_and_friends.lgvb.core.card.CardService;
 import com.leshka_and_friends.lgvb.core.user.Role;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.user.UserService;
+import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
 import com.leshka_and_friends.lgvb.account.*;
 import com.leshka_and_friends.lgvb.utils.PasswordUtils;
@@ -18,12 +19,12 @@ public class RegistrationService {
     private static final Pattern PHONE_PATTERN = Pattern.compile("^(09|\\+639)\\d{9}$");
 
     private final UserService userService;
-    private final AccountService accountService;
+    private final WalletService walletService;
     private final CardService cardService;
 
-    public RegistrationService(UserService userService, AccountService accountService, CardService cardService) {
+    public RegistrationService(UserService userService, WalletService walletService, CardService cardService) {
         this.userService = userService;
-        this.accountService = accountService;
+        this.walletService = walletService;
         this.cardService = cardService;
     }
 
@@ -96,7 +97,7 @@ public class RegistrationService {
             if (user == null) throw new RegistrationException("Failed to create user.");
 
             // Create default account
-            Account acc = accountService.createDefaultAccount(user.getUserId());
+            Account acc = walletService.createDefaultAccount(user.getUserId());
             if (acc == null) throw new RegistrationException("Failed to create account.");
 
             // Create card for account

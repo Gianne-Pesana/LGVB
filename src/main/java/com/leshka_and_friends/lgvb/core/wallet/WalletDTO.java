@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.leshka_and_friends.lgvb.account;
+package com.leshka_and_friends.lgvb.core.wallet;
 
 import com.leshka_and_friends.lgvb.core.card.CardDTO;
 
@@ -10,7 +10,7 @@ import com.leshka_and_friends.lgvb.core.card.CardDTO;
  *
  * @author giann
  */
-public class AccountDTO {
+public class WalletDTO {
     private String accountNumber;
     private double balance;
     private double interestRate;
@@ -18,10 +18,10 @@ public class AccountDTO {
     
     private CardDTO card;
 
-    public AccountDTO() {
+    public WalletDTO() {
     }
 
-    public AccountDTO(String accNumberMasked, double balance, CardDTO cards) {
+    public WalletDTO(String accNumberMasked, double balance, CardDTO cards) {
         this.accountNumber = accNumberMasked;
         this.balance = balance;
         this.card = card;

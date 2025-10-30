@@ -11,6 +11,7 @@ public class Wallet {
 
     private int walletId;
     private int userId;
+    private String accountNumber;
     private double balance;
     private String status;
     private Card card;
@@ -19,9 +20,13 @@ public class Wallet {
 
     private WalletState state;
 
-    public Wallet(int walletId, int userId, double balance, String status, Card card, Timestamp createdAt) {
+    public Wallet() {
+    }
+
+    public Wallet(int walletId, int userId, String accountNumber, double balance, String status, Card card, Timestamp createdAt) {
         this.walletId = walletId;
         this.userId = userId;
+        this.accountNumber = accountNumber;
         this.balance = balance;
         this.status = status;
         this.card = card;
@@ -63,6 +68,14 @@ public class Wallet {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public double getBalance() {
