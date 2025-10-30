@@ -5,7 +5,7 @@
 package com.leshka_and_friends.lgvb.account;
 
 import com.leshka_and_friends.lgvb.core.card.Card;
-import com.leshka_and_friends.lgvb.loan.Loan;
+import com.leshka_and_friends.lgvb.core.loan.Loan;
 import com.leshka_and_friends.lgvb.core.transaction.Transaction;
 
 import java.sql.Timestamp;

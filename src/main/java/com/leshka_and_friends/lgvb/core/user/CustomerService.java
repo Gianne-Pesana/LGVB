@@ -7,9 +7,9 @@ import com.leshka_and_friends.lgvb.account.Account;
 import com.leshka_and_friends.lgvb.account.AccountDTO;
 import com.leshka_and_friends.lgvb.account.AccountService;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
-import com.leshka_and_friends.lgvb.card.Card;
-import com.leshka_and_friends.lgvb.card.CardDTO;
-import com.leshka_and_friends.lgvb.card.CardService;
+import com.leshka_and_friends.lgvb.core.card.Card;
+import com.leshka_and_friends.lgvb.core.card.CardDTO;
+import com.leshka_and_friends.lgvb.core.card.CardService;
 
 /**
  *
