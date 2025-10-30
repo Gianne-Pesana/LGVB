@@ -4,8 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.dashboard;
 
-import com.leshka_and_friends.lgvb.user.UserDTO;
-import java.util.List;
+import com.leshka_and_friends.lgvb.core.user.UserDTO;
 
 /**
  *

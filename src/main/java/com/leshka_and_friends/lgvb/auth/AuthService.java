@@ -1,9 +1,10 @@
 package com.leshka_and_friends.lgvb.auth;
 
 import com.leshka_and_friends.lgvb.account.Account;
-import com.leshka_and_friends.lgvb.user.User;
-import com.leshka_and_friends.lgvb.user.UserService;
-import com.leshka_and_friends.lgvb.core.PasswordUtils;
+import com.leshka_and_friends.lgvb.exceptions.AuthException;
+import com.leshka_and_friends.lgvb.core.user.User;
+import com.leshka_and_friends.lgvb.core.user.UserService;
+import com.leshka_and_friends.lgvb.utils.PasswordUtils;
 
 import org.apache.commons.codec.binary.Base32;
 

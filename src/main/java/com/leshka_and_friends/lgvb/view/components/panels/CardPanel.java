@@ -1,8 +1,7 @@
 package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.card.CardDTO;
+import com.leshka_and_friends.lgvb.core.card.CardDTO;
 import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.*;
 

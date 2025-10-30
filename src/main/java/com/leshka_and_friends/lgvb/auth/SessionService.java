@@ -4,7 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.auth;
 
-import com.leshka_and_friends.lgvb.user.User;
+import com.leshka_and_friends.lgvb.core.user.User;
 
 /**
  *

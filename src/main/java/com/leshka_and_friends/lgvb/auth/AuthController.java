@@ -5,14 +5,18 @@
 package com.leshka_and_friends.lgvb.auth;
 
 import com.leshka_and_friends.lgvb.LGVB;
+import com.leshka_and_friends.lgvb.core.card.CardDAO;
+import com.leshka_and_friends.lgvb.core.card.CardService;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
+import com.leshka_and_friends.lgvb.core.user.*;
+import com.leshka_and_friends.lgvb.exceptions.AuthException;
+import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
 import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
 import com.leshka_and_friends.lgvb.view.authpage.LoginPanel;
 import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
 import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
 import com.leshka_and_friends.lgvb.account.*;
-import com.leshka_and_friends.lgvb.card.*;
-import com.leshka_and_friends.lgvb.transaction.*;
-import com.leshka_and_friends.lgvb.user.*;
 import com.leshka_and_friends.lgvb.view.*;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 

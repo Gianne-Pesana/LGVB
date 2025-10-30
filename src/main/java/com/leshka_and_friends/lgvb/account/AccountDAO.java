@@ -4,8 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.account;
 
-import com.leshka_and_friends.lgvb.account.Account;
-import com.leshka_and_friends.lgvb.core.DBConnection;
+import com.leshka_and_friends.lgvb.utils.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

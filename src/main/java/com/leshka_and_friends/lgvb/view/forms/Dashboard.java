@@ -4,19 +4,15 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.core.DBConnection;
-import com.leshka_and_friends.lgvb.dashboard.DashboardDTO;
-import com.leshka_and_friends.lgvb.transaction.Transaction;
-import com.leshka_and_friends.lgvb.transaction.TransactionDAO;
-import com.leshka_and_friends.lgvb.transaction.TransactionService;
-import com.leshka_and_friends.lgvb.user.CustomerDTO;
+import com.leshka_and_friends.lgvb.core.transaction.Transaction;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
+import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
 import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
-import com.leshka_and_friends.lgvb.view.components.TransparentJScrollBar;
 import com.leshka_and_friends.lgvb.view.components.TransparentScrollbar;
 import com.leshka_and_friends.lgvb.view.factories.HeaderFactory;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
@@ -27,10 +23,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.swing.border.EmptyBorder;
 
 public class Dashboard extends JPanel {

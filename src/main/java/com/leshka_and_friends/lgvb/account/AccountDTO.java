@@ -4,8 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.account;
 
-import com.leshka_and_friends.lgvb.card.CardDTO;
-import java.util.List;
+import com.leshka_and_friends.lgvb.core.card.CardDTO;
 
 /**
  *

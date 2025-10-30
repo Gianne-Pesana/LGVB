@@ -1,9 +1,13 @@
 package com.leshka_and_friends.lgvb.auth;
 
-import com.leshka_and_friends.lgvb.user.*;
+import com.leshka_and_friends.lgvb.core.card.Card;
+import com.leshka_and_friends.lgvb.core.card.CardService;
+import com.leshka_and_friends.lgvb.core.user.Role;
+import com.leshka_and_friends.lgvb.core.user.User;
+import com.leshka_and_friends.lgvb.core.user.UserService;
+import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
 import com.leshka_and_friends.lgvb.account.*;
-import com.leshka_and_friends.lgvb.card.*;
-import com.leshka_and_friends.lgvb.core.PasswordUtils;
+import com.leshka_and_friends.lgvb.utils.PasswordUtils;
 
 import java.time.LocalDate;
 import java.time.Period;

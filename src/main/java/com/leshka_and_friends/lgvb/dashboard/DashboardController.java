@@ -4,11 +4,9 @@
  */
 package com.leshka_and_friends.lgvb.dashboard;
 
-import com.leshka_and_friends.lgvb.user.User;
 import com.leshka_and_friends.lgvb.auth.SessionService;
 import com.leshka_and_friends.lgvb.account.AccountService;
-import com.leshka_and_friends.lgvb.transaction.TransactionService;
-import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 
 /**

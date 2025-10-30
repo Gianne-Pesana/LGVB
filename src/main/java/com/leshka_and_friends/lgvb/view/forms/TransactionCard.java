@@ -4,7 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
-import com.leshka_and_friends.lgvb.transaction.Transaction;
+import com.leshka_and_friends.lgvb.core.transaction.Transaction;
 import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
