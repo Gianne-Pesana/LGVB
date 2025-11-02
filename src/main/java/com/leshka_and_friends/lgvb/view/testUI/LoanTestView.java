@@ -1,7 +1,6 @@
-package com.leshka_and_friends.lgvb.view.test;
+package com.leshka_and_friends.lgvb.view.testUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LoanTestView extends JFrame {
     public LoanTestPanel panel;

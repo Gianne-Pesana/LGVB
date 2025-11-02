@@ -10,6 +10,7 @@ import com.leshka_and_friends.lgvb.core.transaction.Transaction;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
+import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
@@ -325,7 +326,19 @@ public class Dashboard extends JPanel {
 
     }
 
+
+    // buttons getters
     public JButton getPlusButton() {
         return plusButton;
     }
+
+    public MenuItemButtonDashboard getMenuItemButton(String btnName) {
+        for (MenuItemButtonDashboard btn : menuItems) {
+            if (btn.getTextLabel().getText().equalsIgnoreCase(btnName)) {
+                return btn;
+            }
+        }
+        return null; // not found
+    }
+
 }

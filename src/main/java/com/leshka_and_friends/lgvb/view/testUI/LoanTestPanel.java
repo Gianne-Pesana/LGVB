@@ -1,6 +1,4 @@
-package com.leshka_and_friends.lgvb.view.test;
-
-import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
+package com.leshka_and_friends.lgvb.view.testUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

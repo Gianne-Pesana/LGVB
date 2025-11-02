@@ -131,4 +131,17 @@ public abstract class DashboardButtonPanel extends JPanel {
     public boolean isSelected() {
         return selected;
     }
+
+    public String getSvgPath() {
+        return svgPath;
+    }
+
+    public JLabel getIconLabel() {
+        return iconLabel;
+    }
+
+    public JLabel getTextLabel() {
+        return textLabel;
+    }
+
 }

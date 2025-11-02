@@ -4,7 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.core.dashboard;
 
-import com.leshka_and_friends.lgvb.view.test.DepositTestView;
+import com.leshka_and_friends.lgvb.view.testUI.DepositTestView;
 import com.leshka_and_friends.lgvb.core.app.AppFacade;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
@@ -41,6 +41,10 @@ public class DashboardController {
             });
         });
 
+        mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
+            System.out.println("Send Btn Clicked");
+
+        });
 
 
     }

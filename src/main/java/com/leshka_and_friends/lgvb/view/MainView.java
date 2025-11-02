@@ -9,7 +9,7 @@ import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
 import com.leshka_and_friends.lgvb.view.forms.Wallet;
-import com.leshka_and_friends.lgvb.view.test.LoanTestPanel;
+import com.leshka_and_friends.lgvb.view.testUI.LoanTestPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
