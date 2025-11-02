@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TransferTestView extends JFrame {
+    public JTextField emailField;
+    public JTextField amountField;
+    public JButton transferButton;
 
     public TransferTestView() {
         setTitle("Transfer Test View");
@@ -41,7 +44,7 @@ public class TransferTestView extends JFrame {
         panel.add(toLabel, gbc);
 
         // TextField for email
-        JTextField emailField = new JTextField();
+        emailField = new JTextField();
         gbc.gridx = 1;
         gbc.gridy = row++;
         gbc.weightx = 1.0;
@@ -57,14 +60,14 @@ public class TransferTestView extends JFrame {
         panel.add(amountLabel, gbc);
 
         // TextField for amount
-        JTextField amountField = new JTextField();
+        amountField = new JTextField();
         gbc.gridx = 1;
         gbc.gridy = row++;
         gbc.weightx = 1.0;
         panel.add(amountField, gbc);
 
         // Transfer button (centered, spans both columns)
-        JButton transferButton = new JButton("Transfer");
+        transferButton = new JButton("Transfer");
         gbc.gridx = 0;
         gbc.gridy = row;
         gbc.gridwidth = 2;
@@ -76,14 +79,15 @@ public class TransferTestView extends JFrame {
         add(panel);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // Optional: FlatLaf look and feel
-            try {
-                UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
-            } catch (Exception ignored) {}
+    public JTextField getEmailField() {
+        return emailField;
+    }
 
-            new TransferTestView().setVisible(true);
-        });
+    public JTextField getAmountField() {
+        return amountField;
+    }
+
+    public JButton getTransferButton() {
+        return transferButton;
     }
 }
