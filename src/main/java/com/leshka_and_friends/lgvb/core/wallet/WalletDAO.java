@@ -159,6 +159,22 @@ public class WalletDAO {
         }
     }
 
+    public Wallet getWalletByUserEmail(String email) {
+        String sql = "SELECT w.* FROM wallets w JOIN users u ON w.user_id = u.user_id WHERE u.email = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return mapWallet(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private Wallet mapWallet(ResultSet rs) throws SQLException {
         Wallet wallet = new Wallet(
                 rs.getInt("wallet_id"),

@@ -66,20 +66,28 @@ public class WalletService {
         }
     }
 
-    public void transfer(Wallet sender, Wallet receipient, double amount) {
+    public void transfer(Wallet sender, String recipientEmail, double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Transfer amount must be positive.");
+        }
+
+        Wallet recipient = walletRepo.getWalletByUserEmail(recipientEmail);
+
+        if (recipient == null) {
+            throw new IllegalArgumentException("Recipient account not found.");
+        }
+
+        if (sender.getWalletId() == recipient.getWalletId()) {
+            throw new IllegalArgumentException("Cannot transfer to the same account.");
+        }
+
         try {
-            if (!walletRepo.walletExists(receipient.getWalletId())) {
-                throw new IllegalArgumentException("Could not find account!");
-            }
-
-            if (sender.getBalance() < amount) {
-                throw new IllegalArgumentException("Insufficient balance!");
-            }
-
-//            sender.d
-
+            sender.withdraw(amount);
+            recipient.deposit(amount);
+            walletRepo.updateWalletBalance(sender.getWalletId(), sender.getBalance());
+            walletRepo.updateWalletBalance(recipient.getWalletId(), recipient.getBalance());
         } catch (SQLException e) {
-            throw new PersistenceException("Failed to transfer: " + e.getMessage(), e);
+            throw new PersistenceException("Failed to transfer funds: " + e.getMessage(), e);
         }
     }
 }

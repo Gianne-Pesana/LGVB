@@ -1,10 +1,13 @@
 package com.leshka_and_friends.lgvb.view.testUI;
 
+import com.leshka_and_friends.lgvb.view.components.AmountField;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class LoanTestPanel extends JPanel {
+    public AmountField amountField;
     public JComboBox<String> loanTypeCombo;
     public JButton applyButton;
 
@@ -49,7 +52,7 @@ public class LoanTestPanel extends JPanel {
         container.add(amountLabel, gbc);
 
         // TextField: occupies width (row 1, col 1)
-        JTextField amountField = new JTextField();
+        amountField = new AmountField();
         amountField.setPreferredSize(new Dimension(200, 32));
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -95,6 +98,10 @@ public class LoanTestPanel extends JPanel {
         mainGbc.gridy = 0;
         mainGbc.anchor = GridBagConstraints.CENTER;
         add(container, mainGbc);
+    }
+
+    public AmountField getAmountField() {
+        return amountField;
     }
 
     public JComboBox<String> getLoanTypeCombo() {

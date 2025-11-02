@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 public class Wallet {
     public static final String ACTIVE = "active";
+    public static final String FROZEN = "frozen";
     public static final String PENDING = "pending";
     public static final String CLOSED = "closed";
 
@@ -37,6 +38,10 @@ public class Wallet {
 
     public void deposit(double amount) {
         state.deposit(this, amount);
+    }
+
+    public void withdraw(double amount) {
+        state.withdraw(this, amount);
     }
 
     public void transfer(Wallet target, double amount) {

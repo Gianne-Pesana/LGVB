@@ -13,9 +13,9 @@ import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
 import com.leshka_and_friends.lgvb.view.authpage.LoginPanel;
 import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
 import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
+import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
-import javax.swing.*;
 import java.time.LocalDate;
 
 /**
@@ -95,7 +95,13 @@ public class AuthController {
 
         try {
             User user = authService.login(email, pwd);
-            authService.checkActive(walletService.getWalletByUserId(user.getUserId()));
+            if(user.isAdmin()) {
+                authPage.dispose();
+                appController.onLoginSuccess(user);
+                return;
+            }
+
+            authService.verifyStatus(walletService.getWalletByUserId(user.getUserId()));
 
             // Show 2FA
             authPage.showTOTPPanel();

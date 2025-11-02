@@ -15,7 +15,7 @@ public class DepositTestView extends JFrame {
     public DepositTestView() {
         // --- 1. Basic Frame Setup ---
         super("Deposit Functionality Test"); // Set the window title
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(300, 150); // Set a reasonable size for the window
         setLocationRelativeTo(null); // Center the window on the screen
 

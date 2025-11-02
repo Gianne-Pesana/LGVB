@@ -3,6 +3,7 @@ package com.leshka_and_friends.lgvb.core.app;
 import com.leshka_and_friends.lgvb.auth.SessionManager;
 import com.leshka_and_friends.lgvb.core.card.CardDAO;
 import com.leshka_and_friends.lgvb.core.card.CardService;
+import com.leshka_and_friends.lgvb.core.loan.LoanDAO;
 import com.leshka_and_friends.lgvb.core.loan.LoanService;
 import com.leshka_and_friends.lgvb.core.loan.LoanServiceImpl;
 import com.leshka_and_friends.lgvb.core.savings.SavingService;
@@ -24,12 +25,13 @@ public class ServiceRegistry {
         ServiceLocator.getInstance().registerService(WalletDAO.class, new WalletDAO());
         ServiceLocator.getInstance().registerService(TransactionDAO.class, new TransactionDAO());
         ServiceLocator.getInstance().registerService(CardDAO.class, new CardDAO());
+        ServiceLocator.getInstance().registerService(LoanDAO.class, new LoanDAO());
 
         // Services
         ServiceLocator.getInstance().registerService(WalletService.class, new WalletService(ServiceLocator.getInstance().getService(WalletDAO.class)));
         ServiceLocator.getInstance().registerService(TransactionService.class, new TransactionService(ServiceLocator.getInstance().getService(TransactionDAO.class)));
         ServiceLocator.getInstance().registerService(CardService.class, new CardService(ServiceLocator.getInstance().getService(CardDAO.class)));
-        ServiceLocator.getInstance().registerService(LoanService.class, new LoanServiceImpl());
+        ServiceLocator.getInstance().registerService(LoanService.class, new LoanServiceImpl(ServiceLocator.getInstance().getService(LoanDAO.class), ServiceLocator.getInstance().getService(WalletService.class)));
         ServiceLocator.getInstance().registerService(SavingService.class, new SavingService());
         ServiceLocator.getInstance().registerService(CustomerService.class, new CustomerService(ServiceLocator.getInstance().getService(WalletService.class), ServiceLocator.getInstance().getService(CardService.class)));
 

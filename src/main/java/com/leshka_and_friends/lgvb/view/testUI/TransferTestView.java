@@ -1,16 +1,18 @@
 package com.leshka_and_friends.lgvb.view.testUI;
 
+import com.leshka_and_friends.lgvb.view.components.AmountField;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class TransferTestView extends JFrame {
     public JTextField emailField;
-    public JTextField amountField;
+    public AmountField amountField;
     public JButton transferButton;
 
     public TransferTestView() {
         setTitle("Transfer Test View");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(640, 400);
         setLocationRelativeTo(null);
 
@@ -60,7 +62,7 @@ public class TransferTestView extends JFrame {
         panel.add(amountLabel, gbc);
 
         // TextField for amount
-        amountField = new JTextField();
+        amountField = new AmountField();
         gbc.gridx = 1;
         gbc.gridy = row++;
         gbc.weightx = 1.0;
@@ -83,7 +85,7 @@ public class TransferTestView extends JFrame {
         return emailField;
     }
 
-    public JTextField getAmountField() {
+    public AmountField getAmountField() {
         return amountField;
     }
 

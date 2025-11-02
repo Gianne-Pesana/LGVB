@@ -83,4 +83,8 @@ public class User {
     public void setTotpSecret(String totpSecret) {
         this.totpSecret = totpSecret;
     }
+
+    public boolean isAdmin() {
+        return this.role == Role.ADMIN;
+    }
 }

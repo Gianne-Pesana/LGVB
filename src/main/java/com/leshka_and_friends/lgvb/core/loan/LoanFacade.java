@@ -12,7 +12,14 @@ public class LoanFacade {
     }
 
 
-    public void applyForLoan() {}
-    public void approveLoan() {}
-    public void rejectLoan() {}
+    public void applyForLoan(int walletId, double amountRequested, String purpose) {
+        loanService.applyForLoan(walletId, amountRequested, purpose);
+    }
+
+    public void approveLoan(int loanId) {
+        loanService.approveLoan(loanId);
+    }
+    public void rejectLoan() {
+
+    }
 }

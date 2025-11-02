@@ -52,7 +52,6 @@ public class MainView extends JFrame {
         add(splitPane, BorderLayout.CENTER);
 
         setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     private void initializeFrame() {
@@ -168,5 +167,9 @@ public class MainView extends JFrame {
 
     public TitlePanel getCardsPanel() {
         return cardsPanel;
+    }
+
+    public LoanTestPanel getLoanPanelTest() {
+        return loanPanelTest;
     }
 }

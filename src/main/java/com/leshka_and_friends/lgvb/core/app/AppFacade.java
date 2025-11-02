@@ -39,19 +39,19 @@ public class AppFacade {
         walletFacade.deposit(userWallet, amount);
     }
 
-    public void transfer(int senderId, int receiverId, double amount) {
+    public void transfer(Wallet sender, String recipientEmail, double amount) {
         ensureSession();
-        walletFacade.transfer();
+        walletFacade.transfer(sender, recipientEmail, amount);
     }
 
-    public void applyForLoan(User user, double amount) {
+    public void applyForLoan(int walletId, double amountRequested, String purpose) {
         ensureSession();
-        loanFacade.applyForLoan();
+        loanFacade.applyForLoan(walletId, amountRequested, purpose);
     }
 
-    public void approveLoan() {
+    public void approveLoan(int loanId) {
         ensureSession();
-        loanFacade.approveLoan();
+        loanFacade.approveLoan(loanId);
     }
 
     private void ensureSession() {

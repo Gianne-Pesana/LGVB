@@ -59,7 +59,31 @@ public class WalletFacade {
         }
     }
 
-    public void transfer() {}
+    public void transfer(Wallet sender, String recipientEmail, double amount) {
+        Transaction t = new Transaction();
+        t.setWalletId(sender.getWalletId());
+        t.setTransactionType(TransactionType.TRANSFER);
+        t.setAmount(amount);
+
+        try {
+            walletService.transfer(sender, recipientEmail, amount);
+
+            t.setStatus(TransactionStatus.SUCCESS);
+            transactionService.saveTransaction(t);
+
+            notificationManager.notifyObservers("Transfer successful: ₱" + amount + " to " + recipientEmail);
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Transfer aborted due to invalid input: " + e.getMessage());
+            throw e;
+        } catch (RuntimeException e) {
+            System.err.println("Transfer failed due to system error: " + e.getMessage());
+            t.setStatus(TransactionStatus.FAILED);
+            transactionService.saveTransaction(t);
+            e.printStackTrace();
+            throw e;
+        }
+    }
     public void payBills(){}
     public void load() {}
 }

@@ -9,6 +9,12 @@ public class FrozenWalletState implements WalletState {
     }
 
     @Override
+    public void withdraw(Wallet wallet, double amount) {
+        throw new IllegalStateException("Wallet is frozen. Cannot perform operation");
+    }
+
+
+    @Override
     public void transfer(Wallet wallet, Wallet targetWallet, double amount) {
         throw new IllegalStateException("Wallet is frozen. Cannot transfer");
     }

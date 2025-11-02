@@ -8,6 +8,7 @@ import com.leshka_and_friends.lgvb.core.user.CustomerService;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
 public class AppController {
@@ -35,12 +36,16 @@ public class AppController {
             // Build all the services & facade
             AppFacade facade = FacadeFactory.createAppFacade(user);
             CustomerService customerService = ServiceLocator.getInstance().getService(CustomerService.class);
+
             MainView mainView = new MainView(customerService.buildCustomerDTO(user));
-            MainController mainController = new MainController(facade, mainView);
-
-
-            // Show the main view
-            mainView.setVisible(true);
+            if (user.isAdmin()) {
+                AdminTestView av = new AdminTestView(facade);
+                av.setVisible(true);
+            } else {
+                MainController mainController = new MainController(facade, mainView);
+                // Show the main view
+                mainView.setVisible(true);
+            }
 
             // Handle session expiration
             SessionWatcher watcher = new SessionWatcher(sessionManager, () -> {

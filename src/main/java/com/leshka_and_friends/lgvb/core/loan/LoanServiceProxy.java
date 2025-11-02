@@ -13,26 +13,27 @@ public class LoanServiceProxy implements LoanService {
     }
 
     @Override
-    public void applyForLoan() {
-        realService.applyForLoan();
+    public void applyForLoan(int walletId, double amountRequested, String purpose) {
+        if (isAdmin()) throw new SecurityException("Admins cannot apply for loan");
+        realService.applyForLoan(walletId, amountRequested, purpose);
     }
 
     @Override
-    public void approveLoan() {
+    public void approveLoan(int loanId) {
         if (!isAdmin()) {
             throw new SecurityException("Access denied: only admins can approve loans!");
         }
 
-        realService.approveLoan();
+        realService.approveLoan(loanId);
     }
 
     @Override
-    public void rejectLoan() {
+    public void rejectLoan(int loanId, String reason) {
         if (!isAdmin()) {
             throw new SecurityException("Access denied: only admins can reject loans!");
         }
 
-        realService.rejectLoan();
+        realService.rejectLoan(loanId, reason);
     }
 
     private boolean isAdmin() {

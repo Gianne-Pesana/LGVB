@@ -88,9 +88,11 @@ public class AuthService {
         return user;
     }
 
-    public boolean checkActive(Wallet wallet) throws AuthException {
+    public boolean verifyStatus(Wallet wallet) throws AuthException {
         String accountStatus = wallet.getStatus().toLowerCase();
         if (accountStatus.equals(Wallet.ACTIVE)) {
+            return true;
+        } else if (accountStatus.equals(Wallet.FROZEN)) {
             return true;
         } else if (accountStatus.equals(Wallet.PENDING)) {
             throw new AuthException("Your account is pending for approval by the admins.");

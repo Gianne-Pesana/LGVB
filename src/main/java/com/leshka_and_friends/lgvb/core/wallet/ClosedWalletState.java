@@ -3,9 +3,15 @@ package com.leshka_and_friends.lgvb.core.wallet;
 public class ClosedWalletState implements WalletState {
 
     @Override
-    public void deposit(Wallet wallet, double amount) {
-        throw new IllegalStateException("Wallet is closed, cannot perform deposit");
-    }
+        public void deposit(Wallet wallet, double amount) {
+            throw new IllegalStateException("Wallet is closed, cannot perform deposit");
+        }
+
+        @Override
+        public void withdraw(Wallet wallet, double amount) {
+            throw new IllegalStateException("Wallet is closed, cannot perform operation");
+        }
+
 
     @Override
     public void transfer(Wallet wallet, Wallet targetWallet, double amount) {
@@ -32,3 +38,4 @@ public class ClosedWalletState implements WalletState {
         return "CLOSED";
     }
 }
+

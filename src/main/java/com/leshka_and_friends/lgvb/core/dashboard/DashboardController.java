@@ -44,8 +44,20 @@ public class DashboardController {
 
         mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
             System.out.println("Send Btn Clicked");
-            TransferTestView ttv = new TransferTestView();
-            ttv.setVisible(true);
+            TransferTestView view = new TransferTestView();
+            view.setVisible(true);
+            view.getTransferButton().addActionListener(ae -> {
+                try {
+                    String recipientEmail = view.getEmailField().getText().trim();
+                    double amount = Double.parseDouble(view.getAmountField().getText().trim());
+                    facade.transfer(facade.getSessionManager().getCurrentSession().getWallet(), recipientEmail, amount);
+                    OutputUtils.showInfo("Transfer successful!");
+                } catch (Exception e) {
+                    OutputUtils.showError(e.getMessage());
+                }
+            });
+
+
 
         });
 
