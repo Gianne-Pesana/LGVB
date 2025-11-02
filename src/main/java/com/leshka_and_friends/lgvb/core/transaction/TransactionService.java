@@ -4,6 +4,10 @@
  */
 package com.leshka_and_friends.lgvb.core.transaction;
 
+import com.leshka_and_friends.lgvb.exceptions.PersistenceException;
+import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -42,6 +46,14 @@ public class TransactionService {
                                 Collectors.toList()
                         )
                 );
+    }
+
+    public void saveTransaction(Transaction transaction) {
+        try {
+            repo.createTransaction(transaction);
+        } catch (SQLException e) {
+            throw new PersistenceException("Error in creating transaction: " + e.getMessage(), e);
+        }
     }
 
 }

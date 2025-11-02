@@ -10,22 +10,29 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 
 public class Transaction {
+    public static final String DEPOSIT = "deposit";
+    public static final String TRANSFER = "transfer";
+    public static final String PAY_BILLS = "pay_bills";
+
+
+    public static final String SUCCESS = "success";
+    public static final String FAILED = "failed";
+    public static final String PENDING = "pending";
 
     private int transactionId;
     private int walletId;
-    private String accountName;
-    private String transactionType;
+    private TransactionType transactionType;
     private double amount;
-    private Integer relatedWalletId;
+    private int relatedWalletId = -1;
     private String relatedAccountName;
     private Timestamp timestamp;
-    private String status;
+    private TransactionStatus status;
 
     public Transaction() {
     }
 
-    public Transaction(int transactionId, int walletId, String transactionType, double amount,
-            Integer relatedWalletId, Timestamp timestamp, String status) {
+    public Transaction(int transactionId, int walletId, TransactionType transactionType, double amount,
+                       int relatedWalletId, Timestamp timestamp, TransactionStatus status) {
         this.transactionId = transactionId;
         this.walletId = walletId;
         this.transactionType = transactionType;
@@ -44,22 +51,7 @@ public class Transaction {
     }
 
     public String getIcon() {
-        return switch (transactionType.toLowerCase()) {
-            case "send money" ->
-                "💸";
-            case "cash in" ->
-                "🚀";
-            case "online payment" ->
-                "🛒";
-            case "received" ->
-                "🏦";
-            case "deposit" ->
-                "💰";
-            case "withdrawal" ->
-                "💵";
-            default ->
-                "❓";
-        };
+        return transactionType.getIcon();
     }
 
     // Getters & setters
@@ -79,11 +71,11 @@ public class Transaction {
         this.walletId = walletId;
     }
 
-    public String getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
 
@@ -95,11 +87,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Integer getRelatedWalletId() {
+    public int getRelatedWalletId() {
         return relatedWalletId;
     }
 
-    public void setRelatedWalletId(Integer relatedWalletId) {
+    public void setRelatedWalletId(int relatedWalletId) {
         this.relatedWalletId = relatedWalletId;
     }
 
@@ -111,20 +103,12 @@ public class Transaction {
         this.timestamp = timestamp;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
     }
 
     public String getRelatedAccountName() {

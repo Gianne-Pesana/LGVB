@@ -4,24 +4,23 @@ public class ActiveWalletState implements WalletState {
 
     @Override
     public void deposit(Wallet wallet, double amount) {
+        System.out.println("[Active wallet] Old balance: " + wallet.getBalance());
         wallet.setBalance(wallet.getBalance() + amount);
         System.out.println("Deposited " + amount);
-    }
+        System.out.println("[Active wallet] New balance: " + wallet.getBalance());
 
-    @Override
-    public void withdraw(Wallet wallet, double amount) {
-        if (wallet.getBalance() < amount) {
-            throw new IllegalStateException("Insufficient funds");
-        }
-        wallet.setBalance(wallet.getBalance() - amount);
-        System.out.println("Withdrew " + amount);
     }
 
     @Override
     public void transfer(Wallet wallet, Wallet targetWallet, double amount) {
-        withdraw(wallet, amount);
-        targetWallet.deposit(amount);
+        wallet.setBalance(wallet.getBalance() - amount);
+        targetWallet.setBalance(targetWallet.getBalance() + amount);
         System.out.println("Transferred " + amount + " to " + targetWallet.getUserId());
+    }
+
+    @Override
+    public void activate(Wallet wallet) {
+        throw new IllegalStateException("Wallet is already active!");
     }
 
     @Override

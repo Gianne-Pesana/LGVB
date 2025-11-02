@@ -149,4 +149,20 @@ public class MainView extends JFrame {
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, mainContentPanel);
         splitPane.setDividerSize(0);
     }
+
+    public Dashboard getDashboardPanel() {
+        return dashboardPanel;
+    }
+
+    public Wallet getWalletPanel() {
+        return walletPanel;
+    }
+
+    public TitlePanel getLoanPanel() {
+        return loanPanel;
+    }
+
+    public TitlePanel getCardsPanel() {
+        return cardsPanel;
+    }
 }

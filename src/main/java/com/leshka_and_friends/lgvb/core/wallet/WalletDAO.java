@@ -117,7 +117,25 @@ public class WalletDAO {
         }
     }
 
-    public void updateWalletBalance(int walletId, double newBalance) {
+    public boolean walletExists(int walletId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM wallets WHERE wallet_id = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, walletId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public void updateWalletBalance(int walletId, double newBalance) throws SQLException {
         String sql = "UPDATE wallets SET balance = ? WHERE wallet_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -125,9 +143,6 @@ public class WalletDAO {
             stmt.setDouble(1, newBalance);
             stmt.setInt(2, walletId);
             stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

@@ -62,7 +62,7 @@ CREATE TABLE wallets (
     user_id INT NOT NULL UNIQUE, -- one wallet per user
     account_number VARCHAR(10) NOT NULL UNIQUE,
     balance DECIMAL(15,2) DEFAULT 0.00,
-    status ENUM('active', 'pending', 'closed') DEFAULT 'active',
+    status ENUM('active', 'pending', 'frozen', 'closed') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_wallets_user FOREIGN KEY (user_id) REFERENCES users(user_id)
         ON DELETE CASCADE ON UPDATE CASCADE

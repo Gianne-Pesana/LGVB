@@ -63,7 +63,7 @@ public class TransactionCard extends RoundedPanel {
         ThemeManager.putThemeAwareProperty(iconLabel, "foreground: $LGVB.foreground");
         iconLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, contentFontSize));
         
-        JLabel typeLabel = new JLabel(t.getTransactionType());
+        JLabel typeLabel = new JLabel(t.getTransactionType().getStrValue());
         ThemeManager.putThemeAwareProperty(typeLabel, "foreground: $LGVB.foreground");
         typeLabel.setFont(contentFont);
 

@@ -32,14 +32,11 @@ public class Wallet {
         this.card = card;
         this.createdAt = createdAt;
         this.state = WalletStateFactory.create(status);
+        System.out.println("*** WALLET STATE: " + this.state.getName() + " ***");
     }
 
     public void deposit(double amount) {
         state.deposit(this, amount);
-    }
-
-    public void withdraw(double amount) {
-        state.withdraw(this, amount);
     }
 
     public void transfer(Wallet target, double amount) {
@@ -92,7 +89,7 @@ public class Wallet {
 
     public void setStatus(String status) {
         this.status = status;
-//        this.state = WalletStateFactory.create(status);
+        this.state = WalletStateFactory.create(status);
     }
 
     public Card getCard() {
@@ -123,7 +120,14 @@ public class Wallet {
         this.state = WalletStateFactory.create(status);
     }
 
-    // Getters, setters, etc.
+
+    public void addToBalance(double amount) {
+        balance += amount;
+    }
+
+    public void subtractFromBalance(double amount) {
+        balance -= amount;
+    }
 }
 
 

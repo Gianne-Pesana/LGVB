@@ -33,6 +33,7 @@ import javax.swing.border.EmptyBorder;
 
 public class Dashboard extends JPanel {
 
+
     private String username;
     private double balance;
     private CustomerDTO customerdto;
@@ -42,6 +43,8 @@ public class Dashboard extends JPanel {
     private RoundedPanel currentBalancePanel;
     private JPanel actionContainer;
     private JPanel transactionsPanel;
+
+    private JButton plusButton;
 
     private List<MenuItemButtonDashboard> menuItems = new ArrayList<>();
 
@@ -132,7 +135,6 @@ public class Dashboard extends JPanel {
         gbc.weighty = 1.0;
 
         // === LEFT SECTION (balance + subtext) ===
-        // === LEFT SECTION (balance + subtext) ===
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         leftPanel.setOpaque(false);
@@ -169,15 +171,25 @@ public class Dashboard extends JPanel {
         JPanel plusPanel = new JPanel(new GridBagLayout());
         plusPanel.setOpaque(false);
 
-        JLabel plusLabel = new JLabel();
+        plusButton = new JButton();
         FlatSVGIcon plusIcon = SVGUtils.loadIcon(
                 ThemeGlobalDefaults.getString("Dashboard.balancePanel.plusIcon.path"),
                 ThemeGlobalDefaults.getScaledInt("Dashboard.balancePanel.plusIcon.height")
         );
         plusIcon.setColorFilter(SVGUtils.createColorFilter("LGVB.foreground"));
-        plusLabel.setIcon(plusIcon);
+        plusButton.setIcon(plusIcon);
 
-        plusPanel.add(plusLabel, new GridBagConstraints());
+        // Make it look like a plain icon (transparent background, no border, no text)
+        plusButton.setContentAreaFilled(false);
+        plusButton.setBorderPainted(false);
+        plusButton.setFocusPainted(false);
+        plusButton.setOpaque(false);
+        plusButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        plusButton.setRolloverIcon(plusIcon); // later load a different-colored icon if you want
+
+
+        plusPanel.add(plusButton, new GridBagConstraints());
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -311,5 +323,9 @@ public class Dashboard extends JPanel {
 
     public void setUsername() {
 
+    }
+
+    public JButton getPlusButton() {
+        return plusButton;
     }
 }

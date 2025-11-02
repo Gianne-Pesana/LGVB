@@ -1,5 +1,6 @@
 package com.leshka_and_friends.lgvb;
 import com.leshka_and_friends.lgvb.auth.AuthController;
+import com.leshka_and_friends.lgvb.core.app.AppController;
 import com.leshka_and_friends.lgvb.utils.DBConnection;
 import com.leshka_and_friends.lgvb.view.themes.*;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
@@ -21,8 +22,8 @@ public class LGVB {
         }
 
         SwingUtilities.invokeLater(() -> {
-            AuthController authController = new AuthController();
-            authController.start();
+            AppController appController = new AppController();
+            appController.start();
         });
 
     }

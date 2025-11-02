@@ -136,7 +136,7 @@ public class CardDAO {
             c.setFullCardNumber(EncryptionUtils.decrypt(new String(tokenBytes)));
         }
 
-        c.printInfo();
+//        c.printInfo();
         return c;
     }
 

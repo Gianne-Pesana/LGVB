@@ -1,0 +1,71 @@
+package com.leshka_and_friends.lgvb.core.app;
+
+import com.leshka_and_friends.lgvb.auth.SessionManager;
+import com.leshka_and_friends.lgvb.core.user.User;
+import com.leshka_and_friends.lgvb.core.wallet.Wallet;
+import com.leshka_and_friends.lgvb.core.wallet.WalletFacade;
+import com.leshka_and_friends.lgvb.core.loan.LoanFacade;
+import com.leshka_and_friends.lgvb.core.savings.SavingFacade;
+import com.leshka_and_friends.lgvb.notification.NotificationManager;
+
+public class AppFacade {
+
+    private final WalletFacade walletFacade;
+    private final LoanFacade loanFacade;
+    private final SavingFacade savingFacade;
+    private final SessionManager sessionManager;
+    private final NotificationManager notificationManager;
+
+    public AppFacade(WalletFacade walletFacade,
+                     LoanFacade loanFacade,
+                     SavingFacade savingFacade,
+                     SessionManager sessionManager,
+                     NotificationManager notificationManager) {
+        this.walletFacade = walletFacade;
+        this.loanFacade = loanFacade;
+        this.savingFacade = savingFacade;
+        this.sessionManager = sessionManager;
+        this.notificationManager = notificationManager;
+    }
+
+    // Example of a session touch (keep-alive)
+    public void touchSession() {
+        sessionManager.touch();
+    }
+
+    // Delegate domain operations
+    public void deposit(Wallet userWallet, double amount) {
+        ensureSession();
+        walletFacade.deposit(userWallet, amount);
+    }
+
+    public void transfer(int senderId, int receiverId, double amount) {
+        ensureSession();
+        walletFacade.transfer();
+    }
+
+    public void applyForLoan(User user, double amount) {
+        ensureSession();
+        loanFacade.applyForLoan();
+    }
+
+    public void approveLoan() {
+        ensureSession();
+        loanFacade.approveLoan();
+    }
+
+    private void ensureSession() {
+        if (sessionManager.isExpired()) {
+            throw new IllegalStateException("Session expired");
+        }
+    }
+
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
+
+    // Getters (optional)
+    public WalletFacade getWalletFacade() { return walletFacade; }
+    public LoanFacade getLoanFacade() { return loanFacade; }
+    public SavingFacade getSavingFacade() { return savingFacade; }
+}

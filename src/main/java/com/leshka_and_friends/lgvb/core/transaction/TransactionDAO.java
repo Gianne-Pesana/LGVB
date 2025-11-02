@@ -10,7 +10,7 @@ public class TransactionDAO {
     // CREATE
     public boolean createTransaction(Transaction transaction) throws SQLException {
         try (Connection connection = DBConnection.getConnection()) {
-            int typeId = getTransactionTypeId(connection, transaction.getTransactionType());
+            int typeId = getTransactionTypeId(connection, transaction.getTransactionType().getStrValue());
             if (typeId == -1) {
                 throw new SQLException("Invalid transaction type: " + transaction.getTransactionType());
             }
@@ -21,12 +21,12 @@ public class TransactionDAO {
                 stmt.setInt(1, transaction.getWalletId());
                 stmt.setInt(2, typeId);
                 stmt.setDouble(3, transaction.getAmount());
-                if (transaction.getRelatedWalletId() != null) {
+                if (transaction.getRelatedWalletId() != -1) {
                     stmt.setInt(4, transaction.getRelatedWalletId());
                 } else {
                     stmt.setNull(4, Types.INTEGER);
                 }
-                stmt.setString(5, transaction.getStatus());
+                stmt.setString(5, transaction.getStatus().name());
                 return stmt.executeUpdate() > 0;
             }
         }
@@ -35,7 +35,7 @@ public class TransactionDAO {
     // READ: by ID (includes account names)
     public Transaction getTransactionById(int transactionId) throws SQLException {
         String sql = """
-            SELECT 
+            SELECT
                 t.*,
                 tt.name AS transaction_type,
                 u1.first_name AS account_first_name,
@@ -69,7 +69,7 @@ public class TransactionDAO {
         List<Transaction> transactions = new ArrayList<>();
 
         String sql = """
-            SELECT 
+            SELECT
                 t.*,
                 tt.name AS transaction_type,
                 u1.first_name AS account_first_name,
@@ -82,7 +82,7 @@ public class TransactionDAO {
             JOIN users u1 ON a1.user_id = u1.user_id
             LEFT JOIN wallets a2 ON t.related_wallet_id = a2.wallet_id
             LEFT JOIN users u2 ON a2.user_id = u2.user_id
-            WHERE t.wallet_id = ?
+            WHERE t.wallet_id = ? AND t.status = 'success'
             ORDER BY t.timestamp DESC
         """;
 
@@ -108,7 +108,7 @@ public class TransactionDAO {
             String sql = "UPDATE transactions SET amount = ?, status = ? WHERE transaction_id = ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setDouble(1, transaction.getAmount());
-                stmt.setString(2, transaction.getStatus());
+                stmt.setString(2, transaction.getStatus().name());
                 stmt.setInt(3, transaction.getTransactionId());
                 return stmt.executeUpdate() > 0;
             }
@@ -145,17 +145,16 @@ public class TransactionDAO {
         Transaction t = new Transaction();
         t.setTransactionId(rs.getInt("transaction_id"));
         t.setWalletId(rs.getInt("wallet_id"));
-        t.setTransactionType(rs.getString("transaction_type"));
+        t.setTransactionType(TransactionType.fromString(rs.getString("transaction_type")));
         t.setAmount(rs.getDouble("amount"));
 
         int relatedId = rs.getInt("related_wallet_id");
-        t.setRelatedWalletId(rs.wasNull() ? null : relatedId);
+        t.setRelatedWalletId(rs.wasNull() ? -1 : relatedId);
 
-        t.setStatus(rs.getString("status"));
+        t.setStatus(TransactionStatus.fromString(rs.getString("status")));
         t.setTimestamp(rs.getTimestamp("timestamp"));
 
         // Main account name
-        t.setAccountName(rs.getString("account_first_name") + " " + rs.getString("account_last_name"));
 
         // Related account name (may be null)
         String relatedFirst = rs.getString("related_first_name");

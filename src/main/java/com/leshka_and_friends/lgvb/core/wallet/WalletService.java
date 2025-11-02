@@ -1,9 +1,17 @@
 package com.leshka_and_friends.lgvb.core.wallet;
 
+import com.leshka_and_friends.lgvb.core.transaction.Transaction;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionType;
+import com.leshka_and_friends.lgvb.exceptions.PersistenceException;
+
 import java.security.SecureRandom;
+import java.sql.SQLException;
 import java.time.Instant;
 
 public class WalletService {
+
+    private final double minimumDepositAmount = 50.0;
+    private final double maximumDepositAmount = 500_000.00;
 
     private final WalletDAO walletRepo;
     private static final String CHAR_POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -37,7 +45,41 @@ public class WalletService {
         return walletRepo.addWallet(wallet);
     }
 
-    public void updateWalletBalance(int walletId, double newBalance) {
+    public void updateWalletBalance(int walletId, double newBalance) throws SQLException {
         walletRepo.updateWalletBalance(walletId, newBalance);
+    }
+
+    public void deposit(Wallet wallet, double amount)  {
+        if (amount < minimumDepositAmount) {
+            throw new IllegalArgumentException("Deposit amount must be at least ₱" + String.format("%,.2f", minimumDepositAmount));
+        }
+        if (amount > maximumDepositAmount) {
+            throw new IllegalArgumentException("Deposit amount must not exceed ₱" + String.format("%,.2f", maximumDepositAmount));
+        }
+
+        try {
+            wallet.deposit(amount);
+//            wallet.addToBalance(amount);
+            walletRepo.updateWalletBalance(wallet.getWalletId(), wallet.getBalance());
+        } catch (SQLException e) {
+            throw new PersistenceException("Failed to update balance: " + e.getMessage(), e);
+        }
+    }
+
+    public void transfer(Wallet sender, Wallet receipient, double amount) {
+        try {
+            if (!walletRepo.walletExists(receipient.getWalletId())) {
+                throw new IllegalArgumentException("Could not find account!");
+            }
+
+            if (sender.getBalance() < amount) {
+                throw new IllegalArgumentException("Insufficient balance!");
+            }
+
+//            sender.d
+
+        } catch (SQLException e) {
+            throw new PersistenceException("Failed to transfer: " + e.getMessage(), e);
+        }
     }
 }
