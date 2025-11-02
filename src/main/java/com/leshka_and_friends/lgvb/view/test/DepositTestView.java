@@ -1,9 +1,9 @@
-package com.leshka_and_friends.lgvb;
+package com.leshka_and_friends.lgvb.view.test;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TestView extends JFrame {
+public class DepositTestView extends JFrame {
 
     // Declare the components as class fields so they can be accessed elsewhere if needed
     public double depositAmount;
@@ -12,7 +12,7 @@ public class TestView extends JFrame {
     public JButton depositButton;
     public JLabel statusLabel; // A label to show the result of the "deposit"
 
-    public TestView() {
+    public DepositTestView() {
         // --- 1. Basic Frame Setup ---
         super("Deposit Functionality Test"); // Set the window title
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,6 +69,6 @@ public class TestView extends JFrame {
     // A main method to run the test frame
     public static void main(String[] args) {
         // Use SwingUtilities.invokeLater to ensure thread safety
-        SwingUtilities.invokeLater(() -> new TestView());
+        SwingUtilities.invokeLater(() -> new DepositTestView());
     }
 }

@@ -9,6 +9,7 @@ import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
 import com.leshka_and_friends.lgvb.view.forms.Wallet;
+import com.leshka_and_friends.lgvb.view.test.LoanTestPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
@@ -28,6 +29,7 @@ public class MainView extends JFrame {
     private Dashboard dashboardPanel;
     private Wallet walletPanel;
     private TitlePanel loanPanel;
+    private LoanTestPanel loanPanelTest;
     private TitlePanel cardsPanel;
 
     private int width;
@@ -116,7 +118,8 @@ public class MainView extends JFrame {
         walletPanel = new Wallet();
 
         String loanTitle = ThemeGlobalDefaults.getString("Panel.Loan.title");
-        loanPanel = new TitlePanel(loanTitle.isEmpty() ? "LOAN" : loanTitle);
+//        loanPanel = new TitlePanel(loanTitle.isEmpty() ? "LOAN" : loanTitle);
+        loanPanelTest = new LoanTestPanel();
 
         String cardsTitle = ThemeGlobalDefaults.getString("Panel.Cards.title");
         cardsPanel = new TitlePanel(cardsTitle.isEmpty() ? "CARDS" : cardsTitle);
@@ -139,7 +142,8 @@ public class MainView extends JFrame {
         // Add panels to card layout
         mainContentPanel.add(dashboardPanel, "DASHBOARD");
         mainContentPanel.add(walletPanel, "WALLET");
-        mainContentPanel.add(loanPanel, "LOAN");
+//        mainContentPanel.add(loanPanel, "LOAN");
+        mainContentPanel.add(loanPanelTest, "LOAN");
         mainContentPanel.add(cardsPanel, "CARDS");
 
         // Show dashboard by default

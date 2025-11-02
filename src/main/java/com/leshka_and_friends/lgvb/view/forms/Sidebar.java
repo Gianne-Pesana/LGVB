@@ -258,4 +258,30 @@ public class Sidebar extends JPanel {
         }
     }
 
+    // button getters
+
+
+    public MenuItemButton getDashboardItem() {
+        return dashboardItem;
+    }
+
+    public MenuItemButton getWalletItem() {
+        return walletItem;
+    }
+
+    public MenuItemButton getLoanReqItem() {
+        return loanReqItem;
+    }
+
+    public MenuItemButton getCardsItem() {
+        return cardsItem;
+    }
+
+    public MenuItemButton getAccountItem() {
+        return accountItem;
+    }
+
+    public MenuItemButton getSettingsItem() {
+        return settingsItem;
+    }
 }

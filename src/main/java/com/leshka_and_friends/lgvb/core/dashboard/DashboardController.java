@@ -4,8 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.core.dashboard;
 
-import com.leshka_and_friends.lgvb.TestView;
-import com.leshka_and_friends.lgvb.auth.Session;
+import com.leshka_and_friends.lgvb.view.test.DepositTestView;
 import com.leshka_and_friends.lgvb.core.app.AppFacade;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
@@ -25,7 +24,7 @@ public class DashboardController {
         this.mainView = mainView;
 
         mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
-            TestView tv = new TestView();
+            DepositTestView tv = new DepositTestView();
             tv.setVisible(true);
 
             tv.depositButton.addActionListener(tve -> {

@@ -1,5 +1,9 @@
 package com.leshka_and_friends.lgvb.notification;
 
+import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
+import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.TrayIcon.MessageType;
@@ -20,12 +24,23 @@ public class OSNotification implements Observer {
         SystemTray tray = SystemTray.getSystemTray();
 
         // Load your app logo here
-        Image image = SVGUtils.loadIconImage("icons/lgvb_logo.png", 32, 32).getImage();
+        Image image = SVGUtils.loadIconImage(ThemeGlobalDefaults.getString("App.icon"), 32, 32).getImage();
+//        Image image = new ImageIcon(
+//                getClass().getResource("/icons/app_icon.png")
+//        ).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+
+//        Image image = new ImageIcon("C:/Users/giann/OneDrive - addu.edu.ph/2nd Year Files/1st Semester/OOP/Final Project/LGVB/src/main/resources/icons/app_icon.png")
+//                .getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+
+        System.out.println("Image width: " + image.getWidth(null));
+        System.out.println("Image height: " + image.getHeight(null));
+
 
         // Create a TrayIcon with your own name and image
         TrayIcon trayIcon = new TrayIcon(image, "LGVB Wallet");
         trayIcon.setImageAutoSize(true);
         trayIcon.setToolTip("LGVB Wallet - Secure Banking Simplified");
+
 
         try {
             tray.add(trayIcon);
