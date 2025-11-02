@@ -19,13 +19,13 @@ public class OSNotification implements Observer {
 
         SystemTray tray = SystemTray.getSystemTray();
 
-        // Load an image for the tray icon (optional)
-        // Image image = Toolkit.getDefaultToolkit().createImage("path/to/your/icon.png");
-        // For demonstration, we'll create a simple dummy image
-        Image image = Toolkit.getDefaultToolkit().createImage(new byte[0]);
+        // Load your app logo here
+        Image image = SVGUtils.loadIconImage("icons/lgvb_logo.png", 32, 32).getImage();
 
-        TrayIcon trayIcon = new TrayIcon(image, "Java Tray Demo");
-        trayIcon.setImageAutoSize(true); // Let the system resize the image if needed
+        // Create a TrayIcon with your own name and image
+        TrayIcon trayIcon = new TrayIcon(image, "LGVB Wallet");
+        trayIcon.setImageAutoSize(true);
+        trayIcon.setToolTip("LGVB Wallet - Secure Banking Simplified");
 
         try {
             tray.add(trayIcon);
@@ -34,19 +34,17 @@ public class OSNotification implements Observer {
             return;
         }
 
-        // Display the notification
+        // This title is what appears at the top of the popup balloon
         trayIcon.displayMessage(
-                "LGVB",
-                message,
-                MessageType.INFO
+                "LGVB Wallet",     // custom title
+                message,           // message body
+                TrayIcon.MessageType.NONE // use NONE to avoid the Java info icon
         );
 
-        // Optional: Add an action listener to the tray icon
-        trayIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Tray icon clicked!");
-                // You can perform an action here, like opening a window
-            }
+        trayIcon.addActionListener(e -> {
+            System.out.println("Tray icon clicked!");
+            // e.g. bring app window to front
         });
     }
+
 }

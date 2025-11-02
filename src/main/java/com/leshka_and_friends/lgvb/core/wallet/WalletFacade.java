@@ -34,6 +34,7 @@ public class WalletFacade {
             t.setStatus(TransactionStatus.SUCCESS);
             transactionService.saveTransaction(t);
 
+            notificationManager.notifyObservers("Deposit successful: ₱" + amount);
 
         } catch (IllegalArgumentException e) {
             // 3. HANDLE VALIDATION FAILURE (No Transaction Log)

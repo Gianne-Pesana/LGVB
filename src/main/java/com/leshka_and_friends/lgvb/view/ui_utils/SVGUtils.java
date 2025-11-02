@@ -8,12 +8,15 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import javax.swing.*;
 import java.awt.*;
+
 import org.w3c.dom.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -30,11 +33,11 @@ public class SVGUtils {
     public static FlatSVGIcon.ColorFilter createColorFilter(String uiKey) {
         return new FlatSVGIcon.ColorFilter(c -> UIManager.getColor(uiKey));
     }
-    
+
     public static FlatSVGIcon loadIcon(String path, int size) {
         return loadIcon(path, size, size);
     }
-    
+
     public static FlatSVGIcon loadIcon(String path, int width, int height) {
         String finalPath = path;
 
@@ -51,40 +54,66 @@ public class SVGUtils {
             return new FlatSVGIcon("icons/svg/default.svg", width, height);
         }
     }
-    
+
     public static FlatSVGIcon loadIconAutoAspect(String path, int height) {
-    String finalPath = path;
+        String finalPath = path;
 
-    // check if resource exists
-    URL resource = SVGUtils.class.getResource("/" + path);
-    if (resource == null) {
-        finalPath = "icons/svg/default.svg";
-        resource = SVGUtils.class.getResource("/" + finalPath);
-    }
-
-    double aspectRatio = 1.0;
-    try (InputStream is = resource.openStream()) {
-        String content = new String(is.readAllBytes());
-        // Extract width and height from viewBox (e.g., viewBox="0 0 24 12")
-        Pattern viewBoxPattern = Pattern.compile("viewBox\\s*=\\s*\"[^\"]*?\\s+(\\d+(?:\\.\\d+)?)\\s+(\\d+(?:\\.\\d+)?)\"");
-        Matcher matcher = viewBoxPattern.matcher(content);
-        if (matcher.find()) {
-            double w = Double.parseDouble(matcher.group(1));
-            double h = Double.parseDouble(matcher.group(2));
-            aspectRatio = w / h;
+        // check if resource exists
+        URL resource = SVGUtils.class.getResource("/" + path);
+        if (resource == null) {
+            finalPath = "icons/svg/default.svg";
+            resource = SVGUtils.class.getResource("/" + finalPath);
         }
-    } catch (Exception e) {
-        // fallback aspect ratio if something fails
-        aspectRatio = 1.0;
+
+        double aspectRatio = 1.0;
+        try (InputStream is = resource.openStream()) {
+            String content = new String(is.readAllBytes());
+            // Extract width and height from viewBox (e.g., viewBox="0 0 24 12")
+            Pattern viewBoxPattern = Pattern.compile("viewBox\\s*=\\s*\"[^\"]*?\\s+(\\d+(?:\\.\\d+)?)\\s+(\\d+(?:\\.\\d+)?)\"");
+            Matcher matcher = viewBoxPattern.matcher(content);
+            if (matcher.find()) {
+                double w = Double.parseDouble(matcher.group(1));
+                double h = Double.parseDouble(matcher.group(2));
+                aspectRatio = w / h;
+            }
+        } catch (Exception e) {
+            // fallback aspect ratio if something fails
+            aspectRatio = 1.0;
+        }
+
+        int width = (int) Math.round(height * aspectRatio);
+        return loadIcon(finalPath, width, height);
     }
 
-    int width = (int) Math.round(height * aspectRatio);
-    return loadIcon(finalPath, width, height);
-}
+    public static ImageIcon loadIconImage(String path, int width, int height) {
+        try {
+            URL resource = SVGUtils.class.getResource("/" + path);
+            if (resource == null) {
+                // fallback to a default icon if not found
+                resource = SVGUtils.class.getResource("/icons/default.png");
+            }
+
+            if (resource == null) {
+                // still missing, return a placeholder 1x1 image
+                Image dummy = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+                return new ImageIcon(dummy);
+            }
+
+            ImageIcon original = new ImageIcon(resource);
+            Image scaled = original.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaled);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // fallback to a transparent image if loading fails
+            Image dummy = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            return new ImageIcon(dummy);
+        }
+    }
 
 
     public static FlatSVGIcon loadCard(String resourcePath, int size,
-            String name, String expiry, String number) {
+                                       String name, String expiry, String number) {
         try (InputStream input = SVGUtils.class.getResourceAsStream(resourcePath)) {
             if (input == null) {
                 throw new IllegalArgumentException("Resource not found: " + resourcePath);
