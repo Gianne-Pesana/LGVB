@@ -6,11 +6,15 @@ package com.leshka_and_friends.lgvb.view.forms;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.auth.Session;
+import com.leshka_and_friends.lgvb.auth.SessionManager;
+import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
 import com.leshka_and_friends.lgvb.core.transaction.Transaction;
-import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
-import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
+import com.leshka_and_friends.lgvb.core.wallet.Wallet;
+import com.leshka_and_friends.lgvb.core.wallet.WalletService;
+import com.leshka_and_friends.lgvb.notification.Observer;
 import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButtonDashboard;
 import com.leshka_and_friends.lgvb.view.components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
@@ -32,7 +36,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.swing.border.EmptyBorder;
 
-public class Dashboard extends JPanel {
+public class Dashboard extends JPanel implements Observer {
 
 
     private String username;
@@ -44,6 +48,8 @@ public class Dashboard extends JPanel {
     private RoundedPanel currentBalancePanel;
     private JPanel actionContainer;
     private JPanel transactionsPanel;
+    private JLabel balanceLabel;
+    private TransactionFeedPanel feedPanel;
 
     private JButton plusButton;
 
@@ -147,7 +153,7 @@ public class Dashboard extends JPanel {
         formatter.setMaximumFractionDigits(2);
         String formattedBalance = formatter.format(balance);
 
-        JLabel balanceLabel = new JLabel("₱ " + formattedBalance);
+        balanceLabel = new JLabel("₱ " + formattedBalance);
         balanceLabel.setFont(FontLoader.getFont("inter", 36f).deriveFont(Font.BOLD));
         ThemeManager.putThemeAwareProperty(balanceLabel, "foreground: $LGVB.foreground");
         balanceLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -252,25 +258,20 @@ public class Dashboard extends JPanel {
     }
 
     private JPanel createTransactionsPanel() {
-        // from backend TEST
-        List<Transaction> transactions = null;
-        TransactionDAO tdao = new TransactionDAO();
-        TransactionService ts = new TransactionService(tdao);
+        TransactionService ts = ServiceLocator.getInstance().getService(TransactionService.class);
 
+        List<Transaction> transactions = null;
         try {
             transactions = ts.loadTransactionsForWallet(customerdto.getAccount().getWalletId());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // 2. Group data
         Map<LocalDate, List<Transaction>> grouped = ts.groupTransactionsByDate(transactions);
 
-        // 3. Create feed and scroll pane
-        TransactionFeedPanel feedPanel = new TransactionFeedPanel(grouped);
+        this.feedPanel = new TransactionFeedPanel(grouped);
         JScrollPane scrollPane = createStyledScrollPane(feedPanel);
 
-        // 4. Label and container layout
         JLabel transactionLabel = createTransactionHeaderLabel();
 
         JPanel container = new JPanel(new BorderLayout());
@@ -295,8 +296,6 @@ public class Dashboard extends JPanel {
         vBar.setOpaque(false);
         vBar.setUI(new TransparentScrollbar());
         vBar.putClientProperty("CustomScrollbarUI", Boolean.TRUE);
-//        vBar.setBackground(new Color(0, 0, 0, 0));
-//        ThemeManager.putThemeAwareProperty(vBar, "background: $scrollbar.thumb.color");
 
         vBar.setUnitIncrement(16);
 
@@ -312,6 +311,40 @@ public class Dashboard extends JPanel {
         label.setFont(FontLoader.getBaloo2Bold(ThemeGlobalDefaults.getScaledInt("Transaction.header.fontSize")));
         label.setBorder(new EmptyBorder(5, 5, 10, 5));
         return label;
+    }
+
+    @Override
+    public void update(String message) {
+        if ("TRANSACTION_COMPLETED".equals(message)) {
+            SwingUtilities.invokeLater(this::refreshData);
+        }
+    }
+
+    private void refreshData() {
+        System.out.println("[Dashboard] Refreshing data...");
+        // 1. Refresh Balance
+        Session session = ServiceLocator.getInstance().getService(SessionManager.class).getCurrentSession();
+        WalletService walletService = ServiceLocator.getInstance().getService(WalletService.class);
+        Wallet updatedWallet = walletService.getWalletByUserId(session.getUser().getUserId());
+        session.setWallet(updatedWallet);
+
+        double balance = updatedWallet.getBalance();
+        NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
+        String formattedBalance = formatter.format(balance);
+        balanceLabel.setText("₱ " + formattedBalance);
+
+        // 2. Refresh Transactions
+        TransactionService ts = ServiceLocator.getInstance().getService(TransactionService.class);
+        List<Transaction> transactions = null;
+        try {
+            transactions = ts.loadTransactionsForWallet(customerdto.getAccount().getWalletId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<LocalDate, List<Transaction>> grouped = ts.groupTransactionsByDate(transactions);
+        feedPanel.updateTransactions(grouped);
     }
 
     public void setHeaderTitle(String title) {

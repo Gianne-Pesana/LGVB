@@ -26,6 +26,11 @@ public class TransactionFeedPanel extends JPanel {
         setBackground(new Color(245, 245, 245));
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setOpaque(false);
+        updateTransactions(groupedTransactions);
+    }
+
+    public void updateTransactions(Map<LocalDate, List<Transaction>> groupedTransactions) {
+        removeAll();
 
         // Check if there are no transactions
         if (groupedTransactions == null || groupedTransactions.isEmpty()) {
@@ -47,5 +52,8 @@ public class TransactionFeedPanel extends JPanel {
                     add(new TransactionGroupPanel(date, transactions));
                     add(Box.createVerticalStrut(ThemeGlobalDefaults.getScaledInt("Transaction.feed.groupSpacing")));
                 });
+
+        revalidate();
+        repaint();
     }
 }

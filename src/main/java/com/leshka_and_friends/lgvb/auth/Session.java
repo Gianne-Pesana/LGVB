@@ -3,7 +3,9 @@ package com.leshka_and_friends.lgvb.auth;
 import com.leshka_and_friends.lgvb.core.transaction.Transaction;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.wallet.Wallet;
+import com.leshka_and_friends.lgvb.preferences.PreferencesManager;
 import com.leshka_and_friends.lgvb.utils.AppConfig;
+import com.leshka_and_friends.lgvb.view.MainView;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -16,6 +18,8 @@ import java.util.List;
 public class Session {
     private final User user;
     private Wallet wallet;
+    private PreferencesManager preferencesManager;
+    private MainView mainView;
 
     private final Instant creationTime;
     private Instant lastAccessTime;
@@ -34,6 +38,22 @@ public class Session {
 
     public Wallet getWallet() { return wallet; }
     public void setWallet(Wallet wallet) { this.wallet = wallet; }
+
+    public PreferencesManager getPreferencesManager() {
+        return preferencesManager;
+    }
+
+    public void setPreferencesManager(PreferencesManager preferencesManager) {
+        this.preferencesManager = preferencesManager;
+    }
+
+    public MainView getMainView() {
+        return mainView;
+    }
+
+    public void setMainView(MainView mainView) {
+        this.mainView = mainView;
+    }
 
     // Reset idle timer whenever the user does something
     public void touch() {

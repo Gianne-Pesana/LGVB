@@ -1,9 +1,11 @@
 package com.leshka_and_friends.lgvb.core.loan;
 
+import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
 import com.leshka_and_friends.lgvb.core.loan.types.*;
 import com.leshka_and_friends.lgvb.core.wallet.Wallet;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.PersistenceException;
+import com.leshka_and_friends.lgvb.notification.NotificationManager;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
 import java.sql.SQLException;
@@ -80,6 +82,10 @@ public class LoanServiceImpl implements LoanService {
                 throw new PersistenceException("Failed to update balance", e);
             }
         }
+
+        // Notify UI to refresh
+        NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
+        notificationManager.notifyObservers("TRANSACTION_COMPLETED");
 
         OutputUtils.showInfo("Loan " + loan.getReferenceNumber() + " approved and funds released.");
     }

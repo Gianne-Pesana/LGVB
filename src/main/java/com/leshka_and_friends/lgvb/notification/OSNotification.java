@@ -1,5 +1,8 @@
 package com.leshka_and_friends.lgvb.notification;
 
+import com.leshka_and_friends.lgvb.auth.Session;
+import com.leshka_and_friends.lgvb.auth.SessionManager;
+import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
 import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 
@@ -9,12 +12,17 @@ import java.awt.event.*;
 import java.awt.TrayIcon.MessageType;
 
 public class OSNotification implements Observer {
-    private boolean enabled;
-    public OSNotification(boolean enabled) { this.enabled = enabled; }
+
+    public OSNotification() {}
 
     @Override
     public void update(String message) {
-        if (!enabled) return;
+        SessionManager sessionManager = ServiceLocator.getInstance().getService(SessionManager.class);
+        Session currentSession = sessionManager.getCurrentSession();
+
+        if (currentSession == null || !currentSession.getPreferencesManager().getPreferences().isPush()) {
+            return;
+        }
 
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");

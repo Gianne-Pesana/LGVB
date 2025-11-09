@@ -9,6 +9,7 @@ import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
 
 import com.leshka_and_friends.lgvb.core.wallet.Wallet;
+import com.leshka_and_friends.lgvb.preferences.PreferencesService;
 import com.leshka_and_friends.lgvb.utils.PasswordUtils;
 
 import java.time.LocalDate;
@@ -96,6 +97,9 @@ public class RegistrationService {
             // Create user
             user = userService.addUser(user);
             if (user == null) throw new RegistrationException("Failed to create user.");
+
+            // Create default preferences file
+            PreferencesService.loadPreferences(String.valueOf(user.getUserId()));
 
             // Create default wallet
             Wallet wallet = walletService.createDefaultWallet(user.getUserId());

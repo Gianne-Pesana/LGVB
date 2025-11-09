@@ -17,14 +17,18 @@ public class PreferencesService {
     public static NotificationPreferences loadPreferences(String userId) {
         File file = new File(getFilePath(userId));
         if (!file.exists()) {
+            System.out.println("[PreferencesService] No preferences file found for user " + userId + ". Creating default.");
             NotificationPreferences defaultPrefs = new NotificationPreferences();
             savePreferences(userId, defaultPrefs);
             return defaultPrefs;
         }
 
         try (FileReader reader = new FileReader(file)) {
-            return gson.fromJson(reader, NotificationPreferences.class);
+            NotificationPreferences prefs = gson.fromJson(reader, NotificationPreferences.class);
+            System.out.println("[PreferencesService] Successfully loaded preferences for user " + userId);
+            return prefs;
         } catch (IOException e) {
+            System.err.println("[PreferencesService] Error loading preferences for user " + userId);
             e.printStackTrace();
             return new NotificationPreferences(); // fallback to default
         }
@@ -32,9 +36,11 @@ public class PreferencesService {
 
     // Save preferences to JSON file
     public static void savePreferences(String userId, NotificationPreferences prefs) {
+        System.out.println("[PreferencesService] Saving preferences for user " + userId);
         try (FileWriter writer = new FileWriter(getFilePath(userId))) {
             gson.toJson(prefs, writer);
         } catch (IOException e) {
+            System.err.println("[PreferencesService] Error saving preferences for user " + userId);
             e.printStackTrace();
         }
     }

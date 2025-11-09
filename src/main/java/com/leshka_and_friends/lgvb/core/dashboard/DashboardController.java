@@ -26,27 +26,50 @@ public class DashboardController {
         this.facade = facade;
         this.mainView = mainView;
 
-        testDeposit();
-        tranferTest();
+//        testDeposit();
+//        tranferTest();
 
 
-//        mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
-//            JFrame frame = new JFrame();
-//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//            frame.setSize(1920, 1080);
-//            frame.add(new DepositPanel());
-//            frame.pack();
-//            frame.setVisible(true);
-//        });
-//
-//        mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
-//            JFrame frame = new JFrame();
-//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//            frame.setSize(1920, 1080);
-//            frame.add(new TransferPanel());
-//            frame.pack();
-//            frame.setVisible(true);
-//        });
+        mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(1920, 1080);
+            DepositPanel depositPanel = new DepositPanel();
+            frame.add(depositPanel);
+            frame.pack();
+            frame.setVisible(true);
+
+            depositPanel.getBtnConfirm().addActionListener(ca -> {
+                try {
+                    facade.deposit(facade.getSessionManager().getCurrentSession().getWallet(),
+                            depositPanel.getAmountField().getAmountValue()
+                    );
+                } catch (Exception ex) {
+                    OutputUtils.showError("Error occured during deposit:\n" + ex.getMessage());
+                }
+            });
+        });
+
+        mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(1920, 1080);
+            TransferPanel transferPanel = new TransferPanel();
+            frame.add(transferPanel);
+            frame.pack();
+            frame.setVisible(true);
+
+            transferPanel.getBtnConfirm().addActionListener(ca -> {
+                try {
+                    String recipientEmail = transferPanel.getFieldRecipient().getText().trim();
+                    double transferAmount = transferPanel.getAmountField().getAmountValue();
+
+                    facade.transfer(facade.getSessionManager().getCurrentSession().getWallet(), recipientEmail, transferAmount);
+                } catch (Exception ex) {
+                    OutputUtils.showError("Error occured during transfer:\n" + ex.getMessage());
+                }
+            });
+        });
     }
 
     private void testDeposit() {

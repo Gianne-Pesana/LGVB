@@ -22,10 +22,5 @@ public class NotificationManager implements Observable {
         for (Observer o : observers) {
             o.update(message);
         }
-
-        for (int i = 0; i < observers.size(); i++) {
-            Observer o = observers.get(i);
-            o.update(message);
-        }
     }
 }

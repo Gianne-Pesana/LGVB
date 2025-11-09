@@ -229,6 +229,15 @@ public class Sidebar extends JPanel {
             });
         }
 
+        settingsItem.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (selectionListener != null) {
+                    selectionListener.onSelectSettings();
+                }
+            }
+        });
+
         modeToggle.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

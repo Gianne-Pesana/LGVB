@@ -14,6 +14,9 @@ public class SettingsDialog extends JDialog {
 
     private CardLayout cardLayout;
     private JPanel contentPanel;
+    private SwitchButton emailToggle;
+    private SwitchButton osToggle;
+    private RoundedButton saveButton;
 
     public SettingsDialog(JFrame parent) {
         super(parent, "Settings", true);
@@ -101,9 +104,9 @@ public class SettingsDialog extends JDialog {
         panel.add(desc);
 
         // Ensure rows don't stretch oddly
-        JPanel emailRow = createSwitchRow("Email Notifications", "Receive transaction updates via email", true);
+        JPanel emailRow = createSwitchRow("Email Notifications", "Receive transaction updates via email", true, "email");
         emailRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-        JPanel osRow = createSwitchRow("OS Notifications", "Show desktop pop-ups for important alerts", false);
+        JPanel osRow = createSwitchRow("OS Notifications", "Show desktop pop-ups for important alerts", false, "os");
         osRow.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         panel.add(emailRow);
@@ -111,7 +114,7 @@ public class SettingsDialog extends JDialog {
         panel.add(osRow);
         panel.add(Box.createVerticalStrut(40));
 
-        RoundedButton saveButton = new RoundedButton("Save Settings");
+        saveButton = new RoundedButton("Save Settings");
         saveButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         saveButton.setBackground(new Color(0, 174, 255));
         saveButton.setForeground(Color.WHITE);
@@ -131,7 +134,7 @@ public class SettingsDialog extends JDialog {
     }
 
 
-    private JPanel createSwitchRow(String title, String subtitle, boolean defaultState) {
+    private JPanel createSwitchRow(String title, String subtitle, boolean defaultState, String type) {
         JPanel row = new JPanel(new BorderLayout());
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 55));
         row.setOpaque(false);
@@ -154,11 +157,15 @@ public class SettingsDialog extends JDialog {
         SwitchButton toggle = new SwitchButton();
         toggle.setSpeed(0.7f);
         toggle.setPreferredSize(new Dimension(UIScale.scale(40), UIScale.scale(20)));   // slimmer ratio
-//        toggle.setMaximumSize(new Dimension(100, 20));   // slimmer ratio
-//        toggle.setMinimumSize(new Dimension(100, 20));   // slimmer ratio
         toggle.setBackground(new Color(0, 174, 255));     // active = blue
         toggle.setForeground(Color.WHITE);
         toggle.setSelected(defaultState);
+
+        if ("email".equals(type)) {
+            emailToggle = toggle;
+        } else if ("os".equals(type)) {
+            osToggle = toggle;
+        }
 
         // Reverse color logic for clarity
         toggle.addEventSelected(selected -> {
@@ -203,6 +210,18 @@ public class SettingsDialog extends JDialog {
         panel.add(appInfo);
 
         return panel;
+    }
+
+    public SwitchButton getEmailToggle() {
+        return emailToggle;
+    }
+
+    public SwitchButton getOsToggle() {
+        return osToggle;
+    }
+
+    public RoundedButton getSaveButton() {
+        return saveButton;
     }
 
     // Example usage

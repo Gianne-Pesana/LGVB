@@ -1,6 +1,8 @@
 package com.leshka_and_friends.lgvb.core.wallet;
 
+import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
 import com.leshka_and_friends.lgvb.exceptions.PersistenceException;
+import com.leshka_and_friends.lgvb.notification.NotificationManager;
 
 import java.security.SecureRandom;
 import java.sql.SQLException;
@@ -59,6 +61,10 @@ public class WalletService {
             wallet.deposit(amount);
 //            wallet.addToBalance(amount);
             walletRepo.updateWalletBalance(wallet.getWalletId(), wallet.getBalance());
+
+            // Notify UI to refresh
+            NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
+            notificationManager.notifyObservers("TRANSACTION_COMPLETED");
         } catch (SQLException e) {
             throw new PersistenceException("Failed to update balance: " + e.getMessage(), e);
         }
@@ -84,6 +90,10 @@ public class WalletService {
             recipient.deposit(amount);
             walletRepo.updateWalletBalance(sender.getWalletId(), sender.getBalance());
             walletRepo.updateWalletBalance(recipient.getWalletId(), recipient.getBalance());
+
+            // Notify UI to refresh
+            NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
+            notificationManager.notifyObservers("TRANSACTION_COMPLETED");
         } catch (SQLException e) {
             throw new PersistenceException("Failed to transfer funds: " + e.getMessage(), e);
         }

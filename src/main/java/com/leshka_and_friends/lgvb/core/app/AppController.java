@@ -8,6 +8,7 @@ import com.leshka_and_friends.lgvb.core.user.CustomerService;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.notification.NotificationManager;
+import com.leshka_and_friends.lgvb.preferences.PreferencesManager;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
@@ -33,12 +34,18 @@ public class AppController {
         Session session = sessionManager.startSession(user, walletService.getWalletByUserId(user.getUserId()));
         System.out.println("Session: " + session.getUser().getEmail() + " Wallet: " + session.getWallet().getAccountNumber());
 
+        // Load/create user preferences and store in session
+        PreferencesManager prefsManager = new PreferencesManager(String.valueOf(user.getUserId()));
+        session.setPreferencesManager(prefsManager);
+
         try {
             // Build all the services & facade
             AppFacade facade = FacadeFactory.createAppFacade(user);
             CustomerService customerService = ServiceLocator.getInstance().getService(CustomerService.class);
 
             MainView mainView = new MainView(customerService.buildCustomerDTO(user));
+            session.setMainView(mainView); // Store main view in session
+            
             if (user.isAdmin()) {
                 AdminTestView av = new AdminTestView(facade);
                 av.setVisible(true);
