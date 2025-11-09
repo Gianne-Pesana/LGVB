@@ -29,7 +29,6 @@ public class LoanServiceImpl implements LoanService {
             throw new RuntimeException("User already has an ongoing loan.");
         }
 
-
         // Basic validation rules
         if (amountRequested <= 0) {
             throw new IllegalArgumentException("Invalid amount");

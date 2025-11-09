@@ -7,6 +7,7 @@ import com.leshka_and_friends.lgvb.auth.SessionWatcher;
 import com.leshka_and_friends.lgvb.core.user.CustomerService;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
+import com.leshka_and_friends.lgvb.notification.NotificationManager;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
@@ -59,5 +60,9 @@ public class AppController {
             OutputUtils.showError("[App] Unexpected error: " + ex.getMessage());
             ex.printStackTrace();
         }
+    }
+
+    public void logout() {
+
     }
 }

@@ -1,7 +1,5 @@
 package com.leshka_and_friends.lgvb.core.wallet;
 
-import com.leshka_and_friends.lgvb.core.transaction.Transaction;
-import com.leshka_and_friends.lgvb.core.transaction.TransactionType;
 import com.leshka_and_friends.lgvb.exceptions.PersistenceException;
 
 import java.security.SecureRandom;

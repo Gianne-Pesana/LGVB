@@ -4,6 +4,7 @@ import com.leshka_and_friends.lgvb.core.loan.LoanController;
 import com.leshka_and_friends.lgvb.core.savings.SavingsController;
 import com.leshka_and_friends.lgvb.core.dashboard.DashboardController;
 import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.view.components.dialogs.LogoutConfirmationDialog;
 
 public class MainController {
     AppFacade facade;
@@ -16,12 +17,20 @@ public class MainController {
     public MainController(AppFacade facade, MainView mainView) {
         this.facade = facade;
         this.mainView = mainView;
+        mainView.setVisible(true);
         dashboardController = new DashboardController(facade, mainView);
         loanController = new LoanController(facade, mainView);
         savingsController = new SavingsController(facade, mainView);
+        logout();
 
 //        TestTransferView transferView = new TestTransferView();
 //        transferController = new TransferController(facade, transferView);
 //        transferView.setVisible(true);
+    }
+
+    public void logout() {
+        LogoutConfirmationDialog.showLogoutDialog(mainView, () -> {
+            System.out.println("logged out");
+        });
     }
 }

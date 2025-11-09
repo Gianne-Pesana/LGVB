@@ -4,16 +4,18 @@
  */
 package com.leshka_and_friends.lgvb.core.dashboard;
 
+import com.leshka_and_friends.lgvb.view.components.panels.DepositPanel;
+import com.leshka_and_friends.lgvb.view.components.panels.TransferPanel;
 import com.leshka_and_friends.lgvb.view.testUI.DepositTestView;
 import com.leshka_and_friends.lgvb.core.app.AppFacade;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.testUI.TransferTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
- *
  * @author giann
  */
 public class DashboardController {
@@ -24,6 +26,30 @@ public class DashboardController {
         this.facade = facade;
         this.mainView = mainView;
 
+        testDeposit();
+        tranferTest();
+
+
+//        mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
+//            JFrame frame = new JFrame();
+//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            frame.setSize(1920, 1080);
+//            frame.add(new DepositPanel());
+//            frame.pack();
+//            frame.setVisible(true);
+//        });
+//
+//        mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
+//            JFrame frame = new JFrame();
+//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            frame.setSize(1920, 1080);
+//            frame.add(new TransferPanel());
+//            frame.pack();
+//            frame.setVisible(true);
+//        });
+    }
+
+    private void testDeposit() {
         mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
             DepositTestView tv = new DepositTestView();
             tv.setVisible(true);
@@ -41,7 +67,9 @@ public class DashboardController {
                 }
             });
         });
+    }
 
+    public void tranferTest() {
         mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
             System.out.println("Send Btn Clicked");
             TransferTestView view = new TransferTestView();
@@ -56,13 +84,6 @@ public class DashboardController {
                     OutputUtils.showError(e.getMessage());
                 }
             });
-
-
-
         });
-
-
     }
-    
-    
 }

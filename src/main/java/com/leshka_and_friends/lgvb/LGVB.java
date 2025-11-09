@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class LGVB {
 
-    public static boolean testing = false;
+    public static boolean testing = true;
 
     public static void main(String[] args) {
         try {
@@ -25,7 +25,5 @@ public class LGVB {
             AppController appController = new AppController();
             appController.start();
         });
-
     }
-
 }

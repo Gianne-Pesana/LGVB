@@ -41,8 +41,9 @@ public class ServiceRegistry {
         // Notification Manager
         NotificationManager notificationManager = new NotificationManager();
         notificationManager.addObserver(new InAppNotification(new JPanel()));
-        notificationManager.addObserver(new EmailNotification(true));
-        notificationManager.addObserver(new OSNotification(true));
+//        notificationManager.addObserver(new EmailNotification(true));
+//        notificationManager.addObserver(new OSNotification(true));
+
         ServiceLocator.getInstance().registerService(NotificationManager.class, notificationManager);
     }
 }

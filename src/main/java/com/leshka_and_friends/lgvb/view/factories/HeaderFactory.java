@@ -7,7 +7,6 @@ package com.leshka_and_friends.lgvb.view.factories;
 import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
 
 /**
- *
  * @author vongiedyaguilar
  */
 public class HeaderFactory {

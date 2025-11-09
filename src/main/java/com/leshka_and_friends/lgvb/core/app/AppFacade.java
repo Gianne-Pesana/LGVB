@@ -64,6 +64,12 @@ public class AppFacade {
         return sessionManager;
     }
 
+    public void logout() {
+        sessionManager.endSession();
+        notificationManager.removeAllObserver();
+
+    }
+
     // Getters (optional)
     public WalletFacade getWalletFacade() { return walletFacade; }
     public LoanFacade getLoanFacade() { return loanFacade; }

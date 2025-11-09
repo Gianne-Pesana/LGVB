@@ -12,6 +12,10 @@ public class SessionManager {
     }
 
     public Session getCurrentSession() {
+        if (currentSession == null) {
+            currentSession = new Session(new User(), new Wallet());
+        }
+
         return currentSession;
     }
 

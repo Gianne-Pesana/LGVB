@@ -9,6 +9,7 @@ import com.leshka_and_friends.lgvb.core.wallet.WalletDAO;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.AuthException;
 import com.leshka_and_friends.lgvb.exceptions.RegistrationException;
+import com.leshka_and_friends.lgvb.utils.StringUtils;
 import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
 import com.leshka_and_friends.lgvb.view.authpage.LoginPanel;
 import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
@@ -162,8 +163,8 @@ public class AuthController {
 
     private void handleRegisterBtn() {
         try {
-            String firstName = registrationPanel.getFirstName();
-            String lastName = registrationPanel.getLastName();
+            String firstName = StringUtils.toProperCase(registrationPanel.getFirstName());
+            String lastName = StringUtils.toProperCase(registrationPanel.getLastName());
             String phoneNum = registrationPanel.getPhoneNumber();
             LocalDate dob = registrationPanel.getDOB();
             boolean isTermsChecked = registrationPanel.isTermsChecked();
