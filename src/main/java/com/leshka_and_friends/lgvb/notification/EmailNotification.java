@@ -10,11 +10,16 @@ public class EmailNotification implements Observer {
 
     @Override
     public void update(String message) {
+        if (message == null || !message.startsWith("USER_NOTIFY:")) {
+            return;
+        }
+
         SessionManager sessionManager = ServiceLocator.getInstance().getService(SessionManager.class);
         Session currentSession = sessionManager.getCurrentSession();
 
         if (currentSession != null && currentSession.getPreferencesManager().getPreferences().isEmail()) {
-            System.out.println("[Email] " + message);
+            String notification = message.substring("USER_NOTIFY:".length());
+            System.out.println("[Email] " + notification);
         }
     }
 }

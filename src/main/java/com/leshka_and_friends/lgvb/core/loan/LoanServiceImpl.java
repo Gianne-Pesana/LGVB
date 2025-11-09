@@ -85,7 +85,7 @@ public class LoanServiceImpl implements LoanService {
 
         // Notify UI to refresh
         NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
-        notificationManager.notifyObservers("TRANSACTION_COMPLETED");
+        notificationManager.notifyObservers("UI_UPDATE:TRANSACTION_COMPLETED");
 
         OutputUtils.showInfo("Loan " + loan.getReferenceNumber() + " approved and funds released.");
     }

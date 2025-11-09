@@ -17,6 +17,10 @@ public class OSNotification implements Observer {
 
     @Override
     public void update(String message) {
+        if (message == null || !message.startsWith("USER_NOTIFY:")) {
+            return;
+        }
+
         SessionManager sessionManager = ServiceLocator.getInstance().getService(SessionManager.class);
         Session currentSession = sessionManager.getCurrentSession();
 
@@ -29,6 +33,7 @@ public class OSNotification implements Observer {
             return;
         }
 
+        String notification = message.substring("USER_NOTIFY:".length());
         SystemTray tray = SystemTray.getSystemTray();
 
         // Load your app logo here
@@ -60,7 +65,7 @@ public class OSNotification implements Observer {
         // This title is what appears at the top of the popup balloon
         trayIcon.displayMessage(
                 "LGVB Wallet",     // custom title
-                message,           // message body
+                notification,           // message body
                 TrayIcon.MessageType.NONE // use NONE to avoid the Java info icon
         );
 

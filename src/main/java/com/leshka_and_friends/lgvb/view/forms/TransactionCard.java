@@ -84,9 +84,26 @@ public class TransactionCard extends RoundedPanel {
         rGbc.insets = new Insets(0, 5, 0, 0);
 
         // Amount label
-        JLabel amountLabel = new JLabel(String.format("%s%.2f", t.getAmount() < 0 ? "-" : "+", Math.abs(t.getAmount())));
+        String sign;
+        Color amountColor;
+        switch (t.getTransactionType()) {
+            case DEPOSIT, RECEIVED:
+                sign = "+";
+                amountColor = ThemeGlobalDefaults.getColor("Transaction.credit.color");
+                break;
+            case SENT, PAY_BILLS:
+                sign = "-";
+                amountColor = ThemeGlobalDefaults.getColor("Transaction.debit.color");
+                break;
+            default:
+                sign = "";
+                amountColor = UIManager.getColor("Label.foreground");
+                break;
+        }
+
+        JLabel amountLabel = new JLabel(String.format("%s %.2f", sign, t.getAmount()));
         amountLabel.setFont(contentFont);
-        amountLabel.setForeground(t.getAmount() < 0 ? new Color(200, 0, 0) : new Color(0, 150, 0));
+        amountLabel.setForeground(amountColor);
         rGbc.gridx = 0;
         rGbc.weightx = 0;
         rGbc.anchor = GridBagConstraints.EAST;

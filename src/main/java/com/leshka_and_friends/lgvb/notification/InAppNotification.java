@@ -11,6 +11,10 @@ public class InAppNotification implements Observer {
 
     @Override
     public void update(String message) {
-        System.out.println("[NOTIFICATION] " + message);
+        if (message != null && message.startsWith("USER_NOTIFY:")) {
+            String notification = message.substring("USER_NOTIFY:".length());
+            System.out.println("[In-App Notification] " + notification);
+            // In a real implementation, this would show a popup or banner in the app UI
+        }
     }
 }

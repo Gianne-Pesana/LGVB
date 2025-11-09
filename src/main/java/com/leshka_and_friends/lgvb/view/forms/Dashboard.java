@@ -315,7 +315,7 @@ public class Dashboard extends JPanel implements Observer {
 
     @Override
     public void update(String message) {
-        if ("TRANSACTION_COMPLETED".equals(message)) {
+        if ("UI_UPDATE:TRANSACTION_COMPLETED".equals(message)) {
             SwingUtilities.invokeLater(this::refreshData);
         }
     }

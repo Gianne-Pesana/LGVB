@@ -21,7 +21,7 @@ public class WalletFacade {
         try {
             // Delegate the entire operation to the service layer
             walletService.deposit(wallet, amount);
-            notificationManager.notifyObservers("Deposit successful: ₱" + amount);
+            notificationManager.notifyObservers("USER_NOTIFY:Deposit successful: ₱" + amount);
 
         } catch (IllegalArgumentException e) {
             System.err.println("Deposit aborted due to invalid input: " + e.getMessage());
@@ -38,7 +38,7 @@ public class WalletFacade {
         try {
             // Delegate the entire operation to the service layer
             walletService.transfer(sender, recipientEmail, amount);
-            notificationManager.notifyObservers("Transfer successful: ₱" + amount + " to " + recipientEmail);
+            notificationManager.notifyObservers("USER_NOTIFY:Transfer successful: ₱" + amount + " to " + recipientEmail);
 
         } catch (IllegalArgumentException e) {
             System.err.println("Transfer aborted due to invalid input: " + e.getMessage());

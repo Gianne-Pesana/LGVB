@@ -79,7 +79,7 @@ public class WalletService {
 
             // Notify UI to refresh
             NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
-            notificationManager.notifyObservers("TRANSACTION_COMPLETED");
+            notificationManager.notifyObservers("UI_UPDATE:TRANSACTION_COMPLETED");
         } catch (SQLException e) {
             throw new PersistenceException("Failed to update balance: " + e.getMessage(), e);
         }
@@ -131,7 +131,7 @@ public class WalletService {
 
             // Notify UI to refresh
             NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
-            notificationManager.notifyObservers("TRANSACTION_COMPLETED");
+            notificationManager.notifyObservers("UI_UPDATE:TRANSACTION_COMPLETED");
         } catch (SQLException e) {
             throw new PersistenceException("Failed to transfer funds: " + e.getMessage(), e);
         }
