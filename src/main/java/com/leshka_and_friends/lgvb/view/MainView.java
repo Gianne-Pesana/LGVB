@@ -4,9 +4,11 @@
  */
 package com.leshka_and_friends.lgvb.view;
 
-import com.leshka_and_friends.lgvb.preferences.SettingsController;
 import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
+import com.leshka_and_friends.lgvb.preferences.SettingsController;
+import com.leshka_and_friends.lgvb.view.components.panels.DepositPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
+import com.leshka_and_friends.lgvb.view.components.panels.TransferPanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
 import com.leshka_and_friends.lgvb.view.forms.Wallet;
@@ -21,7 +23,7 @@ import java.awt.*;
 public class MainView extends JFrame {
 
     private JSplitPane splitPane;
-//    private JPanel sidebarPanel;
+    //    private JPanel sidebarPanel;
     private Sidebar sidebar;
     private JPanel mainContentPanel;
     private CardLayout contentLayout;
@@ -32,6 +34,8 @@ public class MainView extends JFrame {
     private TitlePanel loanPanel;
     private LoanTestPanel loanPanelTest;
     private TitlePanel cardsPanel;
+    private DepositPanel depositPanel;
+    private TransferPanel transferPanel;
 
     private int width;
     private int height;
@@ -85,7 +89,7 @@ public class MainView extends JFrame {
         sidebar.setSelectionListener(new Sidebar.SelectionListener() {
             @Override
             public void onSelectDashboard() {
-                contentLayout.show(mainContentPanel, "DASHBOARD");
+                showDashboard();
             }
 
             @Override
@@ -115,8 +119,7 @@ public class MainView extends JFrame {
      */
     private void createContentPanels() {
         // Create dashboard panel with sample data
-        String dashboardTitle = ThemeGlobalDefaults.getString("Panel.Dashboard.title");
-        dashboardPanel = new Dashboard(this.dto);
+        dashboardPanel = new Dashboard(this, this.dto);
 
         // Create other panels
         String walletTitle = ThemeGlobalDefaults.getString("Panel.Wallet.title");
@@ -128,6 +131,9 @@ public class MainView extends JFrame {
 
         String cardsTitle = ThemeGlobalDefaults.getString("Panel.Cards.title");
         cardsPanel = new TitlePanel(cardsTitle.isEmpty() ? "CARDS" : cardsTitle);
+
+        depositPanel = new DepositPanel(this);
+        transferPanel = new TransferPanel(this);
     }
 
     public Sidebar getSidebarPanel() {
@@ -150,6 +156,8 @@ public class MainView extends JFrame {
 //        mainContentPanel.add(loanPanel, "LOAN");
         mainContentPanel.add(loanPanelTest, "LOAN");
         mainContentPanel.add(cardsPanel, "CARDS");
+        mainContentPanel.add(depositPanel, "DEPOSIT");
+        mainContentPanel.add(transferPanel, "TRANSFER");
 
         // Show dashboard by default
         contentLayout.show(mainContentPanel, "DASHBOARD");
@@ -157,6 +165,18 @@ public class MainView extends JFrame {
         // Split pane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, mainContentPanel);
         splitPane.setDividerSize(0);
+    }
+
+    public void showDashboard() {
+        contentLayout.show(mainContentPanel, "DASHBOARD");
+    }
+
+    public void showDepositPanel() {
+        contentLayout.show(mainContentPanel, "DEPOSIT");
+    }
+
+    public void showTransferPanel() {
+        contentLayout.show(mainContentPanel, "TRANSFER");
     }
 
     public Dashboard getDashboardPanel() {
@@ -173,6 +193,14 @@ public class MainView extends JFrame {
 
     public TitlePanel getCardsPanel() {
         return cardsPanel;
+    }
+
+    public DepositPanel getDepositPanel() {
+        return depositPanel;
+    }
+
+    public TransferPanel getTransferPanel() {
+        return transferPanel;
     }
 
     public LoanTestPanel getLoanPanelTest() {

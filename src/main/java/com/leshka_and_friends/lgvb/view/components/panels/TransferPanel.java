@@ -1,6 +1,7 @@
 package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.components.*;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
@@ -14,6 +15,7 @@ public class TransferPanel extends JPanel {
 
     private CardLayout cardLayout;
     private JPanel cardContainer;
+    private MainView mainView;
 
     // Transfer page components
     private RoundedPanel transferPanel;
@@ -33,7 +35,8 @@ public class TransferPanel extends JPanel {
     private RoundedButton btnBack;
     private RoundedButton btnConfirm;
 
-    public TransferPanel() {
+    public TransferPanel(MainView mainView) {
+        this.mainView = mainView;
         cardLayout = new CardLayout();
         cardContainer = new JPanel(cardLayout);
         cardContainer.setOpaque(false);
@@ -57,11 +60,16 @@ public class TransferPanel extends JPanel {
             cardLayout.show(cardContainer, "CONFIRM_PAGE");
         });
 
-        btnBack.addActionListener(e -> cardLayout.show(cardContainer, "TRANSFER_PAGE"));
+        btnBack.addActionListener(e -> {
+            fieldRecipient.setText("");
+            amountField.setText("");
+            mainView.showDashboard();
+        });
 
         btnCancel.addActionListener(e -> {
             fieldRecipient.setText("");
             amountField.setText("");
+            mainView.showDashboard();
         });
 
         btnConfirm.addActionListener(e -> {

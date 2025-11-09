@@ -26,7 +26,10 @@ import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 
+import com.leshka_and_friends.lgvb.view.MainView;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -42,6 +45,7 @@ public class Dashboard extends JPanel implements Observer {
     private String username;
     private double balance;
     private CustomerDTO customerdto;
+    private MainView mainView;
 
     private HeaderPanel headerPanel;
     private CardPanel cardPanel;
@@ -55,7 +59,8 @@ public class Dashboard extends JPanel implements Observer {
 
     private List<MenuItemButtonDashboard> menuItems = new ArrayList<>();
 
-    public Dashboard(CustomerDTO customerdto) {
+    public Dashboard(MainView mainView, CustomerDTO customerdto) {
+        this.mainView = mainView;
         this.customerdto = customerdto;
         setOpaque(false);
         // Set a border similar to DHB.java
@@ -193,7 +198,7 @@ public class Dashboard extends JPanel implements Observer {
         plusButton.setOpaque(false);
         plusButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        plusButton.setRolloverIcon(plusIcon); // later load a different-colored icon if you want
+        plusButton.addActionListener((ActionEvent e) -> mainView.showDepositPanel());
 
 
         plusPanel.add(plusButton, new GridBagConstraints());
@@ -254,6 +259,16 @@ public class Dashboard extends JPanel implements Observer {
             if (i < svgPaths.length - 1) {
                 menuBarDashboard.add(Box.createHorizontalStrut(10));
             }
+        }
+
+        MenuItemButtonDashboard sendButton = getMenuItemButton("Send");
+        if (sendButton != null) {
+            sendButton.addActionListener(() -> mainView.showTransferPanel());
+        }
+
+        MenuItemButtonDashboard addMoreButton = getMenuItemButton("Add More");
+        if (addMoreButton != null) {
+            addMoreButton.addActionListener(() -> mainView.showDepositPanel());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.leshka_and_friends.lgvb.view.components.panels;
 
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.components.*;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
@@ -14,6 +15,7 @@ public class DepositPanel extends JPanel {
 
     private CardLayout cardLayout;
     private JPanel cardContainer;
+    private MainView mainView;
 
     // Amount page components
     private RoundedPanel amountPanel;
@@ -30,7 +32,8 @@ public class DepositPanel extends JPanel {
     private RoundedButton btnBack;
     private RoundedButton btnConfirm;
 
-    public DepositPanel() {
+    public DepositPanel(MainView mainView) {
+        this.mainView = mainView;
         cardLayout = new CardLayout();
         cardContainer = new JPanel(cardLayout);
         cardContainer.setOpaque(false);
@@ -53,10 +56,14 @@ public class DepositPanel extends JPanel {
             cardLayout.show(cardContainer, "CONFIRM_PAGE");
         });
 
-        btnBack.addActionListener(e -> cardLayout.show(cardContainer, "AMOUNT_PAGE"));
+        btnBack.addActionListener(e -> {
+            amountField.setText("");
+            mainView.showDashboard();
+        });
 
         btnCancel.addActionListener(e -> {
             amountField.setText("");
+            mainView.showDashboard();
         });
 
         btnConfirm.addActionListener(e -> {

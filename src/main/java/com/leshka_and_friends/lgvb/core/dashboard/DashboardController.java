@@ -6,13 +6,12 @@ package com.leshka_and_friends.lgvb.core.dashboard;
 
 import com.leshka_and_friends.lgvb.view.components.panels.DepositPanel;
 import com.leshka_and_friends.lgvb.view.components.panels.TransferPanel;
-import com.leshka_and_friends.lgvb.view.testUI.DepositTestView;
 import com.leshka_and_friends.lgvb.core.app.AppFacade;
 import com.leshka_and_friends.lgvb.view.MainView;
-import com.leshka_and_friends.lgvb.view.testUI.TransferTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.*;
 
 /**
@@ -26,45 +25,37 @@ public class DashboardController {
         this.facade = facade;
         this.mainView = mainView;
 
-        mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setSize(1920, 1080);
-            DepositPanel depositPanel = new DepositPanel();
-            frame.add(depositPanel);
-            frame.pack();
-            frame.setVisible(true);
+        DepositPanel depositPanel = mainView.getDepositPanel();
+        TransferPanel transferPanel = mainView.getTransferPanel();
 
-            depositPanel.getBtnConfirm().addActionListener(ca -> {
-                try {
-                    facade.deposit(facade.getSessionManager().getCurrentSession().getWallet(),
-                            depositPanel.getAmountField().getAmountValue()
-                    );
-                } catch (Exception ex) {
-                    OutputUtils.showError("Error occured during deposit:\n" + ex.getMessage());
-                }
-            });
+        mainView.getDashboardPanel().getPlusButton().addActionListener((ActionEvent e) -> {
+            mainView.showDepositPanel();
         });
 
         mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setSize(1920, 1080);
-            TransferPanel transferPanel = new TransferPanel();
-            frame.add(transferPanel);
-            frame.pack();
-            frame.setVisible(true);
-
-            transferPanel.getBtnConfirm().addActionListener(ca -> {
-                try {
-                    String recipientEmail = transferPanel.getFieldRecipient().getText().trim();
-                    double transferAmount = transferPanel.getAmountField().getAmountValue();
-
-                    facade.transfer(facade.getSessionManager().getCurrentSession().getWallet(), recipientEmail, transferAmount);
-                } catch (Exception ex) {
-                    OutputUtils.showError("Error occured during transfer:\n" + ex.getMessage());
-                }
-            });
+            mainView.showTransferPanel();
         });
+
+        depositPanel.getBtnConfirm().addActionListener(e -> {
+            try {
+                facade.deposit(facade.getSessionManager().getCurrentSession().getWallet(),
+                        depositPanel.getAmountField().getAmountValue());
+                OutputUtils.showInfo("Deposit Success!");
+            } catch (Exception ex) {
+                OutputUtils.showError("Error occured during deposit:\n" + ex.getMessage());
+            }
+        });
+
+        transferPanel.getBtnConfirm().addActionListener(e -> {
+            try {
+                String recipientEmail = transferPanel.getFieldRecipient().getText().trim();
+                double transferAmount = transferPanel.getAmountField().getAmountValue();
+                facade.transfer(facade.getSessionManager().getCurrentSession().getWallet(), recipientEmail, transferAmount);
+                OutputUtils.showInfo("Transfer Success!");
+            } catch (Exception ex) {
+                OutputUtils.showError("Error occured during transfer:\n" + ex.getMessage());
+            }
+        });
+
     }
 }
