@@ -2,9 +2,10 @@ package com.leshka_and_friends.lgvb.core.transaction;
 
 public enum TransactionType {
     // Enum constants with their corresponding display/db string and icon
-    DEPOSIT("deposit", "💰"),
-    TRANSFER("transfer", "💸"),
-    PAY_BILLS("pay_bills", "🛒");
+    DEPOSIT("Deposit", "💰"),
+    SENT("Sent", "💸"),
+    RECEIVED("Received", "💰"),
+    PAY_BILLS("Pay Bills", "🛒");
 
     private final String strValue;
     private final String icon;

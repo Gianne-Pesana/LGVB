@@ -17,7 +17,7 @@ public class TransactionDAO {
 
             String sql = "INSERT INTO transactions (wallet_id, transaction_type_id, amount, related_wallet_id, status) "
                        + "VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setInt(1, transaction.getWalletId());
                 stmt.setInt(2, typeId);
                 stmt.setDouble(3, transaction.getAmount());
@@ -26,8 +26,19 @@ public class TransactionDAO {
                 } else {
                     stmt.setNull(4, Types.INTEGER);
                 }
-                stmt.setString(5, transaction.getStatus().name());
-                return stmt.executeUpdate() > 0;
+                stmt.setString(5, transaction.getStatus().name().toLowerCase());
+                
+                int affectedRows = stmt.executeUpdate();
+
+                if (affectedRows > 0) {
+                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            transaction.setTransactionId(generatedKeys.getInt(1));
+                        }
+                    }
+                    return true;
+                }
+                return false;
             }
         }
     }
@@ -128,7 +139,7 @@ public class TransactionDAO {
 
     // Helper: get transaction_type_id from name
     private int getTransactionTypeId(Connection connection, String typeName) throws SQLException {
-        String sql = "SELECT transaction_type_id FROM transaction_types WHERE name = ?";
+        String sql = "SELECT transaction_type_id FROM transaction_types WHERE LOWER(name) = LOWER(?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, typeName);
             try (ResultSet rs = stmt.executeQuery()) {

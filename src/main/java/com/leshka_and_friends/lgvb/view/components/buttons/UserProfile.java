@@ -1,8 +1,8 @@
 package com.leshka_and_friends.lgvb.view.components.buttons;
 
-import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
+import com.leshka_and_friends.lgvb.view.components.dialogs.LogoutConfirmationDialog;
 import com.leshka_and_friends.lgvb.view.components.panels.AvatarPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class UserProfile extends JPanel {
@@ -19,9 +18,8 @@ public class UserProfile extends JPanel {
     private final AvatarPanel avatarPanel;
     private final JLabel profileName;
     private Runnable onLogoutAction;
-
-    private Color normalBackground;
-    private Color hoverBackground;
+    private JPopupMenu popupMenu;
+    private Timer hideTimer;
 
     private final int borderSpacing = UIScale.scale(10);
     private final int panelHeight = UIScale.scale(45);
@@ -30,18 +28,15 @@ public class UserProfile extends JPanel {
     public UserProfile() {
         profileName = new JLabel("User Profile");
 
-        // Use JPanel instead of RoundedPanel for simplicity; rounded effect handled in paintComponent
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setOpaque(false);
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        // Colors
         ThemeManager.putThemeAwareProperty(this, "background: $LGVB.primary");
 
         setBorder(BorderFactory.createEmptyBorder(UIScale.scale(borderSpacing), UIScale.scale(borderSpacing),
                 UIScale.scale(borderSpacing), UIScale.scale(borderSpacing)));
 
-        // Avatar
         int usableHeight = panelHeight - 2 * borderSpacing;
         int avatarSize = (int) (usableHeight * profileScale);
 
@@ -54,42 +49,44 @@ public class UserProfile extends JPanel {
         profileName.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         add(avatarPanel);
-
-        // Spacing
         add(Box.createRigidArea(new Dimension(UIScale.scale(20), 0)));
 
-        // Profile name
         ThemeManager.putThemeAwareProperty(profileName, "foreground: $LGVB.foreground");
         profileName.setFont(FontLoader.getInter(14f));
         add(profileName);
 
-        // Hover effect
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                showLogoutMenu(e.getComponent());
+                if (popupMenu != null && popupMenu.isShowing()) {
+                    popupMenu.setVisible(false);
+                } else {
+                    showLogoutMenu(e.getComponent());
+                }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
                 setBackground(UIManager.getColor("Button.hover"));
+                if (hideTimer != null && hideTimer.isRunning()) {
+                    hideTimer.stop();
+                }
                 repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 setBackground(UIManager.getColor("LGVB.primary"));
+                if (popupMenu != null && popupMenu.isShowing()) {
+                    hideTimer.restart();
+                }
                 repaint();
             }
         });
 
-        avatarPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-        profileName.setAlignmentY(Component.CENTER_ALIGNMENT);
-
         setPreferredSize(new Dimension(UIScale.scale(228), panelHeight));
-        setMaximumSize(new Dimension(UIScale.scale(228), panelHeight)); // prevent stretching
+        setMaximumSize(new Dimension(UIScale.scale(228), panelHeight));
         setMinimumSize(new Dimension(UIScale.scale(228), panelHeight));
-
     }
 
     @Override
@@ -110,7 +107,7 @@ public class UserProfile extends JPanel {
     }
 
     private void showLogoutMenu(Component invoker) {
-        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu = new JPopupMenu();
         popupMenu.putClientProperty(FlatClientProperties.STYLE, "arc: 12");
 
         JMenuItem logoutItem = new JMenuItem("Logout");
@@ -118,18 +115,31 @@ public class UserProfile extends JPanel {
         logoutItem.setHorizontalAlignment(SwingConstants.CENTER);
         logoutItem.addActionListener(e -> {
             if (onLogoutAction != null) {
-                onLogoutAction.run();
+                JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                LogoutConfirmationDialog.showLogoutDialog(parentFrame, () -> onLogoutAction.run());
             }
         });
 
         popupMenu.add(logoutItem);
 
-        // Set the width to match the invoker component
+        hideTimer = new Timer(2000, e -> popupMenu.setVisible(false));
+        hideTimer.setRepeats(false);
+
+        popupMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                hideTimer.stop();
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                hideTimer.restart();
+            }
+        });
+
         int width = invoker.getWidth();
         int height = popupMenu.getPreferredSize().height;
         popupMenu.setPreferredSize(new Dimension(width, height));
 
-        // Show the popup above the component
         popupMenu.show(invoker, 0, -height - 5);
     }
 

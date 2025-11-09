@@ -13,6 +13,7 @@ import com.leshka_and_friends.lgvb.utils.StringUtils;
 import com.leshka_and_friends.lgvb.view.authpage.AuthPage;
 import com.leshka_and_friends.lgvb.view.authpage.LoginPanel;
 import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
+import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
 import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
 import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
@@ -46,11 +47,14 @@ public class AuthController {
     public AuthController(AppController appController) {
         this.appController = appController;
 
+        // Get shared services from the locator
+        walletService = ServiceLocator.getInstance().getService(WalletService.class);
+        cardService = ServiceLocator.getInstance().getService(CardService.class);
+        customerService = ServiceLocator.getInstance().getService(CustomerService.class);
+
+        // Auth-specific services can be created here
         userService = new UserService(new UserDAO());
-        walletService = new WalletService(new WalletDAO());
-        cardService = new CardService(new CardDAO());
         authService = new AuthService(userService);
-        customerService = new CustomerService(walletService, cardService);
         registrationService = new RegistrationService(userService, walletService, cardService);
     }
 

@@ -157,4 +157,4 @@ CREATE TABLE inquiries (
 -- ==============================
 INSERT INTO account_types (name) VALUES ('savings'), ('checking');
 INSERT INTO card_types (name) VALUES ('debit'), ('credit'), ('prepaid'), ('virtual');
-INSERT INTO transaction_types (name) VALUES ('deposit'), ('withdrawal'), ('transfer');
+INSERT INTO transaction_types (name) VALUES ('Deposit'), ('Sent'), ('Received'), ('Pay Bills');

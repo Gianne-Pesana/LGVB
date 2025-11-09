@@ -1,11 +1,16 @@
 package com.leshka_and_friends.lgvb.core.wallet;
 
 import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
+import com.leshka_and_friends.lgvb.core.transaction.Transaction;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionStatus;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionType;
 import com.leshka_and_friends.lgvb.exceptions.PersistenceException;
 import com.leshka_and_friends.lgvb.notification.NotificationManager;
 
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 public class WalletService {
@@ -14,11 +19,13 @@ public class WalletService {
     private final double maximumDepositAmount = 500_000.00;
 
     private final WalletDAO walletRepo;
+    private final TransactionService transactionService;
     private static final String CHAR_POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final SecureRandom random = new SecureRandom();
 
-    public WalletService(WalletDAO walletRepo) {
+    public WalletService(WalletDAO walletRepo, TransactionService transactionService) {
         this.walletRepo = walletRepo;
+        this.transactionService = transactionService;
     }
 
     public Wallet getWalletByUserId(int userId) {
@@ -59,8 +66,16 @@ public class WalletService {
 
         try {
             wallet.deposit(amount);
-//            wallet.addToBalance(amount);
             walletRepo.updateWalletBalance(wallet.getWalletId(), wallet.getBalance());
+
+            // Record transaction
+            Transaction transaction = new Transaction();
+            transaction.setWalletId(wallet.getWalletId());
+            transaction.setTransactionType(TransactionType.DEPOSIT);
+            transaction.setAmount(amount);
+            transaction.setTimestamp(Timestamp.from(Instant.now()));
+            transaction.setStatus(TransactionStatus.SUCCESS);
+            transactionService.saveTransaction(transaction);
 
             // Notify UI to refresh
             NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
@@ -90,6 +105,29 @@ public class WalletService {
             recipient.deposit(amount);
             walletRepo.updateWalletBalance(sender.getWalletId(), sender.getBalance());
             walletRepo.updateWalletBalance(recipient.getWalletId(), recipient.getBalance());
+
+            // Record transactions
+            Timestamp now = Timestamp.from(Instant.now());
+
+            // Debit from sender (as a SENT)
+            Transaction senderTx = new Transaction();
+            senderTx.setWalletId(sender.getWalletId());
+            senderTx.setTransactionType(TransactionType.SENT);
+            senderTx.setAmount(amount);
+            senderTx.setRelatedWalletId(recipient.getWalletId());
+            senderTx.setTimestamp(now);
+            senderTx.setStatus(TransactionStatus.SUCCESS);
+            transactionService.saveTransaction(senderTx);
+
+            // Credit to recipient (as a RECEIVED)
+            Transaction recipientTx = new Transaction();
+            recipientTx.setWalletId(recipient.getWalletId());
+            recipientTx.setTransactionType(TransactionType.RECEIVED);
+            recipientTx.setAmount(amount);
+            recipientTx.setRelatedWalletId(sender.getWalletId());
+            recipientTx.setTimestamp(now);
+            recipientTx.setStatus(TransactionStatus.SUCCESS);
+            transactionService.saveTransaction(recipientTx);
 
             // Notify UI to refresh
             NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);

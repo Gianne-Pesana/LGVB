@@ -28,8 +28,8 @@ public class ServiceRegistry {
         ServiceLocator.getInstance().registerService(LoanDAO.class, new LoanDAO());
 
         // Services
-        ServiceLocator.getInstance().registerService(WalletService.class, new WalletService(ServiceLocator.getInstance().getService(WalletDAO.class)));
         ServiceLocator.getInstance().registerService(TransactionService.class, new TransactionService(ServiceLocator.getInstance().getService(TransactionDAO.class)));
+        ServiceLocator.getInstance().registerService(WalletService.class, new WalletService(ServiceLocator.getInstance().getService(WalletDAO.class), ServiceLocator.getInstance().getService(TransactionService.class)));
         ServiceLocator.getInstance().registerService(CardService.class, new CardService(ServiceLocator.getInstance().getService(CardDAO.class)));
         ServiceLocator.getInstance().registerService(LoanService.class, new LoanServiceImpl(ServiceLocator.getInstance().getService(LoanDAO.class), ServiceLocator.getInstance().getService(WalletService.class)));
         ServiceLocator.getInstance().registerService(SavingService.class, new SavingService());
