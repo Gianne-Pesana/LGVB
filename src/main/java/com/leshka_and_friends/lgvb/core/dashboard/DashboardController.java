@@ -26,10 +26,6 @@ public class DashboardController {
         this.facade = facade;
         this.mainView = mainView;
 
-//        testDeposit();
-//        tranferTest();
-
-
         mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
             JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,44 +63,6 @@ public class DashboardController {
                     facade.transfer(facade.getSessionManager().getCurrentSession().getWallet(), recipientEmail, transferAmount);
                 } catch (Exception ex) {
                     OutputUtils.showError("Error occured during transfer:\n" + ex.getMessage());
-                }
-            });
-        });
-    }
-
-    private void testDeposit() {
-        mainView.getDashboardPanel().getPlusButton().addActionListener(e -> {
-            DepositTestView tv = new DepositTestView();
-            tv.setVisible(true);
-
-            tv.depositButton.addActionListener(tve -> {
-                try {
-                    facade.deposit(facade.getSessionManager().getCurrentSession().getWallet(), Double.parseDouble(tv.amountField.getText()));
-                    tv.statusLabel.setText("✅ Deposited: $" + String.format("%.2f", tv.depositAmount));
-                    tv.statusLabel.setForeground(Color.BLUE);
-
-                } catch (Exception ex) {
-                    OutputUtils.showError("Error occured during deposit:\n" + ex.getMessage());
-                    tv.statusLabel.setText("Could not deposit!");
-                    tv.statusLabel.setForeground(Color.RED);
-                }
-            });
-        });
-    }
-
-    public void tranferTest() {
-        mainView.getDashboardPanel().getMenuItemButton("Send").addActionListener(() -> {
-            System.out.println("Send Btn Clicked");
-            TransferTestView view = new TransferTestView();
-            view.setVisible(true);
-            view.getTransferButton().addActionListener(ae -> {
-                try {
-                    String recipientEmail = view.getEmailField().getText().trim();
-                    double amount = Double.parseDouble(view.getAmountField().getText().trim());
-                    facade.transfer(facade.getSessionManager().getCurrentSession().getWallet(), recipientEmail, amount);
-                    OutputUtils.showInfo("Transfer successful!");
-                } catch (Exception e) {
-                    OutputUtils.showError(e.getMessage());
                 }
             });
         });

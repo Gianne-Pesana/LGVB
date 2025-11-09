@@ -22,20 +22,11 @@ public class MainController {
         dashboardController = new DashboardController(facade, mainView);
         loanController = new LoanController(facade, mainView);
         savingsController = new SavingsController(facade, mainView);
-        logout();
 
         // Register dashboard to listen for updates
         NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
         notificationManager.addObserver(mainView.getDashboardPanel());
 
-//        TestTransferView transferView = new TestTransferView();
-//        transferController = new TransferController(facade, transferView);
-//        transferView.setVisible(true);
     }
 
-    public void logout() {
-        LogoutConfirmationDialog.showLogoutDialog(mainView, () -> {
-            System.out.println("logged out");
-        });
-    }
 }

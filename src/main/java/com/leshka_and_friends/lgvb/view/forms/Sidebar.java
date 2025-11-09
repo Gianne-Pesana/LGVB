@@ -205,6 +205,10 @@ public class Sidebar extends JPanel {
 
     }
 
+    public void addLogoutListener(Runnable action) {
+        userProfileItem.addLogoutListener(action);
+    }
+
     private void initMenuBehavior() {
         menuItems = new MenuItemButton[]{dashboardItem, walletItem, loanReqItem, cardsItem};
         setSelectedMenu(dashboardItem);

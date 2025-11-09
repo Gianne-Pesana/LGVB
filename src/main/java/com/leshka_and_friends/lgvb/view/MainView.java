@@ -4,7 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.view;
 
-import com.leshka_and_friends.lgvb.controller.SettingsController;
+import com.leshka_and_friends.lgvb.preferences.SettingsController;
 import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
@@ -177,5 +177,9 @@ public class MainView extends JFrame {
 
     public LoanTestPanel getLoanPanelTest() {
         return loanPanelTest;
+    }
+
+    public void addLogoutListener(Runnable action) {
+        sidebar.addLogoutListener(action);
     }
 }

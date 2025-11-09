@@ -18,6 +18,7 @@ public class UserProfile extends JPanel {
 
     private final AvatarPanel avatarPanel;
     private final JLabel profileName;
+    private Runnable onLogoutAction;
 
     private Color normalBackground;
     private Color hoverBackground;
@@ -65,6 +66,11 @@ public class UserProfile extends JPanel {
         // Hover effect
         addMouseListener(new MouseAdapter() {
             @Override
+            public void mousePressed(MouseEvent e) {
+                showLogoutMenu(e.getComponent());
+            }
+
+            @Override
             public void mouseEntered(MouseEvent e) {
                 setBackground(UIManager.getColor("Button.hover"));
                 repaint();
@@ -97,6 +103,34 @@ public class UserProfile extends JPanel {
 
         super.paintComponent(g2);
         g2.dispose();
+    }
+
+    public void addLogoutListener(Runnable action) {
+        this.onLogoutAction = action;
+    }
+
+    private void showLogoutMenu(Component invoker) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.putClientProperty(FlatClientProperties.STYLE, "arc: 12");
+
+        JMenuItem logoutItem = new JMenuItem("Logout");
+        logoutItem.setFont(FontLoader.getInter(14f));
+        logoutItem.setHorizontalAlignment(SwingConstants.CENTER);
+        logoutItem.addActionListener(e -> {
+            if (onLogoutAction != null) {
+                onLogoutAction.run();
+            }
+        });
+
+        popupMenu.add(logoutItem);
+
+        // Set the width to match the invoker component
+        int width = invoker.getWidth();
+        int height = popupMenu.getPreferredSize().height;
+        popupMenu.setPreferredSize(new Dimension(width, height));
+
+        // Show the popup above the component
+        popupMenu.show(invoker, 0, -height - 5);
     }
 
     public void setUserProfile(String name, String resourcePath) {

@@ -45,6 +45,7 @@ public class AppController {
 
             MainView mainView = new MainView(customerService.buildCustomerDTO(user));
             session.setMainView(mainView); // Store main view in session
+            mainView.addLogoutListener(this::logout); // Add logout action
             
             if (user.isAdmin()) {
                 AdminTestView av = new AdminTestView(facade);
@@ -70,6 +71,12 @@ public class AppController {
     }
 
     public void logout() {
-
+        Session session = sessionManager.getCurrentSession();
+        if (session != null && session.getMainView() != null) {
+            session.getMainView().dispose();
+        }
+        sessionManager.endSession();
+        showLogin();
+        OutputUtils.showInfo("You have been logged out.");
     }
 }

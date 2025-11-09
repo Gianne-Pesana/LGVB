@@ -1,10 +1,8 @@
-package com.leshka_and_friends.lgvb.controller;
+package com.leshka_and_friends.lgvb.preferences;
 
 import com.leshka_and_friends.lgvb.auth.Session;
 import com.leshka_and_friends.lgvb.auth.SessionManager;
 import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
-import com.leshka_and_friends.lgvb.preferences.NotificationPreferences;
-import com.leshka_and_friends.lgvb.preferences.PreferencesManager;
 import com.leshka_and_friends.lgvb.view.settings.SettingsDialog;
 
 import javax.swing.*;
