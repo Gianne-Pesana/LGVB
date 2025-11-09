@@ -9,6 +9,7 @@ import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.forms.Dashboard;
 import com.leshka_and_friends.lgvb.view.forms.Sidebar;
 import com.leshka_and_friends.lgvb.view.forms.Wallet;
+import com.leshka_and_friends.lgvb.view.settings.SettingsDialog;
 import com.leshka_and_friends.lgvb.view.testUI.LoanTestPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
@@ -31,6 +32,7 @@ public class MainView extends JFrame {
     private TitlePanel loanPanel;
     private LoanTestPanel loanPanelTest;
     private TitlePanel cardsPanel;
+    private SettingsDialog settingsDialog;
 
     private int width;
     private int height;
@@ -45,6 +47,7 @@ public class MainView extends JFrame {
         initializeFrame();
         initializeSidebar();
         createContentPanels();
+        createDialogs();
         createMainContent();
 
         // Add split pane to frame
@@ -101,6 +104,11 @@ public class MainView extends JFrame {
             public void onSelectCards() {
                 contentLayout.show(mainContentPanel, "CARDS");
             }
+
+            @Override
+            public void onSelectSettings() {
+                settingsDialog.setVisible(true);
+            }
         });
     }
 
@@ -151,6 +159,10 @@ public class MainView extends JFrame {
         // Split pane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, mainContentPanel);
         splitPane.setDividerSize(0);
+    }
+
+    private void createDialogs() {
+        settingsDialog = new SettingsDialog(this);
     }
 
     public Dashboard getDashboardPanel() {

@@ -47,6 +47,7 @@ public class Sidebar extends JPanel {
         void onSelectWallet();
         void onSelectLoan();
         void onSelectCards();
+        void onSelectSettings();
     }
 
     private SelectionListener selectionListener;
