@@ -107,19 +107,34 @@ CREATE TABLE transactions (
 -- ==============================
 -- LOANS
 -- ==============================
+
 CREATE TABLE loans (
     loan_id INT AUTO_INCREMENT PRIMARY KEY,
     wallet_id INT NOT NULL,
-    amount_requested DECIMAL(15,2) NOT NULL,
-    amount_approved DECIMAL(15,2),
-    status ENUM('pending', 'approved', 'rejected', 'paid') NOT NULL,
-    requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    approved_by INT,
-    CONSTRAINT fk_loans_wallet FOREIGN KEY (wallet_id) REFERENCES wallets(wallet_id)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_loans_approver FOREIGN KEY (approved_by) REFERENCES users(user_id)
-        ON DELETE SET NULL ON UPDATE CASCADE
+    reference_number VARCHAR(50),
+    principal DECIMAL(15,2) NOT NULL,
+    remaining_balance DECIMAL(15,2),
+    interest_rate DECIMAL(5,2),
+    status ENUM('pending', 'active', 'overdue', 'closed'),
+    loan_type ENUM('personal', 'car', 'housing') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE car_loans (
+    loan_id INT PRIMARY KEY,
+    dealership_name VARCHAR(100),
+    vehicle_model VARCHAR(100),
+    vehicle_year INT,
+    FOREIGN KEY (loan_id) REFERENCES loans(loan_id)
+);
+
+CREATE TABLE housing_loans (
+    loan_id INT PRIMARY KEY,
+    developer_name VARCHAR(100),
+    property_address VARCHAR(255),
+    FOREIGN KEY (loan_id) REFERENCES loans(loan_id)
+);
+
 
 -- ==============================
 -- INQUIRIES

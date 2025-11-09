@@ -33,7 +33,7 @@ public class CustomerService {
         }
 
         // Fetch the card using the service
-        Card card = cardService.createCardForWallet(wallet.getWalletId());
+        Card card = cardService.getCardForWallet(wallet.getWalletId());
         if (card == null) {
             throw new AuthException("Wallet has no associated card.");
         }
