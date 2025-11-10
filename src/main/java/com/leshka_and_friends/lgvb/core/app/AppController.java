@@ -4,12 +4,14 @@ import com.leshka_and_friends.lgvb.auth.AuthController;
 import com.leshka_and_friends.lgvb.auth.Session;
 import com.leshka_and_friends.lgvb.auth.SessionManager;
 import com.leshka_and_friends.lgvb.auth.SessionWatcher;
+import com.leshka_and_friends.lgvb.core.admin.AdminController;
 import com.leshka_and_friends.lgvb.core.user.CustomerService;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.notification.NotificationManager;
 import com.leshka_and_friends.lgvb.preferences.PreferencesManager;
 import com.leshka_and_friends.lgvb.view.MainView;
+import com.leshka_and_friends.lgvb.view.admin.AdminDashboard;
 import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
@@ -48,8 +50,11 @@ public class AppController {
             mainView.addLogoutListener(this::logout); // Add logout action
             
             if (user.isAdmin()) {
-                AdminTestView av = new AdminTestView(facade);
-                av.setVisible(true);
+//                AdminTestView av = new AdminTestView(facade);
+//                av.setVisible(true);
+                AdminDashboard adminDashboard = new AdminDashboard();
+                AdminController adminController = new AdminController(facade, adminDashboard);
+                adminDashboard.setVisible(true);
             } else {
                 MainController mainController = new MainController(facade, mainView);
                 // Show the main view

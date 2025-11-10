@@ -98,10 +98,6 @@ public class Dashboard extends JPanel implements Observer {
     private JPanel createHeaderPanel() {
         // Reusing the existing HeaderFactory
         headerPanel = HeaderFactory.createDashboardHeader(customerdto.getFirstName());
-
-        // DHB's header has a different text, but for now, we use the factory.
-        // To match DHB exactly, we might need to change the title.
-        // headerPanel.setTitle("Hi, Leshka");
         return headerPanel;
     }
 
