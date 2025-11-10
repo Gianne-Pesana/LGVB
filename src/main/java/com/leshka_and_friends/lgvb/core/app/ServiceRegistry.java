@@ -1,6 +1,7 @@
 package com.leshka_and_friends.lgvb.core.app;
 
 import com.leshka_and_friends.lgvb.auth.SessionManager;
+import com.leshka_and_friends.lgvb.core.admin.AdminService;
 import com.leshka_and_friends.lgvb.core.card.CardDAO;
 import com.leshka_and_friends.lgvb.core.card.CardService;
 import com.leshka_and_friends.lgvb.core.loan.LoanDAO;
@@ -10,6 +11,8 @@ import com.leshka_and_friends.lgvb.core.savings.SavingService;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionDAO;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
 import com.leshka_and_friends.lgvb.core.user.CustomerService;
+import com.leshka_and_friends.lgvb.core.user.User;
+import com.leshka_and_friends.lgvb.core.user.UserDAO;
 import com.leshka_and_friends.lgvb.core.wallet.WalletDAO;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.notification.EmailNotification;
@@ -22,6 +25,8 @@ import javax.swing.*;
 public class ServiceRegistry {
     public static void registerServices() {
         // DAOs
+
+        ServiceLocator.getInstance().registerService(UserDAO.class, new UserDAO());
         ServiceLocator.getInstance().registerService(WalletDAO.class, new WalletDAO());
         ServiceLocator.getInstance().registerService(TransactionDAO.class, new TransactionDAO());
         ServiceLocator.getInstance().registerService(CardDAO.class, new CardDAO());
@@ -34,6 +39,7 @@ public class ServiceRegistry {
         ServiceLocator.getInstance().registerService(LoanService.class, new LoanServiceImpl(ServiceLocator.getInstance().getService(LoanDAO.class), ServiceLocator.getInstance().getService(WalletService.class)));
         ServiceLocator.getInstance().registerService(SavingService.class, new SavingService());
         ServiceLocator.getInstance().registerService(CustomerService.class, new CustomerService(ServiceLocator.getInstance().getService(WalletService.class), ServiceLocator.getInstance().getService(CardService.class)));
+        ServiceLocator.getInstance().registerService(AdminService.class, new AdminService(ServiceLocator.getInstance().getService(UserDAO.class), ServiceLocator.getInstance().getService(WalletDAO.class)));
 
         // Session Manager
         ServiceLocator.getInstance().registerService(SessionManager.class, new SessionManager());

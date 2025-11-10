@@ -19,4 +19,8 @@ public class OutputUtils {
     public static void showInfo(Component component, String message) {
         JOptionPane.showMessageDialog(component, message, "Info", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    public static int showConfirmationDialog(Component component, String message, String title) {
+        return JOptionPane.showConfirmDialog(component, message, title, JOptionPane.YES_NO_OPTION);
+    }
 }

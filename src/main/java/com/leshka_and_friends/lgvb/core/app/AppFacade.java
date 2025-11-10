@@ -1,6 +1,7 @@
 package com.leshka_and_friends.lgvb.core.app;
 
 import com.leshka_and_friends.lgvb.auth.SessionManager;
+import com.leshka_and_friends.lgvb.core.admin.AdminService;
 import com.leshka_and_friends.lgvb.core.user.User;
 import com.leshka_and_friends.lgvb.core.wallet.Wallet;
 import com.leshka_and_friends.lgvb.core.wallet.WalletFacade;
@@ -15,17 +16,20 @@ public class AppFacade {
     private final SavingFacade savingFacade;
     private final SessionManager sessionManager;
     private final NotificationManager notificationManager;
+    private final AdminService adminService;
 
     public AppFacade(WalletFacade walletFacade,
                      LoanFacade loanFacade,
                      SavingFacade savingFacade,
                      SessionManager sessionManager,
-                     NotificationManager notificationManager) {
+                     NotificationManager notificationManager,
+                     AdminService adminService) {
         this.walletFacade = walletFacade;
         this.loanFacade = loanFacade;
         this.savingFacade = savingFacade;
         this.sessionManager = sessionManager;
         this.notificationManager = notificationManager;
+        this.adminService = adminService;
     }
 
     // Example of a session touch (keep-alive)
@@ -74,4 +78,5 @@ public class AppFacade {
     public WalletFacade getWalletFacade() { return walletFacade; }
     public LoanFacade getLoanFacade() { return loanFacade; }
     public SavingFacade getSavingFacade() { return savingFacade; }
+    public AdminService getAdminService() { return adminService; }
 }

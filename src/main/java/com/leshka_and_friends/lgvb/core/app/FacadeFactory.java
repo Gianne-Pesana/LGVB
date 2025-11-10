@@ -1,6 +1,7 @@
 package com.leshka_and_friends.lgvb.core.app;
 
 import com.leshka_and_friends.lgvb.auth.SessionManager;
+import com.leshka_and_friends.lgvb.core.admin.AdminService;
 import com.leshka_and_friends.lgvb.core.loan.LoanFacade;
 import com.leshka_and_friends.lgvb.core.loan.LoanService;
 import com.leshka_and_friends.lgvb.core.loan.LoanServiceProxy;
@@ -19,7 +20,8 @@ public class FacadeFactory {
             createLoanFacade(user),
             createSavingFacade(),
             ServiceLocator.getInstance().getService(SessionManager.class),
-            ServiceLocator.getInstance().getService(NotificationManager.class)
+            ServiceLocator.getInstance().getService(NotificationManager.class),
+            ServiceLocator.getInstance().getService(AdminService.class)
         );
     }
 

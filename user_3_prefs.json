@@ -1,0 +1,5 @@
+{
+  "email": true,
+  "sms": true,
+  "push": true
+}

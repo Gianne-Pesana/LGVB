@@ -6,6 +6,7 @@ com\leshka_and_friends\lgvb\core\wallet\ActiveWalletState.class
 com\leshka_and_friends\lgvb\view\components\panels\TitlePanel.class
 com\leshka_and_friends\lgvb\view\themes\LGVBLight.class
 com\leshka_and_friends\lgvb\core\card\Card.class
+com\leshka_and_friends\lgvb\view\admin\AdminDashboard$2.class
 com\leshka_and_friends\lgvb\view\ui_utils\TextFieldUtils.class
 com\leshka_and_friends\lgvb\view\components\AmountField$1.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$2.class
@@ -33,10 +34,12 @@ com\leshka_and_friends\lgvb\core\savings\SavingsController.class
 com\leshka_and_friends\lgvb\view\ContentManager.class
 com\leshka_and_friends\lgvb\core\wallet\WalletStateFactory.class
 com\leshka_and_friends\lgvb\view\components\user\UserProfile.class
+com\leshka_and_friends\lgvb\view\components\panels\NotificationsPanel.class
 com\leshka_and_friends\lgvb\core\card\CardDAO.class
 com\leshka_and_friends\lgvb\view\authpage\AuthPage.class
 com\leshka_and_friends\lgvb\view\forms\TransactionGroupPanel.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.class
+com\leshka_and_friends\lgvb\core\admin\AdminController.class
 com\leshka_and_friends\lgvb\view\components\AmountField$AmountDocumentFilter.class
 com\leshka_and_friends\lgvb\view\testUI\TransferTestView.class
 com\leshka_and_friends\lgvb\view\forms\Sidebar$3.class
@@ -56,6 +59,7 @@ com\leshka_and_friends\lgvb\view\components\buttons\UserProfile.class
 com\leshka_and_friends\lgvb\core\wallet\WalletFacade.class
 com\leshka_and_friends\lgvb\view\components\AmountField.class
 com\leshka_and_friends\lgvb\view\ui_utils\OutputUtils.class
+com\leshka_and_friends\lgvb\view\admin\AdminDashboard$1.class
 com\leshka_and_friends\lgvb\view\components\buttons\DashboardButtonPanel.class
 com\leshka_and_friends\lgvb\core\wallet\FrozenWalletState.class
 com\leshka_and_friends\lgvb\utils\PasswordUtils.class
@@ -73,6 +77,7 @@ com\leshka_and_friends\lgvb\view\components\RoundedTextField.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkDialog.class
 com\leshka_and_friends\lgvb\core\dashboard\DashboardController.class
 com\leshka_and_friends\lgvb\auth\Session.class
+com\leshka_and_friends\lgvb\view\admin\AdminDashboard.class
 com\leshka_and_friends\lgvb\core\wallet\WalletDTO.class
 com\leshka_and_friends\lgvb\exceptions\RegistrationException.class
 com\leshka_and_friends\lgvb\core\card\CardDTO.class
@@ -103,6 +108,7 @@ com\leshka_and_friends\lgvb\core\wallet\Wallet.class
 com\leshka_and_friends\lgvb\core\loan\LoanFacade.class
 com\leshka_and_friends\lgvb\view\testUI\LoanTestPanel.class
 com\leshka_and_friends\lgvb\core\card\CardService.class
+com\leshka_and_friends\lgvb\view\admin\panels\ManageWalletsPanel.class
 com\leshka_and_friends\lgvb\view\testUI\DHB.class
 com\leshka_and_friends\lgvb\view\components\buttons\ThemeToggleButton.class
 com\leshka_and_friends\lgvb\core\loan\LoanServiceProxy.class
@@ -139,9 +145,11 @@ com\leshka_and_friends\lgvb\view\authpage\LoginPanel.class
 com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel$1.class
 com\leshka_and_friends\lgvb\view\components\panels\BalancePanel.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkPanel.class
+com\leshka_and_friends\lgvb\core\admin\AdminService.class
 com\leshka_and_friends\lgvb\core\transaction\TransactionDAO.class
 com\leshka_and_friends\lgvb\view\components\RoundedButton$1.class
 com\leshka_and_friends\lgvb\view\components\RoundedTextField$1.class
+com\leshka_and_friends\lgvb\view\admin\panels\UserInfoPanel.class
 com\leshka_and_friends\lgvb\utils\EncryptionUtils.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
 com\leshka_and_friends\lgvb\view\ui_utils\card\SVGCardIconHelper.class
@@ -155,6 +163,7 @@ com\leshka_and_friends\lgvb\auth\RegistrationService.class
 com\leshka_and_friends\lgvb\core\user\CustomerDTO.class
 com\leshka_and_friends\lgvb\core\transaction\TransactionService.class
 com\leshka_and_friends\lgvb\view\components\panels\CardPanel.class
+com\leshka_and_friends\lgvb\view\admin\ManageWalletsPanel.class
 com\leshka_and_friends\lgvb\view\forms\TransactionCard.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeGlobalDefaults.class
 com\leshka_and_friends\lgvb\view\forms\TransactionCard$1.class
