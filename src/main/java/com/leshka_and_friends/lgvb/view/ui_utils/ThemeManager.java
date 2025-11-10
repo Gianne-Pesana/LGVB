@@ -4,19 +4,15 @@
  */
 package com.leshka_and_friends.lgvb.view.ui_utils;
 
-import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.components.TransparentScrollbar;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.TransparentScrollbar;
 import com.leshka_and_friends.lgvb.view.themes.LGVBDark;
 import com.leshka_and_friends.lgvb.view.themes.LGVBLight;
-import com.leshka_and_friends.lgvb.view.themes.Theme;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Window;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;

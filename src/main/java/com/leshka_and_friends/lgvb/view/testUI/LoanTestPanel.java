@@ -1,6 +1,6 @@
 package com.leshka_and_friends.lgvb.view.testUI;
 
-import com.leshka_and_friends.lgvb.view.components.AmountField;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.AmountField;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

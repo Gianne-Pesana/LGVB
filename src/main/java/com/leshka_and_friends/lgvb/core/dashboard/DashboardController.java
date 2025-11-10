@@ -4,15 +4,13 @@
  */
 package com.leshka_and_friends.lgvb.core.dashboard;
 
-import com.leshka_and_friends.lgvb.view.components.panels.DepositPanel;
-import com.leshka_and_friends.lgvb.view.components.panels.TransferPanel;
+import com.leshka_and_friends.lgvb.view.shared_components.panels.DepositPanel;
+import com.leshka_and_friends.lgvb.view.shared_components.panels.TransferPanel;
 import com.leshka_and_friends.lgvb.core.app.AppFacade;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.*;
 
 /**
  * @author giann
@@ -20,13 +18,15 @@ import java.awt.*;
 public class DashboardController {
     AppFacade facade;
     MainView mainView;
+    private DepositPanel depositPanel;
+    private TransferPanel transferPanel;
 
     public DashboardController(AppFacade facade, MainView mainView) {
         this.facade = facade;
         this.mainView = mainView;
 
-        DepositPanel depositPanel = mainView.getDepositPanel();
-        TransferPanel transferPanel = mainView.getTransferPanel();
+        depositPanel = mainView.getDepositPanel();
+        transferPanel = mainView.getTransferPanel();
 
         mainView.getDashboardPanel().getPlusButton().addActionListener((ActionEvent e) -> {
             mainView.showDepositPanel();
@@ -36,6 +36,11 @@ public class DashboardController {
             mainView.showTransferPanel();
         });
 
+        handleDeposit();
+        handleTransfer();
+    }
+
+    private void handleDeposit() {
         depositPanel.getBtnConfirm().addActionListener(e -> {
             try {
                 facade.deposit(facade.getSessionManager().getCurrentSession().getWallet(),
@@ -45,7 +50,9 @@ public class DashboardController {
                 OutputUtils.showError("Error occured during deposit:\n" + ex.getMessage());
             }
         });
+    }
 
+    private void handleTransfer() {
         transferPanel.getBtnConfirm().addActionListener(e -> {
             try {
                 String recipientEmail = transferPanel.getFieldRecipient().getText().trim();
@@ -56,6 +63,5 @@ public class DashboardController {
                 OutputUtils.showError("Error occured during transfer:\n" + ex.getMessage());
             }
         });
-
     }
 }

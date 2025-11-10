@@ -5,8 +5,8 @@
 package com.leshka_and_friends.lgvb.view.authpage;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.leshka_and_friends.lgvb.view.components.RoundedButton;
-import com.leshka_and_friends.lgvb.view.components.RoundedTextField;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedButton;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedTextField;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
 import com.leshka_and_friends.lgvb.view.ui_utils.TextFieldUtils;

@@ -1,7 +1,9 @@
 package com.leshka_and_friends.lgvb.view.authpage;
 
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.components.*;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedButton;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedPasswordField;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedTextField;
 import com.leshka_and_friends.lgvb.view.ui_utils.*;
 
 import javax.swing.*;

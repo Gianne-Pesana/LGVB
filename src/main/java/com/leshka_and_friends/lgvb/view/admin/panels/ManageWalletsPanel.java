@@ -1,8 +1,8 @@
 package com.leshka_and_friends.lgvb.view.admin.panels;
 
-import com.leshka_and_friends.lgvb.view.components.RoundedButton;
-import com.leshka_and_friends.lgvb.view.components.RoundedTextField;
-import com.leshka_and_friends.lgvb.view.components.RoundedPanel;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedButton;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedTextField;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;

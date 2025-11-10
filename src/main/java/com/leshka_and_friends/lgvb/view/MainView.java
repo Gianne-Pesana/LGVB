@@ -6,11 +6,11 @@ package com.leshka_and_friends.lgvb.view;
 
 import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.preferences.SettingsController;
-import com.leshka_and_friends.lgvb.view.components.panels.DepositPanel;
-import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
-import com.leshka_and_friends.lgvb.view.components.panels.TransferPanel;
-import com.leshka_and_friends.lgvb.view.forms.Dashboard;
-import com.leshka_and_friends.lgvb.view.forms.Sidebar;
+import com.leshka_and_friends.lgvb.view.shared_components.panels.DepositPanel;
+import com.leshka_and_friends.lgvb.view.shared_components.panels.TitlePanel;
+import com.leshka_and_friends.lgvb.view.shared_components.panels.TransferPanel;
+import com.leshka_and_friends.lgvb.view.customer.dashboard.Dashboard;
+import com.leshka_and_friends.lgvb.view.customer.sidebar.Sidebar;
 import com.leshka_and_friends.lgvb.view.forms.Wallet;
 import com.leshka_and_friends.lgvb.view.testUI.LoanTestPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;

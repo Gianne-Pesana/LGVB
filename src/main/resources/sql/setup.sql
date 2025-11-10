@@ -135,23 +135,6 @@ CREATE TABLE housing_loans (
     FOREIGN KEY (loan_id) REFERENCES loans(loan_id)
 );
 
-
--- ==============================
--- INQUIRIES
--- ==============================
-CREATE TABLE inquiries (
-    inquiry_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    message TEXT NOT NULL,
-    status ENUM('open', 'resolved', 'closed') NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    resolved_by INT,
-    CONSTRAINT fk_inquiries_user FOREIGN KEY (user_id) REFERENCES users(user_id)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_inquiries_resolver FOREIGN KEY (resolved_by) REFERENCES users(user_id)
-        ON DELETE SET NULL ON UPDATE CASCADE
-);
-
 -- ==============================
 -- Insert default data for dynamic tables (not used)
 -- ==============================

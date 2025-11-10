@@ -5,7 +5,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.leshka_and_friends.lgvb.view.components.RoundedButton;
+import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedButton;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;

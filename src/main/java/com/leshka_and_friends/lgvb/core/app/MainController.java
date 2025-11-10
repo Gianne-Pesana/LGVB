@@ -5,7 +5,6 @@ import com.leshka_and_friends.lgvb.core.savings.SavingsController;
 import com.leshka_and_friends.lgvb.core.dashboard.DashboardController;
 import com.leshka_and_friends.lgvb.notification.NotificationManager;
 import com.leshka_and_friends.lgvb.view.MainView;
-import com.leshka_and_friends.lgvb.view.components.dialogs.LogoutConfirmationDialog;
 
 public class MainController {
     AppFacade facade;

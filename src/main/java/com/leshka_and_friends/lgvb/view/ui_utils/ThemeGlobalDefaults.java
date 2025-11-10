@@ -5,7 +5,7 @@
 package com.leshka_and_friends.lgvb.view.ui_utils;
 
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.components.TransparentScrollbar;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;

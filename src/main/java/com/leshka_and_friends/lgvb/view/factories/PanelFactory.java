@@ -1,8 +1,6 @@
 package com.leshka_and_friends.lgvb.view.factories;
 
-import com.leshka_and_friends.lgvb.view.components.panels.TitlePanel;
-import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
-import javax.swing.*;
+import com.leshka_and_friends.lgvb.view.shared_components.panels.TitlePanel;
 
 /**
  * Factory for creating main content panels by page.

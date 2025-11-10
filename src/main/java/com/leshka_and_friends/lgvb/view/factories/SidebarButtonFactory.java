@@ -4,11 +4,9 @@
  */
 package com.leshka_and_friends.lgvb.view.factories;
 
-import com.leshka_and_friends.lgvb.view.components.buttons.ThemeToggleButton;
-import com.leshka_and_friends.lgvb.view.components.buttons.MenuItemButton;
-import com.leshka_and_friends.lgvb.view.components.buttons.StaticItemButton;
-import com.leshka_and_friends.lgvb.view.components.panels.*;
-import javax.swing.JPanel;
+import com.leshka_and_friends.lgvb.view.shared_components.buttons.ThemeToggleButton;
+import com.leshka_and_friends.lgvb.view.shared_components.buttons.MenuItemButton;
+import com.leshka_and_friends.lgvb.view.shared_components.buttons.StaticItemButton;
 
 /**
  *

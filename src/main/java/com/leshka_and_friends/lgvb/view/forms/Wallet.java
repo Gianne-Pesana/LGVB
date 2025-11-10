@@ -4,7 +4,7 @@
  */
 package com.leshka_and_friends.lgvb.view.forms;
 
-import com.leshka_and_friends.lgvb.view.components.panels.HeaderPanel;
+import com.leshka_and_friends.lgvb.view.shared_components.panels.HeaderPanel;
 import com.leshka_and_friends.lgvb.view.factories.HeaderFactory;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;

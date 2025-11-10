@@ -1,9 +1,7 @@
 package com.leshka_and_friends.lgvb.view.admin;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.leshka_and_friends.lgvb.utils.DBConnection;
 import com.leshka_and_friends.lgvb.view.admin.panels.ManageWalletsPanel;
-import com.leshka_and_friends.lgvb.view.components.buttons.SidebarButtonPanel;
 import com.leshka_and_friends.lgvb.view.themes.LGVBDark;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
