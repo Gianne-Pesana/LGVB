@@ -4,8 +4,8 @@
  */
 package com.leshka_and_friends.lgvb.core.dashboard;
 
-import com.leshka_and_friends.lgvb.view.shared_components.panels.DepositPanel;
-import com.leshka_and_friends.lgvb.view.shared_components.panels.TransferPanel;
+import com.leshka_and_friends.lgvb.view.customer.dashboard.DepositPanel;
+import com.leshka_and_friends.lgvb.view.customer.dashboard.TransferPanel;
 import com.leshka_and_friends.lgvb.core.app.AppFacade;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;

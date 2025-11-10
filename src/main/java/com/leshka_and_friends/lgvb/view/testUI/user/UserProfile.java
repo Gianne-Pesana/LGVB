@@ -1,7 +1,7 @@
 package com.leshka_and_friends.lgvb.view.testUI.user;
 
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.shared_components.panels.AvatarPanel;
+import com.leshka_and_friends.lgvb.view.customer.sidebar.AvatarPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 

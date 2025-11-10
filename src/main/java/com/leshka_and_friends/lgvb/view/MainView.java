@@ -6,12 +6,11 @@ package com.leshka_and_friends.lgvb.view;
 
 import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.preferences.SettingsController;
-import com.leshka_and_friends.lgvb.view.shared_components.panels.DepositPanel;
+import com.leshka_and_friends.lgvb.view.customer.dashboard.DepositPanel;
 import com.leshka_and_friends.lgvb.view.shared_components.panels.TitlePanel;
-import com.leshka_and_friends.lgvb.view.shared_components.panels.TransferPanel;
+import com.leshka_and_friends.lgvb.view.customer.dashboard.TransferPanel;
 import com.leshka_and_friends.lgvb.view.customer.dashboard.Dashboard;
 import com.leshka_and_friends.lgvb.view.customer.sidebar.Sidebar;
-import com.leshka_and_friends.lgvb.view.forms.Wallet;
 import com.leshka_and_friends.lgvb.view.testUI.LoanTestPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
@@ -30,10 +29,8 @@ public class MainView extends JFrame {
 
     // Main content panels
     private Dashboard dashboardPanel;
-    private Wallet walletPanel;
     private TitlePanel loanPanel;
     private LoanTestPanel loanPanelTest;
-    private TitlePanel cardsPanel;
     private DepositPanel depositPanel;
     private TransferPanel transferPanel;
 
@@ -93,18 +90,8 @@ public class MainView extends JFrame {
             }
 
             @Override
-            public void onSelectWallet() {
-                contentLayout.show(mainContentPanel, "WALLET");
-            }
-
-            @Override
             public void onSelectLoan() {
                 contentLayout.show(mainContentPanel, "LOAN");
-            }
-
-            @Override
-            public void onSelectCards() {
-                contentLayout.show(mainContentPanel, "CARDS");
             }
 
             @Override
@@ -121,16 +108,9 @@ public class MainView extends JFrame {
         // Create dashboard panel with sample data
         dashboardPanel = new Dashboard(this, this.dto);
 
-        // Create other panels
-        String walletTitle = ThemeGlobalDefaults.getString("Panel.Wallet.title");
-        walletPanel = new Wallet();
-
         String loanTitle = ThemeGlobalDefaults.getString("Panel.Loan.title");
 //        loanPanel = new TitlePanel(loanTitle.isEmpty() ? "LOAN" : loanTitle);
         loanPanelTest = new LoanTestPanel();
-
-        String cardsTitle = ThemeGlobalDefaults.getString("Panel.Cards.title");
-        cardsPanel = new TitlePanel(cardsTitle.isEmpty() ? "CARDS" : cardsTitle);
 
         depositPanel = new DepositPanel(this);
         transferPanel = new TransferPanel(this);
@@ -152,10 +132,8 @@ public class MainView extends JFrame {
 
         // Add panels to card layout
         mainContentPanel.add(dashboardPanel, "DASHBOARD");
-        mainContentPanel.add(walletPanel, "WALLET");
 //        mainContentPanel.add(loanPanel, "LOAN");
         mainContentPanel.add(loanPanelTest, "LOAN");
-        mainContentPanel.add(cardsPanel, "CARDS");
         mainContentPanel.add(depositPanel, "DEPOSIT");
         mainContentPanel.add(transferPanel, "TRANSFER");
 
@@ -183,16 +161,8 @@ public class MainView extends JFrame {
         return dashboardPanel;
     }
 
-    public Wallet getWalletPanel() {
-        return walletPanel;
-    }
-
     public TitlePanel getLoanPanel() {
         return loanPanel;
-    }
-
-    public TitlePanel getCardsPanel() {
-        return cardsPanel;
     }
 
     public DepositPanel getDepositPanel() {

@@ -1,4 +1,4 @@
-package com.leshka_and_friends.lgvb.view.shared_components.panels;
+package com.leshka_and_friends.lgvb.view.customer.dashboard;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.leshka_and_friends.lgvb.core.card.CardDTO;

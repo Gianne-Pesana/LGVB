@@ -15,7 +15,6 @@ import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.core.wallet.Wallet;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.notification.Observer;
-import com.leshka_and_friends.lgvb.view.shared_components.panels.CardPanel;
 import com.leshka_and_friends.lgvb.view.shared_components.panels.HeaderPanel;
 import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedPanel;
 import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.TransparentScrollbar;

@@ -35,17 +35,15 @@ public class Sidebar extends JPanel {
     private MenuItemButton[] menuItems;
     private SidebarButtonPanel[] buttonItems;
 
-    private MenuItemButton dashboardItem, walletItem, loanReqItem, cardsItem;
-    private MenuItemButton accountItem, settingsItem;
+    private MenuItemButton dashboardItem, loanReqItem;
+    private MenuItemButton settingsItem;
     private ThemeToggleButton modeToggle;
 
     private UserProfile userProfileItem;
 
     public interface SelectionListener {
         void onSelectDashboard();
-        void onSelectWallet();
         void onSelectLoan();
-        void onSelectCards();
         void onSelectSettings();
     }
 
@@ -110,9 +108,7 @@ public class Sidebar extends JPanel {
         menuItemContainer.setLayout(new BoxLayout(menuItemContainer, BoxLayout.Y_AXIS));
         menuItemContainer.setOpaque(false);
         menuItemContainer.add(dashboardItem);
-        menuItemContainer.add(walletItem);
         menuItemContainer.add(loanReqItem);
-        menuItemContainer.add(cardsItem);
 
         // Create a separator panel
         JPanel separatorPanel = new JPanel();
@@ -130,7 +126,6 @@ public class Sidebar extends JPanel {
         JPanel optionItemContainer = new JPanel();
         optionItemContainer.setLayout(new BoxLayout(optionItemContainer, BoxLayout.Y_AXIS));
         optionItemContainer.setOpaque(false);
-        optionItemContainer.add(accountItem);
         optionItemContainer.add(settingsItem);
         optionItemContainer.add(modeToggle);
 
@@ -173,19 +168,10 @@ public class Sidebar extends JPanel {
         dashboardItem = SidebarButtonFactory.createMenuItem(
                 ThemeGlobalDefaults.getString("Menu.Dashboard.text"),
                 ThemeGlobalDefaults.getString("Menu.Dashboard.icon"), true);
-        walletItem = SidebarButtonFactory.createMenuItem(
-                ThemeGlobalDefaults.getString("Menu.Wallet.text"),
-                ThemeGlobalDefaults.getString("Menu.Wallet.icon"), true);
         loanReqItem = SidebarButtonFactory.createMenuItem(
                 ThemeGlobalDefaults.getString("Menu.Loan.text"),
                 ThemeGlobalDefaults.getString("Menu.Loan.icon"), true);
-        cardsItem = SidebarButtonFactory.createMenuItem(
-                ThemeGlobalDefaults.getString("Menu.Cards.text"),
-                ThemeGlobalDefaults.getString("Menu.Cards.icon"), true);
 
-        accountItem = SidebarButtonFactory.createMenuItem(
-                ThemeGlobalDefaults.getString("Menu.Profile.text"),
-                ThemeGlobalDefaults.getString("Menu.Profile.icon"), false);
         settingsItem = SidebarButtonFactory.createMenuItem(
                 ThemeGlobalDefaults.getString("Menu.Settings.text"),
                 ThemeGlobalDefaults.getString("Menu.Settings.icon"), false);
@@ -198,8 +184,8 @@ public class Sidebar extends JPanel {
         );
 
         buttonItems = new SidebarButtonPanel[]{
-            dashboardItem, walletItem, loanReqItem,
-            cardsItem, accountItem, settingsItem, modeToggle
+            dashboardItem, loanReqItem,
+            settingsItem, modeToggle
         };
 
     }
@@ -209,7 +195,7 @@ public class Sidebar extends JPanel {
     }
 
     private void initMenuBehavior() {
-        menuItems = new MenuItemButton[]{dashboardItem, walletItem, loanReqItem, cardsItem};
+        menuItems = new MenuItemButton[]{dashboardItem, loanReqItem};
         setSelectedMenu(dashboardItem);
 
         for (MenuItemButton item : menuItems) {
@@ -220,12 +206,8 @@ public class Sidebar extends JPanel {
                     if (selectionListener != null) {
                         if (item == dashboardItem) {
                             selectionListener.onSelectDashboard();
-                        } else if (item == walletItem) {
-                            selectionListener.onSelectWallet();
                         } else if (item == loanReqItem) {
                             selectionListener.onSelectLoan();
-                        } else if (item == cardsItem) {
-                            selectionListener.onSelectCards();
                         }
                     }
                 }
@@ -278,20 +260,8 @@ public class Sidebar extends JPanel {
         return dashboardItem;
     }
 
-    public MenuItemButton getWalletItem() {
-        return walletItem;
-    }
-
     public MenuItemButton getLoanReqItem() {
         return loanReqItem;
-    }
-
-    public MenuItemButton getCardsItem() {
-        return cardsItem;
-    }
-
-    public MenuItemButton getAccountItem() {
-        return accountItem;
     }
 
     public MenuItemButton getSettingsItem() {

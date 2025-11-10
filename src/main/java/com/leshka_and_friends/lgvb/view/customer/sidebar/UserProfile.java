@@ -3,7 +3,6 @@ package com.leshka_and_friends.lgvb.view.customer.sidebar;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
 import com.leshka_and_friends.lgvb.view.shared_components.dialogs.LogoutConfirmationDialog;
-import com.leshka_and_friends.lgvb.view.shared_components.panels.AvatarPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
 
