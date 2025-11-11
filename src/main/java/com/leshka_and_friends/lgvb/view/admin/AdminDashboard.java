@@ -2,6 +2,7 @@ package com.leshka_and_friends.lgvb.view.admin;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.leshka_and_friends.lgvb.view.admin.panels.ManageWalletsPanel;
+import com.leshka_and_friends.lgvb.view.admin.panels.WalletApplicationPanel;
 import com.leshka_and_friends.lgvb.view.themes.LGVBDark;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.SVGUtils;
@@ -25,6 +26,7 @@ public class AdminDashboard extends JFrame {
     private JLabel titleLabel;
 
     ManageWalletsPanel manageWalletsPanel;
+    WalletApplicationPanel walletApplicationPanel;
 
     private int width;
     private int height;
@@ -104,11 +106,7 @@ public class AdminDashboard extends JFrame {
 //            setForeground(ThemeGlobalDefaults.getColor("Label.foreground"));
 //        }});
 
-        JPanel walletPanel = new JPanel();
-        walletPanel.setBackground(ThemeGlobalDefaults.getColor("LGVB.background"));
-        walletPanel.add(new JLabel("Wallet Applications placeholder") {{
-            setForeground(ThemeGlobalDefaults.getColor("AdminDashboard.text.foreground"));
-        }});
+        walletApplicationPanel = new WalletApplicationPanel();
 
         JPanel loanPanel = new JPanel();
         loanPanel.setBackground(ThemeGlobalDefaults.getColor("LGVB.background"));
@@ -118,7 +116,7 @@ public class AdminDashboard extends JFrame {
 
         // Add tabs
         tabbedPane.addTab("Manage Wallets", manageWalletsPanel);
-        tabbedPane.addTab("Wallet Applications", walletPanel);
+        tabbedPane.addTab("Wallet Applications", walletApplicationPanel);
         tabbedPane.addTab("Loan Applications", loanPanel);
 
         // Set tab colors
@@ -128,22 +126,12 @@ public class AdminDashboard extends JFrame {
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new LGVBDark());
-            ThemeGlobalDefaults.apply();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Unexpected error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            AdminDashboard dashboard = new AdminDashboard();
-            dashboard.setVisible(true);
-        });
-    }
 
     public ManageWalletsPanel getManageWalletsPanel() {
         return manageWalletsPanel;
+    }
+
+    public WalletApplicationPanel getWalletApplicationPanel() {
+        return walletApplicationPanel;
     }
 }

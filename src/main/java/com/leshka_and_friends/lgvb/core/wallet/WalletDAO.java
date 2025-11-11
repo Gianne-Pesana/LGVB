@@ -1,5 +1,6 @@
 package com.leshka_and_friends.lgvb.core.wallet;
 
+import com.leshka_and_friends.lgvb.core.admin.WalletWithUser;
 import com.leshka_and_friends.lgvb.utils.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -115,6 +116,34 @@ public class WalletDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<WalletWithUser> getAllWalletApplications() {
+        List<WalletWithUser> list = new ArrayList<>();
+        String sql = "SELECT w.wallet_id, w.user_id, w.account_number, w.balance, w.status, w.created_at, " +
+                "u.email, u.first_name, u.last_name " +
+                "FROM wallets w JOIN users u ON w.user_id = u.user_id " +
+                "WHERE w.status = 'pending'";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                WalletWithUser w = new WalletWithUser();
+                w.walletId = rs.getInt("wallet_id");
+                w.userId = rs.getInt("user_id");
+                w.accountNumber = rs.getString("account_number");
+                w.balance = rs.getDouble("balance");
+                w.status = rs.getString("status");
+                w.createdAt = rs.getTimestamp("created_at");
+                w.email = rs.getString("email");
+                w.firstName = rs.getString("first_name");
+                w.lastName = rs.getString("last_name");
+                list.add(w);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public boolean walletExists(int walletId) throws SQLException {

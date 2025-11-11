@@ -31,21 +31,7 @@ public class LoanController {
 
         });
 
-        mainView.getLoanPanelTest().applyButton.addActionListener(ae -> {
-            try {
-                double amount = Integer.parseInt(mainView.getLoanPanelTest().amountField.getText());
-                String type = mainView.getLoanPanelTest().loanTypeCombo.getSelectedItem().toString();
 
-                facade.applyForLoan(
-                        facade.getSessionManager().getCurrentSession().getWallet().getWalletId(),
-                        amount,
-                        type
-                );
-
-            } catch (Exception ex) {
-                OutputUtils.showError(ex.getMessage());
-            }
-        });
 
     }
 }

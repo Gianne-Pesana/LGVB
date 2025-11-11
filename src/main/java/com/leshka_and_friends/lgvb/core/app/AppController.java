@@ -12,7 +12,6 @@ import com.leshka_and_friends.lgvb.notification.NotificationManager;
 import com.leshka_and_friends.lgvb.preferences.PreferencesManager;
 import com.leshka_and_friends.lgvb.view.MainView;
 import com.leshka_and_friends.lgvb.view.admin.AdminDashboard;
-import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
 public class AppController {

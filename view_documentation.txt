@@ -1,0 +1,150 @@
+# View Package Documentation
+
+This document provides an overview of the classes in the `view` package and its subpackages, detailing their purpose and role within the application's user interface.
+
+## admin
+
+This package contains the view components specifically designed for the administrative dashboard, allowing privileged users to manage various aspects of the application.
+
+- **AdminDashboard.java**: This class represents the main window or frame for the administrative interface. It typically orchestrates the display of different administrative functionalities, often using a `JTabbedPane` to organize and switch between various management panels like user management, transaction oversight, or system settings.
+- **panels/ManageWalletsPanel.java**: This panel provides the administrative interface for searching, viewing, and managing user wallets. It includes input fields for searching by user email, displays detailed user and wallet information, and offers actions such as freezing or closing a user's wallet.
+- **panels/UserInfoPanel.java**: A reusable sub-panel designed to display comprehensive information about a specific user and their associated wallet. It presents details such as the user's name, email, phone number, wallet balance, and wallet status in a structured and readable format.
+
+## authpage
+
+This package encapsulates all the view components related to user authentication processes, including login, registration, and two-factor authentication.
+
+- **AuthPage.java**: This is the primary frame for the authentication flow. It utilizes a `CardLayout` to seamlessly transition between different authentication stages, such as the login form, registration form, and two-factor authentication prompts, ensuring a smooth user experience during sign-in or sign-up.
+- **LoginPanel.java**: This panel presents the user with input fields for their credentials (e.g., email and password) to log into the application. It handles user input and typically triggers authentication logic via a controller.
+- **RegistrationPanel.java**: This panel provides a form for new users to create an account. It includes fields for personal details, password creation, and often a link to the terms and conditions.
+- **TermsPage.java**: A dedicated panel for displaying the application's terms and conditions or privacy policy. Users typically need to review and accept these before completing registration.
+- **TOTPpanel.java**: This panel is used for collecting the Time-based One-Time Password (TOTP) from users as part of a two-factor authentication (2FA) process, enhancing account security.
+- **TwoFALinkDialog.java**: A modal dialog that guides the user through setting up two-factor authentication. It typically displays a QR code that users can scan with an authenticator app and provides instructions for linking their account.
+- **TwoFALinkPanel.java**: A sub-panel, often embedded within `TwoFALinkDialog`, responsible for rendering the QR code and displaying the secret key necessary for users to configure their authenticator application for 2FA.
+
+## customer
+
+This package contains all the view components tailored for the regular customer-facing application interface, providing functionalities for managing personal finances.
+
+### customer/dashboard
+
+This subpackage contains components that form the main dashboard view for a customer, offering an overview of their financial status and quick access to common actions.
+
+- **BalancePanel.java**: Displays the customer's current account balance prominently, often with formatting for currency and readability.
+- **CardPanel.java**: Presents visual representations and key details of the customer's credit or debit cards linked to their account.
+- **Dashboard.java**: The central panel that aggregates and displays key information for the customer, such as recent transactions, account balances, and quick action buttons. It serves as the landing page after a successful login.
+- **DashboardButtonPanel.java**: A specialized panel containing interactive buttons for frequently performed actions directly from the dashboard, like making a deposit or initiating a transfer.
+- **DepositPanel.java**: A dedicated panel where customers can input details to deposit funds into their account, typically involving an amount and confirmation.
+- **MenuItemButtonDashboard.java**: A custom button component specifically designed for navigation within the dashboard, often featuring an icon and text, and indicating selection state.
+- **TransferPanel.java**: A panel enabling customers to securely transfer funds from their account to another recipient, requiring details such as the recipient's account and the transfer amount.
+
+### customer/notifications
+
+This subpackage manages the display of various notifications to the customer.
+
+- **NotificationCard.java**: A small, self-contained UI component that visually represents a single notification, displaying its message, timestamp, and potentially an icon or action button.
+- **NotificationsPanel.java**: A container panel that lists and organizes multiple `NotificationCard` components, providing a centralized view of all alerts and messages for the customer.
+
+### customer/settings
+
+This subpackage contains views related to customer account settings.
+
+- **SettingsDialog.java**: A modal dialog window that allows customers to view and modify their personal account settings, preferences, and security options.
+
+### customer/sidebar
+
+This subpackage defines the navigation sidebar components for the customer interface.
+
+- **AvatarPanel.java**: A small panel displaying the customer's profile picture or avatar, often clickable to access profile details.
+- **Sidebar.java**: The primary navigation component on the left side of the main application window. It contains menu items for different sections of the application (e.g., Dashboard, Loans, Settings) and user-specific information.
+- **UserProfile.java**: A component within the sidebar that displays a summary of the logged-in user's profile, typically showing their name and avatar, and often includes a logout option.
+
+### customer/transaction
+
+This subpackage handles the display and organization of customer transaction history.
+
+- **TransactionCard.java**: A UI component that visually represents a single financial transaction, showing details like amount, date, type, and recipient/sender.
+- **TransactionFeedPanel.java**: A panel that displays a chronological list or "feed" of all transactions, allowing customers to review their financial activity.
+- **TransactionGroupPanel.java**: A panel used to group related transactions, often by date or category, to improve readability and organization of the transaction feed.
+
+## factories
+
+This package contains factory classes, which are responsible for creating and configuring instances of various UI components, promoting modularity and reducing boilerplate code.
+
+- **HeaderFactory.java**: A factory class dedicated to creating standardized header panels for different views, ensuring consistent branding and layout across the application.
+- **PanelFactory.java**: A general-purpose factory for producing instances of various common panels, abstracting their creation logic.
+- **SidebarButtonFactory.java**: A specialized factory for creating and configuring the interactive buttons used within the application's sidebar navigation.
+
+## forms
+
+This package contains specific form-related view components.
+
+- **Wallet.java**: This panel is designed to display detailed information about a user's wallet, including its account number, current balance, and status. It serves as a dedicated view for wallet-specific details.
+
+## shared_components
+
+This package houses reusable UI components that are generic enough to be utilized across multiple parts of the application, both in customer and admin views, ensuring consistency and reducing code duplication.
+
+### shared_components/buttons
+
+This subpackage contains custom button implementations that provide enhanced styling or functionality beyond standard Swing `JButton`s.
+
+- **MenuItemButton.java**: A custom button designed for use as a menu item, often featuring custom styling for selected/unselected states, icons, and text.
+- **SidebarButtonPanel.java**: A specialized panel that acts as a container for buttons within the sidebar, managing their layout and appearance.
+- **StaticItemButton.java**: A button component intended for static, non-interactive display within a menu or sidebar, typically used for informational purposes rather than triggering actions.
+- **ThemeToggleButton.java**: A custom button that allows users to switch between different application themes (e.g., light mode and dark mode), providing visual feedback on the current theme.
+
+### shared_components/dialogs
+
+This subpackage contains custom dialog windows used for various user interactions.
+
+- **LogoutConfirmationDialog.java**: A modal dialog that appears when a user attempts to log out, prompting them to confirm their action before proceeding.
+
+### shared_components/modified_swing
+
+This subpackage contains custom Swing components that extend or modify the behavior and appearance of standard Swing components to fit the application's specific UI/UX requirements.
+
+- **AmountField.java**: A specialized text field designed for inputting monetary amounts, often including validation for numerical input and currency formatting.
+- **RoundedButton.java**: A custom `JButton` implementation that renders with rounded corners, providing a distinct visual style.
+- **RoundedFormattedTextField.java**: An extension of `JFormattedTextField` that features rounded corners, used for inputting formatted data like dates or numbers with a specific pattern.
+- **RoundedPanel.java**: A custom `JPanel` implementation that renders with rounded corners, used for creating visually distinct sections or containers.
+- **RoundedPasswordField.java**: A custom `JPasswordField` that displays with rounded corners, maintaining the application's aesthetic for secure input.
+- **RoundedTextField.java**: A custom `JTextField` that renders with rounded corners, providing a consistent visual style for text input fields.
+- **TransparentJScrollBar.java**: A custom `JScrollBar` implementation that is rendered with a transparent background, allowing underlying content to be partially visible.
+- **TransparentScrollbar.java**: Another custom scrollbar implementation, similar to `TransparentJScrollBar`, focusing on a transparent visual style.
+
+### shared_components/panels
+
+This subpackage contains generic panel components used for structuring layouts.
+
+- **HeaderPanel.java**: A reusable panel component typically placed at the top of a view, often containing titles, navigation elements, or user controls.
+- **TitlePanel.java**: A simple panel designed to display a prominent title or heading for a specific section or view within the application.
+
+### shared_components/switch_button
+
+This subpackage contains a custom switch UI component.
+
+- **SwitchButton.java**: A custom graphical toggle switch component, providing a visually appealing way for users to switch between two states (e.g., on/off, enabled/disabled).
+
+## themes
+
+This package defines the visual themes and styling rules for the entire application, allowing for easy switching between different aesthetic presentations.
+
+- **LGVBDark.java**: Implements the dark theme for the application, defining color schemes, font styles, and component appearances suitable for a dark mode.
+- **LGVBLight.java**: Implements the light theme for the application, defining color schemes, font styles, and component appearances suitable for a light mode.
+- **Theme.java**: An interface that defines the contract for any theme within the application. It specifies methods or properties that a theme must implement to provide consistent styling across all UI components.
+
+## ui_utils
+
+This package contains various utility classes that provide helper functions and common functionalities for UI-related tasks, such as formatting, loading resources, and managing themes.
+
+- **CardFormatter.java**: A utility class responsible for formatting and masking credit/debit card numbers for display, ensuring security and readability.
+- **ContentManager.java**: A utility class that helps manage and switch between different content panels within a main view, often used with `CardLayout` to control which panel is currently visible.
+- **FontLoader.java**: A utility class for loading custom fonts from application resources, making them available for use throughout the UI.
+- **ImageParser.java**: A utility class for efficiently parsing and loading image resources, handling different image formats and optimizing their display.
+- **MarkdownRenderer.java**: A utility class capable of rendering Markdown-formatted text into a displayable UI component, useful for rich text content.
+- **OutputUtils.java**: A utility class providing static methods for displaying various types of messages to the user, such as error messages, informational messages, and confirmation dialogs, ensuring consistent feedback.
+- **SVGUtils.java**: A utility class for loading, manipulating, and rendering SVG (Scalable Vector Graphics) images, providing crisp and scalable icons and graphics.
+- **TextFieldUtils.java**: A utility class offering helper methods for common operations and validations on text input fields, such as limiting input length or enforcing specific character sets.
+- **ThemeGlobalDefaults.java**: A class that stores global default values and configurations related to the application's theming, such as default colors, font sizes, and spacing, which can be accessed by all theme-aware components.
+- **ThemeManager.java**: A central utility class responsible for managing the application's active theme. It provides methods to switch themes, apply theme settings to components, and notify components of theme changes.

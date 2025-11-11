@@ -15,7 +15,6 @@ import com.leshka_and_friends.lgvb.view.authpage.LoginPanel;
 import com.leshka_and_friends.lgvb.view.authpage.RegistrationPanel;
 import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
 import com.leshka_and_friends.lgvb.view.authpage.TwoFALinkDialog;
-import com.leshka_and_friends.lgvb.view.testUI.AdminTestView;
 import com.leshka_and_friends.lgvb.view.ui_utils.OutputUtils;
 
 import java.time.LocalDate;
@@ -39,8 +38,8 @@ public class AuthController {
     private RegistrationPanel registrationPanel;
 
     // Testing-only credentials
-    private final String testEmail = "test123@lgvb.com";
-    private final char[] testPwd = "#Test12345678".toCharArray();
+    private final String testEmail = LGVB.testEmail;
+    private final char[] testPwd = LGVB.testPass;
     private final String testUsername = "test123";
     private final String testSecret = "JBSWY3DPEHPK3PXP";
 

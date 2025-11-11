@@ -1,5 +1,4 @@
 package com.leshka_and_friends.lgvb;
-import com.leshka_and_friends.lgvb.auth.AuthController;
 import com.leshka_and_friends.lgvb.core.app.AppController;
 import com.leshka_and_friends.lgvb.utils.DBConnection;
 import com.leshka_and_friends.lgvb.view.themes.*;
@@ -10,6 +9,8 @@ import javax.swing.*;
 public class LGVB {
 
     public static boolean testing = true;
+    public static String testEmail = "leshka@lgvb.com";
+    public static char[] testPass = "#Leshka12345678".toCharArray();
 
     public static void main(String[] args) {
         try {

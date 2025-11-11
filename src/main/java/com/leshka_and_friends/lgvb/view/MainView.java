@@ -11,7 +11,6 @@ import com.leshka_and_friends.lgvb.view.shared_components.panels.TitlePanel;
 import com.leshka_and_friends.lgvb.view.customer.dashboard.TransferPanel;
 import com.leshka_and_friends.lgvb.view.customer.dashboard.Dashboard;
 import com.leshka_and_friends.lgvb.view.customer.sidebar.Sidebar;
-import com.leshka_and_friends.lgvb.view.testUI.LoanTestPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
@@ -30,7 +29,6 @@ public class MainView extends JFrame {
     // Main content panels
     private Dashboard dashboardPanel;
     private TitlePanel loanPanel;
-    private LoanTestPanel loanPanelTest;
     private DepositPanel depositPanel;
     private TransferPanel transferPanel;
 
@@ -110,7 +108,6 @@ public class MainView extends JFrame {
 
         String loanTitle = ThemeGlobalDefaults.getString("Panel.Loan.title");
 //        loanPanel = new TitlePanel(loanTitle.isEmpty() ? "LOAN" : loanTitle);
-        loanPanelTest = new LoanTestPanel();
 
         depositPanel = new DepositPanel(this);
         transferPanel = new TransferPanel(this);
@@ -133,7 +130,6 @@ public class MainView extends JFrame {
         // Add panels to card layout
         mainContentPanel.add(dashboardPanel, "DASHBOARD");
 //        mainContentPanel.add(loanPanel, "LOAN");
-        mainContentPanel.add(loanPanelTest, "LOAN");
         mainContentPanel.add(depositPanel, "DEPOSIT");
         mainContentPanel.add(transferPanel, "TRANSFER");
 
@@ -171,10 +167,6 @@ public class MainView extends JFrame {
 
     public TransferPanel getTransferPanel() {
         return transferPanel;
-    }
-
-    public LoanTestPanel getLoanPanelTest() {
-        return loanPanelTest;
     }
 
     public void addLogoutListener(Runnable action) {

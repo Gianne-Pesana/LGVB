@@ -4,7 +4,6 @@ com\leshka_and_friends\lgvb\core\user\CustomerService.class
 com\leshka_and_friends\lgvb\core\wallet\ActiveWalletState.class
 com\leshka_and_friends\lgvb\view\themes\LGVBLight.class
 com\leshka_and_friends\lgvb\core\card\Card.class
-com\leshka_and_friends\lgvb\view\admin\AdminDashboard$2.class
 com\leshka_and_friends\lgvb\view\ui_utils\TextFieldUtils.class
 com\leshka_and_friends\lgvb\view\MainView.class
 com\leshka_and_friends\lgvb\core\wallet\WalletDAO.class
@@ -25,7 +24,6 @@ com\leshka_and_friends\lgvb\core\card\CardDAO.class
 com\leshka_and_friends\lgvb\view\authpage\AuthPage.class
 com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.class
 com\leshka_and_friends\lgvb\core\admin\AdminController.class
-com\leshka_and_friends\lgvb\view\testUI\TransferTestView.class
 com\leshka_and_friends\lgvb\core\wallet\WalletState.class
 com\leshka_and_friends\lgvb\view\ui_utils\MarkdownRenderer.class
 com\leshka_and_friends\lgvb\core\app\ServiceRegistry.class
@@ -40,9 +38,9 @@ com\leshka_and_friends\lgvb\core\wallet\FrozenWalletState.class
 com\leshka_and_friends\lgvb\utils\PasswordUtils.class
 com\leshka_and_friends\lgvb\preferences\NotificationPreferences.class
 com\leshka_and_friends\lgvb\core\app\MainController.class
-com\leshka_and_friends\lgvb\view\testUI\DepositTestView.class
 com\leshka_and_friends\lgvb\view\ui_utils\MarkdownRenderer$1.class
 com\leshka_and_friends\lgvb\core\savings\SavingService.class
+com\leshka_and_friends\lgvb\core\wallet\PendingWalletState.class
 com\leshka_and_friends\lgvb\core\wallet\ClosedWalletState.class
 com\leshka_and_friends\lgvb\core\wallet\WalletService.class
 com\leshka_and_friends\lgvb\view\authpage\TwoFALinkDialog.class
@@ -62,14 +60,10 @@ com\leshka_and_friends\lgvb\core\loan\types\HousingLoan.class
 com\leshka_and_friends\lgvb\view\ui_utils\CardFormatter.class
 com\leshka_and_friends\lgvb\view\factories\HeaderFactory.class
 com\leshka_and_friends\lgvb\utils\DBConnection.class
-com\leshka_and_friends\lgvb\view\testUI\LoanTestView.class
-com\leshka_and_friends\lgvb\view\testUI\AdminTestView.class
 com\leshka_and_friends\lgvb\core\wallet\Wallet.class
 com\leshka_and_friends\lgvb\core\loan\LoanFacade.class
-com\leshka_and_friends\lgvb\view\testUI\LoanTestPanel.class
 com\leshka_and_friends\lgvb\core\card\CardService.class
 com\leshka_and_friends\lgvb\view\admin\panels\ManageWalletsPanel.class
-com\leshka_and_friends\lgvb\view\testUI\DHB.class
 com\leshka_and_friends\lgvb\core\loan\LoanServiceProxy.class
 com\leshka_and_friends\lgvb\auth\AuthService$1.class
 com\leshka_and_friends\lgvb\core\user\UserDAO.class
@@ -101,7 +95,6 @@ com\leshka_and_friends\lgvb\view\admin\panels\UserInfoPanel.class
 com\leshka_and_friends\lgvb\utils\EncryptionUtils.class
 com\leshka_and_friends\lgvb\view\themes\LGVBDark.class
 com\leshka_and_friends\lgvb\core\user\UserDTO.class
-com\leshka_and_friends\lgvb\view\testUI\CardTest.class
 com\leshka_and_friends\lgvb\view\ui_utils\SVGUtils.class
 com\leshka_and_friends\lgvb\utils\AdminSeeder.class
 com\leshka_and_friends\lgvb\auth\RegistrationService.class

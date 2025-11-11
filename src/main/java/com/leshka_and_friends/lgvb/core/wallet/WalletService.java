@@ -1,5 +1,6 @@
 package com.leshka_and_friends.lgvb.core.wallet;
 
+import com.leshka_and_friends.lgvb.core.admin.WalletWithUser;
 import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
 import com.leshka_and_friends.lgvb.core.transaction.Transaction;
 import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
@@ -12,6 +13,8 @@ import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WalletService {
 
@@ -55,6 +58,15 @@ public class WalletService {
     public void updateWalletBalance(int walletId, double newBalance) throws SQLException {
         walletRepo.updateWalletBalance(walletId, newBalance);
     }
+
+    public void updateWalletStatus(int walletId, String newStatus) {
+        Wallet w = walletRepo.getWalletById(walletId);
+        if (w != null) {
+            w.setStatus(newStatus);
+            walletRepo.updateWallet(w);
+        }
+    }
+
 
     public void deposit(Wallet wallet, double amount)  {
         if (amount < minimumDepositAmount) {
@@ -135,5 +147,11 @@ public class WalletService {
         } catch (SQLException e) {
             throw new PersistenceException("Failed to transfer funds: " + e.getMessage(), e);
         }
+    }
+
+    public List<WalletWithUser> getAllWalletApplications() {
+        List<WalletWithUser> wallets = new ArrayList<>();
+        wallets = walletRepo.getAllWalletApplications();
+        return wallets;
     }
 }

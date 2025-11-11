@@ -16,6 +16,7 @@ public class ManageWalletsPanel extends JPanel {
     private RoundedButton searchButton;
     private RoundedButton freezeButton;
     private RoundedButton closeButton;
+    private RoundedButton activateButton;
 
     private JLabel lblAccountNumber;
     private JLabel lblStatus;
@@ -28,36 +29,48 @@ public class ManageWalletsPanel extends JPanel {
     private JLabel valCreatedAt;
 
     public ManageWalletsPanel() {
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(0, 20));
         setBackground(ThemeGlobalDefaults.getColor("Panel.background"));
+        setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
 
-        // Header/search area
-        RoundedPanel searchPanel = new RoundedPanel();
-        searchPanel.setBackground(ThemeGlobalDefaults.getColor("Panel.background"));
-        searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        // SEARCH SECTION
+        RoundedPanel searchPanel = new RoundedPanel(20);
+        ThemeManager.putThemeAwareProperty(searchPanel, "background: $Card1.background");
+        searchPanel.setLayout(new GridBagLayout());
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
-        searchField = new RoundedTextField(20);
-//        searchField.set("Enter Wallet ID...");
+        GridBagConstraints gbcSearch = new GridBagConstraints();
+        gbcSearch.insets = new Insets(5, 10, 5, 10);
+        gbcSearch.anchor = GridBagConstraints.WEST;
+
+        JLabel searchLabel = new JLabel("Enter email:");
+        ThemeManager.putThemeAwareProperty(searchLabel, "foreground: $Text.white");
+        searchLabel.setFont(FontLoader.getInter(15f));
+
+        searchField = new RoundedTextField(25);
         searchButton = new RoundedButton("Search");
+        ThemeManager.putThemeAwareProperty(searchButton, "background: $ManageWallets.button.search.background; foreground: $ManageWallets.button.search.foreground");
 
-        JLabel searchLabel = new JLabel("Enter Wallet Account Number:");
-        ThemeManager.putThemeAwareProperty(searchLabel, "foreground: $AdminDashboard.text.foreground");
-        searchLabel.setFont(FontLoader.getInter(14f));
+        gbcSearch.gridx = 0;
+        gbcSearch.gridy = 0;
+        searchPanel.add(searchLabel, gbcSearch);
 
-        searchPanel.add(searchLabel);
-        searchPanel.add(searchField);
-        searchPanel.add(searchButton);
+        gbcSearch.gridy = 1;
+        searchPanel.add(searchField, gbcSearch);
+
+        gbcSearch.gridx = 1;
+        searchPanel.add(searchButton, gbcSearch);
 
         add(searchPanel, BorderLayout.NORTH);
 
-        // Info panel
-        RoundedPanel infoPanel = new RoundedPanel();
-        ThemeManager.putThemeAwareProperty(infoPanel, "background: $LGVB.background");
+        // INFO SECTION
+        RoundedPanel infoPanel = new RoundedPanel(25);
+        ThemeManager.putThemeAwareProperty(infoPanel, "background: $Card1.background");
         infoPanel.setLayout(new GridBagLayout());
-        infoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 25, 10, 25);
         gbc.anchor = GridBagConstraints.WEST;
 
         lblAccountNumber = new JLabel("Account Number:");
@@ -73,52 +86,54 @@ public class ManageWalletsPanel extends JPanel {
         JLabel[] labels = {lblAccountNumber, lblStatus, lblUserEmail, lblCreatedAt};
         JLabel[] values = {valAccountNumber, valStatus, valUserEmail, valCreatedAt};
 
-        for (JLabel lbl : labels) ThemeManager.putThemeAwareProperty(lbl, "foreground: $AdminDashboard.text.foreground");
-        for (JLabel val : values) ThemeManager.putThemeAwareProperty(val, "foreground: $AdminDashboard.text.foreground");
+        for (JLabel lbl : labels) {
+            ThemeManager.putThemeAwareProperty(lbl, "foreground: $Text.white");
+            lbl.setFont(FontLoader.getInter(15f));
+        }
+        for (JLabel val : values) {
+            ThemeManager.putThemeAwareProperty(val, "foreground: $Text.white");
+            val.setFont(FontLoader.getInter(15f));
+        }
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        infoPanel.add(lblAccountNumber, gbc);
-        gbc.gridx = 1;
-        infoPanel.add(valAccountNumber, gbc);
+        gbc.gridx = 0; gbc.gridy = 0; infoPanel.add(lblAccountNumber, gbc);
+        gbc.gridx = 1; infoPanel.add(valAccountNumber, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        infoPanel.add(lblStatus, gbc);
-        gbc.gridx = 1;
-        infoPanel.add(valStatus, gbc);
+        gbc.gridx = 0; gbc.gridy++; infoPanel.add(lblStatus, gbc);
+        gbc.gridx = 1; infoPanel.add(valStatus, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        infoPanel.add(lblUserEmail, gbc);
-        gbc.gridx = 1;
-        infoPanel.add(valUserEmail, gbc);
+        gbc.gridx = 0; gbc.gridy++; infoPanel.add(lblUserEmail, gbc);
+        gbc.gridx = 1; infoPanel.add(valUserEmail, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        infoPanel.add(lblCreatedAt, gbc);
-        gbc.gridx = 1;
-        infoPanel.add(valCreatedAt, gbc);
+        gbc.gridx = 0; gbc.gridy++; infoPanel.add(lblCreatedAt, gbc);
+        gbc.gridx = 1; infoPanel.add(valCreatedAt, gbc);
 
         add(infoPanel, BorderLayout.CENTER);
 
-        // Action buttons
-        RoundedPanel actionPanel = new RoundedPanel();
-        actionPanel.setBackground(ThemeGlobalDefaults.getColor("Panel.background"));
-        actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        // ACTION BUTTONS
+        RoundedPanel actionPanel = new RoundedPanel(20);
+        actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 15));
+        ThemeManager.putThemeAwareProperty(actionPanel, "background: $Panel.background");
 
         freezeButton = new RoundedButton("Freeze Wallet");
+        ThemeManager.putThemeAwareProperty(freezeButton, "background: $ManageWallets.button.freeze.background; foreground: $ManageWallets.button.freeze.foreground");
+
         closeButton = new RoundedButton("Close Wallet");
+        ThemeManager.putThemeAwareProperty(closeButton, "background: $ManageWallets.button.close.background; foreground: $ManageWallets.button.close.foreground");
 
+        activateButton = new RoundedButton("Activate Wallet");
+        ThemeManager.putThemeAwareProperty(activateButton, "background: $ManageWallets.button.activate.background; foreground: $ManageWallets.button.activate.foreground");
 
+        freezeButton.setFont(FontLoader.getInter(14f));
+        closeButton.setFont(FontLoader.getInter(14f));
+        activateButton.setFont(FontLoader.getInter(14f));
 
+        actionPanel.add(activateButton);
         actionPanel.add(freezeButton);
         actionPanel.add(closeButton);
 
         add(actionPanel, BorderLayout.SOUTH);
     }
 
-    // Set wallet information dynamically
     public void setWalletInfo(String accountNumber, String status, String userEmail, String createdAt) {
         valAccountNumber.setText(accountNumber);
         valStatus.setText(status);
@@ -126,11 +141,9 @@ public class ManageWalletsPanel extends JPanel {
         valCreatedAt.setText(createdAt);
     }
 
-    // Getters for buttons and field
     public RoundedTextField getSearchField() { return searchField; }
     public RoundedButton getSearchButton() { return searchButton; }
     public RoundedButton getFreezeButton() { return freezeButton; }
     public RoundedButton getCloseButton() { return closeButton; }
-
-
+    public RoundedButton getActivateButton() { return activateButton; }
 }

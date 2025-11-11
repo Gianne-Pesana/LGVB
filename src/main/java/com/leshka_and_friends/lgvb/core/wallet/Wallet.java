@@ -14,7 +14,6 @@ public class Wallet {
     private int userId;
     private String accountNumber;
     private double balance;
-    private String status;
     private Card card;
     private Timestamp createdAt;
 
@@ -29,11 +28,9 @@ public class Wallet {
         this.userId = userId;
         this.accountNumber = accountNumber;
         this.balance = balance;
-        this.status = status;
         this.card = card;
         this.createdAt = createdAt;
         this.state = WalletStateFactory.create(status);
-        System.out.println("*** WALLET STATE: " + this.state.getName() + " ***");
     }
 
     public void deposit(double amount) {
@@ -89,11 +86,13 @@ public class Wallet {
     }
 
     public String getStatus() {
-        return status;
+        if (state == null) {
+            return null;
+        }
+        return state.getName();
     }
 
     public void setStatus(String status) {
-        this.status = status;
         this.state = WalletStateFactory.create(status);
     }
 

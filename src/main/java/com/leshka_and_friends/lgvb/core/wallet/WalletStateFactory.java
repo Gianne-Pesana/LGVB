@@ -4,6 +4,7 @@ public class WalletStateFactory {
     public static WalletState create(String status) {
         switch (status.trim().toUpperCase()) {
             case "ACTIVE" -> { return new ActiveWalletState(); }
+            case "PENDING" -> { return new PendingWalletState(); }
             case "FROZEN" -> { return new FrozenWalletState(); }
             case "CLOSED" -> { return new ClosedWalletState(); }
             default -> { return null; }
