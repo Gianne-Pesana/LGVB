@@ -1,6 +1,7 @@
 package com.leshka_and_friends.lgvb.view.admin;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.leshka_and_friends.lgvb.view.admin.panels.LoanApplicationPanel;
 import com.leshka_and_friends.lgvb.view.admin.panels.ManageWalletsPanel;
 import com.leshka_and_friends.lgvb.view.admin.panels.WalletApplicationPanel;
 import com.leshka_and_friends.lgvb.view.themes.LGVBDark;
@@ -27,6 +28,7 @@ public class AdminDashboard extends JFrame {
 
     ManageWalletsPanel manageWalletsPanel;
     WalletApplicationPanel walletApplicationPanel;
+    LoanApplicationPanel loanApplicationPanel;
 
     private int width;
     private int height;
@@ -108,16 +110,12 @@ public class AdminDashboard extends JFrame {
 
         walletApplicationPanel = new WalletApplicationPanel();
 
-        JPanel loanPanel = new JPanel();
-        loanPanel.setBackground(ThemeGlobalDefaults.getColor("LGVB.background"));
-        loanPanel.add(new JLabel("Loan Applications placeholder") {{
-            setForeground(ThemeGlobalDefaults.getColor("AdminDashboard.text.foreground"));
-        }});
+        loanApplicationPanel = new LoanApplicationPanel();
 
         // Add tabs
         tabbedPane.addTab("Manage Wallets", manageWalletsPanel);
         tabbedPane.addTab("Wallet Applications", walletApplicationPanel);
-        tabbedPane.addTab("Loan Applications", loanPanel);
+        tabbedPane.addTab("Loan Applications", loanApplicationPanel);
 
         // Set tab colors
         tabbedPane.setBackground(ThemeGlobalDefaults.getColor("Card1.background")); // tab bar background
