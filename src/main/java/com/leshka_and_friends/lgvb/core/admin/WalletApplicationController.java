@@ -139,5 +139,5 @@ public class WalletApplicationController {
             OutputUtils.showError(adminDashboard, "Failed to reject wallet: " + ex.getMessage());
         }
     }
-    
+
 }
