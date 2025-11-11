@@ -5,6 +5,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\transaction\TransactionType.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\MainView.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\dashboard\Dashboard.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\panels\LoanHeaderPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\auth\Session.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\authpage\LoginPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\dashboard\TransferPanel.java
@@ -15,14 +16,19 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\loan\LoanService.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\HeaderFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\wallet\Wallet.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\dialogs\ReceiptForm.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\loansetup\LoanManager.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\transaction\TransactionStatus.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\loansetup\LoanAppliedPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\dialogs\LogoutConfirmationDialog.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\admin\WalletApplicationController.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\loan\LoanDAO.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\app\MainController.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\transaction\TransactionCard.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\transaction\TransactionDTO.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\app\FacadeFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\app\ServiceRegistry.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\panels\LoanDefaultPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\modified_swing\RoundedPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\modified_swing\RoundedButton.java
@@ -35,6 +41,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\buttons\MenuItemButton.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\wallet\WalletStateFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\preferences\SettingsController.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\buttons\LoanButtonPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\dashboard\BalancePanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\buttons\ThemeToggleButton.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\dashboard\MenuItemButtonDashboard.java
@@ -55,6 +62,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\switch_button\SwitchButton.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\ContentManager.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\savings\SavingService.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\loansetup\LoanState.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\savings\Savings.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\authpage\TermsPage.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\transaction\TransactionFeedPanel.java
@@ -78,6 +86,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\user\CustomerDTO.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\ThemeManager.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\preferences\NotificationPreferences.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\modified_swing\RoundedComboBox.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\loan\LoanServiceImpl.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\modified_swing\TransparentJScrollBar.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.java
@@ -97,6 +106,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\auth\AuthService.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\themes\LGVBLight.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\user\UserDTO.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\loansetup\LoanApprovedPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\transaction\TransactionService.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\sidebar\AvatarPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\authpage\TwoFALinkPanel.java
@@ -109,6 +119,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\card\CardDAO.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\notification\InAppNotification.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\user\Role.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\loansetup\LoanDefault.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\loan\Loan.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\savings\SavingFacade.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\shared_components\buttons\StaticItemButton.java
@@ -135,6 +146,7 @@ C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Proj
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\factories\PanelFactory.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\exceptions\PersistenceException.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\ui_utils\MarkdownRenderer.java
+C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\loansetup\LoanWaitingPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\view\customer\dashboard\DepositPanel.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\transaction\Transaction.java
 C:\Users\giann\OneDrive - addu.edu.ph\2nd Year Files\1st Semester\OOP\Final Project\LGVB\src\main\java\com\leshka_and_friends\lgvb\core\wallet\WalletService.java

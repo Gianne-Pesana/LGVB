@@ -31,6 +31,7 @@ public class MainView extends JFrame {
     private TitlePanel loanPanel;
     private DepositPanel depositPanel;
     private TransferPanel transferPanel;
+    
 
     private int width;
     private int height;
