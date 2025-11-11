@@ -1,8 +1,6 @@
 package com.leshka_and_friends.lgvb.view.loansetup;
 
 import com.formdev.flatlaf.util.UIScale;
-import com.leshka_and_friends.lgvb.view.shared_components.modified_swing.RoundedTextField;
-import com.leshka_and_friends.lgvb.view.shared_components.buttons.LoanButtonPanel;
 import com.leshka_and_friends.lgvb.view.shared_components.panels.LoanHeaderPanel;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
@@ -14,169 +12,56 @@ import java.awt.*;
 public class LoanWaitingPanel extends JPanel {
 
     private LoanHeaderPanel header;
-    private LoanButtonPanel checkEligibilityButton;
-    // 💡 INCREASED FIELD_WIDTH from 300 to 350 for wider fields
-    private final int FIELD_WIDTH = 350;
-    private final int FIELD_HEIGHT = 45;
-    private final int H_GAP = 20;
-    private final int V_GAP = 5;
 
     public LoanWaitingPanel() {
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(50, 80, 50, 80));
+        setOpaque(false);
         ThemeManager.putThemeAwareProperty(this, "background: #F0F4FF");
 
-        setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
-        setLayout(new BorderLayout());
-        setOpaque(false);
         initComponents();
     }
 
     private void initComponents() {
-        JPanel content = new JPanel();
-        content.setOpaque(false);
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-        content.add(createHeader());
-        content.add(Box.createRigidArea(new Dimension(0, 5)));
-
-        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-        separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
-        separator.setForeground(ThemeGlobalDefaults.getColor("Separator.color"));
-        content.add(separator);
-
-        add(content, BorderLayout.NORTH);
-        add(createMiddlePanel(), BorderLayout.CENTER);
-    }
-
-    private JPanel createHeader() {
-        JPanel container = new JPanel(new BorderLayout());
+        // Header
         header = new LoanHeaderPanel("LGVB Loan");
-        container.add(header, BorderLayout.CENTER);
-        container.setOpaque(false);
-        ThemeManager.putThemeAwareProperty(container, "background: #F0F4FF");
-        return container;
-    }
+        header.setOpaque(false);
+        add(header, BorderLayout.NORTH);
 
-    private JPanel createMiddlePanel() {
-        JPanel container = new JPanel();
-        container.setOpaque(false);
-        container.setLayout(new BorderLayout());
-        container.setBorder(BorderFactory.createEmptyBorder(15, 100, 5, 100));
+        // Main message panel
+        JPanel centerPanel = new JPanel();
+        centerPanel.setOpaque(false);
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
 
-        JLabel titleLabel = new JLabel("Confirm the following information");
-        titleLabel.setFont(FontLoader.getBaloo2SemiBold(20f));
-        titleLabel.putClientProperty("FlatLaf.style", "foreground: $LoanDefault.ApplyNow.letter;");
+        JLabel waitingLabel = new JLabel("Hold tight, waiting for approval!", SwingConstants.CENTER);
+        waitingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        waitingLabel.setFont(FontLoader.getBaloo2Bold(28f));
+        waitingLabel.putClientProperty("FlatLaf.style", "foreground: $LoanDefault.Waiting.text;");
 
-        container.add(titleLabel, BorderLayout.NORTH);
+        JLabel subLabel = new JLabel("We’re reviewing your loan application.", SwingConstants.CENTER);
+        subLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        subLabel.setFont(FontLoader.getBaloo2Regular(18f));
+        subLabel.putClientProperty("FlatLaf.style", "foreground: $LoanDefault.Waiting.subtext;");
 
-        JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setOpaque(false);
-        formPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
+        // Optional: Add a simple animated-like progress indicator (visual only)
+        JProgressBar progress = new JProgressBar();
+        progress.setIndeterminate(true);
+        progress.setAlignmentX(Component.CENTER_ALIGNMENT);
+        progress.setPreferredSize(new Dimension(UIScale.scale(200), UIScale.scale(10)));
+        progress.setMaximumSize(new Dimension(UIScale.scale(200), UIScale.scale(10)));
+        progress.putClientProperty("JProgressBar.arc", 10);
+        progress.putClientProperty("JProgressBar.selectionBackground", ThemeGlobalDefaults.getColor("LoanDefault.Waiting.progress"));
+        progress.putClientProperty("JProgressBar.selectionForeground", ThemeGlobalDefaults.getColor("LoanDefault.Waiting.progress"));
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(V_GAP, H_GAP, V_GAP, H_GAP);
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        centerPanel.add(Box.createVerticalGlue());
+        centerPanel.add(waitingLabel);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        centerPanel.add(subLabel);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 25)));
+        centerPanel.add(progress);
+        centerPanel.add(Box.createVerticalGlue());
 
-        int row = 0;
-
-        // 1. Account Number
-        row = addFullWidthField(formPanel, gbc, row, "Account Number");
-
-        // 2. First Name / Last Name
-        row = addTwoColumnFields(formPanel, gbc, row, "First Name", "Last Name");
-
-        // 3. Birth Date
-        row = addFullWidthField(formPanel, gbc, row, "Birth Date");
-
-        // 4. Contact Number / Email
-        row = addTwoColumnFields(formPanel, gbc, row, "Contact Number", "Email");
-
-        // 5. Loan Amount
-        row = addFullWidthField(formPanel, gbc, row, "Loan Amount");
-
-        // 6. Loan Purpose / Installment Plan
-        row = addTwoColumnFields(formPanel, gbc, row, "Loan Purpose", "Installment Plan");
-
-
-        container.add(formPanel, BorderLayout.CENTER);
-
-        JPanel buttonContainer = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        buttonContainer.setOpaque(false);
-
-        checkEligibilityButton = new LoanButtonPanel("Check Eligibility", true);
-
-        checkEligibilityButton.putClientProperty("FlatLaf.style",
-                "background: #B03060;" +
-                        "foreground: #FFFFFF;" +
-                        "hoverBackground: #C74878;" +
-                        "pressedBackground: #991D4C;" +
-                        "font: bold 16px;" +
-                        "arc: 20;" +
-                        "focusWidth: 0;");
-
-        checkEligibilityButton.setPreferredSize(new Dimension(UIScale.scale(200), UIScale.scale(30)));
-
-        buttonContainer.add(checkEligibilityButton);
-        container.add(buttonContainer, BorderLayout.SOUTH);
-
-        return container;
-    }
-
-    // Helper methods (unchanged)
-    private int addFullWidthField(JPanel panel, GridBagConstraints gbc, int row, String labelText) {
-        gbc.gridy = row;
-        gbc.gridx = 0;
-        gbc.gridwidth = 2;
-
-        JLabel label = createLabel(labelText);
-        panel.add(label, gbc);
-
-        gbc.gridy = ++row;
-        RoundedTextField field = createTextField();
-        panel.add(field, gbc);
-
-        gbc.gridwidth = 1;
-        return ++row;
-    }
-
-    private int addTwoColumnFields(JPanel panel, GridBagConstraints gbc, int row, String label1Text, String label2Text) {
-        gbc.gridy = row;
-        gbc.gridx = 0;
-        panel.add(createLabel(label1Text), gbc);
-
-        gbc.gridx = 1;
-        panel.add(createLabel(label2Text), gbc);
-
-        gbc.gridy = ++row;
-        gbc.gridx = 0;
-        panel.add(createTextField(), gbc);
-
-        gbc.gridx = 1;
-        panel.add(createTextField(), gbc);
-
-        return ++row;
-    }
-
-    private JLabel createLabel(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(FontLoader.getBaloo2SemiBold(18f));
-        label.putClientProperty("FlatLaf.style", "foreground: $LoanDefault.ApplyNow.letter;");
-        return label;
-    }
-
-    private RoundedTextField createTextField() {
-        RoundedTextField textField = new RoundedTextField(15);
-        textField.setPreferredSize(new Dimension(UIScale.scale(FIELD_WIDTH), UIScale.scale(FIELD_HEIGHT)));
-        textField.setMaximumSize(new Dimension(UIScale.scale(FIELD_WIDTH), UIScale.scale(FIELD_HEIGHT)));
-        textField.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // Custom color styling for the light gray field (unchanged)
-        textField.setBackgroundColor(new Color(230, 230, 235));
-        textField.setBorderColor(new Color(230, 230, 235));
-        textField.setRadius(10);
-
-        // 💡 MAKE THE FIELD NOT EDITABLE (READ-ONLY)
-        textField.setEditable(false);
-
-        return textField;
+        add(centerPanel, BorderLayout.CENTER);
     }
 }

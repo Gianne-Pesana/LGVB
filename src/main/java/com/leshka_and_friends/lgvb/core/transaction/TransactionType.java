@@ -5,7 +5,8 @@ public enum TransactionType {
     DEPOSIT("Deposit", "💰"),
     SENT("Sent", "💸"),
     RECEIVED("Received", "💰"),
-    PAY_BILLS("Pay Bills", "🛒");
+    PAY_BILLS("Pay Bills", "🛒"),
+    LOAN_DISBURSEMENT("Loan Disbursement", "💸");
 
     private final String strValue;
     private final String icon;

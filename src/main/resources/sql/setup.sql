@@ -108,6 +108,7 @@ CREATE TABLE transactions (
 -- LOANS
 -- ==============================
 
+
 CREATE TABLE loans (
     loan_id INT AUTO_INCREMENT PRIMARY KEY,
     wallet_id INT NOT NULL,
@@ -141,4 +142,4 @@ CREATE TABLE housing_loans (
 -- ==============================
 INSERT INTO account_types (name) VALUES ('savings'), ('checking');
 INSERT INTO card_types (name) VALUES ('debit'), ('credit'), ('prepaid'), ('virtual');
-INSERT INTO transaction_types (name) VALUES ('Deposit'), ('Sent'), ('Received'), ('Pay Bills');
+INSERT INTO transaction_types (name) VALUES ('Deposit'), ('Sent'), ('Received'), ('Pay Bills'), ('Loan Disbursement');

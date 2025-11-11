@@ -1,7 +1,13 @@
 package com.leshka_and_friends.lgvb.core.loan;
 
 import com.leshka_and_friends.lgvb.core.app.ServiceLocator;
-import com.leshka_and_friends.lgvb.core.loan.types.*;
+import com.leshka_and_friends.lgvb.core.loan.types.CarLoan;
+import com.leshka_and_friends.lgvb.core.loan.types.HousingLoan;
+import com.leshka_and_friends.lgvb.core.loan.types.PersonalLoan;
+import com.leshka_and_friends.lgvb.core.transaction.Transaction;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionService;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionStatus;
+import com.leshka_and_friends.lgvb.core.transaction.TransactionType;
 import com.leshka_and_friends.lgvb.core.wallet.Wallet;
 import com.leshka_and_friends.lgvb.core.wallet.WalletService;
 import com.leshka_and_friends.lgvb.exceptions.PersistenceException;
@@ -18,10 +24,12 @@ public class LoanServiceImpl implements LoanService {
 
     LoanDAO loanDAO;
     WalletService walletService;
+    TransactionService transactionService;
 
-    public LoanServiceImpl(LoanDAO loanDAO, WalletService walletService) {
+    public LoanServiceImpl(LoanDAO loanDAO, WalletService walletService, TransactionService transactionService) {
         this.loanDAO = loanDAO;
         this.walletService = walletService;
+        this.transactionService = transactionService;
     }
 
     @Override
@@ -88,14 +96,24 @@ public class LoanServiceImpl implements LoanService {
         boolean updated = loanDAO.updateStatus(loanId, Loan.ACTIVE);
         if (!updated) throw new RuntimeException("Failed to update!");
 
-        // Deposit to user's wallet
-        Wallet wallet = walletService.getWalletByUserId(loan.getWalletId());
-        if (wallet != null) {
-            double newBalance = wallet.getBalance() + loan.getPrincipal();
-            try {
-                walletService.updateWalletBalance(wallet.getWalletId(), newBalance);
-            } catch (SQLException e) {
-                throw new PersistenceException("Failed to update balance", e);
+        if (loan instanceof PersonalLoan) {
+            // Deposit to user's wallet
+            Wallet wallet = walletService.getWalletByUserId(loan.getWalletId());
+            if (wallet != null) {
+                double newBalance = wallet.getBalance() + loan.getPrincipal();
+                try {
+                    walletService.updateWalletBalance(wallet.getWalletId(), newBalance);
+                    // Create a transaction for the loan disbursement
+                    Transaction transaction = new Transaction(
+                            wallet.getWalletId(),
+                            loan.getPrincipal(),
+                            TransactionType.LOAN_DISBURSEMENT,
+                            TransactionStatus.SUCCESS
+                    );
+                    transactionService.saveTransaction(transaction);
+                } catch (SQLException e) {
+                    throw new PersistenceException("Failed to update balance", e);
+                }
             }
         }
 
@@ -122,13 +140,21 @@ public class LoanServiceImpl implements LoanService {
             throw new RuntimeException("Failed to update loan status!");
         }
 
-        if (Loan.ACTIVE.equalsIgnoreCase(status)) {
+        if (Loan.ACTIVE.equalsIgnoreCase(status) && loan instanceof PersonalLoan) {
             // Deposit to user's wallet
             Wallet wallet = walletService.getWalletByUserId(loan.getWalletId());
             if (wallet != null) {
                 double newBalance = wallet.getBalance() + loan.getPrincipal();
                 try {
                     walletService.updateWalletBalance(wallet.getWalletId(), newBalance);
+                    // Create a transaction for the loan disbursement
+                    Transaction transaction = new Transaction(
+                            wallet.getWalletId(),
+                            loan.getPrincipal(),
+                            TransactionType.LOAN_DISBURSEMENT,
+                            TransactionStatus.SUCCESS
+                    );
+                    transactionService.saveTransaction(transaction);
                 } catch (SQLException e) {
                     throw new PersistenceException("Failed to update balance", e);
                 }

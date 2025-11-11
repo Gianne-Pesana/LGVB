@@ -31,6 +31,14 @@ public class Transaction {
     public Transaction() {
     }
 
+    public Transaction(int walletId, double amount, TransactionType transactionType, TransactionStatus status) {
+        this.walletId = walletId;
+        this.amount = amount;
+        this.transactionType = transactionType;
+        this.status = status;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
     public Transaction(int transactionId, int walletId, TransactionType transactionType, double amount,
                        int relatedWalletId, Timestamp timestamp, TransactionStatus status) {
         this.transactionId = transactionId;
