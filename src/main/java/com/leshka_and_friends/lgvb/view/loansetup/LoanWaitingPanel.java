@@ -15,7 +15,8 @@ public class LoanWaitingPanel extends JPanel {
 
     private LoanHeaderPanel header;
     private LoanButtonPanel checkEligibilityButton;
-    // 💡 INCREASED FIELD_WIDTH from 300 to 350 for wider fields
+    private java.util.function.Consumer<LoanState> stateChangeListener;
+
     private final int FIELD_WIDTH = 350;
     private final int FIELD_HEIGHT = 45;
     private final int H_GAP = 20;
@@ -23,11 +24,14 @@ public class LoanWaitingPanel extends JPanel {
 
     public LoanWaitingPanel() {
         ThemeManager.putThemeAwareProperty(this, "background: #F0F4FF");
-
         setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
         setLayout(new BorderLayout());
         setOpaque(false);
         initComponents();
+    }
+
+    public void setStateChangeListener(java.util.function.Consumer<LoanState> listener) {
+        this.stateChangeListener = listener;
     }
 
     private void initComponents() {
@@ -64,7 +68,6 @@ public class LoanWaitingPanel extends JPanel {
         JLabel titleLabel = new JLabel("Confirm the following information");
         titleLabel.setFont(FontLoader.getBaloo2SemiBold(20f));
         titleLabel.putClientProperty("FlatLaf.style", "foreground: $LoanDefault.ApplyNow.letter;");
-
         container.add(titleLabel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
@@ -77,25 +80,12 @@ public class LoanWaitingPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         int row = 0;
-
-        // 1. Account Number
         row = addFullWidthField(formPanel, gbc, row, "Account Number");
-
-        // 2. First Name / Last Name
         row = addTwoColumnFields(formPanel, gbc, row, "First Name", "Last Name");
-
-        // 3. Birth Date
         row = addFullWidthField(formPanel, gbc, row, "Birth Date");
-
-        // 4. Contact Number / Email
         row = addTwoColumnFields(formPanel, gbc, row, "Contact Number", "Email");
-
-        // 5. Loan Amount
         row = addFullWidthField(formPanel, gbc, row, "Loan Amount");
-
-        // 6. Loan Purpose / Installment Plan
         row = addTwoColumnFields(formPanel, gbc, row, "Loan Purpose", "Installment Plan");
-
 
         container.add(formPanel, BorderLayout.CENTER);
 
@@ -103,7 +93,6 @@ public class LoanWaitingPanel extends JPanel {
         buttonContainer.setOpaque(false);
 
         checkEligibilityButton = new LoanButtonPanel("Check Eligibility", true);
-
         checkEligibilityButton.putClientProperty("FlatLaf.style",
                 "background: #B03060;" +
                         "foreground: #FFFFFF;" +
@@ -112,8 +101,17 @@ public class LoanWaitingPanel extends JPanel {
                         "font: bold 16px;" +
                         "arc: 20;" +
                         "focusWidth: 0;");
-
         checkEligibilityButton.setPreferredSize(new Dimension(UIScale.scale(200), UIScale.scale(30)));
+
+        // FIX: Now properly adds a click listener that triggers state change
+        checkEligibilityButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (stateChangeListener != null) {
+                    stateChangeListener.accept(LoanState.APPROVED);
+                }
+            }
+        });
 
         buttonContainer.add(checkEligibilityButton);
         container.add(buttonContainer, BorderLayout.SOUTH);
@@ -121,7 +119,6 @@ public class LoanWaitingPanel extends JPanel {
         return container;
     }
 
-    // Helper methods (unchanged)
     private int addFullWidthField(JPanel panel, GridBagConstraints gbc, int row, String labelText) {
         gbc.gridy = row;
         gbc.gridx = 0;
@@ -168,15 +165,10 @@ public class LoanWaitingPanel extends JPanel {
         textField.setPreferredSize(new Dimension(UIScale.scale(FIELD_WIDTH), UIScale.scale(FIELD_HEIGHT)));
         textField.setMaximumSize(new Dimension(UIScale.scale(FIELD_WIDTH), UIScale.scale(FIELD_HEIGHT)));
         textField.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // Custom color styling for the light gray field (unchanged)
         textField.setBackgroundColor(new Color(230, 230, 235));
         textField.setBorderColor(new Color(230, 230, 235));
         textField.setRadius(10);
-
-        // 💡 MAKE THE FIELD NOT EDITABLE (READ-ONLY)
         textField.setEditable(false);
-
         return textField;
     }
 }

@@ -1,117 +1,86 @@
 package com.leshka_and_friends.lgvb.view.shared_components.modified_swing;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class RoundedComboBox<E> extends JComboBox<E> {
 
-    private int radius = 15;
-    private Color borderColor = new Color(200, 200, 200);
-    private Color focusColor = new Color(120, 150, 255);
-    private Color backgroundColor = new Color(245, 245, 245);
-    private boolean focused = false;
-
     public RoundedComboBox() {
         super();
-        setOpaque(false);
+        setOpaque(false); // let FlatLaf handle background
         setFont(new Font("Inter", Font.PLAIN, 14));
-        setForeground(Color.BLACK);
-        setBackground(backgroundColor);
-        setBorder(new EmptyBorder(5, 10, 5, 10));
+        setForeground(null); // use FlatLaf foreground
+        setBackground(null); // use FlatLaf background
 
-        // Stop FlatLaf from restyling on theme switch
+        // Enable FlatLaf rounded style
         putClientProperty("JComponent.roundRect", true);
-        putClientProperty("FlatLaf.ignoreDefaultBorder", true);
         putClientProperty("FlatLaf.styleClass", null);
+        putClientProperty("FlatLaf.ignoreDefaultBorder", true);
 
-        // Install stable UI
-        setUI(new StableComboBoxUI());
-
-        // Handle focus effect
-        addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                focused = true;
-                repaint();
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                focused = false;
-                repaint();
-            }
-        });
-
-        // Popup cell renderer
+        // Minimal arrow button for FlatLaf
+        setUI(new MinimalArrowComboBoxUI());
         setRenderer(new DefaultListCellRenderer() {
             @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value,
-                                                          int index, boolean isSelected, boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                list.setBackground(backgroundColor);
-                list.setSelectionBackground(focusColor);
-                list.setSelectionForeground(Color.WHITE);
-                setBackground(isSelected ? focusColor : backgroundColor);
-                setForeground(isSelected ? Color.WHITE : Color.BLACK);
-                return this;
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                // Center the text
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+
+                // Use theme colors
+                label.setBackground(isSelected
+                        ? UIManager.getColor("ComboBox.selectionBackground")
+                        : UIManager.getColor("ComboBox.background"));
+                label.setForeground(isSelected
+                        ? UIManager.getColor("ComboBox.selectionForeground")
+                        : UIManager.getColor("ComboBox.foreground"));
+
+                return label;
             }
         });
+
+
+        // ✅ Force UI to pick up theme immediately
+        updateUI();
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    public void updateUI() {
+        super.updateUI();
 
-        // Background
-        g2.setColor(backgroundColor);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
+        // Pick up theme colors dynamically from UIManager
+        Color bg = UIManager.getColor("ComboBox.background");
+        Color fg = UIManager.getColor("ComboBox.foreground");
+        setBackground(bg != null ? bg : getBackground());
+        setForeground(fg != null ? fg : getForeground());
 
-        // Border
-        g2.setStroke(new BasicStroke(1.5f));
-        g2.setColor(focused ? focusColor : borderColor);
-        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
+        // Refresh arrow button too
+        if (getUI() instanceof MinimalArrowComboBoxUI) {
+            JButton arrow = ((MinimalArrowComboBoxUI) getUI()).arrowButton;
+            if (arrow != null) {
+                arrow.setForeground(getForeground());
+                arrow.setBackground(getBackground());
+            }
+        }
 
-        g2.dispose();
-        super.paintComponent(g);
+        repaint();
     }
 
-    // Custom arrow + no FlatLaf override
-    private static class StableComboBoxUI extends BasicComboBoxUI {
+
+    // Minimal arrow button for FlatLaf
+    private static class MinimalArrowComboBoxUI extends javax.swing.plaf.basic.BasicComboBoxUI {
+        JButton arrowButton;
+
         @Override
         protected JButton createArrowButton() {
-            JButton arrow = new JButton("▾");
-            arrow.setBorder(BorderFactory.createEmptyBorder());
-            arrow.setContentAreaFilled(false);
-            arrow.setFocusPainted(false);
-            arrow.setOpaque(false);
-            arrow.setForeground(Color.GRAY);
-            return arrow;
+            arrowButton = new JButton("▾");
+            arrowButton.setBorder(null);
+            arrowButton.setContentAreaFilled(false);
+            arrowButton.setFocusPainted(false);
+            arrowButton.setOpaque(false);
+            arrowButton.setForeground(null); // follow theme
+            return arrowButton;
         }
-    }
-
-    // Setters
-    public void setRadius(int radius) {
-        this.radius = radius;
-        repaint();
-    }
-
-    public void setBorderColor(Color borderColor) {
-        this.borderColor = borderColor;
-        repaint();
-    }
-
-    public void setFocusColor(Color focusColor) {
-        this.focusColor = focusColor;
-        repaint();
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-        repaint();
     }
 }

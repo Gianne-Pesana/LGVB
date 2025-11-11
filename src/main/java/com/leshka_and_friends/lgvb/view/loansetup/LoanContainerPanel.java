@@ -5,34 +5,42 @@ import java.awt.*;
 
 public class LoanContainerPanel extends JPanel {
 
-    private CardLayout cardLayout;
-    private LoanDefault loanDefaultPanel;
-    private LoanAppliedPanel loanAppliedPanel;
-    private LoanWaitingPanel loanWaitingPanel;
-    private LoanApprovedPanel loanApprovedPanel;
+    private final CardLayout cardLayout;
+
+    // Panels for each loan state
+    private final LoanDefault loanDefaultPanel;
+    private final LoanAppliedPanel loanAppliedPanel;
+    private final LoanWaitingPanel loanWaitingPanel;
+    private final LoanApprovedPanel loanApprovedPanel;
 
     public LoanContainerPanel() {
         cardLayout = new CardLayout();
         setLayout(cardLayout);
 
-        // Create instances of all possible loan state panels
+        // Create each panel
         loanDefaultPanel = new LoanDefault();
         loanAppliedPanel = new LoanAppliedPanel();
         loanWaitingPanel = new LoanWaitingPanel();
         loanApprovedPanel = new LoanApprovedPanel();
 
-        // Add panels to the card layout
+        // Add to CardLayout using enum names
         add(loanDefaultPanel, LoanState.DEFAULT.name());
         add(loanAppliedPanel, LoanState.APPLIED.name());
         add(loanWaitingPanel, LoanState.WAITING_APPROVAL.name());
         add(loanApprovedPanel, LoanState.APPROVED.name());
 
-        // Set up listeners to transition between states
-        loanDefaultPanel.setStateChangeListener(newState -> showState(newState));
-        loanAppliedPanel.setOnStateChangeListener(newState -> showState(newState));
+        // Link all panels to transition function
+        loanDefaultPanel.setStateChangeListener(this::showState);
+        loanAppliedPanel.setOnStateChangeListener(this::showState);
+        loanWaitingPanel.setStateChangeListener(this::showState);
+        loanApprovedPanel.setStateChangeListener(this::showState);
+
+        // Start at the default state
+        showState(LoanState.DEFAULT);
     }
 
     public void showState(LoanState state) {
+        LoanManager.setState(state);
         cardLayout.show(this, state.name());
     }
 }
