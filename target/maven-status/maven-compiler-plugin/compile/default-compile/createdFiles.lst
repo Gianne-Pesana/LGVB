@@ -95,6 +95,7 @@ com\leshka_and_friends\lgvb\auth\SessionManager.class
 com\leshka_and_friends\lgvb\core\dashboard\DashboardDTO.class
 com\leshka_and_friends\lgvb\core\loan\Loan.class
 com\leshka_and_friends\lgvb\core\user\Role.class
+com\leshka_and_friends\lgvb\view\loansetup\LoanContainerPanel.class
 com\leshka_and_friends\lgvb\notification\InAppNotification.class
 com\leshka_and_friends\lgvb\preferences\PreferencesManager.class
 com\leshka_and_friends\lgvb\exceptions\AuthException.class

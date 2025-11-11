@@ -18,11 +18,13 @@ public class LoanController {
             System.out.println("Loan Btn Clicked");
             try {
                 String status = new LoanDAO().getStatusLatest(facade.getSessionManager().getCurrentSession().getWallet().getWalletId());
-                if (!status.equalsIgnoreCase("closed")) {
-                    OutputUtils.showInfo("Account Status: " + status);
+                if (status == null || status.equalsIgnoreCase("closed")) {
+                    mainView.getLoanContainerPanel().showState(com.leshka_and_friends.lgvb.view.loansetup.LoanState.DEFAULT);
+                    mainView.showLoanPanel();
                     return;
                 }
 
+                OutputUtils.showInfo("You have an ongoing loan application with status: " + status);
 
             } catch (SQLException sq) {
                 System.out.println("Error: " + sq.getMessage());

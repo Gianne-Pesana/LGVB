@@ -6,11 +6,12 @@ package com.leshka_and_friends.lgvb.view;
 
 import com.leshka_and_friends.lgvb.core.user.CustomerDTO;
 import com.leshka_and_friends.lgvb.preferences.SettingsController;
-import com.leshka_and_friends.lgvb.view.customer.dashboard.DepositPanel;
-import com.leshka_and_friends.lgvb.view.shared_components.panels.TitlePanel;
-import com.leshka_and_friends.lgvb.view.customer.dashboard.TransferPanel;
 import com.leshka_and_friends.lgvb.view.customer.dashboard.Dashboard;
+import com.leshka_and_friends.lgvb.view.customer.dashboard.DepositPanel;
+import com.leshka_and_friends.lgvb.view.customer.dashboard.TransferPanel;
 import com.leshka_and_friends.lgvb.view.customer.sidebar.Sidebar;
+import com.leshka_and_friends.lgvb.view.loansetup.LoanContainerPanel;
+import com.leshka_and_friends.lgvb.view.loansetup.LoanState;
 import com.leshka_and_friends.lgvb.view.ui_utils.FontLoader;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeGlobalDefaults;
 import com.leshka_and_friends.lgvb.view.ui_utils.ThemeManager;
@@ -28,10 +29,10 @@ public class MainView extends JFrame {
 
     // Main content panels
     private Dashboard dashboardPanel;
-    private TitlePanel loanPanel;
+    private LoanContainerPanel loanContainerPanel;
     private DepositPanel depositPanel;
     private TransferPanel transferPanel;
-    
+
 
     private int width;
     private int height;
@@ -90,6 +91,7 @@ public class MainView extends JFrame {
 
             @Override
             public void onSelectLoan() {
+                loanContainerPanel.showState(LoanState.DEFAULT);
                 contentLayout.show(mainContentPanel, "LOAN");
             }
 
@@ -106,10 +108,7 @@ public class MainView extends JFrame {
     private void createContentPanels() {
         // Create dashboard panel with sample data
         dashboardPanel = new Dashboard(this, this.dto);
-
-        String loanTitle = ThemeGlobalDefaults.getString("Panel.Loan.title");
-//        loanPanel = new TitlePanel(loanTitle.isEmpty() ? "LOAN" : loanTitle);
-
+        loanContainerPanel = new LoanContainerPanel();
         depositPanel = new DepositPanel(this);
         transferPanel = new TransferPanel(this);
     }
@@ -130,7 +129,7 @@ public class MainView extends JFrame {
 
         // Add panels to card layout
         mainContentPanel.add(dashboardPanel, "DASHBOARD");
-//        mainContentPanel.add(loanPanel, "LOAN");
+        mainContentPanel.add(loanContainerPanel, "LOAN");
         mainContentPanel.add(depositPanel, "DEPOSIT");
         mainContentPanel.add(transferPanel, "TRANSFER");
 
@@ -154,12 +153,16 @@ public class MainView extends JFrame {
         contentLayout.show(mainContentPanel, "TRANSFER");
     }
 
+    public void showLoanPanel() {
+        contentLayout.show(mainContentPanel, "LOAN");
+    }
+
     public Dashboard getDashboardPanel() {
         return dashboardPanel;
     }
 
-    public TitlePanel getLoanPanel() {
-        return loanPanel;
+    public LoanContainerPanel getLoanContainerPanel() {
+        return loanContainerPanel;
     }
 
     public DepositPanel getDepositPanel() {
@@ -174,3 +177,4 @@ public class MainView extends JFrame {
         sidebar.addLogoutListener(action);
     }
 }
+
