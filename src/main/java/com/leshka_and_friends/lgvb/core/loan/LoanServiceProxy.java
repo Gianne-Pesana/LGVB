@@ -44,6 +44,11 @@ public class LoanServiceProxy implements LoanService {
         realService.updateLoanStatus(loanId, status);
     }
 
+    @Override
+    public String getLatestLoanStatus(int walletId) {
+        return realService.getLatestLoanStatus(walletId);
+    }
+
     private boolean isAdmin() {
         return user.getRole() == Role.ADMIN;
     }

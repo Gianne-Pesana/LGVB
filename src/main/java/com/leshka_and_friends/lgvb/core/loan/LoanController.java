@@ -16,19 +16,24 @@ public class LoanController {
 
         mainView.getSidebarPanel().getLoanReqItem().addActionListener(() -> {
             System.out.println("Loan Btn Clicked");
-            try {
-                String status = new LoanDAO().getStatusLatest(facade.getSessionManager().getCurrentSession().getWallet().getWalletId());
-                if (status == null || status.equalsIgnoreCase("closed")) {
-                    mainView.getLoanContainerPanel().showState(com.leshka_and_friends.lgvb.view.loansetup.LoanState.DEFAULT);
-                    mainView.showLoanPanel();
-                    return;
+            String status = facade.getLoanFacade().getLatestLoanStatus(facade.getSessionManager().getCurrentSession().getWallet().getWalletId());
+            System.out.println("Loan Status: " + status); // Logging the status
+            if (status == null || status.equalsIgnoreCase("closed")) {
+                mainView.getLoanContainerPanel().showState(com.leshka_and_friends.lgvb.view.loansetup.LoanState.DEFAULT);
+            } else {
+                switch (status.toLowerCase()) {
+                    case "pending":
+                        mainView.getLoanContainerPanel().showState(com.leshka_and_friends.lgvb.view.loansetup.LoanState.WAITING_APPROVAL);
+                        break;
+                    case "active":
+                        mainView.getLoanContainerPanel().showState(com.leshka_and_friends.lgvb.view.loansetup.LoanState.APPROVED);
+                        break;
+                    default:
+                        mainView.getLoanContainerPanel().showState(com.leshka_and_friends.lgvb.view.loansetup.LoanState.DEFAULT);
+                        break;
                 }
-
-                OutputUtils.showInfo("You have an ongoing loan application with status: " + status);
-
-            } catch (SQLException sq) {
-                System.out.println("Error: " + sq.getMessage());
             }
+            mainView.showLoanPanel();
         });
 
         mainView.getLoanContainerPanel().getLoanAppliedPanel().getSubmitButton().setClickListener(() -> {

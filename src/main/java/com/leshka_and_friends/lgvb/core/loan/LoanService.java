@@ -5,4 +5,5 @@ public interface LoanService {
     void approveLoan(int loanId);
     void rejectLoan(int loanId, String reason);
     void updateLoanStatus(int loanId, String status);
+    String getLatestLoanStatus(int walletId);
 }

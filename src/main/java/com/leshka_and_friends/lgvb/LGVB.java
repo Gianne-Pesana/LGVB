@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class LGVB {
 
-    public static boolean testing = true;
+    public static boolean testing = false;
 //    public static String testEmail = "leshka@lgvb.com";
 //    public static char[] testPass = "#Leshka12345678".toCharArray();
     public static String testEmail = "gianne@lgvb.com";

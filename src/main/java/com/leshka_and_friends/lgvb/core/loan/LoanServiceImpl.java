@@ -179,6 +179,15 @@ public class LoanServiceImpl implements LoanService {
     }
 
 
+    @Override
+    public String getLatestLoanStatus(int walletId) {
+        try {
+            return loanDAO.getStatusLatest(walletId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Generates a unique reference number for each loan.
      * Format example: LN-2025-ABCDE1234

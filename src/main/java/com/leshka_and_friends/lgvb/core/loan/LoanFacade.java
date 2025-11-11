@@ -24,6 +24,10 @@ public class LoanFacade {
         loanService.updateLoanStatus(loanId, status);
     }
 
+    public String getLatestLoanStatus(int walletId) {
+        return loanService.getLatestLoanStatus(walletId);
+    }
+
     public void rejectLoan() {
 
     }

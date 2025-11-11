@@ -91,7 +91,6 @@ public class MainView extends JFrame {
 
             @Override
             public void onSelectLoan() {
-                loanContainerPanel.showState(LoanState.DEFAULT);
                 contentLayout.show(mainContentPanel, "LOAN");
             }
 

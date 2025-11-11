@@ -33,6 +33,7 @@ public class LoanContainerPanel extends JPanel {
     }
 
     public void showState(LoanState state) {
+        System.out.println("Showing state: " + state.name()); // Logging the state
         cardLayout.show(this, state.name());
     }
 
