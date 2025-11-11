@@ -48,9 +48,9 @@ public class AppFacade {
         walletFacade.transfer(sender, recipientEmail, amount);
     }
 
-    public void applyForLoan(int walletId, double amountRequested, String purpose) {
+    public void applyForLoan(int walletId, String loanType, double amountRequested, int termInMonths, String purpose) {
         ensureSession();
-        loanFacade.applyForLoan(walletId, amountRequested, purpose);
+        loanFacade.applyForLoan(walletId, loanType, amountRequested, termInMonths, purpose);
     }
 
     public void approveLoan(int loanId) {

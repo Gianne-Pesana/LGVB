@@ -187,4 +187,8 @@ public class LoanAppliedPanel extends JPanel {
     public String getLoanType() {
         return (String) loanTypeComboBox.getSelectedItem();
     }
+
+    public LoanButtonPanel getSubmitButton() {
+        return submitButton;
+    }
 }

@@ -29,11 +29,20 @@ public class LoanController {
             } catch (SQLException sq) {
                 System.out.println("Error: " + sq.getMessage());
             }
-
-
         });
 
+        mainView.getLoanContainerPanel().getLoanAppliedPanel().getSubmitButton().setClickListener(() -> {
+            String loanAmountStr = mainView.getLoanContainerPanel().getLoanAppliedPanel().getLoanAmount();
+            String loanType = mainView.getLoanContainerPanel().getLoanAppliedPanel().getLoanType();
+            String installmentPlanStr = mainView.getLoanContainerPanel().getLoanAppliedPanel().getInstallmentPlan();
 
+            // Parse "X months" string to get integer value
+            int termInMonths = Integer.parseInt(installmentPlanStr.replaceAll("[^0-9]", ""));
 
+            double loanAmount = Double.parseDouble(loanAmountStr);
+            int walletId = facade.getSessionManager().getCurrentSession().getWallet().getWalletId();
+
+            facade.applyForLoan(walletId, loanType, loanAmount, termInMonths, ""); // purpose is empty for now
+        });
     }
 }

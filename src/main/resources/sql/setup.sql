@@ -117,6 +117,7 @@ CREATE TABLE loans (
     interest_rate DECIMAL(5,2),
     status ENUM('pending', 'active', 'overdue', 'closed'),
     loan_type ENUM('personal', 'car', 'housing') NOT NULL,
+    term_in_months INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

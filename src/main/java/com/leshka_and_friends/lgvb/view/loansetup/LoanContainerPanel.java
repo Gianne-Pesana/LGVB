@@ -35,4 +35,8 @@ public class LoanContainerPanel extends JPanel {
     public void showState(LoanState state) {
         cardLayout.show(this, state.name());
     }
+
+    public LoanAppliedPanel getLoanAppliedPanel() {
+        return loanAppliedPanel;
+    }
 }

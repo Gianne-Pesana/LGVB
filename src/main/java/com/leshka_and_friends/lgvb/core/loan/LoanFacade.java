@@ -12,8 +12,8 @@ public class LoanFacade {
     }
 
 
-    public void applyForLoan(int walletId, double amountRequested, String purpose) {
-        loanService.applyForLoan(walletId, amountRequested, purpose);
+    public void applyForLoan(int walletId, String loanType, double amountRequested, int termInMonths, String purpose) {
+        loanService.applyForLoan(walletId, loanType, amountRequested, termInMonths, purpose);
     }
 
     public void approveLoan(int loanId) {

@@ -5,15 +5,14 @@ import com.leshka_and_friends.lgvb.core.loan.Loan;
 import java.sql.Timestamp;
 
 public class HousingLoan extends Loan {
-    private String developerName;
     private String propertyAddress;
+    private String developerName;
 
-    public HousingLoan() {
+    public String getPropertyAddress() {
+        return propertyAddress;
     }
 
-    public HousingLoan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt, String developerName, String propertyAddress) {
-        super(loanId, walletId, referenceNumber, principal, remainingBalance, interestRate, status, createdAt);
-        this.developerName = developerName;
+    public void setPropertyAddress(String propertyAddress) {
         this.propertyAddress = propertyAddress;
     }
 
@@ -25,13 +24,12 @@ public class HousingLoan extends Loan {
         this.developerName = developerName;
     }
 
-    public String getPropertyAddress() {
-        return propertyAddress;
+    public HousingLoan() {
     }
 
-    public void setPropertyAddress(String propertyAddress) {
+    public HousingLoan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt, int termInMonths, String propertyAddress, String developerName) {
+        super(loanId, walletId, referenceNumber, principal, remainingBalance, interestRate, status, createdAt, termInMonths);
         this.propertyAddress = propertyAddress;
+        this.developerName = developerName;
     }
-
-    // Getters/setters
 }

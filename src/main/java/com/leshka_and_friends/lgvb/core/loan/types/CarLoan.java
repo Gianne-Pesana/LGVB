@@ -1,4 +1,3 @@
-
 package com.leshka_and_friends.lgvb.core.loan.types;
 
 import com.leshka_and_friends.lgvb.core.loan.Loan;
@@ -6,18 +5,24 @@ import com.leshka_and_friends.lgvb.core.loan.Loan;
 import java.sql.Timestamp;
 
 public class CarLoan extends Loan {
+    private String carModel;
+    private int carYear;
     private String dealershipName;
-    private String vehicleModel;
-    private int vehicleYear;
 
-    public CarLoan() {
+    public String getCarModel() {
+        return carModel;
     }
 
-    public CarLoan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt, String dealershipName, String vehicleModel, int vehicleYear) {
-        super(loanId, walletId, referenceNumber, principal, remainingBalance, interestRate, status, createdAt);
-        this.dealershipName = dealershipName;
-        this.vehicleModel = vehicleModel;
-        this.vehicleYear = vehicleYear;
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public int getCarYear() {
+        return carYear;
+    }
+
+    public void setCarYear(int carYear) {
+        this.carYear = carYear;
     }
 
     public String getDealershipName() {
@@ -28,21 +33,13 @@ public class CarLoan extends Loan {
         this.dealershipName = dealershipName;
     }
 
-    public String getVehicleModel() {
-        return vehicleModel;
+    public CarLoan() {
     }
 
-    public void setVehicleModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
+    public CarLoan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt, int termInMonths, String carModel, int carYear, String dealershipName) {
+        super(loanId, walletId, referenceNumber, principal, remainingBalance, interestRate, status, createdAt, termInMonths);
+        this.carModel = carModel;
+        this.carYear = carYear;
+        this.dealershipName = dealershipName;
     }
-
-    public int getVehicleYear() {
-        return vehicleYear;
-    }
-
-    public void setVehicleYear(int vehicleYear) {
-        this.vehicleYear = vehicleYear;
-    }
-
-    // Getters/setters
 }

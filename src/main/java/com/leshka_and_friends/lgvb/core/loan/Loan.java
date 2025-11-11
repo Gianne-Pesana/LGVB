@@ -20,11 +20,12 @@ public abstract class Loan {
     protected double interestRate;
     protected String status;
     protected Timestamp createdAt;
+    protected int termInMonths;
 
     public Loan() {
     }
 
-    public Loan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt) {
+    public Loan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt, int termInMonths) {
         this.loanId = loanId;
         this.walletId = walletId;
         this.referenceNumber = referenceNumber;
@@ -33,6 +34,7 @@ public abstract class Loan {
         this.interestRate = interestRate;
         this.status = status;
         this.createdAt = createdAt;
+        this.termInMonths = termInMonths;
     }
 
     // Common behavior (getters, setters, maybe computed fields)
@@ -104,5 +106,13 @@ public abstract class Loan {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getTermInMonths() {
+        return termInMonths;
+    }
+
+    public void setTermInMonths(int termInMonths) {
+        this.termInMonths = termInMonths;
     }
 }

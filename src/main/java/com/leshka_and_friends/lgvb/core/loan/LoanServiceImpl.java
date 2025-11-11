@@ -25,7 +25,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public void applyForLoan(int walletId, double amountRequested, String purpose) {
+    public void applyForLoan(int walletId, String loanType, double amountRequested, int termInMonths, String purpose) {
 
         if (!canApplyForLoan(walletId)) {
             throw new RuntimeException("User already has an ongoing loan.");
@@ -37,10 +37,27 @@ public class LoanServiceImpl implements LoanService {
         }
 
         // Compute interest rate based on business logic
-        double interestRate = calculateInterestRate(amountRequested);
+        double interestRate = calculateInterestRate(loanType, amountRequested);
 
-        // Create and populate PersonalLoan object
-        PersonalLoan loan = new PersonalLoan();
+        Loan loan;
+        switch (loanType) {
+            case "Personal Loan":
+                PersonalLoan personalLoan = new PersonalLoan();
+                personalLoan.setPurpose(purpose);
+                loan = personalLoan;
+                break;
+            case "Housing Loan":
+                loan = new HousingLoan();
+                // Set housing-specific properties if any
+                break;
+            case "Car Loan":
+                loan = new CarLoan();
+                // Set car-specific properties if any
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid loan type: " + loanType);
+        }
+
         loan.setWalletId(walletId);
         loan.setPrincipal(amountRequested);
         loan.setRemainingBalance(amountRequested);
@@ -48,13 +65,12 @@ public class LoanServiceImpl implements LoanService {
         loan.setStatus(Loan.PENDING);
         loan.setCreatedAt(Timestamp.from(Instant.now()));
         loan.setReferenceNumber(generateReferenceNumber());
-        loan.setPurpose(purpose);
+        loan.setTermInMonths(termInMonths);
 
         // Insert into database
         loanDAO.insertLoan(loan);
 
-        OutputUtils.showInfo("Personal loan application submitted. Reference: " + loan.getReferenceNumber());
-
+        OutputUtils.showInfo(loanType + " application submitted. Reference: " + loan.getReferenceNumber());
     }
 
     @Override
@@ -114,7 +130,7 @@ public class LoanServiceImpl implements LoanService {
     private boolean canApplyForLoan(int walletId) {
         try {
             String status = loanDAO.getStatusLatest(walletId);
-            if(status.equalsIgnoreCase("closed")) return true;
+            if(status == null || status.equalsIgnoreCase("closed")) return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -140,11 +156,13 @@ public class LoanServiceImpl implements LoanService {
      * Basic logic for determining interest rate.
      * Example rule: smaller loans → higher rates, larger → lower.
      */
-    private double calculateInterestRate(double amount) {
-        if (amount < 5000) return 8.5;
-        if (amount < 20000) return 6.5;
-        if (amount < 100000) return 5.0;
-        return 4.0; // preferred rate for large loans
+    private double calculateInterestRate(String loanType, double amount) {
+        return switch (loanType) {
+            case "Personal Loan" -> 8.5;
+            case "Housing Loan" -> 5.0;
+            case "Car Loan" -> 6.5;
+            default -> 10.0; // Default rate
+        };
     }
 
     /**

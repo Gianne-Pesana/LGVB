@@ -14,8 +14,8 @@ public class PersonalLoan extends Loan {
     public PersonalLoan() {
     }
 
-    public PersonalLoan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt, String purpose) {
-        super(loanId, walletId, referenceNumber, principal, remainingBalance, interestRate, status, createdAt);
+    public PersonalLoan(int loanId, int walletId, String referenceNumber, double principal, double remainingBalance, double interestRate, String status, Timestamp createdAt, int termInMonths, String purpose) {
+        super(loanId, walletId, referenceNumber, principal, remainingBalance, interestRate, status, createdAt, termInMonths);
         this.purpose = purpose;
     }
 }

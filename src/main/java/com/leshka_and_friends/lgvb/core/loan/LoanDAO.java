@@ -16,8 +16,8 @@ public class LoanDAO {
     // CREATE
     // =============================
     public void insertLoan(Loan loan) {
-        String sql = "INSERT INTO loans (wallet_id, reference_number, principal, remaining_balance, interest_rate, status, loan_type) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO loans (wallet_id, reference_number, principal, remaining_balance, interest_rate, status, loan_type, term_in_months) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -29,6 +29,7 @@ public class LoanDAO {
             ps.setDouble(5, loan.getInterestRate());
             ps.setString(6, loan.getStatus());
             ps.setString(7, getLoanType(loan));
+            ps.setInt(8, loan.getTermInMonths());
 
             ps.executeUpdate();
 
@@ -51,8 +52,8 @@ public class LoanDAO {
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, carLoan.getLoanId());
                 ps.setString(2, carLoan.getDealershipName());
-                ps.setString(3, carLoan.getVehicleModel());
-                ps.setInt(4, carLoan.getVehicleYear());
+                ps.setString(3, carLoan.getCarModel());
+                ps.setInt(4, carLoan.getCarYear());
                 ps.executeUpdate();
             }
         } else if (loan instanceof HousingLoan housingLoan) {
@@ -214,6 +215,7 @@ public class LoanDAO {
         loan.setInterestRate(rs.getDouble("interest_rate"));
         loan.setStatus(rs.getString("status"));
         loan.setCreatedAt(rs.getTimestamp("created_at"));
+        loan.setTermInMonths(rs.getInt("term_in_months"));
 
         return loan;
     }
@@ -227,8 +229,8 @@ public class LoanDAO {
             try (ResultSet subRs = ps.executeQuery()) {
                 if (subRs.next()) {
                     carLoan.setDealershipName(subRs.getString("dealership_name"));
-                    carLoan.setVehicleModel(subRs.getString("vehicle_model"));
-                    carLoan.setVehicleYear(subRs.getInt("vehicle_year"));
+                    carLoan.setCarModel(subRs.getString("vehicle_model"));
+                    carLoan.setCarYear(subRs.getInt("vehicle_year"));
                 }
             }
         }
