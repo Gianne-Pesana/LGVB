@@ -1,3 +1,4 @@
+com\leshka_and_friends\lgvb\core\admin\LoanWithUser.class
 com\leshka_and_friends\lgvb\auth\SessionWatcher.class
 com\leshka_and_friends\lgvb\view\loansetup\LoanDefault.class
 com\leshka_and_friends\lgvb\preferences\PreferencesService.class
@@ -17,9 +18,11 @@ com\leshka_and_friends\lgvb\view\loansetup\LoanAppliedPanel.class
 com\leshka_and_friends\lgvb\view\shared_components\buttons\LoanButtonPanel$1.class
 com\leshka_and_friends\lgvb\core\loan\LoanController.class
 com\leshka_and_friends\lgvb\view\authpage\RegistrationPanel.class
+com\leshka_and_friends\lgvb\core\admin\LoanApplicationController$3.class
 com\leshka_and_friends\lgvb\core\app\FacadeFactory.class
 com\leshka_and_friends\lgvb\core\app\ServiceLocator.class
 com\leshka_and_friends\lgvb\core\loan\LoanService.class
+com\leshka_and_friends\lgvb\core\admin\LoanApplicationController$2.class
 com\leshka_and_friends\lgvb\exceptions\PersistenceException.class
 com\leshka_and_friends\lgvb\view\factories\PanelFactory.class
 com\leshka_and_friends\lgvb\view\loansetup\LoanManager.class
@@ -42,7 +45,6 @@ com\leshka_and_friends\lgvb\notification\EmailNotification.class
 com\leshka_and_friends\lgvb\view\shared_components\modified_swing\RoundedComboBox$StableComboBoxUI.class
 com\leshka_and_friends\lgvb\core\wallet\WalletFacade.class
 com\leshka_and_friends\lgvb\view\ui_utils\OutputUtils.class
-com\leshka_and_friends\lgvb\view\admin\AdminDashboard$1.class
 com\leshka_and_friends\lgvb\core\wallet\FrozenWalletState.class
 com\leshka_and_friends\lgvb\utils\PasswordUtils.class
 com\leshka_and_friends\lgvb\preferences\NotificationPreferences.class
@@ -83,7 +85,9 @@ com\leshka_and_friends\lgvb\view\shared_components\panels\LoanDefaultPanel$OnApp
 com\leshka_and_friends\lgvb\view\shared_components\modified_swing\RoundedComboBox.class
 com\leshka_and_friends\lgvb\view\ui_utils\ImageParser.class
 com\leshka_and_friends\lgvb\auth\AuthController.class
+com\leshka_and_friends\lgvb\core\admin\LoanApplicationController$1.class
 com\leshka_and_friends\lgvb\view\loansetup\LoanManager$1.class
+com\leshka_and_friends\lgvb\core\admin\LoanApplicationController.class
 com\leshka_and_friends\lgvb\view\shared_components\buttons\LoanButtonPanel$ClickListener.class
 com\leshka_and_friends\lgvb\view\authpage\TOTPpanel.class
 com\leshka_and_friends\lgvb\core\transaction\Transaction.class

@@ -36,6 +36,14 @@ public class LoanServiceProxy implements LoanService {
         realService.rejectLoan(loanId, reason);
     }
 
+    @Override
+    public void updateLoanStatus(int loanId, String status) {
+        if (!isAdmin()) {
+            throw new SecurityException("Access denied: only admins can update loan status!");
+        }
+        realService.updateLoanStatus(loanId, status);
+    }
+
     private boolean isAdmin() {
         return user.getRole() == Role.ADMIN;
     }

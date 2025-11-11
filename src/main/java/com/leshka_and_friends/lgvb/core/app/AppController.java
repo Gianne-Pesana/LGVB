@@ -51,7 +51,7 @@ public class AppController {
             if (user.isAdmin()) {
 //                AdminTestView av = new AdminTestView(facade);
 //                av.setVisible(true);
-                AdminDashboard adminDashboard = new AdminDashboard();
+                AdminDashboard adminDashboard = new AdminDashboard(facade);
                 AdminController adminController = new AdminController(facade, adminDashboard);
                 adminDashboard.setVisible(true);
             } else {

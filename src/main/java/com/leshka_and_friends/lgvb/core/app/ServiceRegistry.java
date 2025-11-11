@@ -39,7 +39,7 @@ public class ServiceRegistry {
         ServiceLocator.getInstance().registerService(LoanService.class, new LoanServiceImpl(ServiceLocator.getInstance().getService(LoanDAO.class), ServiceLocator.getInstance().getService(WalletService.class)));
         ServiceLocator.getInstance().registerService(SavingService.class, new SavingService());
         ServiceLocator.getInstance().registerService(CustomerService.class, new CustomerService(ServiceLocator.getInstance().getService(WalletService.class), ServiceLocator.getInstance().getService(CardService.class)));
-        ServiceLocator.getInstance().registerService(AdminService.class, new AdminService(ServiceLocator.getInstance().getService(UserDAO.class), ServiceLocator.getInstance().getService(WalletDAO.class)));
+        ServiceLocator.getInstance().registerService(AdminService.class, new AdminService(ServiceLocator.getInstance().getService(UserDAO.class), ServiceLocator.getInstance().getService(WalletDAO.class), ServiceLocator.getInstance().getService(LoanDAO.class)));
 
         // Session Manager
         ServiceLocator.getInstance().registerService(SessionManager.class, new SessionManager());

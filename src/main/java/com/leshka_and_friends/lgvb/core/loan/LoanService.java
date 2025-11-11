@@ -4,4 +4,5 @@ public interface LoanService {
     void applyForLoan(int walletId, String loanType, double amountRequested, int termInMonths, String purpose);
     void approveLoan(int loanId);
     void rejectLoan(int loanId, String reason);
+    void updateLoanStatus(int loanId, String status);
 }

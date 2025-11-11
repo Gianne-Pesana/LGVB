@@ -107,6 +107,42 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public void updateLoanStatus(int loanId, String status) {
+        Loan loan = loanDAO.getById(loanId);
+        if (loan == null) {
+            throw new IllegalArgumentException("Loan not found!");
+        }
+
+        if (!Loan.PENDING.equalsIgnoreCase(loan.getStatus())) {
+            throw new IllegalArgumentException("Loan is not pending.");
+        }
+
+        boolean updated = loanDAO.updateStatus(loanId, status);
+        if (!updated) {
+            throw new RuntimeException("Failed to update loan status!");
+        }
+
+        if (Loan.ACTIVE.equalsIgnoreCase(status)) {
+            // Deposit to user's wallet
+            Wallet wallet = walletService.getWalletByUserId(loan.getWalletId());
+            if (wallet != null) {
+                double newBalance = wallet.getBalance() + loan.getPrincipal();
+                try {
+                    walletService.updateWalletBalance(wallet.getWalletId(), newBalance);
+                } catch (SQLException e) {
+                    throw new PersistenceException("Failed to update balance", e);
+                }
+            }
+        }
+
+        // Notify UI to refresh
+        NotificationManager notificationManager = ServiceLocator.getInstance().getService(NotificationManager.class);
+        notificationManager.notifyObservers("UI_UPDATE:TRANSACTION_COMPLETED");
+
+        OutputUtils.showInfo("Loan " + loan.getReferenceNumber() + " status updated to " + status);
+    }
+
+    @Override
     public void rejectLoan(int loanId, String reason) {
         Loan loan = loanDAO.getById(loanId);
         if (loan == null) {

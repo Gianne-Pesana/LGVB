@@ -1,6 +1,8 @@
 package com.leshka_and_friends.lgvb.view.admin;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.leshka_and_friends.lgvb.core.admin.LoanApplicationController;
+import com.leshka_and_friends.lgvb.core.app.AppFacade;
 import com.leshka_and_friends.lgvb.view.admin.panels.LoanApplicationPanel;
 import com.leshka_and_friends.lgvb.view.admin.panels.ManageWalletsPanel;
 import com.leshka_and_friends.lgvb.view.admin.panels.WalletApplicationPanel;
@@ -35,7 +37,7 @@ public class AdminDashboard extends JFrame {
     private final double widthScaleFactor = ThemeGlobalDefaults.getDouble("AdminDashboard.width.scaleFactor");
     private final double heigthScaleFactor = ThemeGlobalDefaults.getDouble("AdminDashboard.height.scaleFactor");
 
-    public AdminDashboard() {
+    public AdminDashboard(AppFacade facade) {
         setTitle("Admin Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -53,6 +55,8 @@ public class AdminDashboard extends JFrame {
 
         initHeader();
         initTabs();
+        
+        new LoanApplicationController(facade, this);
 
 //        applyTheme();
     }
@@ -131,5 +135,9 @@ public class AdminDashboard extends JFrame {
 
     public WalletApplicationPanel getWalletApplicationPanel() {
         return walletApplicationPanel;
+    }
+
+    public LoanApplicationPanel getLoanApplicationPanel() {
+        return loanApplicationPanel;
     }
 }

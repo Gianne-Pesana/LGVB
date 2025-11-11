@@ -19,7 +19,16 @@ public class LoanFacade {
     public void approveLoan(int loanId) {
         loanService.approveLoan(loanId);
     }
+
+    public void updateLoanStatus(int loanId, String status) {
+        loanService.updateLoanStatus(loanId, status);
+    }
+
     public void rejectLoan() {
 
+    }
+
+    public LoanService getLoanService() {
+        return loanService;
     }
 }
